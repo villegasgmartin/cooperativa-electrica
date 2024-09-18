@@ -1,0 +1,93 @@
+/*Contenedor principal*/
+.footer-container{
+    background-color: var(--black);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 1.875rem;
+    align-items: center;
+    padding-top: 5.625rem;
+    padding-bottom: 5.625rem;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+/*Contenedor del logo*/
+.footer-logo-container{
+    width: 18.75rem;
+}
+
+/*Logo*/
+.footer-logo{
+    width: 100%;
+}
+
+/*Contenedor de links*/
+.footer-links-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    align-items: center;
+}
+
+/*Bordes estéticos*/
+.footer-border{
+    border-bottom: 1px solid var(--lightgreen);
+    width: 15.625rem
+}
+
+/*Links*/
+.footer-links{
+    text-decoration: none;
+    color: white;
+    font-size: .9375rem;
+    font-family: "InterTight";
+    transition: color 0.3s ease, transform 0.3s ease
+}
+
+/*Hover de los links*/
+.footer-links:hover {
+    color: var(--lightgreen);
+    transform: scale(1.3);
+}
+
+/*Contenedor de información*/
+.footer-info-container{
+    display: flex;
+    flex-direction: column;
+    gap: .9375rem;
+}
+
+/*Títulos*/
+.footer-info-title{
+    color: var(--lightgreen);
+    font-family: "archivo";
+}
+
+/*Info*/
+.footer-info{
+    color: white;
+    font-family: "InterTight";
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:1160px){
+    .footer-container{
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+    .footer-logo-container{
+        width: 12.5rem;
+    }
+}
+
+@media(max-width:885px){
+    .footer-container{
+        justify-content: center;
+        gap: 4.375rem;
+    }
+    .footer-logo-container{
+        width: 15.625rem;
+    }
+}

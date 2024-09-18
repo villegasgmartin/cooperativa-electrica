@@ -1,0 +1,56 @@
+/*Contenedor principal*/
+.HomeBlog-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 6%;
+    padding-bottom: 6%;
+}
+
+/*Contenedor de título y descripción*/
+.HomeBlog-textContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Título*/
+.HomeBlog-title{
+    font-size: 2.5rem;
+    font-family: "Archivo";
+    color: var(--black);
+}
+
+/*Descripción*/
+.HomeBlog-description{
+    color: grey;
+    font-family: "InterTight";
+    padding-top: 1.25rem;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+/*Contenedor de noticias*/
+.HomeBlog-NoticiasContainer{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-left: 10%;
+    margin-right: 10%;
+    gap: 1.875rem;
+    margin-bottom: 2.5rem;
+}
+
+/*Contenedor indivudual de imágen y título*/
+.HomeBlog-noticia{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Título de noticia*/
+.HomeBlog-noticiaTitle{
+    font-family: "interTight";
+    color: var(--black);
+    padding-top: 1.25rem;
+}

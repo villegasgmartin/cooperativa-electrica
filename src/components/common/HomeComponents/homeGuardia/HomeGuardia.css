@@ -1,0 +1,77 @@
+/*Contenedor principal*/
+.HomeGuardia-container{
+    display: flex;
+    gap: 5rem;
+    padding-top: 7%;
+    padding-bottom: 6%;
+    padding-left: 13%;
+    padding-right: 13%;
+}
+
+/*Contenedor de imágen*/
+.HomeGuardia-imageContainer{
+    min-width: 43.75rem;
+    height: auto;
+}
+
+/*Imágen*/
+.HomeGuardia-image{
+    border: .125rem solid var(--black);
+    border-radius: .625rem;
+    width: 100%;
+}
+
+/*Contenedor de título, texto y botón*/
+.HomeGuardia-infoContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+/*Título*/
+.HomeGuardia-title{
+    font-family: "Archivo";
+    font-size: 3.125rem;
+    color: var(--black);
+}
+
+/*Texto*/
+.HomeGuardia-description{
+    font-family: "InterTight";
+    font-size: 1.25rem;
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:1705px){
+    .HomeGuardia-imageContainer{
+        min-width: 34.375rem;
+    }
+}
+
+@media(max-width:1200px){
+    .HomeGuardia-container{
+        flex-direction: column;
+        align-items: center;
+        padding-top: 7.5rem;
+        padding-bottom: 7.5rem;
+        gap: 1.875rem;
+    }
+    .HomeGuardia-imageContainer{
+        min-width: 18.75rem;
+    }
+    .HomeGuardia-title{
+        font-size: 2.8125rem;
+    }
+}
+
+@media(max-width:750px){
+    .HomeGuardia-title{
+        font-size: 2.1875rem;
+    }
+    .HomeGuardia-description{
+        font-size: 1.125rem
+    }
+}
