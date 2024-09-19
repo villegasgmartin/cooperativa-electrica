@@ -109,7 +109,8 @@ const HomeServicios = () => {
             <Link to={"/formulario"}>
               <Button variant="contained" 
                 size="large"
-                sx={{backgroundColor: "#12824c",
+                sx={{backgroundColor: "#ffff",
+                  color: "#12824c",
                   fontFamily: "archivo"
                 }} >
                 Contratar
@@ -121,13 +122,13 @@ const HomeServicios = () => {
           <img src={selectedService.image} width="100%" alt={selectedService.title} style={{borderRadius: "5px"}} />
         </div>
       </div>
-      <div className="whatsapp-container">
+      <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
         <WhatsAppIcon
           fontSize="large"
           sx={{color: "#2eed8d"}}
         />
         <h4 className="whatsapp">(223)537-6973</h4>
-      </div>
+      </a>
     </div>
   );
 };

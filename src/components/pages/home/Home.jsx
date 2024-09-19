@@ -1,4 +1,5 @@
 //Importaciones:
+import BotonFlotante from "../../common/HomeComponents/BotonFlotante"
 import HomeBlog from "../../common/HomeComponents/homeBlog/HomeBlog"
 import HomeGuardia from "../../common/HomeComponents/homeGuardia/HomeGuardia"
 import HomePortada from "../../common/HomeComponents/homePortada/HomePortada"
@@ -15,6 +16,7 @@ const Home = () => {
             <HomeServicios/>
             <HomeBlog/>
             <Footer/>
+            <BotonFlotante/>
         </div>
     )
 }

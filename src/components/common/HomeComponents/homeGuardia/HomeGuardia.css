@@ -1,23 +1,41 @@
 /*Contenedor principal*/
 .HomeGuardia-container{
     display: flex;
-    gap: 5rem;
+    justify-content: space-around;
+    gap:4.375rem;
     padding-top: 7%;
     padding-bottom: 6%;
     padding-left: 13%;
     padding-right: 13%;
 }
 
+/*Borde verde al costado de la imágen*/
+.HomeGuardia-imageContainer::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    border-radius:20px;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
 /*Contenedor de imágen*/
 .HomeGuardia-imageContainer{
-    min-width: 43.75rem;
-    height: auto;
+    position: relative;
+    min-width: 30.25rem;
+    max-width: 500px;
 }
 
 /*Imágen*/
 .HomeGuardia-image{
-    border: .125rem solid var(--black);
-    border-radius: .625rem;
+    position: relative;
+    border-radius: 1.25rem;
     width: 100%;
 }
 
@@ -28,50 +46,74 @@
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
+    max-width: 31.25rem;
 }
 
 /*Título*/
 .HomeGuardia-title{
     font-family: "Archivo";
-    font-size: 3.125rem;
+    font-size: 2.5rem;
     color: var(--black);
+}
+
+/*Fondo de color "Eléctrica"*/
+.color-title{
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
 }
 
 /*Texto*/
 .HomeGuardia-description{
     font-family: "InterTight";
-    font-size: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5rem
 }
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1705px){
-    .HomeGuardia-imageContainer{
-        min-width: 34.375rem;
-    }
-}
-
-@media(max-width:1200px){
+@media(max-width:1100px){
     .HomeGuardia-container{
         flex-direction: column;
         align-items: center;
-        padding-top: 7.5rem;
-        padding-bottom: 7.5rem;
-        gap: 1.875rem;
-    }
-    .HomeGuardia-imageContainer{
-        min-width: 18.75rem;
+        padding-top: 12%;
+        padding-bottom: 12%;
     }
     .HomeGuardia-title{
-        font-size: 2.8125rem;
+        font-size: 45px;
+    }
+    .HomeGuardia-description{
+        font-size: 1.125rem;
     }
 }
 
 @media(max-width:750px){
+    .HomeGuardia-imageContainer{
+        min-width: 25rem;
+    }
+    .HomeGuardia-title{
+        font-size: 2.5rem;
+    }
+    .HomeGuardia-description{
+        font-size: 1rem;
+    }
+}
+
+@media(max-width:559px){
+    .HomeGuardia-imageContainer{
+        min-width: 9.375rem;
+    }
     .HomeGuardia-title{
         font-size: 2.1875rem;
     }
+}
+
+@media(max-width:494px){
+    .HomeGuardia-title{
+        font-size: 1.875rem;
+    }
     .HomeGuardia-description{
-        font-size: 1.125rem
+        font-size: .875rem;
     }
 }

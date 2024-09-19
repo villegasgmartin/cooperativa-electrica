@@ -1,9 +1,14 @@
 /* Contenedor principal */
 .homeServicios-container {
-    background-color: var(--black);
+    background-image: 
+    linear-gradient(rgba(22,22, 22, 0.5), rgba(22, 22, 22, 0.5)), /* Gradiente negro con opacidad del 30% */
+    url(../../../../assets/images/homeServices.jpg); 
+    background-size: contain;
+    background-repeat: repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
+
 }
 
 /* Título principal */
@@ -35,6 +40,8 @@
     border: .125rem solid var(--lightgreen);
     border-radius: .3125rem;
     padding: 1.25rem;
+    width: 21.875rem;
+    text-align: center;
 }
 
 /* Contenedor de los botones */
@@ -89,7 +96,7 @@
     display: flex;
     align-items: center;
     gap: 3.125rem;
-    border-radius: .3125rem;
+    border-radius: 2.3125rem;
     margin-bottom: 3.125rem;
     margin-top: 1.875rem;
     width: 70%;
@@ -131,7 +138,7 @@
     display: flex;
     gap: 1.875rem;
     align-items: center;
-    background-color: rgb(233, 222, 222);
+    background-color: #8048ff;
     padding: 1.875rem;
     border-radius: .3125rem;
     border: .0625rem solid var(--darkgreen);
@@ -140,7 +147,7 @@
 /*Precio del servicio*/
 .price{
     font-family: "intertight";
-    color: var(--darkgreen);
+    color: #ffff;
     font-size: 1.5625rem;
 }
 
@@ -169,6 +176,8 @@
     justify-content: center;
     gap: .3125rem;
     margin-bottom: 6.25rem;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 /* Whatsapp */
@@ -180,10 +189,44 @@
 
 /*----------------Media Queries----------------*/
 
+@media(max-width:1435px){
+    .button-info-container{
+        height: 9.375rem;
+        width: 9.375rem;
+    }
+    .button-text{
+        font-size: 2.1875rem;
+    }
+}
+
+@media(max-width:1220px){
+    .button-info-container{
+        height: 6.25rem;
+        width: 6.25rem;
+    }
+    .button-text{
+        font-size: 1.375rem;
+    }
+}
+
 @media(max-width:1100px){
     .info-servicio-container{
         flex-direction: column;
         gap: 1.875rem;
+    }
+    .info-servicio-text{
+        padding-right: 3.125rem;
+    }
+}
+
+@media(max-width:820px){
+    .homeServicios-description{
+        flex-direction: column;
+        gap: 1.25rem;
+        width: 90%;
+    }
+    .homeServicios-text{
+        width: 90%
     }
 }
 

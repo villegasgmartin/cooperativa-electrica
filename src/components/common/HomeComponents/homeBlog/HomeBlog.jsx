@@ -1,4 +1,4 @@
-//Importaciones:
+20//Importaciones:
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import "../homeBlog/HomeBlog.css"
@@ -21,42 +21,38 @@ const HomeBlog = () => {
         <div className='HomeBlog-noticia'>
           <img style={{ //Estilos de la imagen
               width: "300px",
-              borderRadius: "5px",
-              marginTop: "70px",
-              border:"1px solid black" }} 
+              borderRadius: "20px",
+              marginTop: "70px"}} 
               src={ImageA} 
               alt="descripción de la imagen" />
-          <h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3> {/*Titulo de imágen*/}
+          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
         <div className='HomeBlog-noticia'>
           <img style={{  //Estilos de la imagen
               width: "300px",
-              borderRadius: "5px",
-              marginTop: "70px",
-              border:"1px solid black" }} 
+              borderRadius: "20px",
+              marginTop: "70px"}} 
               src={ImageB} 
               alt="descripción de la imagen" />
-          <h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3> {/*Titulo de imágen*/}
+          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
         <div className='HomeBlog-noticia'>
           <img style={{  //Estilos de la imagen
               width: "300px",
-              borderRadius: "5px",
-              marginTop: "70px",
-              border:"1px solid black" }} 
+              borderRadius: "20px",
+              marginTop: "70px"}} 
               src={ImageC} 
               alt="descripción de la imagen" />
-          <h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3> {/*Titulo de imágen*/}
+          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
         <div className='HomeBlog-noticia'>
           <img style={{  //Estilos de la imagen
               width: "300px",
-              borderRadius: "5px",
-              marginTop: "70px",
-              border:"1px solid black" }} 
+              borderRadius: "20px",
+              marginTop: "70px"}} 
               src={ImageD} 
               alt="descripción de la imagen" />
-          <h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3> {/*Titulo de imágen*/}
+          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
       </div>
       <Link to={"/blog"}>
