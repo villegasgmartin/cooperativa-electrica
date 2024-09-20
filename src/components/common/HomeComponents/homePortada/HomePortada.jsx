@@ -1,5 +1,5 @@
 //Importaciones:
-import ResponsiveAppBar from "../../navbarHome/NavbarHome"
+import ResponsiveAppBar from "../../HomeComponents/navbarHome/NavbarHome"
 import "../homePortada/HomePortada.css"
 import { Button } from "@mui/material"
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
