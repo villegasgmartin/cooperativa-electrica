@@ -1,7 +1,7 @@
 /* Contenedor principal */
 .homeServicios-container {
     background-image: 
-    linear-gradient(rgba(22,22, 22, 0.5), rgba(22, 22, 22, 0.5)), /* Gradiente negro con opacidad del 30% */
+    linear-gradient(rgba(22,22, 22, 0.5), rgba(22, 22, 22, 0.5)),
     url(../../../../assets/images/homeServices.jpg); 
     background-size: contain;
     background-repeat: repeat;
@@ -17,9 +17,8 @@
     color: white;
     font-family: "archivo";
     font-size: 2.5rem;
-    padding-left: 25%;
-    padding-right: 25%; 
     text-align: center;
+    width: 45%;
 }
 
 /* Contenedor de descripciones */
@@ -115,7 +114,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-left: 3.125rem;
     gap: .625rem;
 }
 
@@ -131,6 +129,7 @@
     color: grey;
     font-family: "interTight";
     font-size: 1.125rem;
+    text-align: center;
 }
 
 /*Contenedor de precio y botón*/
@@ -212,10 +211,16 @@
 @media(max-width:1100px){
     .info-servicio-container{
         flex-direction: column;
-        gap: 1.875rem;
+        gap: 1.25rem;
     }
-    .info-servicio-text{
-        padding-right: 3.125rem;
+    .info-servicio-text-button{
+        gap: 1.25rem;
+    }
+}
+
+@media(max-width:908px){
+    .homeServicios-title{
+        width: 85%;
     }
 }
 

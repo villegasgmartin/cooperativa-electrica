@@ -4,6 +4,7 @@ import "../homePortada/HomePortada.css"
 import { Button } from "@mui/material"
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
+import { Link } from "react-router-dom";
 
 //JSX:
 const HomePortada = () => {
@@ -22,9 +23,11 @@ const HomePortada = () => {
                 </div>
                 <ResponsiveAppBar/>
                 <div className="homePortada-bienvenidaContainer">
-                    <h3 className="homePortada-title">Lorem ipsum, dolor sit amet consectetur</h3>
-                    <p className="homePortada-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe quod, recusandae magni perferendis nulla porro odio</p>
-                    <Button sx={{marginTop: "20px", backgroundColor: "#12824c", fontFamily: "archivo" }} variant="contained">Disponibilidad</Button>
+                    <h3 className="homePortada-title">Electricidad e Internet a tu alcance</h3>
+                    <p className="homePortada-description">Descubre soluciones de electricidad e internet diseñadas para tu hogar y negocio. Instalaciones, mantenimiento y asesoramiento con los mejores profesionales a tu disposición.</p>
+                    <Link to={"/nave"}>
+                        <Button sx={{marginTop: "20px", backgroundColor: "#12824c", fontFamily: "archivo" }} variant="contained">Contratá</Button>
+                    </Link>
                 </div>
             </div>
         </div>
