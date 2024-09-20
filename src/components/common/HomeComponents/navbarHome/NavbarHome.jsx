@@ -11,7 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
-import LogoNavbar from "../../../assets/images/logo-horizontal.png"
+import LogoNavbar from "../../../../assets/images/logo-horizontal.png"
 
 // Definición del array de páginas y submenús
 const pages = [

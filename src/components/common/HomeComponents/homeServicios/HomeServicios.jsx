@@ -76,7 +76,7 @@ const HomeServicios = () => {
 
   return (
     <div className="homeServicios-container">
-      <h3 className="homeServicios-title">Lorem ipsum dolor sit amet consectetur adipis</h3>
+      <h3 className="homeServicios-title">Internet Cooperativa</h3>
       <div className="homeServicios-description">
         <h4 className="homeServicios-text">Instalación sin cargo!</h4>
         <h4 className="homeServicios-text">Modem Dual Band a comodato</h4>

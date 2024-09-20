@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom'
 import "../homeBlog/HomeBlog.css"
 /*--------Para cambiar las imagenes del Blog del Home: agregar las nuevas imágenes en la carpeta "images" y
 luego reemplazar la parte final de las rutas de aca abajo por el nombre de cada imagen nueva------------*/
-import ImageA from "../../../../assets/images/homeBlog.jpeg"
-import ImageB from "../../../../assets/images/homeBlog.jpeg"
-import ImageC from "../../../../assets/images/homeBlog.jpeg"
-import ImageD from "../../../../assets/images/homeBlog.jpeg"
+import ImageA from "../../../../assets/images/HomeBlog01.webp"
+import ImageB from "../../../../assets/images/HomeBlog02.jpeg"
+import ImageC from "../../../../assets/images/HomeBlog01.webp"
+import ImageD from "../../../../assets/images/HomeBlog02.jpeg"
 
 //JSX:
 const HomeBlog = () => {
@@ -19,37 +19,25 @@ const HomeBlog = () => {
       </div>
       <div className='HomeBlog-NoticiasContainer'>
         <div className='HomeBlog-noticia'>
-          <img style={{ //Estilos de la imagen
-              width: "300px",
-              borderRadius: "20px",
-              marginTop: "70px"}} 
+          <img className='HomeBlog-img' 
               src={ImageA} 
               alt="descripción de la imagen" />
           <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
         <div className='HomeBlog-noticia'>
-          <img style={{  //Estilos de la imagen
-              width: "300px",
-              borderRadius: "20px",
-              marginTop: "70px"}} 
+          <img className='HomeBlog-img'
               src={ImageB} 
               alt="descripción de la imagen" />
           <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
         <div className='HomeBlog-noticia'>
-          <img style={{  //Estilos de la imagen
-              width: "300px",
-              borderRadius: "20px",
-              marginTop: "70px"}} 
+          <img className='HomeBlog-img'
               src={ImageC} 
               alt="descripción de la imagen" />
           <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
         </div>
         <div className='HomeBlog-noticia'>
-          <img style={{  //Estilos de la imagen
-              width: "300px",
-              borderRadius: "20px",
-              marginTop: "70px"}} 
+          <img className='HomeBlog-img'
               src={ImageD} 
               alt="descripción de la imagen" />
           <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
