@@ -1,0 +1,122 @@
+/*Contenedor principal con imágen*/
+.background-container{
+    position: relative;
+    background-image: url(https://www.telemundo.com/sites/nbcutelemundo/files/images/promo/article/2018/02/23/pareja-viendo-tv.jpg);
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+}
+
+/*Oscuridad para imágen de fondo*/
+.homePortada-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/*Contenedor de contacto*/
+.homePortada-contactosContainer{
+    display: flex;
+    justify-content: space-around;
+}
+
+/*Contacto e ícono*/
+.homePortada-contactos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: .3125rem;
+    text-decoration: none;
+}
+
+/*Texto de contacto*/
+.homePortada-contactosText{
+    color: white;
+    font-family: "InterTight";
+    margin-top: .9375rem;
+    margin-bottom: .9375rem;
+}
+
+/*Contenedor de textos y botón*/
+.homePortada-bienvenidaContainer{
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+margin-top: 10%;
+margin-left: 15%;
+margin-right: 50%;
+gap: .9375rem;
+}
+
+/*Título principal*/
+.homePortada-title{
+    color: white;
+    font-size: 3.75rem;
+    font-family: "archivo";
+}
+
+/*Descripción*/
+.homePortada-description{
+    color: white;
+    font-family: "InterTight";
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:1600px){
+    .background-container{
+        height: 90vh
+    }
+}
+
+@media(max-width:1350px){
+    .homePortada-title{
+        font-size: 3.125rem;
+    }
+}
+
+@media(max-width:1150px){
+    .homePortada-title{
+        font-size: 2.8125rem;
+    }
+}
+
+@media(max-width:990px){
+    .homePortada-bienvenidaContainer{
+        margin-right: 15%;
+    }
+    .background-container{
+        height: 70vh;
+    }
+}
+
+@media(max-width:750px){
+    .background-container{
+        height: 55vh;
+    }
+    .homePortada-contactosContainer{
+        flex-direction: column;
+        gap: .625rem;
+        margin-bottom: .9375rem;
+        margin-top: .9375rem;
+    }
+    .homePortada-contactosText{
+        font-size: .8125rem;
+    }
+    .homePortada-title{
+        font-size: 2.1875rem;
+    }
+    .homePortada-contactosText{
+        margin: 0%;
+    }
+}
+
+@media(max-width:480px){
+    .homePortada-title{
+        font-size: 1.875rem;
+    }
+}

@@ -1,0 +1,35 @@
+/*Restet*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*Colors*/
+:root {
+  --white: white;
+  --black: #161616;
+  --violet: #8048ff;
+  --lightgreen: #2eed8d;
+  --darkgreen: #12824c;
+}
+
+/*Fonts*/
+@font-face{
+  font-family: "Archivo";
+  src: url(../src/assets/fonts/ArchivoBlack-Regular.ttf);
+}
+
+@font-face{
+  font-family: "InterTight";
+  src: url(../src/assets/fonts/InterTight-Regular.ttf);
+}
+
+/*
+Para usar los colores:
+.test{
+    color: var(--darkgreen)
+}
+¨Para usar las fuentes soloponer font.family y escribir el nombre    
+*/
+
