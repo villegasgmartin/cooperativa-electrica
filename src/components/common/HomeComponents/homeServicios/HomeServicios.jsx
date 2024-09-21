@@ -119,7 +119,7 @@ const HomeServicios = () => {
           </div>
         </div>
         <div className="info-servicio-img">
-          <img src={selectedService.image} width="100%" alt={selectedService.title} style={{borderRadius: "5px"}} />
+          <img src={selectedService.image} width="100%" alt={selectedService.title} style={{borderRadius: "10px"}} />
         </div>
       </div>
       <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
