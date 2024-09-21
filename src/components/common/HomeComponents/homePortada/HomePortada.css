@@ -1,7 +1,7 @@
 /*Contenedor principal con imágen*/
 .background-container{
     position: relative;
-    background-image: url(https://www.telemundo.com/sites/nbcutelemundo/files/images/promo/article/2018/02/23/pareja-viendo-tv.jpg);
+    background-image: url("../../../../assets/images/portadaDesktop.jpg");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -46,9 +46,9 @@
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-width: 50%;
-margin-top: 10%;
-margin-left: 15%;
+width: 45%;
+margin-top: 11.25rem;
+margin-left: 13%;
 gap: .9375rem;
 }
 
@@ -83,7 +83,7 @@ gap: .9375rem;
     .background-container{
         background-image: 
         linear-gradient(rgba(22,22, 22, 0.0), rgba(22, 22, 22, 0.0)),
-        url("https://www.adslzone.net/app/uploads-adslzone.net/2023/05/fire-tv-baja-volumen-solo.jpg");
+        url("https://imageio.forbes.com/specials-images/imageserve/5e18ab57a854780006e8413a/0x0.jpg?format=jpg&height=900&width=1600&fit=bounds");
     }
     .homePortada-bienvenidaContainer{
         width: 60%;
@@ -104,11 +104,6 @@ gap: .9375rem;
 }
 
 @media(max-width:770px){
-    .background-container{
-        background-image: 
-        linear-gradient(rgba(22,22, 22, 0.0), rgba(22, 22, 22, 0.0)),
-        url("https://www.adslzone.net/app/uploads-adslzone.net/2023/05/fire-tv-baja-volumen-solo.jpg");
-    }
     .homePortada-contactosContainer{
         flex-direction: column;
         gap: .625rem;
