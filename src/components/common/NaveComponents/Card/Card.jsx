@@ -21,10 +21,16 @@ const Card = ({ servicio, precio }) => {
             sx={{
                 backgroundColor: "#8048ff",
                 borderRadius: "30px",
-                padding: "13px",
+                padding:{
+                    xs: "10px",
+                    sm: "13px"
+                } ,
                 fontFamily: "archivo",
-                fontSize: "14px",
-                textTransform: 'none'
+                textTransform: 'none',
+                fontSize: {
+                    xs: '12px',  // Para pantallas pequeñas (extra small), como 440px o menos
+                    sm: '14px',  // Para pantallas pequeñas y superiores
+                    }
             }}
             >
             Contratar online
@@ -36,11 +42,17 @@ const Card = ({ servicio, precio }) => {
                 color: "#8048ff",
                 borderColor: "#8048ff",
                 borderRadius: "30px",
-                padding: "13px",
+                padding:{
+                    xs: "10px",
+                    sm: "13px"
+                },
                 fontFamily: "archivo",
-                fontSize: "14px",
                 borderWidth: "3px",
                 textTransform: 'none',
+                fontSize: {
+                    xs: '12px',  // Para pantallas pequeñas (extra small), como 440px o menos
+                    sm: '14px',  // Para pantallas pequeñas y superiores
+                    }
                 }}
             >
                 <WhatsAppIcon fontSize='small' /> Contratar por Whatsapp

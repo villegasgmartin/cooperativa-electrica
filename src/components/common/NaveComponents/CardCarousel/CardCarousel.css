@@ -6,7 +6,7 @@
 .carousel-container {
     margin-top: 6.25rem;
     margin-bottom: 6.25rem;
-    width: 50%; 
+    width: 62.5rem; 
     margin-left: auto; 
     margin-right: auto;
 }
@@ -46,7 +46,7 @@
 }
 
 .slick-next {
-    right: -30px;
+    right: -10px;
 }
 
 /* Hover de las flechas */
@@ -54,4 +54,30 @@
     color: #12824c;
     transform: scale(1.2);
     transition: all 0.3s;
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:1110px){
+    .carousel-container{
+        width: 650px;
+    }
+    .slick-next {
+        right: -15px;
+    }
+}
+
+@media(max-width:770px){
+    .carousel-container{
+        width: 19.375rem
+    }
+    .slick-next {
+        right: -30px;
+    }
+}
+
+@media(max-width:460px){
+    .carousel-container{
+        width: 16.25rem
+    }
 }

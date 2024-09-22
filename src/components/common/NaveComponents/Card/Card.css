@@ -55,3 +55,18 @@
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;  
 }
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:460px){
+    .card{
+        height: 21.875rem;
+        width:15.625rem ;
+    }
+    .card-servicio{
+        font-size: .9375rem;
+    }
+    .card-precio{
+        font-size: 1.5625rem;
+    }
+}
