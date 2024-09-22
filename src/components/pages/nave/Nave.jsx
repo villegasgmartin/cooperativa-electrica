@@ -2,8 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
-import Card from '../../common/NaveComponents/Card/Card';
-
+import CardCarousel from '../../common/NaveComponents/CardCarousel/CardCarousel';
 
 //JSX:
 const Nave = () => {
@@ -15,8 +14,8 @@ const Nave = () => {
   }, [dispatch]);
 
   return (
-    <div style={{height: "650px", display: "flex", justifyContent:"center", alignItems:"center"}}>
-      <Card/>
+    <div>
+      <CardCarousel/>
     </div>
   );
 };
