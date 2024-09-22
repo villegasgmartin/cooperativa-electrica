@@ -264,4 +264,7 @@
     }.info-servicio-title{
         font-size: 1.375rem;
     }
+    .info-servicio-img{
+        display: none;
+    }
 }
