@@ -1,4 +1,4 @@
-20//Importaciones:
+//Importaciones:
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import "../homeBlog/HomeBlog.css"
@@ -8,51 +8,59 @@ import ImageA from "../../../../assets/images/HomeBlog01.webp"
 import ImageB from "../../../../assets/images/HomeBlog02.jpeg"
 import ImageC from "../../../../assets/images/HomeBlog01.webp"
 import ImageD from "../../../../assets/images/HomeBlog02.jpeg"
+import { Fade } from 'react-awesome-reveal'
 
 //JSX:
 const HomeBlog = () => {
   return (
     <div className='HomeBlog-container'>
-      <div className='HomeBlog-textContainer'>
-        <h2 className='HomeBlog-title'>Blog</h2>
-        <p className='HomeBlog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, praesentium distinctio. Iste, officia enim? Dolorum id at aliquid qui corrupti similique officiis eveniet nisi velit fugit voluptates, omnis, excepturi nam.</p>
-      </div>
+      <Fade triggerOnce={true}  delay={300}>
+        <div className='HomeBlog-textContainer'>
+          <h2 className='HomeBlog-title'>Blog</h2>
+          <p className='HomeBlog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, praesentium distinctio. Iste, officia enim? Dolorum id at aliquid qui corrupti similique officiis eveniet nisi velit fugit voluptates, omnis, excepturi nam.</p>
+        </div>
+      </Fade>
       <div className='HomeBlog-NoticiasContainer'>
-        <div className='HomeBlog-noticia'>
-          <img className='HomeBlog-img' 
-              src={ImageA} 
-              alt="descripción de la imagen" />
-          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
-        </div>
-        <div className='HomeBlog-noticia'>
-          <img className='HomeBlog-img'
-              src={ImageB} 
-              alt="descripción de la imagen" />
-          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
-        </div>
-        <div className='HomeBlog-noticia'>
-          <img className='HomeBlog-img'
-              src={ImageC} 
-              alt="descripción de la imagen" />
-          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
-        </div>
-        <div className='HomeBlog-noticia'>
-          <img className='HomeBlog-img'
-              src={ImageD} 
-              alt="descripción de la imagen" />
-          <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
-        </div>
+        <Fade cascade={true} duration={800} delay={300} triggerOnce={true} >
+          <div className='HomeBlog-noticia'>
+            <img className='HomeBlog-img' 
+                src={ImageA} 
+                alt="descripción de la imagen" />
+            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+          </div>
+          <div className='HomeBlog-noticia'>
+            <img className='HomeBlog-img'
+                src={ImageB} 
+                alt="descripción de la imagen"
+                />
+            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+          </div>
+          <div className='HomeBlog-noticia'>
+            <img className='HomeBlog-img'
+                src={ImageC} 
+                alt="descripción de la imagen" />
+            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+          </div>
+          <div className='HomeBlog-noticia'>
+            <img className='HomeBlog-img'
+                src={ImageD} 
+                alt="descripción de la imagen" />
+            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+          </div>
+        </Fade>
       </div>
-      <Link to={"/blog"}>
-        <Button sx={{
-            width: "230px", 
-            height: "60px",
-            fontFamily: "archivo",
-            backgroundColor: "#12824c"}} 
-            variant='contained' 
-            size='large'
-          >Ver más</Button> 
-      </Link>
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <Link to={"/blog"}>
+          <Button sx={{
+              width: "230px", 
+              height: "60px",
+              fontFamily: "archivo",
+              backgroundColor: "#12824c"}} 
+              variant='contained' 
+              size='large'
+            >Ver más</Button> 
+        </Link>
+      </Fade>
     </div>
   )
 }

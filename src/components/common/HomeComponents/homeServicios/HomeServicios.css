@@ -7,8 +7,6 @@
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    align-items: center;
-
 }
 
 /* Título principal */
@@ -18,7 +16,6 @@
     font-family: "archivo";
     font-size: 2.5rem;
     text-align: center;
-    width: 45%;
 }
 
 /* Contenedor de descripciones */
@@ -99,6 +96,8 @@
     margin-bottom: 3.125rem;
     margin-top: 1.875rem;
     width: 63%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Contenedor del texto y el botón con precio*/
@@ -213,9 +212,6 @@
 }
 
 @media(max-width:908px){
-    .homeServicios-title{
-        width: 85%;
-    }
     .homeServicios-buttonContainer{
         gap: .9375rem;
     }
@@ -225,7 +221,6 @@
     .homeServicios-description{
         flex-direction: column;
         gap: 1.25rem;
-        width: 90%;
     }
     .homeServicios-text{
         width: 90%
@@ -243,6 +238,7 @@
         flex-direction: column;
         gap:.625rem
     }
+    .info-servicio-img{display: none;}
     .whatsapp{
         font-size: 1.25rem;
     }

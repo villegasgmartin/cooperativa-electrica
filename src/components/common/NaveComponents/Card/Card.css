@@ -11,7 +11,7 @@
 
 /*Contenedor de nombre de servicio y precio*/
 .card-servicioContainer{
-    background-color: var(--black);
+    background-color: var(--violet);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,14 +43,15 @@
     flex-direction: column;;
     justify-content: space-evenly;
     height: 9.375rem;
+    border-bottom: .0625rem solid var(--violet);
 }
 
 /*Contenedor del logo*/
 .card-logoContainer{
-    background-color: var(--darkgreen);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: end;
+    padding-bottom: 1.25rem;
     height: 9.375rem;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;  

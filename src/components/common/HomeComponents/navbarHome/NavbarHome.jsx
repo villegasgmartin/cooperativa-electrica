@@ -12,6 +12,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LogoNavbar from "../../../../assets/images/logo-horizontal.png"
+import "../navbarHome/NavbarHome.css"
 
 // Definición del array de páginas y submenús
 const pages = [
@@ -73,19 +74,17 @@ function ResponsiveAppBar() {
             mx: 'auto',
             borderRadius: "5px",
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            zIndex: (theme) => theme.zIndex.drawer + 1
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            height: { xs: '50px', sm: '60px', md: '85px' }
         }}>
             <Container maxWidth="xl">
-                <Toolbar disableGutters sx={{ height: "85px", justifyContent: 'space-between' }}>
+                <Toolbar disableGutters sx={{ height: "85px", justifyContent: 'space-between',}}>
                     {/* Logo */}
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link to={"/"}>
-                            <img
+                            <img className='logo-header'
                                 src={LogoNavbar}
                                 alt='logo de cooperativa eléctrica'
-                                style={{
-                                    width: "210px",
-                                    height: "auto"}}
                             />
                         </Link>
                     </Box>
@@ -200,6 +199,8 @@ function ResponsiveAppBar() {
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                             color="inherit"
+                            sx={{paddingBottom: "35px",
+                            }}
                         >
                             <MenuIcon />
                         </IconButton>

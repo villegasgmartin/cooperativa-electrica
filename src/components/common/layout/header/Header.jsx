@@ -20,7 +20,7 @@ const Header = ({title}) => {
             </div>
             <ResponsiveAppBar/>
             <div className="header-title-container">
-                <h2 className="header-title">{title}</h2>
+                <h1 className="header-title">{title}</h1>
             </div>
         </div>
     )
