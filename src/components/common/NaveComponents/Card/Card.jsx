@@ -28,8 +28,8 @@ const Card = ({ servicio, precio }) => {
                 fontFamily: "archivo",
                 textTransform: 'none',
                 fontSize: {
-                    xs: '12px',  // Para pantallas pequeñas (extra small), como 440px o menos
-                    sm: '14px',  // Para pantallas pequeñas y superiores
+                    xs: '12px', 
+                    sm: '14px', 
                     }
             }}
             >
@@ -50,8 +50,8 @@ const Card = ({ servicio, precio }) => {
                 borderWidth: "3px",
                 textTransform: 'none',
                 fontSize: {
-                    xs: '12px',  // Para pantallas pequeñas (extra small), como 440px o menos
-                    sm: '14px',  // Para pantallas pequeñas y superiores
+                    xs: '12px',
+                    sm: '14px',
                     }
                 }}
             >
@@ -60,7 +60,7 @@ const Card = ({ servicio, precio }) => {
             </a>
         </div>
         <div className='card-logoContainer'>
-            <img src={LogoCooperativa} width="85%" alt="Logo de la Cooperativa Eléctrica" />
+            <img src={LogoCooperativa} style={{filter: "invert(1)"}} width="50%" alt="Logo de la Cooperativa Eléctrica" />
         </div>
         </div>
     );

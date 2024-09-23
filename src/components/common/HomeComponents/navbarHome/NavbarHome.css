@@ -1,0 +1,19 @@
+.logo-header{
+    width: 13.125rem;
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:899px){
+    .logo-header{
+        width: 10.625rem;
+        padding-bottom: 1.25rem;
+    }
+}
+
+@media(max-width:599px){
+    .logo-header{
+        width: 8.75rem;
+        padding-bottom: 1.875rem;
+    }
+}
