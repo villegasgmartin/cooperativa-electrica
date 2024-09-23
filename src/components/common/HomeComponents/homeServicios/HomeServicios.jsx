@@ -5,6 +5,7 @@ import "../homeServicios/HomeServicios.css";
 import WifiTetheringIcon from "@mui/icons-material/WifiTethering";
 import { Link } from "react-router-dom";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
+import { Fade } from "react-awesome-reveal";
 
 // JSX:
 // Imágenes de los servicios
@@ -76,59 +77,69 @@ const HomeServicios = () => {
 
   return (
     <div className="homeServicios-container">
-      <h3 className="homeServicios-title">Internet Cooperativa</h3>
-      <div className="homeServicios-description">
-        <h4 className="homeServicios-text">Instalación sin cargo!</h4>
-        <h4 className="homeServicios-text">Modem Dual Band a comodato</h4>
-      </div>
-      <div className="homeServicios-buttonContainer">
-        {services.map((service, index) => (
-          <button
-            key={index}
-            className={`button-services ${selectedService === service ? "active" : ""}`}
-            onClick={() => handleServiceClick(service)}
-          >
-            <div className="button-info-container">
-              <WifiTetheringIcon sx={{ color: "grey" }} />
-              <h4 className="button-text">{service.speed}</h4>
-              {service.speed !== "Full TV" && service.speed !== "Fútbol Premium" && (
-                <p className="megas">Mbps</p>
-              )}
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <h2 className="homeServicios-title">Internet Cooperativa</h2>
+      </Fade>
+      <Fade triggerOnce={true}>
+        <div className="homeServicios-description">
+          <h3 className="homeServicios-text">Instalación sin cargo!</h3>
+          <h3 className="homeServicios-text">Modem Dual Band a comodato</h3>
+        </div>
+      </Fade>
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <div className="homeServicios-buttonContainer">
+          {services.map((service, index) => (
+            <button
+              key={index}
+              className={`button-services ${selectedService === service ? "active" : ""}`}
+              onClick={() => handleServiceClick(service)}
+            >
+              <div className="button-info-container">
+                <WifiTetheringIcon sx={{ color: "grey" }} />
+                <h4 className="button-text">{service.speed}</h4>
+                {service.speed !== "Full TV" && service.speed !== "Fútbol Premium" && (
+                  <p className="megas">Mbps</p>
+                )}
+              </div>
+            </button>
+          ))}
+        </div>
+      </Fade>
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <div className="info-servicio-container">
+          <div className="info-servicio-text-button">
+            <div className="info-servicio-text">
+              <h5 className="info-servicio-title">{selectedService.title}</h5>
+              <p className="info-servicio-description">{selectedService.description}</p>
             </div>
-          </button>
-        ))}
-      </div>
-      <div className="info-servicio-container">
-        <div className="info-servicio-text-button">
-          <div className="info-servicio-text">
-            <h5 className="info-servicio-title">{selectedService.title}</h5>
-            <p className="info-servicio-description">{selectedService.description}</p>
+            <div className="contratar">
+              <h5 className="price">{selectedService.price}</h5>
+              <Link to={"/formulario"}>
+                <Button variant="contained" 
+                  size="large"
+                  sx={{backgroundColor: "#ffff",
+                    color: "#12824c",
+                    fontFamily: "archivo"
+                  }} >
+                  Contratar
+                </Button>
+              </Link>
+            </div>
           </div>
-          <div className="contratar">
-            <h5 className="price">{selectedService.price}</h5>
-            <Link to={"/formulario"}>
-              <Button variant="contained" 
-                size="large"
-                sx={{backgroundColor: "#ffff",
-                  color: "#12824c",
-                  fontFamily: "archivo"
-                }} >
-                Contratar
-              </Button>
-            </Link>
+          <div className="info-servicio-img">
+            <img src={selectedService.image} width="100%" alt={selectedService.title} style={{borderRadius: "10px"}} />
           </div>
         </div>
-        <div className="info-servicio-img">
-          <img src={selectedService.image} width="100%" alt={selectedService.title} style={{borderRadius: "10px"}} />
-        </div>
-      </div>
-      <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
-        <WhatsAppIcon
-          fontSize="large"
-          sx={{color: "#2eed8d"}}
-        />
-        <h4 className="whatsapp">(223)537-6973</h4>
-      </a>
+      </Fade>
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
+          <WhatsAppIcon
+            fontSize="large"
+            sx={{color: "#2eed8d"}}
+          />
+          <h4 className="whatsapp">(223)537-6973</h4>
+        </a>
+      </Fade>
     </div>
   );
 };

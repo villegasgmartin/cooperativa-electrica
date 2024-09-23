@@ -32,3 +32,23 @@
     font-size: 3.125rem;
     padding-left: 18.75rem;
 }
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:960px){
+    .header-title-container{
+        justify-content: center;
+        
+    }
+    .header-title{
+        font-size: 2.1875rem;
+        padding-left: 0%;
+        padding-top: 2.5rem;
+    }
+}
+
+@media(max-width:770px){
+    .header-contactos-container{
+        display: none;
+    }
+}

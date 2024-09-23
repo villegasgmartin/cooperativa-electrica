@@ -1,0 +1,73 @@
+/*Card contenedor principal*/
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 28.125rem;
+    width: 18.75rem;
+    border-radius: 5px;
+    box-shadow: -2px 3px 5px rgba(0, 0, 0, 0.2), 2px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+/*Contenedor de nombre de servicio y precio*/
+.card-servicioContainer{
+    background-color: var(--violet);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 9.375rem;
+    width: 100%;
+    gap: .625rem;
+    border-top-left-radius: 5px;  
+    border-top-right-radius: 5px;
+}
+
+/*Servicio*/
+.card-servicio{
+    color: white;
+    font-family: "interTight";
+    font-size: 1.25rem;
+}
+
+/*Precio*/
+.card-precio{
+    color: white;
+    font-family: "interTight";
+    font-size: 1.875rem;
+}
+
+/*Contenedor de botones*/
+.card-buttonsContainer{
+    display: flex;
+    flex-direction: column;;
+    justify-content: space-evenly;
+    height: 9.375rem;
+    border-bottom: .0625rem solid var(--violet);
+}
+
+/*Contenedor del logo*/
+.card-logoContainer{
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    padding-bottom: 1.25rem;
+    height: 9.375rem;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;  
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:460px){
+    .card{
+        height: 21.875rem;
+        width:15.625rem ;
+    }
+    .card-servicio{
+        font-size: .9375rem;
+    }
+    .card-precio{
+        font-size: 1.5625rem;
+    }
+}

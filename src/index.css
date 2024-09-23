@@ -24,12 +24,3 @@
   font-family: "InterTight";
   src: url(../src/assets/fonts/InterTight-Regular.ttf);
 }
-
-/*
-Para usar los colores:
-.test{
-    color: var(--darkgreen)
-}
-¨Para usar las fuentes soloponer font.family y escribir el nombre    
-*/
-
