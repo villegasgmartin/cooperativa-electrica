@@ -1,10 +1,10 @@
 /* Contenedor principal */
 .homeServicios-container {
     background-image: 
-    linear-gradient(rgba(22,22, 22, 0.5), rgba(22, 22, 22, 0.5)),
-    url(../../../../assets/images/homeServices.jpg); 
-    background-size: contain;
-    background-repeat: repeat;
+    linear-gradient(rgba(22,22, 22, 0.7), rgba(22, 22, 22, 0.7)),
+    url(../../../../assets/images/pexels-pixabay-207541.jpg); 
+    background-size: cover;
+    background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
     align-items: center;
