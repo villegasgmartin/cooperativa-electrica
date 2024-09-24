@@ -6,7 +6,7 @@ import "../footer/Footer.css"
 //JSX:
 const Footer = () => {
     return (
-        <div className="footer-container">
+        <section className="footer-container">
             <div className="footer-logo-container">
                 <img className="footer-logo" src={FooterLogo} alt="" />
             </div>
@@ -43,7 +43,7 @@ const Footer = () => {
                     <p className="footer-info">223 535-1358</p>
                 </div>
             </div>
-        </div>
+        </section>
     )
 }
 

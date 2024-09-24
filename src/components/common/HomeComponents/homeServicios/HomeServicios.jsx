@@ -9,7 +9,6 @@ import { Fade } from "react-awesome-reveal";
 
 // JSX:
 // Imágenes de los servicios
-import ServiceImage50 from "../../../../assets/images/services/50.jpeg";
 import ServiceImage100 from "../../../../assets/images/services/100.jpeg";
 import ServiceImage300 from "../../../../assets/images/services/300.jpeg";
 import ServiceImage500 from "../../../../assets/images/services/500.jpeg";
@@ -18,14 +17,6 @@ import ServiceImageFutbol from "../../../../assets/images/services/futbolPremium
 
 // Datos de los servicios
 const services = [
-  {
-    title: "Plan Internet 50 Mb",
-    description:
-      "Ideal para hogares con uso moderado de internet. Perfecto para navegar, redes sociales y streaming en calidad estándar. Mantén tus dispositivos conectados sin problemas.",
-    image: ServiceImage50,
-    speed: "50",
-    price: "$12.614/mes"
-  },
   {
     title: "Plan Internet 100 Mb",
     description:
@@ -76,11 +67,12 @@ const HomeServicios = () => {
   };
 
   return (
-    <div className="homeServicios-container">
+    <section className="homeServicios-container">
       <Fade triggerOnce={true} duration={800} delay={300}>
-        <h2 className="homeServicios-title">Internet Cooperativa</h2>
+        <h2 className="homeServicios-title">Nave</h2>
+        <h3 className="homeServicios-subTitle">Internet Cooperativa</h3>
       </Fade>
-      <Fade triggerOnce={true}>
+      <Fade triggerOnce={true}  duration={800} delay={300}>
         <div className="homeServicios-description">
           <h3 className="homeServicios-text">Instalación sin cargo!</h3>
           <h3 className="homeServicios-text">Modem Dual Band a comodato</h3>
@@ -140,7 +132,7 @@ const HomeServicios = () => {
           <h4 className="whatsapp">(223)537-6973</h4>
         </a>
       </Fade>
-    </div>
+    </section>
   );
 };
 

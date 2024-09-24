@@ -1,21 +1,30 @@
 /* Contenedor principal */
 .homeServicios-container {
-    background-image: 
-    linear-gradient(rgba(22,22, 22, 0.3), rgba(22, 22, 22, 0.3)),
-    url(../../../../assets/images/homeServices.jpg); 
-    background-size: contain;
-    background-repeat: repeat;
     display: flex;
     flex-direction: column;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    align-items: center;
 }
 
 /* Título principal */
 .homeServicios-title {
-    margin-top: 7%;
-    color: white;
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
     font-family: "archivo";
     font-size: 2.5rem;
     text-align: center;
+}
+
+/*Subtitulo*/
+.homeServicios-subTitle{
+    color: var(--black);
+    font-family: "archivo";
+    font-size: 2.1875rem;
+    text-align: center;
+    margin-top: 20px;
 }
 
 /* Contenedor de descripciones */
@@ -30,9 +39,10 @@
 
 /* Descripción */
 .homeServicios-text {
-    color: white;
-    font-family: "interTight";
-    font-size: 1.25rem;
+    background-color: var(--black);
+    color: var(--lightgreen);
+    font-family: "archivo";
+    font-size: 1.0625rem;
     border: .125rem solid var(--lightgreen);
     border-radius: .3125rem;
     padding: 1.25rem;
@@ -47,8 +57,6 @@
     gap: 1.5625rem;
     margin-top: 2.5rem;
     justify-content: center;
-    padding-left: 8%;
-    padding-right: 8%;
 }
 
 /* Reset de botón */
@@ -64,7 +72,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: white;
+    background-color: rgb(243, 242, 242);
     height: 11.25rem;
     width: 11.25rem;
     border: .125rem solid var(--lightgreen);
@@ -88,7 +96,7 @@
 /* Contenedor de información del servicio */
 .info-servicio-container {
     padding: 1.875rem;
-    background-color: white;
+    background-color: var(--black);
     display: flex;
     align-items: center;
     gap: 3.125rem;
@@ -119,13 +127,13 @@
 /* Título del servicio */
 .info-servicio-title {
     font-family: "interTight";
-    color: var(--black);
+    color: var(--lightgreen);
     font-size: 1.5625rem;
 }
 
 /* Descripción del servicio */
 .info-servicio-description {
-    color: grey;
+    color: white;
     font-family: "interTight";
     font-size: 1.125rem;
     text-align: center;
@@ -167,7 +175,6 @@
     align-items: center;
     justify-content: center;
     gap: .3125rem;
-    margin-bottom: 6.25rem;
     text-decoration: none;
     cursor: pointer;
 }
@@ -218,6 +225,13 @@
 }
 
 @media(max-width:820px){
+    .homeServicios-container{
+        align-items: normal;
+    }
+    .homeServicios-title{
+        margin-left: 6.25rem;
+        margin-right: 6.25rem;
+    }
     .homeServicios-description{
         flex-direction: column;
         gap: 1.25rem;
@@ -228,11 +242,15 @@
 }
 
 @media(max-width:750px){
+    .homeServicios-container{
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
     .homeServicios-title{
         font-size: 2.1875rem;
     }
-    .homeServicios-text{
-        font-size: 1.125rem;
+    .homeServicios-subTitle{
+        font-size: 1.875rem;
     }
     .contratar{
         flex-direction: column;

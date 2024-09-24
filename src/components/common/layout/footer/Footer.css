@@ -6,8 +6,8 @@
     justify-content: space-between;
     gap: 1.875rem;
     align-items: center;
-    padding-top: 5.625rem;
-    padding-bottom: 5.625rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     padding-left: 10%;
     padding-right: 10%;
 }
@@ -28,6 +28,7 @@
     flex-direction: column;
     gap: 1.25rem;
     align-items: center;
+    margin-right: 3.125rem;
 }
 
 /*Bordes estéticos*/
@@ -80,10 +81,15 @@
     .footer-logo-container{
         width: 12.5rem;
     }
+    .footer-links-container{
+        margin-right: 0%;
+    }
 }
 
 @media(max-width:885px){
     .footer-container{
+        padding-top: 4rem;
+        padding-bottom: 4rem;
         justify-content: center;
         gap: 4.375rem;
     }
