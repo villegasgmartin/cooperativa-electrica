@@ -1,42 +1,13 @@
 /*Contenedor principal*/
 .HomeGuardia-container{
+    background-image: 
+    linear-gradient(rgba(22,22, 22, 0.4), rgba(22, 22, 22, 0.4)),
+    url(../../../../assets/images/homeServices.jpg); 
+    background-size: cover;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     display: flex;
-    justify-content: space-around;
-    gap:4.375rem;
-    padding-top: 7%;
-    padding-bottom: 6%;
-    padding-left: 13%;
-    padding-right: 13%;
-}
-
-/*Borde verde al costado de la imágen*/
-.HomeGuardia-imageContainer::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #12824C;
-    border-radius:20px;
-    transform: translate(20px, 20px);
-    transform-origin: top left;
-    pointer-events: none; 
-    background: #12824C;
-}
-
-/*Contenedor de imágen*/
-.HomeGuardia-imageContainer{
-    position: relative;
-    min-width: 30.25rem;
-    max-width: 500px;
-}
-
-/*Imágen*/
-.HomeGuardia-image{
-    position: relative;
-    border-radius: 1.25rem;
-    width: 100%;
+    justify-content: center;
 }
 
 /*Contenedor de título, texto y botón*/
@@ -47,13 +18,15 @@
     align-items: center;
     gap: 1.25rem;
     max-width: 31.25rem;
+    margin-left: .625rem;
+    margin-right: .625rem;
 }
 
 /*Título*/
 .HomeGuardia-title{
     font-family: "Archivo";
     font-size: 2.5rem;
-    color: var(--black);
+    color: white;
 }
 
 /*Fondo de color "Eléctrica"*/
@@ -68,44 +41,25 @@
 .HomeGuardia-description{
     font-family: "InterTight";
     font-size: 1rem;
-    line-height: 1.5rem
+    line-height: 1.5rem;
+    color: #fff;
 }
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1100px){
-    .HomeGuardia-container{
-        flex-direction: column;
-        align-items: center;
-        padding-top: 12%;
-        padding-bottom: 12%;
-    }
-    .HomeGuardia-title{
-        font-size: 45px;
-    }
-    .HomeGuardia-description{
-        font-size: 1.125rem;
-    }
-}
-
 @media(max-width:750px){
-    .HomeGuardia-imageContainer{
-        min-width: 25rem;
-    }
-    .HomeGuardia-title{
-        font-size: 2.5rem;
-    }
-    .HomeGuardia-description{
-        font-size: 1rem;
+    .HomeGuardia-container{
+        padding-top: 4rem;
+        padding-bottom: 4rem;
     }
 }
 
-@media(max-width:559px){
-    .HomeGuardia-imageContainer{
-        min-width: 9.375rem;
-    }
+@media(max-width:600px){
     .HomeGuardia-title{
         font-size: 2.1875rem;
+    }
+    .HomeGuardia-description{
+        font-size: .875rem;
     }
 }
 

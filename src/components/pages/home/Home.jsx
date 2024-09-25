@@ -12,8 +12,8 @@ const Home = () => {
     return (
         <div>
             <HomePortada/>
-            <HomeGuardia/>
             <HomeServicios/>
+            <HomeGuardia/>
             <HomeBlog/>
             <Footer/>
             <BotonFlotante/>
