@@ -17,7 +17,7 @@
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
-    max-width: 31.25rem;
+    max-width: 75rem;
     margin-left: .625rem;
     margin-right: .625rem;
 }
@@ -39,6 +39,8 @@
 
 /*Texto*/
 .HomeGuardia-description{
+    margin-left: 13%;
+    margin-right: 13%;
     font-family: "InterTight";
     text-align: center;
     font-size: 1rem;
@@ -52,6 +54,10 @@
     .HomeGuardia-container{
         padding-top: 4rem;
         padding-bottom: 4rem;
+    }
+    .HomeGuardia-description{
+        margin-left: 6%;
+        margin-right: 6%;
     }
 }
 

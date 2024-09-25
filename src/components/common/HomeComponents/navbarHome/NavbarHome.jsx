@@ -16,13 +16,7 @@ import "../navbarHome/NavbarHome.css"
 
 // Definición del array de páginas y submenús
 const pages = [
-    { name: 'INSTITUCIONAL', path: '#', submenu: [
-        { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
-        { name: 'Valores', path: '/valores' },
-        { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
-        { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
-        { name: 'Historia', path: '/historia' },
-    ]},
+    { name: 'INTERNET Y TV', path: '/nave' },
     { name: 'SERVICIOS', path: '#', submenu: [
         { name: 'Servicio Eléctrico', path: "/servicio-electrico" },
         { name: 'Laboratorio de medidores', path: '/laboratorio-de-medidores' },
@@ -30,11 +24,17 @@ const pages = [
         { name: 'Provincia NET', path: '/provinciaNET' },
         { name: 'AMI Mutual', path: '/AMImutual' },
     ]},
+    { name: 'INSTITUCIONAL', path: '#', submenu: [
+        { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
+        { name: 'Valores', path: '/valores' },
+        { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
+        { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
+        { name: 'Historia', path: '/historia' },
+    ]},
     { name: 'USUARIOS', path: '#', submenu: [
         { name: 'Formas y lugares de pago', path: '/formas-de-pago' },
         { name: 'Consejos útiles', path: '/consejos-utiles' },
     ]},
-    { name: 'NAVE', path: '/nave' },
     { name: 'CONTACTO', path: '/contacto' },
     { name: 'OFICINA VIRTUAL', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];
@@ -74,7 +74,6 @@ function ResponsiveAppBar() {
             mx: 'auto',
             borderRadius: "5px",
             backgroundColor: 'rgba(0, 0, 0, 0.5)',
-            zIndex: (theme) => theme.zIndex.drawer + 1,
             height: { xs: '50px', sm: '60px', md: '85px' }
         }}>
             <Container maxWidth="xl">
@@ -218,7 +217,8 @@ function ResponsiveAppBar() {
                             }}
                             open={Boolean(anchorElNav)}
                             onClose={handleCloseNavMenu}
-                            sx={{ display: { xs: 'block', md: 'none' } }}
+                            sx={{ display: { xs: 'block', md: 'none' },
+                                width: "1000px" }}
                         >
                             {pages.map((page) => (
                                 page.submenu ? (

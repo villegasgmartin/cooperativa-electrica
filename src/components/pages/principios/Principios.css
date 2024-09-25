@@ -1,0 +1,102 @@
+/*Contenedor principal*/
+.principios-main-container{
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Introducción*/
+.principios-intro{
+    font-family: "interTight";
+    text-align: center;
+    color: grey;
+    font-size: 1.5625rem;
+}
+
+/*Contenedor de cada principio*/
+.principios-container{
+    display: flex;
+    align-items: center;
+    gap: 9.375rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    padding-left: 100%;
+    padding-right: 100%;
+}
+
+/*Fondo Verde*/
+.principios-image-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
+/*Fondo verde invertido*/
+#background-position::before {
+    transform: translate(-20px, 20px);
+}
+
+
+/*Contenedor de imagen*/
+.principios-image-container{
+    position: relative;
+    width: 37.5rem;
+    height: 37.5rem;
+}
+
+/*Imágen*/
+.principios-img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/*Contenedor de texto*/
+.principios-text-container{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 1.25rem;
+    width: 37.5rem;
+}
+
+/*Principio*/
+.principios-title{
+    font-family: "archivo";
+    font-size: 2.1875rem;
+    color: var(--black);
+}
+
+/*Fondo Violeta*/
+.color-title{
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+/*Descripción*/
+.principios-description{
+    font-family: "interTight";
+    color: grey;
+    font-size: 1.25rem;
+}
+
+/*Fondo oscuro*/
+#dark-background{
+    background-color: var(--black)
+}
+
+/*Letras blancas*/
+#light-font{
+    color: white;
+}
