@@ -100,6 +100,7 @@
     display: flex;
     align-items: center;
     gap: 3.125rem;
+    border: .0625rem solid var(--lightgreen);
     border-radius: 2.3125rem;
     margin-bottom: 3.125rem;
     margin-top: 1.875rem;
@@ -147,7 +148,7 @@
     background-color: #8048ff;
     padding: 1.875rem;
     border-radius: .3125rem;
-    border: .0625rem solid var(--darkgreen);
+    border:1px solid var(--darkgreen);
 }
 
 /*Precio del servicio*/
@@ -167,7 +168,15 @@
 .button-services:hover .button-info-container {
     background-color: var(--lightgreen);
     color: var(--white);
+    border-color: #8048ff
 }
+
+/*Hover de megas e icono */
+.button-services:hover .button-info-container .MuiSvgIcon-root,
+.button-services:hover .button-info-container .megas {
+    color: var(--black);
+}
+
 
 /* Contenedor de whatsapp */
 .whatsapp-container {
@@ -185,7 +194,6 @@
     font-family: "intertight";
     font-size: 1.5625rem;
 }
-
 /*----------------Media Queries----------------*/
 
 @media(max-width:1435px){
@@ -237,7 +245,10 @@
         gap: 1.25rem;
     }
     .homeServicios-text{
-        width: 90%
+        width: 80%
+    }
+    .info-servicio-container{
+        width: 80%;
     }
 }
 
