@@ -5,7 +5,7 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import ResponsiveAppBar from "../navbarPages/NavbarPages"
 
 //JSX:
-const Header = ({title}) => {
+const Header = ({title, logo}) => {
     return (
         <div>
             <div className="header-contactos-container">
@@ -20,7 +20,7 @@ const Header = ({title}) => {
             </div>
             <ResponsiveAppBar/>
             <div className="header-title-container">
-                <h1 className="header-title">{title}</h1>
+                {logo ? <img src={logo} alt="Logo" className="header-logo-nave"/> : <h1 className="header-title">{title}</h1>}
             </div>
         </div>
     )
