@@ -67,17 +67,12 @@
     padding-top: 1.25rem;
 }
 
-
+/*Contenedor del botón*/
+.HomeBlog-buttonContainer{
+    width: 14.375rem;
+}
 
 /*----------------Media Queries----------------*/
-
-@media(max-width:588px){
-    .HomeBlog-NoticiasContainer{
-        flex-direction: column;
-        gap: 0%;
-        margin-bottom: 3.125rem ;
-    }
-}
 
 @media(max-width:787px){
     .HomeBlog-container{
@@ -90,5 +85,23 @@
     }
     .HomeBlog-img{
         width: 15.625rem;
+    }
+}
+
+@media(max-width:768px){
+    .HomeBlog-container{
+        align-items: normal;
+    }
+    .HomeBlog-buttonContainer{
+        width: 90%;
+        margin: auto;
+    }
+}
+
+@media(max-width:588px){
+    .HomeBlog-NoticiasContainer{
+        flex-direction: column;
+        gap: 0%;
+        margin-bottom: 3.125rem ;
     }
 }

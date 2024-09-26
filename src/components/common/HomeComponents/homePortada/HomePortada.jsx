@@ -25,11 +25,14 @@ const HomePortada = () => {
                 <div className="homePortada-bienvenidaContainer">
                     <h1 className="homePortada-title">Internet a tu alcance</h1>
                     <p className="homePortada-description">Descubre el mejor internet para tu hogar y negocio. Instalaciones, mantenimiento y asesoramiento con los mejores profesionales a tu disposición.</p>
+                </div>
+                <div className="homePortada-buttonContainer">
                     <Link to={"/nave"}>
                         <Button sx={{
-                            marginTop: "20px",
-                            backgroundColor: "#12824c", 
+                            width: "100%", 
+                            height: "50px",
                             fontFamily: "archivo",
+                            backgroundColor: "#12824c"
                             }} variant="contained">Contratá</Button>
                     </Link>
                 </div>

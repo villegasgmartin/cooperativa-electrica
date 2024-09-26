@@ -7,10 +7,12 @@
     padding-top: 5rem;
     padding-bottom: 5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-/*Contenedor de título, texto y botón*/
+/*Contenedor de título y texto*/
 .HomeGuardia-infoContainer{
     display: flex;
     flex-direction: column;
@@ -48,7 +50,22 @@
     color: #fff;
 }
 
+/*Contenedor de botón*/
+.HomeGuardia-buttonContainer{
+    margin-top: 1.875rem;
+    width: 14.375rem;
+}
+
 /*----------------Media Queries----------------*/
+
+@media(max-width:768px){
+    .HomeGuardia-container{
+        align-items: normal;
+    }
+    .HomeGuardia-buttonContainer{
+        width: 90%;
+    }
+}
 
 @media(max-width:750px){
     .HomeGuardia-container{

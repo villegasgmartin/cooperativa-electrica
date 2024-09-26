@@ -50,16 +50,19 @@ const HomeBlog = () => {
         </Fade>
       </div>
       <Fade triggerOnce={true} duration={800} delay={300}>
-        <Link to={"/blog"}>
-          <Button sx={{
-              width: "230px", 
-              height: "60px",
-              fontFamily: "archivo",
-              backgroundColor: "#12824c"}} 
-              variant='contained' 
-              size='large'
-            >Ver más</Button> 
-        </Link>
+        <div className='HomeBlog-buttonContainer'>
+          <Link to={"/blog"}>
+            <Button sx={{
+                width: "100%", 
+                height: "60px",
+                fontFamily: "archivo",
+                backgroundColor: "#12824c"
+              }} 
+                variant='contained' 
+                size='large'
+              >Ver más</Button> 
+          </Link>
+        </div>
       </Fade>
     </section>
   )
