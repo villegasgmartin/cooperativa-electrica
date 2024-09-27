@@ -1,0 +1,97 @@
+/*Contendor Principal*/
+.historia-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/*Frase*/
+.historia-intro{
+    color: white;
+    background-color: var(--black);
+    font-size: 1.875rem;
+    font-family: "interTight";
+    padding: 2.5rem;
+    margin-left: 15%;
+    margin-right: 15%;
+    border-radius: 1.25rem;
+}
+
+/*Contenedor de bio*/
+.historia-bio-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9.375rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+/*Contenedor de imágen*/
+.historia-image-container{
+    position: relative;
+    width: 31.25rem;
+    height: 31.25rem;
+}
+
+/*Fondo Verde*/
+.historia-image-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
+/*Fondo verde invertido*/
+#background-position::before {
+    transform: translate(-20px, 20px);
+}
+
+/*Impagen*/
+.historia-image{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/*Texto al lado de imágen*/
+.historia-text{
+    font-family: "interTight";
+    color: grey;
+    font-size: 1.25rem;
+    width: 37.5rem;
+    text-align: center;
+}
+
+/*Fondo oscuro*/
+#dark-background{
+    background-color: var(--black)
+}
+
+/*Letras blancas*/
+#light-font{
+    color: white;
+}
+
+/*Titulo*/
+.historia-title{
+    padding-top: 40px;
+    font-family: "archivo";
+    color: var(--darkgreen);
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+/*Cotenedor de acordeón*/
+.historia-accordion-container{
+    max-width: 600px;
+    margin: 80px auto;
+    margin-top: 1.25rem;
+    padding-bottom: 5rem;
+}
