@@ -10,7 +10,6 @@ import Historia from "./components/pages/historia/Historia.jsx"
 import ServicioElectrico from "./components/pages/servicioElectrico/ServicioElectrico.jsx"
 import Laboratorio from "./components/pages/laboratorio/Laboratorio.jsx"
 import Biblioteca from "./components/pages/biblioteca/Biblioteca.jsx"
-import ProvinciaNet from "./components/pages/provinciaNet/ProvinciaNet.jsx"
 import Mutual from "./components/pages/mutual/Mutual.jsx"
 import FormasPago from "./components/pages/formasPago/FormasPago.jsx"
 import ConsejosUtiles from "./components/pages/consejosUtiles/ConsejosUtiles.jsx"
@@ -33,7 +32,6 @@ function App() {
           <Route path="/servicio-electrico" element={<ServicioElectrico/>}/>
           <Route path="/laboratorio-de-medidores" element={<Laboratorio/>}/>
           <Route path="/biblioteca" element={<Biblioteca/>}/>
-          <Route path="/provinciaNET" element={<ProvinciaNet/>}/>
           <Route path="/AMImutual" element={<Mutual/>}/>
           <Route path="/formas-de-pago" element={<FormasPago/>}/>
           <Route path="/consejos-utiles" element={<ConsejosUtiles/>}/>

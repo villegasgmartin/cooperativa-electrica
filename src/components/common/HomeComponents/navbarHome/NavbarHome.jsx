@@ -21,7 +21,6 @@ const pages = [
         { name: 'Servicio Eléctrico', path: "/servicio-electrico" },
         { name: 'Laboratorio de medidores', path: '/laboratorio-de-medidores' },
         { name: 'Biblioteca', path: '/biblioteca' },
-        { name: 'Provincia NET', path: '/provinciaNET' },
         { name: 'AMI Mutual', path: '/AMImutual' },
     ]},
     { name: 'INSTITUCIONAL', path: '#', submenu: [

@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import CardCarousel from '../../common/NaveComponents/CardCarousel/CardCarousel';
+import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 
 //JSX:
 const Nave = () => {
@@ -14,9 +15,10 @@ const Nave = () => {
   }, [dispatch]);
 
   return (
-    <div>
+    <section>
       <CardCarousel/>
-    </div>
+      <BotonFlotante/>
+    </section>
   );
 };
 

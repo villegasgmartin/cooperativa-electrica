@@ -39,4 +39,5 @@
 .consejo-accordion-content{
     margin-left: .9375rem;
     font-family: "interTight";
+    color: var(--black);
 }

@@ -1,0 +1,75 @@
+/*Biblioteca contenedor principal*/
+.biblioteca-main-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/*Título*/
+.biblioteca-title{
+    text-align: center;
+    font-size: 2.5rem;
+    font-family: "archivo";
+    color: var(--darkgreen);
+}
+
+/*Contenedor de acordeón*/
+.biblioteca-accordion-container{
+    max-width: 1200px;
+    margin: 80px auto;
+    margin-top: 1.25rem;
+}
+
+/*Contenido de acordeón*/
+.biblioteca-accordion-details{
+    font-family: "interTight";
+}
+
+/*Servicios contenedor*/
+.biblioteca-servicios-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/*Servicios*/
+.biblioteca-servicios{
+    display: flex;
+    flex-direction: column;
+    gap: .3125rem;
+    width: 62.5rem;
+    border: .1875rem solid var(--darkgreen);
+    padding: 1.875rem;
+}
+
+/*Titulo de servicios*/
+.biblioteca-servicios-title{
+    font-family: "Archivo";
+    color: var(--darkgreen);
+    font-size: 1.5625rem;
+}
+
+/*Texto de servicios*/
+.biblioteca-servicios-text{
+    font-family: "interTight";
+    color: var(--black);
+    line-height: 1.5rem;
+    margin-left: .9375rem;
+}
+
+/*Enlace*/
+.biblioteca-link{
+    text-decoration: none;
+    color: var(--darkgreen);
+    font-family: "archivo";
+}
+
+/*Dirección*/
+.biblioteca-adress{
+    font-family: "archivo";
+    color: var(--darkgreen);
+}
+
+/*Contenedor de imágen*/
+.biblioteca-image-container{
+    width: 21.875rem;
+}

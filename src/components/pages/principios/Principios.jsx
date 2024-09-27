@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../principios/Principios.css"
 import { Fade } from "react-awesome-reveal";
+import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 
 //JSX:
 const Principios = () => {
@@ -96,6 +97,7 @@ const Principios = () => {
           </div>
         </Fade>
       </div>
+      <BotonFlotante/>
     </section>
   );
 };
