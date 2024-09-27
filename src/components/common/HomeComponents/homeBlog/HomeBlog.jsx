@@ -13,11 +13,11 @@ import { Fade } from 'react-awesome-reveal'
 //JSX:
 const HomeBlog = () => {
   return (
-    <div className='HomeBlog-container'>
+    <section className='HomeBlog-container'>
       <Fade triggerOnce={true}  delay={300}>
         <div className='HomeBlog-textContainer'>
           <h2 className='HomeBlog-title'>Blog</h2>
-          <p className='HomeBlog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, praesentium distinctio. Iste, officia enim? Dolorum id at aliquid qui corrupti similique officiis eveniet nisi velit fugit voluptates, omnis, excepturi nam.</p>
+          <p className='HomeBlog-description'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</p>
         </div>
       </Fade>
       <div className='HomeBlog-NoticiasContainer'>
@@ -50,18 +50,21 @@ const HomeBlog = () => {
         </Fade>
       </div>
       <Fade triggerOnce={true} duration={800} delay={300}>
-        <Link to={"/blog"}>
-          <Button sx={{
-              width: "230px", 
-              height: "60px",
-              fontFamily: "archivo",
-              backgroundColor: "#12824c"}} 
-              variant='contained' 
-              size='large'
-            >Ver más</Button> 
-        </Link>
+        <div className='HomeBlog-buttonContainer'>
+          <Link to={"/blog"}>
+            <Button sx={{
+                width: "100%", 
+                height: "60px",
+                fontFamily: "archivo",
+                backgroundColor: "#12824c"
+              }} 
+                variant='contained' 
+                size='large'
+              >Ver más</Button> 
+          </Link>
+        </div>
       </Fade>
-    </div>
+    </section>
   )
 }
 

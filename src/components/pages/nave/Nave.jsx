@@ -10,7 +10,7 @@ const Nave = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setTitle('Internet Cooperativa'));
+    dispatch(setTitle(''));
   }, [dispatch]);
 
   return (

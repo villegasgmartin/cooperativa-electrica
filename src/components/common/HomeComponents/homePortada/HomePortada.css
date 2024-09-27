@@ -41,14 +41,14 @@
     margin-bottom: .9375rem;
 }
 
-/*Contenedor de textos y botón*/
+/*Contenedor de textos*/
 .homePortada-bienvenidaContainer{
 display: flex;
 flex-direction: column;
 align-items: flex-start;
-width: 45%;
+width: 50%;
 margin-top: 11.25rem;
-margin-left: 13%;
+padding-left: 13%;
 gap: .9375rem;
 }
 
@@ -64,6 +64,14 @@ gap: .9375rem;
     color: white;
     font-family: "InterTight";
 }
+
+/*Contenedor del botón*/
+.homePortada-buttonContainer{
+    margin-top: 2.1875rem;
+    width: 12.5rem;
+    margin-left: 13%;
+}
+
 
 /*----------------Media Queries----------------*/
 
@@ -99,7 +107,6 @@ gap: .9375rem;
 @media(max-width:577px){
     .homePortada-bienvenidaContainer{
         width: 85%;
-        margin-left: 2.1875rem;
     }
 }
 
@@ -118,6 +125,16 @@ gap: .9375rem;
     }
     .homePortada-contactosText{
         margin: 0%;
+    }
+}
+
+@media(max-width:768px){
+    .homePortada-bienvenidaContainer{
+        width: 90%;
+        margin-top: 7.5rem;
+    }
+    .homePortada-buttonContainer{
+        width: 60%;
     }
 }
 

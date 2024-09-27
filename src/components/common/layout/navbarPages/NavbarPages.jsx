@@ -12,16 +12,11 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import LogoNavbar from "../../../../assets/images/logo-horizontal.png"
+import "../../HomeComponents/navbarHome/NavbarHome.css"
 
 // Definición del array de páginas y submenús
 const pages = [
-    { name: 'INSTITUCIONAL', path: '#', submenu: [
-        { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
-        { name: 'Valores', path: '/valores' },
-        { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
-        { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
-        { name: 'Historia', path: '/historia' },
-    ]},
+    { name: 'INTERNET Y TV', path: '/nave' },
     { name: 'SERVICIOS', path: '#', submenu: [
         { name: 'Servicio Eléctrico', path: "/servicio-electrico" },
         { name: 'Laboratorio de medidores', path: '/laboratorio-de-medidores' },
@@ -29,11 +24,17 @@ const pages = [
         { name: 'Provincia NET', path: '/provinciaNET' },
         { name: 'AMI Mutual', path: '/AMImutual' },
     ]},
+    { name: 'INSTITUCIONAL', path: '#', submenu: [
+        { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
+        { name: 'Valores', path: '/valores' },
+        { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
+        { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
+        { name: 'Historia', path: '/historia' },
+    ]},
     { name: 'USUARIOS', path: '#', submenu: [
         { name: 'Formas y lugares de pago', path: '/formas-de-pago' },
         { name: 'Consejos útiles', path: '/consejos-utiles' },
     ]},
-    { name: 'NAVE', path: '/nave' },
     { name: 'CONTACTO', path: '/contacto' },
     { name: 'OFICINA VIRTUAL', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];
@@ -69,26 +70,25 @@ function ResponsiveAppBar() {
 
     return (
         <AppBar position="static" sx={{
+            position: "absolute",
+            left: "50%",
+            transform: 'translateX(-50%)',
+            top: "50px",
             width: '80%',
             mx: 'auto',
             borderRadius: "5px",
             backgroundColor:"#12824c" ,
-            position: 'absolute',
-            left: "50%",
-            transform: 'translateX(-50%)',
-            top: "50px"
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+            height: { xs: '50px', sm: '60px', md: '85px' }
         }}>
             <Container maxWidth="xl">
-                <Toolbar disableGutters sx={{ height: "85px", justifyContent: 'space-between' }}>
+                <Toolbar disableGutters sx={{ height: "85px", justifyContent: 'space-between',}}>
                     {/* Logo */}
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
                         <Link to={"/"}>
-                            <img
+                            <img className='logo-header'
                                 src={LogoNavbar}
                                 alt='logo de cooperativa eléctrica'
-                                style={{
-                                    width: "210px",
-                                    height: "auto"}}
                             />
                         </Link>
                     </Box>
@@ -105,7 +105,6 @@ function ResponsiveAppBar() {
                                             display: 'block', 
                                             fontFamily: "InterTight", 
                                             fontSize: {
-                                                
                                                 md: "10px",
                                                 lg: "13px"
                                             },
@@ -204,6 +203,8 @@ function ResponsiveAppBar() {
                             aria-haspopup="true"
                             onClick={handleOpenNavMenu}
                             color="inherit"
+                            sx={{paddingBottom: "35px",
+                            }}
                         >
                             <MenuIcon />
                         </IconButton>
