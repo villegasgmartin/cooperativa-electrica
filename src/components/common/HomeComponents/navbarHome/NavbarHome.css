@@ -10,6 +10,20 @@
     }
 }
 
+/*header mobile */
+@media only screen and (max-width:900px){
+    div.css-1xomo8h-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+        width: 100%;
+        right: 30%;
+        margin: 0 auto;
+    
+    }
+    #menu-appbar > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.MuiMenu-paper.MuiMenu-paper.css-1xomo8h-MuiPaper-root-MuiPopover-paper-MuiMenu-paper{
+        left:0.5%!important;
+    }
+
+}
+
 @media(max-width:899px){
     .logo-header{
         width: 9.375rem;
@@ -23,3 +37,5 @@
         padding-bottom: 1.875rem;
     }
 }
+
+
