@@ -7,17 +7,19 @@
     padding-top: 5rem;
     padding-bottom: 5rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-/*Contenedor de título, texto y botón*/
+/*Contenedor de título y texto*/
 .HomeGuardia-infoContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1.25rem;
-    max-width: 31.25rem;
+    max-width: 75rem;
     margin-left: .625rem;
     margin-right: .625rem;
 }
@@ -39,18 +41,40 @@
 
 /*Texto*/
 .HomeGuardia-description{
+    margin-left: 13%;
+    margin-right: 13%;
     font-family: "InterTight";
+    text-align: center;
     font-size: 1rem;
     line-height: 1.5rem;
     color: #fff;
 }
 
+/*Contenedor de botón*/
+.HomeGuardia-buttonContainer{
+    margin-top: 1.875rem;
+    width: 14.375rem;
+}
+
 /*----------------Media Queries----------------*/
+
+@media(max-width:768px){
+    .HomeGuardia-container{
+        align-items: normal;
+    }
+    .HomeGuardia-buttonContainer{
+        width: 90%;
+    }
+}
 
 @media(max-width:750px){
     .HomeGuardia-container{
         padding-top: 4rem;
         padding-bottom: 4rem;
+    }
+    .HomeGuardia-description{
+        margin-left: 6%;
+        margin-right: 6%;
     }
 }
 

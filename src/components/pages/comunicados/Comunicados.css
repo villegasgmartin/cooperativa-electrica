@@ -100,7 +100,6 @@
 /*Contenedor de información final*/
 .comunicados-info-container{
     display: flex;
-    align-items: center;
     gap: 6.25rem;
     margin-top: 5rem;
 }

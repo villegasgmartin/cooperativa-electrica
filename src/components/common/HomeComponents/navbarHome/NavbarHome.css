@@ -4,6 +4,12 @@
 
 /*----------------Media Queries----------------*/
 
+@media(max-width:1199px){
+    .logo-header{
+        width: 11.25rem;
+    }
+}
+
 @media(max-width:899px){
     .logo-header{
         width: 9.375rem;

@@ -69,7 +69,7 @@ const HomeServicios = () => {
   return (
     <section className="homeServicios-container">
       <Fade triggerOnce={true} duration={800} delay={300}>
-        <h2 className="homeServicios-title">Nave</h2>
+        <div className="title-container"><h2 className="homeServicios-title">Nave</h2></div>
         <h3 className="homeServicios-subTitle">Internet Cooperativa</h3>
       </Fade>
       <Fade triggerOnce={true}  duration={800} delay={300}>
@@ -127,7 +127,7 @@ const HomeServicios = () => {
         <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
           <WhatsAppIcon
             fontSize="large"
-            sx={{color: "#2eed8d"}}
+            sx={{color: "#12824C"}}
           />
           <h4 className="whatsapp">(223)537-6973</h4>
         </a>

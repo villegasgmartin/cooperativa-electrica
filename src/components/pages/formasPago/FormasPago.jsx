@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
-import Acordeon from "../../common/acordeon/Acordeon"
+import Acordeon from "../../common/FormasPagoComponents/acordeon/Acordeon"
 
 //JSX:
 const FormasPago = () => {
