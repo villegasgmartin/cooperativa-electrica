@@ -81,6 +81,7 @@
 @media(max-width:600px){
     .HomeGuardia-title{
         font-size: 2.1875rem;
+        text-align: center;
     }
     .HomeGuardia-description{
         font-size: .875rem;
