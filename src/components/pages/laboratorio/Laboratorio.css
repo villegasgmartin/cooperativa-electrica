@@ -1,0 +1,55 @@
+/*Contenedor principal*/
+.laboratorio-main-container{
+    margin-bottom: 5rem;
+}
+
+/*Contenedor de info*/
+.laboratorio-info-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3.125rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+/*Contenedor de texto*/
+.laboratorio-text-container{
+    width: 50rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: .625rem;
+}
+
+/*Títtulo de info*/
+.laboratorio-title{
+    font-family: "archivo";
+    color: var(black);
+}
+
+/*Fondo Violeta*/
+.color-title{
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+
+/*Descripción*/
+.laboratorio-text{
+    font-family: "interTight";
+    line-height: 1.5rem;
+}
+
+/*Fondo oscuro*/
+#dark-background{
+    background-color: var(--black)
+}
+
+/*Letras blancas*/
+#light-font{
+    color: white;
+}
