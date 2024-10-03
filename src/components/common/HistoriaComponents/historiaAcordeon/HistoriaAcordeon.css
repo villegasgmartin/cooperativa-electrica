@@ -1,9 +1,3 @@
-/*Summario de acordeón*/
-.historia-accordion-summary{
-    font-family: "Archivo";
-    color: var(--black);
-}
-
 /*Detalles de acordeón*/
 .historia-accordion-details{
     font-family: "interTight";

@@ -21,7 +21,7 @@
 /*Contenedor de contacto*/
 .homePortada-contactosContainer{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-evenly;
 }
 
 /*Contacto e ícono*/

@@ -25,7 +25,6 @@ const pages = [
     ]},
     { name: 'INSTITUCIONAL', path: '#', submenu: [
         { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
-        { name: 'Valores', path: '/valores' },
         { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
         { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
         { name: 'Historia', path: '/historia' },

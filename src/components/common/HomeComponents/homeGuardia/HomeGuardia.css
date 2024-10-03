@@ -1,9 +1,11 @@
 /*Contenedor principal*/
 .HomeGuardia-container{
     background-image: 
-    linear-gradient(rgba(22,22, 22, 0.4), rgba(22, 22, 22, 0.4)),
-    url(../../../../assets/images/homeServices.jpg); 
+    linear-gradient(rgba(22,22, 22, 0.7), rgba(22, 22, 22, 0.7)),
+    url("https://tec-eos.com/v3/wp-content/uploads/2023/03/personas-instalando-el-servicio-de-energia-electrica.webp"); 
     background-size: cover;
+    background-repeat: repeat;
+    background-position: center 80%;
     padding-top: 5rem;
     padding-bottom: 5rem;
     display: flex;

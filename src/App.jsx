@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 import Home from "./components/pages/home/Home.jsx"
 import Blog from "./components/pages/blog/Blog.jsx"
 import Comunicados from "./components/pages/comunicados/Comunicados.jsx"
-import Valores from "./components/pages/valores/Valores.jsx"
 import Consejo from "./components/pages/consejo/Consejo.jsx"
 import Principios from "./components/pages/principios/Principios.jsx"
 import Historia from "./components/pages/historia/Historia.jsx"
@@ -17,6 +16,7 @@ import Nave from "./components/pages/nave/Nave.jsx"
 import Contacto from "./components/pages/contacto/Contacto.jsx"
 import Layout from "./components/common/layout/Layout.jsx"
 import Form from "./components/pages/formulario/Form.jsx"
+import Preguntas from "./components/pages/preguntas/Preguntas.jsx"
 
 //JSX:
 function App() {
@@ -25,7 +25,6 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route element={<Layout/>} >
           <Route path="/comunicados-institucionales" element={<Comunicados/>}/>
-          <Route path="/valores" element={<Valores/>}/>
           <Route path="/consejo-de-administracion" element={<Consejo/>}/>
           <Route path="/principios-cooperativos" element={<Principios/>}/>
           <Route path="/historia" element={<Historia/>}/>
@@ -35,6 +34,7 @@ function App() {
           <Route path="/AMImutual" element={<Mutual/>}/>
           <Route path="/formas-de-pago" element={<FormasPago/>}/>
           <Route path="/consejos-utiles" element={<ConsejosUtiles/>}/>
+          <Route path="preguntas-frecuentes" element={<Preguntas/>}/>
           <Route path="/nave" element={<Nave/>} />
           <Route path="/contacto" element={<Contacto/>}/>
           <Route path="/blog" element={<Blog/>}/>

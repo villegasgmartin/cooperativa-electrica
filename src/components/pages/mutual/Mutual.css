@@ -4,43 +4,66 @@
     margin-bottom: 5rem;
 }
 
-/*Titulo*/
-.mutual-title{
-    font-size: 2.5rem;
-    font-family: "Archivo";
-    color: var(--darkgreen);
+/*Texto*/
+.mutual-text{
     text-align: center;
+    font-family: "interTight";
+    color: grey;
+    font-size: 1.5625rem;
+    width: 56.25rem;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /*Contenedor de información*/
 .mutual-container{
     display: flex;
-    align-items: center;
-    justify-content: center
+    justify-content: center;
+    margin-top: 2.5rem;
+    gap: 6.25rem;
 }
-
-/*Contenedor de texto*/
-.mutual-text-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/*Primer texto*/
-.mutual-first-text{
-    color: var(black);
-}
-
-
 
 /*Contenedor de imágen*/
 .mutual-image-container{
-    width: 37.5rem;
-    height: 37.5rem;
+    width: 31.25rem;
+    height: 31.25rem;
 }
 
 /*Imágen*/
 .mutual-image{
     width: 100%;
     height: 100%;
+}
+
+/*Contenedor de formulario*/
+.mutual-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 43.75rem;
+}
+
+/*Contenedor de texto y boton*/
+.mutual-enlace{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: .1875rem solid var(--darkgreen);
+    padding-top: 1.875rem;
+    border-bottom: .1875rem solid var(--darkgreen);
+    padding-bottom: 1.875rem;
+    margin-top: 5rem;
+    width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    gap: .625rem;
+}
+
+/*Texto*/
+.mutual-enlace-text{
+    color: grey;
+    font-family: "interTight";
+    font-size: 1.5625rem;
 }

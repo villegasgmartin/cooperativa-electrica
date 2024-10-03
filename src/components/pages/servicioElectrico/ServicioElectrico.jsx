@@ -9,6 +9,7 @@ import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import { Fade } from 'react-awesome-reveal'
+import { Link } from 'react-router-dom';
 
 //JSX:
 const ServicioElectrico = () => {
@@ -107,14 +108,17 @@ const ServicioElectrico = () => {
                 </ul>
               </div>
               <div className='servicio-buttonContainer'>
-                <Button sx={{
-                  width: "100%", 
-                  height: "60px",
-                  fontFamily: "archivo",
-                  backgroundColor: "#12824c"
-                }} 
-                  variant='contained' 
-                  size='large'>Preguntas Frecuentes</Button>
+                <Link to={"/preguntas-frecuentes"}>
+                  <Button sx={{
+                    width: "100%", 
+                    height: "60px",
+                    fontFamily: "archivo",
+                    backgroundColor: "#12824c"
+                  }} 
+                    variant='contained' 
+                    size='large'>Preguntas Frecuentes
+                    </Button>
+                </Link>
                 <Button sx={{
                   width: "100%", 
                   height: "60px",

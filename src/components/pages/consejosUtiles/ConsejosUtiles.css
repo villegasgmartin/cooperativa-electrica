@@ -1,0 +1,100 @@
+/*Contenedor principal*/
+.consejos-main-container{
+    margin-bottom: 5rem;
+}
+
+/*Contenedor de consejos e imágen*/
+.consejos-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9.375rem;
+    padding-top: 80px;
+    padding-bottom: 5rem;
+}
+
+/*Contenedor de texto*/
+.consejos-text-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 34.375rem;
+    gap: .625rem;
+}
+
+/*Número de consejo*/
+.consejos-number{
+    font-family: "archivo";
+    font-size: 2.5rem;
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+/*Consejo*/
+.consejos-text{
+    font-family: "interTight";
+    color: var(--black);
+    font-size: 1.5625rem;
+    text-align: center;
+}
+
+/*Contenedor de imágen*/
+.consejos-image-container{
+    position: relative;
+    width: 37.5rem;
+    height: 37.5rem;
+}
+
+/*Imágen*/
+.consejos-image{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/*Fondo Verde*/
+.consejos-image-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
+/*Fondo verde invertido*/
+#background-position::before {
+    transform: translate(-20px, 20px);
+}
+
+/*Fondo oscuro*/
+#dark-background{
+    background-color: var(--black)
+}
+
+/*Letras blancas*/
+#light-font{
+    color: white;
+}
+
+/*Contenedot de botón y logo*/
+.consejos-boton-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: .3125rem;
+    margin-top: 1.875rem;
+}
+
+/*Contenedor del logo*/
+.consejos-logo-container{
+    width: 9.375rem;
+}

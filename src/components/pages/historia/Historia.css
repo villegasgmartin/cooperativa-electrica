@@ -4,7 +4,6 @@
     margin-bottom: 5rem;
 }
 
-
 /*Frase*/
 .historia-intro{
     color: white;
@@ -89,11 +88,16 @@
     font-size: 2.5rem;
 }
 
+.historia{
+    background-color: #b7e5ce;
+}
+
 /*Cotenedor de acordeón*/
 .historia-accordion-container{
-    max-width: 75rem ;
+    max-width: 50rem ;
     margin: 80px auto;
     margin-top: 1.25rem;
+    padding-bottom: 5rem;
 }
 
 /*Valores contenedor principal*/

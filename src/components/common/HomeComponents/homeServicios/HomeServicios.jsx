@@ -6,6 +6,7 @@ import WifiTetheringIcon from "@mui/icons-material/WifiTethering";
 import { Link } from "react-router-dom";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { Fade } from "react-awesome-reveal";
+import HomeLogoNave from "../../../../assets/images/Logo_Nave_blanco.png"
 
 // JSX:
 // Imágenes de los servicios
@@ -69,8 +70,7 @@ const HomeServicios = () => {
   return (
     <section className="homeServicios-container">
       <Fade triggerOnce={true} duration={800} delay={300}>
-        <div className="title-container"><h2 className="homeServicios-title">Nave</h2></div>
-        <h3 className="homeServicios-subTitle">Internet Cooperativa</h3>
+        <div className="homeServicios-logo"><img src={HomeLogoNave} alt="logo de nave" width={"100%"} /></div>
       </Fade>
       <Fade triggerOnce={true}  duration={800} delay={300}>
         <div className="homeServicios-description">
@@ -127,7 +127,7 @@ const HomeServicios = () => {
         <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
           <WhatsAppIcon
             fontSize="large"
-            sx={{color: "#12824C"}}
+            sx={{color: "#2eed8d"}}
           />
           <h4 className="whatsapp">(223)537-6973</h4>
         </a>

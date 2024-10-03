@@ -40,6 +40,12 @@
     padding-top: 3.125rem;
     margin-left: 12.5rem;
 }
+/*Logo de Mutual*/
+.header-logo-mutual{
+    width: 18.75rem;
+    padding-top: 1.875rem;
+    margin-left: 12.5rem;
+}
 
 
 /*----------------Media Queries----------------*/

@@ -29,7 +29,7 @@ const Consejo = () => {
         <div className='consejo-accordion-container'>
           <AccordionGroup variant='soft' size='lg'>
           <Accordion>
-            <AccordionSummary>CONSEJO DE ADMINISTRACIÓN</AccordionSummary>
+            <AccordionSummary><p>CONSEJO DE ADMINISTRACIÓN</p></AccordionSummary>
             <AccordionDetails>
               <ul>
                 <li className='consejo-accordion-content'><strong>Presidente:</strong> Ing. Juan Carlos Dentis</li>

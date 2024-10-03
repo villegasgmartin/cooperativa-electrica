@@ -3,13 +3,11 @@
     background-color: var(--black);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1.875rem;
+    justify-content: space-evenly;
     align-items: center;
     padding-top: 5rem;
     padding-bottom: 5rem;
-    padding-left: 10%;
-    padding-right: 10%;
+    gap: 1.875rem;
 }
 
 /*Contenedor del logo*/
@@ -28,7 +26,6 @@
     flex-direction: column;
     gap: 1.25rem;
     align-items: center;
-    margin-right: 3.125rem;
 }
 
 /*Bordes estéticos*/
@@ -73,27 +70,17 @@
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1160px){
-    .footer-container{
-        padding-left: 5%;
-        padding-right: 5%;
+@media(max-width:1185px){
+    .footer-logo-container{
+        width: 15.625rem;
     }
+}
+
+@media(max-width:1160px){
     .footer-logo-container{
         width: 12.5rem;
     }
     .footer-links-container{
         margin-right: 0%;
-    }
-}
-
-@media(max-width:885px){
-    .footer-container{
-        padding-top: 4rem;
-        padding-bottom: 4rem;
-        justify-content: center;
-        gap: 4.375rem;
-    }
-    .footer-logo-container{
-        width: 15.625rem;
     }
 }
