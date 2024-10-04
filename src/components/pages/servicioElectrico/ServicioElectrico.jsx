@@ -119,14 +119,16 @@ const ServicioElectrico = () => {
                     size='large'>Preguntas Frecuentes
                     </Button>
                 </Link>
-                <Button sx={{
-                  width: "100%", 
-                  height: "60px",
-                  fontFamily: "archivo",
-                  backgroundColor: "#12824c"
-                }} 
-                  variant='contained' 
-                  size='large'>Objetivos Sociales</Button>
+                <Link to={"/objetivos-sociales"}>
+                  <Button sx={{
+                    width: "100%", 
+                    height: "60px",
+                    fontFamily: "archivo",
+                    backgroundColor: "#12824c"
+                  }} 
+                    variant='contained' 
+                    size='large'>Objetivos Sociales</Button>
+                </Link>
               </div>
             </div>
             <div className='servicio-extra-info'>

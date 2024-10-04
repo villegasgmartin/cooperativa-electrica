@@ -17,6 +17,7 @@ import Contacto from "./components/pages/contacto/Contacto.jsx"
 import Layout from "./components/common/layout/Layout.jsx"
 import Form from "./components/pages/formulario/Form.jsx"
 import Preguntas from "./components/pages/preguntas/Preguntas.jsx"
+import Objetivos from "./components/pages/objetivos/Objetivos.jsx"
 
 //JSX:
 function App() {
@@ -32,6 +33,7 @@ function App() {
           <Route path="/laboratorio-de-medidores" element={<Laboratorio/>}/>
           <Route path="/biblioteca" element={<Biblioteca/>}/>
           <Route path="/AMImutual" element={<Mutual/>}/>
+          <Route path="/objetivos-sociales" element={<Objetivos/>} />
           <Route path="/formas-de-pago" element={<FormasPago/>}/>
           <Route path="/consejos-utiles" element={<ConsejosUtiles/>}/>
           <Route path="preguntas-frecuentes" element={<Preguntas/>}/>

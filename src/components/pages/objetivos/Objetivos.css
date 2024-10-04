@@ -1,0 +1,124 @@
+/*Contenedor principal*/
+.objetivos-main-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/*Titulo objetivos sociales*/
+.objetivos-title{
+    font-size: 2.5rem ;
+    font-family: "archivo";
+    color: var(--darkgreen);
+    text-align: center;
+}
+
+/*Contenedor de objetivos e imágen*/
+.objetivos-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    gap: 9.375rem
+}
+
+/*Contenedor de objetivos*/
+.objetivos-text-container{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5625rem;
+}
+
+/*Objetivo*/
+.objetivo{
+    text-align: justify;
+    font-family: "interTight";
+    color: grey;
+    font-size: 1.25rem;
+    width: 34.375rem;
+}
+
+/*Fondo Violeta*/
+.objetivos-color-title{
+    font-family: "archivo";
+    font-size: 1.5625rem;
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+/*Contenedor de imágen*/
+.objetivos-image-container{
+    position: relative;
+    width: 37.5rem;
+    height: 31.25rem;
+}
+
+/*Imágen*/
+.objetivos-image{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/*Fondo Verde*/
+.objetivos-image-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
+/*Fondo verde invertido*/
+#background-position::before {
+    transform: translate(-20px, 20px);
+}
+
+/*Fondo oscuro*/
+#dark-background{
+    background-color: var(--black)
+}
+
+/*Letras blancas*/
+#light-font{
+    color: white;
+}
+
+/*Contenedor de articulo y logo*/
+.objetivos-logoText-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+/*Contenedor de articulo*/
+.objetivos-articulo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    gap: 1.25rem;
+}
+
+/*Texto final*/
+.objetivos-articulo{
+    font-family: "archivo";
+    color: grey;
+    font-size: 1.5625rem;
+    width: 31.25rem;
+    text-align: justify;
+}
+
+/*Logo al lado del texto*/
+.objetivos-logo{
+    width: 18.75rem;
+}
