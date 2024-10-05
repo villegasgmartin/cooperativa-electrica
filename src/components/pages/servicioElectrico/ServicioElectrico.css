@@ -9,7 +9,6 @@
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    background-color: #b7e5ce;
 }
 
 /*Accordeón texto*/
@@ -41,7 +40,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    text-align: center;
+    align-items: center;
+    text-align: justify;
     gap: .3125rem;
 }
 
@@ -50,7 +50,6 @@
     font-family: "Archivo";
     color: var(--darkgreen);
     font-size: 1.5625rem;
-    text-decoration: underline;
 }
 
 /*Descripción de aviso*/

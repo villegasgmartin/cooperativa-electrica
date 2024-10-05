@@ -151,22 +151,7 @@ const Contacto = () => {
             <div className='contacto-info-align'>
               <p className='contacto-info-text'><strong>Área comercial: </strong>comercial@coopelectmdp.com.ar</p>
               <p className='contacto-info-text'><strong>Horarios de atención: </strong>Lunes a Viernes de 7:30 a 12:30 hs.</p>
-              <FacebookIcon
-                sx={{
-                  color: "#12824c",
-                  fontSize: "60px",
-                  '&:hover': { transform: 'scale(1.2)' },
-                  transition: 'transform 0.3s ease, color 0.3s ease',
-                }}
-              />
-            </div>
-          </div>
-          <div className='contacto-info'>
-            <h4 className='contacto-info-title'>NAVE Internet</h4>
-            <div className='contacto-info-align'>
-              <p className='contacto-info-text'><strong>Comercial NAVE: </strong>nave@cooperativamdp.com.ar</p>
-              <p className='contacto-info-text'><strong>Facturación NAVE: </strong>nave-adm@cooperativamdp.com.ar</p>
-              <div className='contacto-icons'>
+              <a href="https://www.facebook.com/cooperativa.mardelplata" target='_blank'>
                 <FacebookIcon
                   sx={{
                     color: "#12824c",
@@ -175,14 +160,35 @@ const Contacto = () => {
                     transition: 'transform 0.3s ease, color 0.3s ease',
                   }}
                 />
-                <InstagramIcon
-                  sx={{
-                    color: "#12824c",
-                    fontSize: "60px",
-                    '&:hover': { transform: 'scale(1.2)' },
-                    transition: 'transform 0.3s ease, color 0.3s ease',
-                  }}
-                />
+              </a>
+            </div>
+          </div>
+          <div className='contacto-info'>
+            <h4 className='contacto-info-title'>NAVE Internet</h4>
+            <div className='contacto-info-align'>
+              <p className='contacto-info-text'><strong>Comercial NAVE: </strong>nave@cooperativamdp.com.ar</p>
+              <p className='contacto-info-text'><strong>Facturación NAVE: </strong>nave-adm@cooperativamdp.com.ar</p>
+              <div className='contacto-icons'>
+                <a href="https://www.facebook.com/naveinternetoficial" target='_blank'>
+                  <FacebookIcon
+                    sx={{
+                      color: "#12824c",
+                      fontSize: "60px",
+                      '&:hover': { transform: 'scale(1.2)' },
+                      transition: 'transform 0.3s ease, color 0.3s ease',
+                    }}
+                  />
+                </a>
+                <a href="https://www.instagram.com/coopelectmdp_nave/" target='_blank'>
+                  <InstagramIcon
+                    sx={{
+                      color: "#12824c",
+                      fontSize: "60px",
+                      '&:hover': { transform: 'scale(1.2)' },
+                      transition: 'transform 0.3s ease, color 0.3s ease',
+                    }}
+                  />
+                </a>
               </div>
             </div>
           </div>

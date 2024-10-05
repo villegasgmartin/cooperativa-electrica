@@ -72,6 +72,7 @@ const HomeServicios = () => {
       <Fade triggerOnce={true} duration={800} delay={300}>
         <div className="homeServicios-logo"><img src={HomeLogoNave} alt="logo de nave" width={"100%"} /></div>
       </Fade>
+      <Fade triggerOnce={true} duration={800} delay={300}><h2 className="homeServicios-title">Internet Cooperativa</h2></Fade>
       <Fade triggerOnce={true}  duration={800} delay={300}>
         <div className="homeServicios-description">
           <h3 className="homeServicios-text">Instalación sin cargo!</h3>

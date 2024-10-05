@@ -76,6 +76,7 @@
     font-family: "interTight";
     font-size: 1.25rem;
     width: 37.5rem;
+    height: 16.25rem;
     color: var(--black);
     border: .1875rem solid var(--darkgreen);
     padding: 1.875rem;

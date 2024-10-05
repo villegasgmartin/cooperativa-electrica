@@ -18,6 +18,10 @@ import Layout from "./components/common/layout/Layout.jsx"
 import Form from "./components/pages/formulario/Form.jsx"
 import Preguntas from "./components/pages/preguntas/Preguntas.jsx"
 import Objetivos from "./components/pages/objetivos/Objetivos.jsx"
+import BlogNoticia1 from "./components/pages/blogNoticia1/BlogNoticia1.jsx"
+import BlogNoticia2 from "./components/pages/blogNoticia2/BlogNoticia2.jsx"
+import BlogNoticia3 from "./components/pages/blogNoticia3/BlogNoticia3.jsx"
+import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
 
 //JSX:
 function App() {
@@ -33,13 +37,17 @@ function App() {
           <Route path="/laboratorio-de-medidores" element={<Laboratorio/>}/>
           <Route path="/biblioteca" element={<Biblioteca/>}/>
           <Route path="/AMImutual" element={<Mutual/>}/>
-          <Route path="/objetivos-sociales" element={<Objetivos/>} />
+          <Route path="/objetivos-sociales" element={<Objetivos/>}/>
           <Route path="/formas-de-pago" element={<FormasPago/>}/>
           <Route path="/consejos-utiles" element={<ConsejosUtiles/>}/>
           <Route path="preguntas-frecuentes" element={<Preguntas/>}/>
           <Route path="/nave" element={<Nave/>} />
           <Route path="/contacto" element={<Contacto/>}/>
           <Route path="/blog" element={<Blog/>}/>
+          <Route path="/blog-1" element={<BlogNoticia1/>}/>
+          <Route path="/blog-2" element={<BlogNoticia2/>}/>
+          <Route path="/blog-3" element={<BlogNoticia3/>}/>
+          <Route path="/blog-4" element={<BlogNoticia4/>}/>
           <Route path="/formulario" element={<Form/>}/>
         </Route>
   </Routes>

@@ -1,0 +1,109 @@
+/*Contenedor principal*/
+.noticia2-main-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/*Contenedor de título, imágen y texto principales*/
+.noticia2-secondary-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*Título noticia*/
+.noticia2-title{
+    font-family: "archivo";
+    font-size: 2.5rem;
+    color: var(--black);
+    margin-bottom: .625rem;
+}
+
+/*Contenedor de imágen principal*/
+/*Aca podes editar las dimensiones de la imágen principal*/
+.noticia2-mainImage-container{
+    width: 56.25rem;
+    height: 31.25rem;
+    border-radius: 1.25rem;
+}
+
+/*Imágen principal*/
+.noticia2-mainImage{
+    width: 100%;
+    height: 100%;
+    border-radius: 1.25rem;
+}
+
+/*Texto principal de la noticia*/
+.noticia2-mainDescription{
+    font-family: "interTight";
+    color: grey;
+    font-size: 1.5625rem;
+    width: 70%;
+    text-align: justify;
+    margin-top: 1.25rem;
+    margin-bottom: 1.875rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Contenedor de información extra*/
+.noticia2-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    gap: 9.375rem;
+}
+
+/*Contenedor de imágenes extra*/
+/*Aca podes editar las dimensiones de imágenes secundarias */
+.noticia2-image-container{
+    position: relative;
+    width: 37.5rem;
+    height: 21.875rem;
+}
+
+/*Imágees extra*/
+.noticia2-image{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/*Fondo Verde*/
+.noticia2-image-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
+/*Fondo verde invertido*/
+#background-position::before {
+    transform: translate(-20px, 20px);
+}
+
+/*Descripción extra*/
+.noticia2-description{
+    font-family: "interTight";
+    color: grey;
+    text-align: justify;
+    font-size: 1.25rem;
+    width: 37.5rem;
+}
+
+/*Contenedor de botón*/
+.noticia2-buttonContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 1.25rem;
+}

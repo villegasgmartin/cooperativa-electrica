@@ -28,6 +28,7 @@ const pages = [
         { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
         { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
         { name: 'Historia', path: '/historia' },
+        { name: 'Blog', path: '/Blog' }
     ]},
     { name: 'USUARIOS', path: '#', submenu: [
         { name: 'Formas y lugares de pago', path: '/formas-de-pago' },

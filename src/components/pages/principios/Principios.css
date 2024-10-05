@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .principios-main-container{
-    margin-top: 5rem;
+    padding-top: 5rem;
+    background-color: rgb(248, 248, 248);
 }
 
 /*Introducción*/
@@ -45,8 +46,8 @@
 /*Contenedor de imagen*/
 .principios-image-container{
     position: relative;
-    width: 37.5rem;
-    height: 37.5rem;
+    width: 43.75rem;
+    height: 34.375rem;
 }
 
 /*Imágen*/
@@ -56,13 +57,20 @@
     height: 100%;
 }
 
+/*Segundo contenedor*/
+.principios-second-container{
+    display: flex;
+    flex-direction: column;
+    gap: 3.125rem;
+}
+
 /*Contenedor de texto*/
 .principios-text-container{
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 1.25rem;
     width: 37.5rem;
+    gap: .625rem;
 }
 
 /*Principio*/

@@ -131,12 +131,6 @@ const ServicioElectrico = () => {
                 </Link>
               </div>
             </div>
-            <div className='servicio-extra-info'>
-              <div className='servicio-info-imageContainer'><img width={"100%"} src="https://www.cooperativamdp.com.ar/wp-content/uploads/2016/03/icon_05.png" alt="" /></div>
-              <h4 className='servicio-extraInfo-title'>Cooperativa de Provisión de Electricidad y Servicios Públicos de Mar del Plata, ltda.</h4>
-              <p className='servicio-extraInfo-text'>Entidad de Bien Público – Resolución Nº 571/83
-                Municipalidad de General Pueyrredón</p>
-            </div>
         </Fade>
         </div>
     </section>

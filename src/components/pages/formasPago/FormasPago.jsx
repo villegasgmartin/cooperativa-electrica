@@ -40,7 +40,7 @@ const FormasPago = () => {
                 En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos</strong>.Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones.<br/>
                 Muchas gracias.
               </p>
-              <p className='pagos-info-text'><span style={{color: "#12824c", fontWeight: "bold"}}>Sres. /as. Asociados:<br/></span> Se informa que a partir de abril 2023  la emisión de facturas es mensual, a fin de facilitar el pago del servicio eléctrico frente al aumento de los cuadros tarifarios, para dar cumplimiento a lo dispuesto oportunamente por el Organismo de Control Eléctrico de la Provincia de Buenos Aires OCEBA.
+              <p className='pagos-info-text' ><span style={{color: "#12824c", fontWeight: "bold"}}>Sres. /as. Asociados:<br/></span> Se informa que a partir de abril 2023  la emisión de facturas es mensual, a fin de facilitar el pago del servicio eléctrico frente al aumento de los cuadros tarifarios, para dar cumplimiento a lo dispuesto oportunamente por el Organismo de Control Eléctrico de la Provincia de Buenos Aires OCEBA.
               </p>
             </Fade>
           </div>
