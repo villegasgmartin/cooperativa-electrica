@@ -23,7 +23,7 @@ const Laboratorio = () => {
     <section className='laboratorio-main-container'>
       <div className='laboratorio-info-container'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='laboratorio-image-container' id='background-position'><img src={LabImage01} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>
+          <div className='laboratorio-image-container laboratorio-background-position'><img src={LabImage01} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>
           <div className='laboratorio-text-container'>
             <h2 className='laboratorio-title color-title'>"LACOP"</h2>
             <p className='laboratorio-text'>“Lacop” nace el 30 de Septiembre de 2004, con el fin de desarrollar actividades de naturaleza económica, tendientes a ofrecer servicios técnicos vinculados con su objeto social, principalmente a otras cooperativas eléctricas, como así a quienes demanden sus servicios, en un verdadero espíritu abierto, participativo, y de solidaridad cooperativa.<br/>
@@ -47,7 +47,7 @@ const Laboratorio = () => {
       </div>
       <div className='laboratorio-info-container'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='laboratorio-image-container' id='background-position'><img src={LabImage03} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>
+          <div className='laboratorio-image-container laboratorio-background-position'><img src={LabImage03} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>
           <div className='laboratorio-text-container'>
             <p className='laboratorio-text'>
             Como resultado de esa realidad, surge entonces en el área técnica de las cooperativas de Mar del Plata, Laguna de los Padres y Dionisia la idea de constituir un laboratorio propio de ensayo y calibración de medidores, idea que es elevada a los respectivos consejos de administración para su consideración, la que por cierto es acompañada por estos últimos.<br/>

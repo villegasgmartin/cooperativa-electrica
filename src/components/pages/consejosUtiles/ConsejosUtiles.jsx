@@ -30,7 +30,7 @@ const ConsejosUtiles = () => {
       </div>
       <div className='consejos-container' id='dark-background'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='consejos-image-container' id='background-position'><img src="https://static.vecteezy.com/system/resources/previews/026/562/385/non_2x/green-energy-concept-illustration-isolated-flat-cartoon-bulb-lamp-eco-electricity-saving-alternative-renewable-resources-green-leaves-logo-design-element-vector.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
+          <div className='consejos-image-container consejos-background-position'><img src="https://static.vecteezy.com/system/resources/previews/026/562/385/non_2x/green-energy-concept-illustration-isolated-flat-cartoon-bulb-lamp-eco-electricity-saving-alternative-renewable-resources-green-leaves-logo-design-element-vector.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Segundo Consejo:</h3>
             <p className='consejos-text' id='light-font'>Recuerde que las tarifas argentinas son ascendentes, a mayor consumo mayor costo, por lo cual recomendamos racionalizar el uso de la energía no solo por los problemas de generación y conservación del medio ambiente que son de conocimiento popular, sino además para gastar menos al momento de abonar la energía.</p>
@@ -48,7 +48,7 @@ const ConsejosUtiles = () => {
       </div>
       <div className='consejos-container' id='dark-background'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='consejos-image-container' id='background-position'><img src="https://static.vecteezy.com/system/resources/previews/005/483/099/original/home-electrical-appliances-broken-microwave-damaged-device-cartoon-flat-illustration-fire-safety-vector.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
+          <div className='consejos-image-container consejos-background-position'><img src="https://static.vecteezy.com/system/resources/previews/005/483/099/original/home-electrical-appliances-broken-microwave-damaged-device-cartoon-flat-illustration-fire-safety-vector.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Cuarto Consejo:</h3>
             <p className='consejos-text' id='light-font'>Conforme al Marco Regulatorio Eléctrico Provincial- Sub- Anexo D, Reglamentación para el Ejercicio de Instalaciones Eléctrica de Inmuebles AEA 90364 - Sección 771: Viviendas, oficinas y locales (unitarios), edición Marzo 2006 las instalaciones eléctricas deben estar realizadas y protegidas conforme a los lineamientos establecidos en la misma. No se reconocerá daños en electrodomésticos u otro tipo de máquina si al momento de realizar la inspección correspondiente no se encuentran las protecciones adecuadas a la norma.</p>

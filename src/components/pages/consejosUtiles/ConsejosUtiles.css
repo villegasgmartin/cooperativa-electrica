@@ -70,8 +70,8 @@
 }
 
 /*Fondo verde invertido*/
-#background-position::before {
-    transform: translate(-20px, 20px);
+.consejos-background-position::before {
+    transform: translate(-28px, 20px);
 }
 
 /*Fondo oscuro*/
@@ -149,7 +149,10 @@
         height: 18.75rem
     }
     .consejos-image-container::before{
-        transform: translate(10px, 10px) /*Acomodar esto*/
+        transform: translate(10px, 10px)
+    }
+    .consejos-background-position::before {
+        transform: translate(-20px, 10px);
     }
 }
 

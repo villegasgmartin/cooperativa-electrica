@@ -61,7 +61,7 @@ const ServicioElectrico = () => {
           </Fade>
           <Fade triggerOnce={true} duration={800} delay={300}>
             <div className='servicio-usuarios'id='dark-background'>
-              <div className='servicio-image-container' id='background-position'><img src="https://www.enel.cl/content/dam/enel-cl/es/personas/informacion-de-utilidad/que-hace-enel-ante-un-corte-de-luz/08.png" alt="imágen de aviso" className='servicio-image' /></div>
+              <div className='servicio-image-container servicio-background-position' ><img src="https://www.enel.cl/content/dam/enel-cl/es/personas/informacion-de-utilidad/que-hace-enel-ante-un-corte-de-luz/08.png" alt="imágen de aviso" className='servicio-image' /></div>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'id='light-font'>Sres. Usuarios:</h3>
                 <p className='servicio-usuarios-description' id='light-font'>En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos.</strong>

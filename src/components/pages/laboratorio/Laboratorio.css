@@ -85,8 +85,8 @@
 }
 
 /*Fondo verde invertido*/
-#background-position::before {
-    transform: translate(-20px, 20px);
+.laboratorio-background-position::before {
+    transform: translate(-30px, 20px);
 }
 
 /*Pié de kaboratorio*/
@@ -139,8 +139,8 @@
     .laboratorio-image-container::before{
         transform: translate(10px, 10px)
     }
-    #background-position::before {
-        transform: translate(-20px, 20px);/*Acomodar esto*/
+    .laboratorio-background-position::before {
+        transform: translate(-20px, 10px);
     }
 }
 

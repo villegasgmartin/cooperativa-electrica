@@ -82,8 +82,8 @@
 }
 
 /*Fondo verde invertido*/
-#background-position::before {
-    transform: translate(-20px, 20px);
+.servicio-background-position::before {
+    transform: translate(-28px, 20px);
 }
 
 /*Contenedor de imagen*/
@@ -195,6 +195,12 @@ position: relative;
         width: 21.875rem;
         height: 15.625rem;
     }
+    .servicio-image-container::before{
+        transform: translate(10px, 10px)
+    }
+    .servicio-background-position::before {
+        transform: translate(-17px, 10px);
+    }
     .servicio-usuarios-title{
         width: 25rem;
     }
@@ -228,12 +234,6 @@ position: relative;
     .servicio-image-container{
         width: 18.75rem;
         height: 12.5rem;
-    }
-    .servicio-image-container::before{
-        transform: translate(10px, 10px)
-    }
-    #background-position::before {
-        transform: translate(-20px, 20px);/*Acomodar esto*/
     }
     .servicio-info{
         width: 21.875rem;

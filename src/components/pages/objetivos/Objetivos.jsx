@@ -31,7 +31,7 @@ const Objetivos = () => {
             </div>
             <div className='objetivos-container' id='dark-background'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
-                    <div className='objetivos-image-container' id='background-position'><img src="https://img.freepik.com/vector-premium/obra-construccion-construccion-casa-gruas-maquinas_126283-78.jpg" alt="objetivos sociales" className='objetivos-image' /></div>
+                    <div className='objetivos-image-container objetivos-background-position'><img src="https://img.freepik.com/vector-premium/obra-construccion-construccion-casa-gruas-maquinas_126283-78.jpg" alt="objetivos sociales" className='objetivos-image' /></div>
                     <p className='objetivo' id='light-font'><span className='objetivos-color-title'>C)</span> Prestar otros servicios públicos como los de gas, teléfonos, comunicaciones, construcción y mantenimiento de pavimentos, desagües, redes de provisión de agua o de cloacas, construcción de cercos, veredas y todo otro servicio que promueva el bienestar de sus asociados y el desarrollo de la comunidad. Para ello podrá efectuar las construcciones necesarias o financiarlas con sus propios fondos, celebrando los convenios y contratos que fuere menester, ya sea con los poderes públicos nacionales, provinciales y municipales, entes administrativos o de carácter privado de cualquier naturaleza.</p>
                 </Fade>
             </div>
@@ -43,7 +43,7 @@ const Objetivos = () => {
             </div>
             <div className='objetivos-container'  id='dark-background'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
-                    <div className='objetivos-image-container' id='background-position'><img src="https://static.vecteezy.com/system/resources/previews/000/689/257/non_2x/construction-engineer-cartoon-vector.jpg" alt="objetivos sociales" className='objetivos-image' /></div>
+                    <div className='objetivos-image-container objetivos-background-position'><img src="https://static.vecteezy.com/system/resources/previews/000/689/257/non_2x/construction-engineer-cartoon-vector.jpg" alt="objetivos sociales" className='objetivos-image' /></div>
                     <p className='objetivo' id='light-font'>adquirir en el mercado los materiales y demás elementos necesarios para la construcción, con destino a su empleo por la Cooperativa o al suministro; gestionar el concurso de los poderes públicos para la realización de las obras viales necesarias, obras sanitarias y de desagüe en la zona de influencia de la Cooperativa; proporcionar el asesoramiento en todo lo relacionado con el problema de la vivienda brindando los servicios técnicos y la asistencia jurídica necesarios; propender al fomento de los hábitos de economía y previsión entre los asociados. La Cooperativa excluye de sus objetivos las operaciones de ahorro y préstamo para la vivienda u otros fines.</p>
                 </Fade>
             </div>
@@ -59,7 +59,7 @@ const Objetivos = () => {
             </div>
             <div className='objetivos-container'  id='dark-background'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
-                    <div className='objetivos-image-container'id='background-position'><img src="https://static.vecteezy.com/system/resources/previews/013/612/659/non_2x/lighting-and-electricity-energy-maintenance-service-panel-cabinet-of-technician-electrical-work-on-flat-cartoon-hand-drawn-templates-illustration-vector.jpg" alt="objetivos sociales" className='objetivos-image' /></div>
+                    <div className='objetivos-image-container objetivos-background-position'><img src="https://static.vecteezy.com/system/resources/previews/013/612/659/non_2x/lighting-and-electricity-energy-maintenance-service-panel-cabinet-of-technician-electrical-work-on-flat-cartoon-hand-drawn-templates-illustration-vector.jpg" alt="objetivos sociales" className='objetivos-image' /></div>
                     <div className='objetivos-text-container'>
                         <p className='objetivo' id='light-font'><span className='objetivos-color-title'>H)</span> Fomentar el espíritu de solidaridad entre sus asociados, y cumplir con el fin de formar una conciencia cooperativa, ejecutando programas de difusión y educación cooperativa.</p>
                         <p className='objetivo' id='light-font'><span className='objetivos-color-title'>I)</span> Los servicios de suministro de electricidad a que se refiere el inciso a), como asimismo todas las demás prestaciones especificadas precedentemente podrán prestarse a terceros no asociados, dentro de las normas correspondientes que las condicionan, establecidas por la autoridad de aplicación, y los usuarios no tendrán derecho al retorno de utilidades que correspondiere.</p>

@@ -78,8 +78,8 @@
 }
 
 /*Fondo verde invertido*/
-#background-position::before {
-    transform: translate(-20px, 20px);
+.objetivos-background-position::before {
+    transform: translate(-25px, 20px);
 }
 
 /*Fondo oscuro*/
@@ -143,6 +143,12 @@
         width: 25rem;
         height: 18.75rem;
     }
+    .objetivos-image-container::before{
+        transform: translate(10px, 10px)
+    }
+    .objetivos-background-position::before {
+        transform: translate(-17px, 10px);
+    }
     .objetivos-color-title{
         font-size: 1.25rem;
     }
@@ -156,12 +162,6 @@
     .objetivos-image-container{
         width: 21.875rem;
         height: 15.625rem;
-    }
-    .objetivos-image-container::before{
-        transform: translate(10px, 10px)
-    }
-    #background-position::before {
-        transform: translate(-10px, 10px);/*Acomodar esto*/
     }
     .objetivo{
         width: 25rem;

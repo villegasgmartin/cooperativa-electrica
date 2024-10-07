@@ -24,12 +24,12 @@ const Historia = () => {
       <div className='historia-bio-container'>
         <Fade triggerOnce={true} duration={800} delay={300}>
           <p className='historia-text'>Nuestra Cooperativa, nació en el año 1934, como producto de la reacción ante los excesos cometidos por la Compañía de Electricidad del Sud Argentino (C.E.S.A.), dependiente del grupo estadounidense A.N.S.E.C. (Andes, Norte, Sud, Este y Centro), que prestaba servicio en condiciones de abuso y onerosidad extremos, rayanos con la expoliación. Esta firma era, probablemente, controlada por la Banca Morgan.</p>
-          <div className='historia-image-container'><img className='historia-image' src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHc5xL0e3sqJBx3fhnIGZVdEpn2UwzuH1cJ5cQeId2-vqlZXfweyK1kzzgCwGZAJLtjX-htxa4kewu1uoL0Q-S020ZmydhAa81kF0awUTmtZHTUnEkceGeUZLSeobn0pHFhxElqZ0n7bgE/s1600/Comitiva+que+avanzo+por+Diag.+Pueyrredon+a%25C3%25B1o+1939.jpg" alt="" /></div>
+          <div className='historia-image-container historia-bacground-position'><img className='historia-image' src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHc5xL0e3sqJBx3fhnIGZVdEpn2UwzuH1cJ5cQeId2-vqlZXfweyK1kzzgCwGZAJLtjX-htxa4kewu1uoL0Q-S020ZmydhAa81kF0awUTmtZHTUnEkceGeUZLSeobn0pHFhxElqZ0n7bgE/s1600/Comitiva+que+avanzo+por+Diag.+Pueyrredon+a%25C3%25B1o+1939.jpg" alt="" /></div>
         </Fade>
       </div>
       <div className='historia-bio-container' id='dark-background' >
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='historia-image-container' id='background-position' ><img className='historia-image' src="https://www.essapp.coop/sites/www.essapp.coop/files/electricidad.jpg" alt="" /></div>
+          <div className='historia-image-container historia-background-position'><img className='historia-image' src="https://www.essapp.coop/sites/www.essapp.coop/files/electricidad.jpg" alt="" /></div>
           <p className='historia-text' id='light-font' >Corresponde aquí recordar brevemente la historia de los sucesos ocurridos inmediatamente antes de que la Cooperativa comenzara a cumplir con su cometido –generación y distribución de electricidad- que tuvieron una trascendencia sustancialmente mayor en la comunidad, en cuanto a su capacidad de conmover y cohesionar a los marplatenses, que los relacionados con nuestra entidad durante los 90 años posteriores.</p>
         </Fade>
       </div>
@@ -39,8 +39,7 @@ const Historia = () => {
           <Fade triggerOnce={true} duration={800} delay={300}><HistoriaAcordeon/></Fade>
         </div>
       </div>
-      {/* 
-             <section className='valores-container'>
+          <section className='valores-container'>
           <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='valores-image-container'>
             <img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/04/icon_03.png" style={{width: "100%"}} alt="imágen de historia" />
@@ -61,8 +60,7 @@ const Historia = () => {
             <img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/05/valores.png" style={{width: "100%"}} alt="imágen de valores" />
           </div>
         </Fade>
-      </section>      
-      */}
+      </section>
       <BotonFlotante/>
     </section>
   );

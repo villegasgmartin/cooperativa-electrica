@@ -49,8 +49,8 @@
 }
 
 /*Fondo verde invertido*/
-#background-position::before {
-    transform: translate(-20px, 20px);
+.historia-background-position::before {
+    transform: translate(-28px, 20px);
 }
 
 /*Impagen*/
@@ -88,14 +88,11 @@
     font-size: 2.5rem;
 }
 
-.historia{
-    background-color: #b7e5ce;
-}
-
 /*Cotenedor de acordeón*/
 .historia-accordion-container{
     max-width: 50rem ;
-    margin: 80px auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 1.25rem;
     padding-bottom: 5rem;
 }
@@ -152,6 +149,12 @@
         width: 25rem;
         height: 25rem;
     }
+    .valores-text-container{
+        width: 37.5rem;
+    }
+    .valores-image-container{
+        width: 12.5rem;
+    }
 }
 
 @media (max-width: 1170px){
@@ -170,7 +173,16 @@
         height: 18.75rem;
     }
     .historia-image-container::before{
-        transform: translate(10px, 10px) /*Acomodar esto*/
+        transform: translate(10px, 10px)
+    }
+    .historia-background-position::before {
+        transform: translate(-18px, 10px);
+    }
+    .valores-text-container{
+        width: 21.875rem;
+    }
+    .valores-image-container{
+        width: 11.25rem;
     }
 }
 
@@ -221,6 +233,30 @@
     }
     .historia-title{
         font-size: 2.1875rem;
+    }
+    .valores-container{
+        flex-direction: column;
+        gap: 1.875rem;
+    }
+    .valores-text-container{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .valores-image-container{
+        width: 200px;
+    }
+}
+
+@media (max-width: 600px){
+    .valores-text{
+        font-size: 1.375rem;
+    }
+    .valores-list{
+        font-size: 1.25rem;
+    }
+    .valores-image-container{
+        width: 9.375rem;
     }
 }
 
