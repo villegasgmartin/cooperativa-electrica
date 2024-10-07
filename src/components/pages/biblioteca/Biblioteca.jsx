@@ -8,7 +8,6 @@ import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import "../biblioteca/Biblioteca.css"
 import { Fade } from 'react-awesome-reveal';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 
 //JSX:
 const Biblioteca = () => {
@@ -94,7 +93,6 @@ const Biblioteca = () => {
           <div className='biblioteca-image-container'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/05/logobiblio.png" alt="logo de biblioteca" width={"100%"}/></div>
         </Fade>
       </div>
-      <BotonFlotante/>
     </section>
   );
 };

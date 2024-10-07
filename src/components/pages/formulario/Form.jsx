@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import "../formulario/Form.css"
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 //JSX:
@@ -203,7 +202,6 @@ const Form = () => {
                 </div>
             </Fade>
         </div>
-        <BotonFlotante/>
         </section>
     );
 };

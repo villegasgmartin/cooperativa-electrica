@@ -8,7 +8,6 @@ import image02 from "../../../assets/images/comunicados/comunicados02.jpeg"
 import image03 from "../../../assets/images/comunicados/comunicados03.jpeg"
 import image04 from "../../../assets/images/comunicados/comunicados04.jpeg"
 import { Fade } from "react-awesome-reveal";
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 
 //JSX:
 const Comunicados = () => {
@@ -85,7 +84,6 @@ const Comunicados = () => {
           </div>
         </Fade>
       </div>
-      <BotonFlotante/>
     </section>
   );
 };

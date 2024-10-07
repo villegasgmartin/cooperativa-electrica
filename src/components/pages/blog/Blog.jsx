@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../blog/Blog.css"
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 
@@ -54,7 +53,6 @@ const Blog = () => {
           </div>
         </Fade>
       </div>
-      <BotonFlotante/>
     </section>
   );
 };

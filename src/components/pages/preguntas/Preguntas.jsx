@@ -8,7 +8,6 @@ import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
 import "../preguntas/Preguntas.css"
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 //JSX:
@@ -107,7 +106,6 @@ const Preguntas = () => {
                     <div className='preguntas-logo-container'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/04/icon_06.png" alt="logo de preguntas" width={"100%"} /></div>
                 </Fade>
             </div>
-            <BotonFlotante/>
         </section>
     );
 };

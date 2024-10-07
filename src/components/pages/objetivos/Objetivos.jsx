@@ -5,7 +5,6 @@ import { setTitle } from '../../../store/titleSlice';
 import "../objetivos/Objetivos.css"
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 //JSX:
@@ -87,7 +86,6 @@ const Objetivos = () => {
                     <div className='objetivos-logo'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/05/des_soc.png" alt="objetivos sociales" width={"100%"} /></div>
                 </Fade>
             </div>
-            <BotonFlotante/>
         </section>
     );
 };

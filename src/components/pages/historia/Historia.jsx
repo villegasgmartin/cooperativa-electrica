@@ -5,7 +5,6 @@ import { setTitle } from '../../../store/titleSlice';
 import "../historia/Historia.css"
 import HistoriaAcordeon from '../../common/HistoriaComponents/historiaAcordeon/HistoriaAcordeon';
 import { Fade } from 'react-awesome-reveal';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 
 //JSX:
 const Historia = () => {
@@ -61,7 +60,6 @@ const Historia = () => {
           </div>
         </Fade>
       </section>
-      <BotonFlotante/>
     </section>
   );
 };

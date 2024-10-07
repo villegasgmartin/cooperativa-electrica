@@ -5,7 +5,6 @@ import { setTitle } from '../../../store/titleSlice';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import "../blogNoticia2/BlogNoticia2.css"
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 /*Para cambiar la imágen principal en esta sección: colocar la ruta que corresponde aqui debajo*/
@@ -61,7 +60,6 @@ const BlogNoticia2 = () => {
                     </Link>
                 </Fade>
             </div>
-            <BotonFlotante/>
         </section>
     )
 }

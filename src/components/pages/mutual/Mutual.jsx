@@ -5,7 +5,6 @@ import { setTitle } from '../../../store/titleSlice';
 import { Button, TextField, Typography } from '@mui/material';
 import "../mutual/Mutual.css";
 import MutualImage from "../../../assets/images/mutual.jpeg";
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 // JSX:
@@ -133,7 +132,6 @@ const Mutual = () => {
           </a>
         </div>
       </Fade>
-      <BotonFlotante />
     </section>
   );
 };

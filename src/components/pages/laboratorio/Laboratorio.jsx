@@ -7,7 +7,6 @@ import LabImage01 from "../../../assets/images/laboratorio/laboratorio01.jpg"
 import LabImage02 from "../../../assets/images/laboratorio/laboratorio02.jpg"
 import LabImage03 from "../../../assets/images/laboratorio/laboratorio03.jpg"
 import LabImage04 from "../../../assets/images/laboratorio/laboratorio04.jpg"
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 //JSX:
@@ -80,7 +79,6 @@ const Laboratorio = () => {
           <div className='laboratorio-final-logo'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/04/icon_07.png" alt="logo de medidores" width={"100%"} /></div>
         </Fade>
       </div>
-      <BotonFlotante/>
     </section>
   );
 };

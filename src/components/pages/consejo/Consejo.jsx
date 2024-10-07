@@ -8,7 +8,6 @@ import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import "../consejo/Consejo.css"
 import { Fade } from 'react-awesome-reveal';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 
 //JSX:
 const Consejo = () => {
@@ -102,7 +101,6 @@ const Consejo = () => {
         </AccordionGroup>
         </div>
       </Fade>
-      <BotonFlotante/>
     </section>
   );
 };

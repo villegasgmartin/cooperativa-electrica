@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
 import "../formasPago/FormasPago.css"
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 //JSX:
@@ -54,7 +53,6 @@ const FormasPago = () => {
               </div>
           </Fade>
         </div>
-        <BotonFlotante/>
     </section>
   );
 };

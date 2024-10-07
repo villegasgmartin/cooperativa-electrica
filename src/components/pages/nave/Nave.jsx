@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import CardCarousel from '../../common/NaveComponents/CardCarousel/CardCarousel';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 import "../nave/Nave.css"
 
@@ -25,7 +24,6 @@ const Nave = () => {
       <Fade triggerOnce={true} duration={800} delay={300}>
         <CardCarousel/>
       </Fade>
-      <BotonFlotante/>
     </section>
   );
 };

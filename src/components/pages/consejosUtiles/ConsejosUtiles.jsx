@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../consejosUtiles/ConsejosUtiles.css"
 import { Button } from '@mui/material';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 
@@ -82,7 +81,6 @@ const ConsejosUtiles = () => {
             </Link>
           </div>
         </Fade>
-      <BotonFlotante/>
     </section>
   );
 };

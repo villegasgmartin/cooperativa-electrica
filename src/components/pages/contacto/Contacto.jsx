@@ -6,7 +6,6 @@ import { TextField, Button, Select, MenuItem, FormControl } from '@mui/material'
 import "../contacto/Contacto.css";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
 
 const Contacto = () => {
@@ -206,7 +205,6 @@ const Contacto = () => {
           </div>
         </div>
       </Fade>
-      <BotonFlotante />
     </section>
   );
 };
