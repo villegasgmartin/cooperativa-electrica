@@ -79,7 +79,7 @@ const ServicioElectrico = () => {
               <div className='servicio-image-container'><img src="https://www.jotform.com/blog/wp-content/uploads/2018/12/New-feature-reminder-email-blog-00B894-700x424.png?3.3.57079" alt="imágen de aviso" className='servicio-image'/></div>
             </div>
           </Fade>
-        <div className='servicio-info-container'>
+            <div className='servicio-info-container'>
         <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='servicio-info'>
               <h3 className='servicio-info-title'>Datos Identificatorios</h3>

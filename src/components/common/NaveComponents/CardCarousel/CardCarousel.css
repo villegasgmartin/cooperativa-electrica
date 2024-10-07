@@ -68,8 +68,6 @@
 @media(max-width:770px){
     .carousel-container{
         width: 19.375rem;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
     }
     .slick-next {
         right: -30px;

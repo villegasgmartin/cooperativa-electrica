@@ -31,7 +31,8 @@
 /*Contenedor de acordeones*/
 .consejo-accordion-container{
     max-width: 1200px;
-    margin: 80px auto;
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 1.25rem;
 }
 
@@ -40,4 +41,46 @@
     margin-left: .9375rem;
     font-family: "interTight";
     color: var(--black);
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1280px){
+    .consejo-accordion-container{
+        width: 80%;
+    }
+}
+
+@media (max-width: 1165px){
+    .consejo-text{
+        width: 80%;
+    }
+}
+
+@media (max-width: 760px){
+    .consejo-container{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+    .consejo-title{
+        font-size: 2.1875rem;
+    }
+    .consejo-text{
+        width: 90%;
+    }
+    .consejo-accordion-container{
+        width: 90%;
+    }
+}
+
+@media (max-width: 520px){
+    .consejo-title{
+        font-size: 1.875rem;
+    }
+}
+
+@media (max-width: 450px){
+    .consejo-title{
+        font-size: 25px;
+    }
 }

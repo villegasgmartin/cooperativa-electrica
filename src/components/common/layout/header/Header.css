@@ -1,37 +1,40 @@
-.header-contactos-container{
-    background-color: var(--black);
-    display: flex;
-    justify-content: space-around;
-    height: 5.625rem;
+/*Contenedor principal*/
+.header-main-container{
+    background-image: 
+    linear-gradient(rgba(22,22, 22, 0.5), rgba(22, 22, 22, 0.5)),
+    url("https://www.repsol.com/content/dam/repsol-corporate/es/energia-e-innovacion/energia%20electrica%20cables%20alta%20tension.jpg"); 
+    background-size: cover;
+    background-position: center 40%;
+    height: 25.625rem;
 }
 
+/*Contenedor de contactos*/
+.header-contactos-container{
+    display: flex;
+    justify-content: space-around;
+}
+
+/*Contenedor individial de contactos*/
 .header-contactos{
     display: flex;
     align-items: center;
     gap: .3125rem;
-    padding-bottom: 2.1875rem;
 }
 
+/*Contactos*/
 .header-contactosText{
     color: white;
     font-family: "InterTight";
 }
 
-.header-title-container{
-    background-image:
-    url("https://t4.ftcdn.net/jpg/02/28/92/23/360_F_228922358_V7pawRfc0ryB6rtkLBSI2782CyAZi2s4.jpg") ;
-    background-size: auto;
-    background-position: 50% 50%;
-    height: 18.75rem;
-    display: flex;
-    align-items: center;
-}
-
+/*Título*/
 .header-title{
     color: white;
     font-family: "archivo";
     font-size: 3.125rem;
-    padding-left: 18.75rem;
+    padding-left: 15%;
+    padding-right: 15%;
+    padding-top: 6.25rem;
 }
 
 /*Logo de Nave*/
@@ -47,36 +50,53 @@
     margin-left: 12.5rem;
 }
 
-
 /*----------------Media Queries----------------*/
 
 @media(max-width:960px){
-    .header-title-container{
-        justify-content: center;
-        
-    }
-    .header-title{
-        font-size: 2.1875rem;
-        padding-left: 0%;
-        padding-top: 2.5rem;
-    }
     .header-logo-nave{
         margin-left: 0%;
     }
 }
 
-@media(max-width:770px){
+@media(max-width:850px){
+    .header-contactosText{
+        font-size: .75rem;
+    }
+}
+
+@media(max-width:760px){
     .header-contactos-container{
-        display: none;
+        flex-direction: column;
+        align-items: center;
+        gap: .625rem;
+        padding-bottom: .9375rem;
+        padding-top: .9375rem;
     }
     .header-logo-nave{
         width: 9.375rem;
         margin-top: 3.75rem;
     }
+    
 }
+
+@media(max-width:599px){
+    .header-main-container{
+        height: 21.875rem;
+    }
+    .header-title{
+        font-size: 2.5rem;
+        padding-top: 4.375rem;
+    }
+} 
 
 @media(max-width:460px){
     .header-logo-nave{
         width: 7.5rem;
+    }
+}
+
+@media(max-width:599px){
+    .header-title{
+        font-size: 2.1875rem;
     }
 }

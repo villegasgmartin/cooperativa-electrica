@@ -51,12 +51,14 @@ const Form = () => {
 
     return (
         <section className='form-main-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
-        <p className='form-text01'>Déjanos tus datos y te contactaremos</p>
-        <p className='form-text02'>
-            Completa el siguiente formulario y uno de nuestros asesores te brindará toda la información sobre nuestros planes de Internet y TV. ¡Conéctate con el mejor servicio para tu hogar o empresa!
-        </p>
-        </Fade>
+            <div className='form-text-container'>
+                <Fade triggerOnce={true} duration={800} delay={300}>
+                    <p className='form-text01'>Déjanos tus datos y te contactaremos</p>
+                    <p className='form-text02'>
+                        Completa el siguiente formulario y uno de nuestros asesores te brindará toda la información sobre nuestros planes de Internet y TV. ¡Conéctate con el mejor servicio para tu hogar o empresa!
+                    </p>
+                </Fade>
+            </div>
         <div>
             <Fade triggerOnce={true} duration={800} delay={300}>
                 <form className='form-container' onSubmit={handleSubmit}>
@@ -184,18 +186,21 @@ const Form = () => {
                     <MenuItem value="Ninguna">Ninguna</MenuItem>
                     </Select>
                 </FormControl>
-                <Button
-                sx={{
-                    height: "60px",
-                    backgroundColor: "#12824c",
-                    fontFamily: "archivo",
-                }}
-                variant="contained"
-                size="large"
-                type='submit'>
-                    Enviar
-                </Button>
                 </form>
+                <div className='form-button-container'>
+                    <Button
+                    sx={{
+                        width: "100%",
+                        height: "60px",
+                        backgroundColor: "#12824c",
+                        fontFamily: "archivo",
+                    }}
+                    variant="contained"
+                    size="large"
+                    type='submit'>
+                        Enviar
+                    </Button>
+                </div>
             </Fade>
         </div>
         <BotonFlotante/>

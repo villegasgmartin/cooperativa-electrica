@@ -33,7 +33,11 @@ const Mutual = () => {
             <Typography variant="h6" gutterBottom
             sx={{color: "#12824c",
                 fontFamily: "archivo",
-                fontSize: "25px"
+                textAlign: "center",
+                fontSize: {
+                  xs: '22px',
+                  sm: '25px',
+                }
             }}
             >
               Completa el formulario
@@ -92,26 +96,9 @@ const Mutual = () => {
                 }
               }}
             />
-            <Button sx={{ 
-                height: "60px",
-                fontFamily: "archivo",
-                backgroundColor: "#12824c",
-                marginTop: "10px"
-              }} 
-                variant='contained' 
-                size='large'
-                type='submit'
-            >
-              Enviar
-            </Button>
-          </form>
-        </Fade>
-      </div>
-      <Fade triggerOnce={true} duration={800} delay={300}>
-        <div className='mutual-enlace'>
-          <p className='mutual-enlace-text'>LISTADO DE PROFESIONALES Y COMERCIOS ADHERIDOS</p>
-          <a href="https://mutualami.org.ar/mutual/beneficios/" target='_blank'>
-            <Button sx={{ 
+            <div className='form-buttonContainer'>
+              <Button sx={{ 
+                  width: "100%",
                   height: "60px",
                   fontFamily: "archivo",
                   backgroundColor: "#12824c",
@@ -119,9 +106,30 @@ const Mutual = () => {
                 }} 
                   variant='contained' 
                   size='large'
+                  type='submit'
               >
-                ver aquí
+                Enviar
               </Button>
+            </div>
+          </form>
+        </Fade>
+      </div>
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <div className='mutual-enlace'>
+          <p className='mutual-enlace-text'>LISTADO DE PROFESIONALES Y COMERCIOS ADHERIDOS</p>
+          <a href="https://mutualami.org.ar/mutual/beneficios/" target='_blank' className='form-buttonFinal-container'>
+              <Button sx={{ 
+                    width: "100%",
+                    height: "60px",
+                    fontFamily: "archivo",
+                    backgroundColor: "#12824c",
+                    marginTop: "10px"
+                  }} 
+                    variant='contained' 
+                    size='large'
+                >
+                  ver aquí
+                </Button>
           </a>
         </div>
       </Fade>

@@ -6,6 +6,7 @@ import "../consejosUtiles/ConsejosUtiles.css"
 import { Button } from '@mui/material';
 import BotonFlotante from '../../common/BotonFlotante/BotonFlotante';
 import { Fade } from 'react-awesome-reveal';
+import { Link } from 'react-router-dom';
 
 //JSX:
 const ConsejosUtiles = () => {
@@ -63,19 +64,24 @@ const ConsejosUtiles = () => {
           <div className='consejos-image-container'><img src="https://img.freepik.com/vector-premium/hombre-sonriente-electricista-general-pie-cerca-centralita-involucrado-mantenimiento-reparacion-cableado-electrico-ilustracion-vectorial_178650-45001.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
         </Fade>
       </div>
-      <div className='consejos-boton-container'>
         <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='consejos-logo-container'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2016/03/icon_04.png" alt="logo de usuarios" width={"100%"} /></div>
-          <Button sx={{
-              height: "60px",
-              fontFamily: "archivo",
-              backgroundColor: "#12824c"
-            }} 
-              variant='contained' 
-              size='large'
-              >Preguntas Frecuentes</Button>
         </Fade>
-      </div>
+        <Fade  triggerOnce={true} duration={800} delay={300}>
+        <div className='consejos-button-container'>
+            <Link to={"/preguntas-frecuentes"}>
+              <Button sx={{
+                  width: "100%",
+                  height: "60px",
+                  fontFamily: "archivo",
+                  backgroundColor: "#12824c"
+                }} 
+                  variant='contained' 
+                  size='large'
+                  >Preguntas Frecuentes</Button>
+            </Link>
+          </div>
+        </Fade>
       <BotonFlotante/>
     </section>
   );

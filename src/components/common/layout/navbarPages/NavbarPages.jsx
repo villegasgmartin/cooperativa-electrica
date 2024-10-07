@@ -69,15 +69,10 @@ function ResponsiveAppBar() {
 
     return (
         <AppBar position="static" sx={{
-            position: "absolute",
-            left: "50%",
-            transform: 'translateX(-50%)',
-            top: "50px",
             width: '80%',
             mx: 'auto',
             borderRadius: "5px",
             backgroundColor:"#12824c" ,
-            zIndex: (theme) => theme.zIndex.drawer + 1,
             height: { xs: '50px', sm: '60px', md: '85px' }
         }}>
             <Container maxWidth="xl">

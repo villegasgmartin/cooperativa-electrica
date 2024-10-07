@@ -16,7 +16,7 @@ const Home = () => {
             <HomeGuardia/>
             <HomeBlog/>
             <Footer/>
-            <BotonFlotante/>
+            <BotonFlotante/> 
         </div>
     )
 }

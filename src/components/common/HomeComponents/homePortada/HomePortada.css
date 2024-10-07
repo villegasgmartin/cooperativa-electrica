@@ -107,7 +107,7 @@ gap: .9375rem;
     }
 }
 
-@media(max-width:770px){
+@media(max-width:760px){
     .homePortada-contactosContainer{
         flex-direction: column;
         gap: .625rem;

@@ -27,6 +27,7 @@
 .laboratorio-title{
     font-family: "archivo";
     color: var(black);
+    text-align: center;
 }
 
 /*Fondo Violeta*/
@@ -123,4 +124,93 @@
 /*Contenedor del logo*/
 .laboratorio-final-logo{
     width: 18.75rem;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1557px){
+    .laboratorio-image-container{
+        width: 31.25rem;
+        height: 21.875rem;
+    }
+    .laboratorio-info-container{
+        gap: 5rem;
+    }
+    .laboratorio-image-container::before{
+        transform: translate(10px, 10px)
+    }
+    #background-position::before {
+        transform: translate(-20px, 20px);/*Acomodar esto*/
+    }
+}
+
+@media (max-width: 1300px){
+    .laboratorio-info-container{
+        flex-direction: column-reverse;
+        gap: 3rem;
+    }
+    .laboratorio-text-container{
+        width: 70%;
+        margin: auto;
+    }
+    .laboratorio-image-container{
+        width: 37.5rem;
+        height: 28.125rem;
+    }
+    .laboratorio-final-container{
+        flex-direction: column;
+        gap: 3.125rem;
+    }
+    .laboratorio-final-content{
+        width: 70%;
+        margin: auto;
+    }
+    .laboratorio-final-logo{
+        width: 12.5rem;
+    }
+    
+}
+
+@media (max-width: 760px){
+    .laboratorio-main-container{
+        margin-bottom: 4rem;
+    }
+    .laboratorio-info-container{
+        padding-top: 4rem;
+    }
+    .laboratorio-text-container{
+        width: 80%;
+    }
+    .laboratorio-image-container{
+        width: 28.125rem;
+        height: 18.75rem;
+    }
+    .laboratorio-final-content{
+        width: 80%;
+    }
+    .laboratorio-final-logo{
+        width: 9.375rem;
+    }
+}
+
+@media (max-width: 600px){
+    .laboratorio-title{
+        font-size: 1.25rem;
+    }
+    .laboratorio-image-container{
+        width: 18.75rem;
+        height: 9.375rem;
+    }
+    .laboratorio-image-container::before{
+        transform: translate(5px, 5px)
+    }
+    .laboratoeio-final-firma{
+        font-size: 1.25rem;
+    }
+    .laboratorio-final-description{
+        font-size: 1.125rem;
+    }
+    .laboratorio-final-logo{
+        width: 6.25rem;
+    }
 }

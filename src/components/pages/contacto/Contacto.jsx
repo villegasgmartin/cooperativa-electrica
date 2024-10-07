@@ -129,19 +129,22 @@ const Contacto = () => {
             }}
           />
 
-          <Button
-            sx={{
-              height: "60px",
-              fontFamily: "archivo",
-              backgroundColor: "#12824c",
-              marginTop: "20px"
-            }}
-            variant='contained'
-            size='large'
-            type='submit'
-          >
-            Enviar
-          </Button>
+          <div className='contactos-button-container'>
+            <Button
+              sx={{
+                width: "100%",
+                height: "60px",
+                fontFamily: "archivo",
+                backgroundColor: "#12824c",
+                marginTop: "20px"
+              }}
+              variant='contained'
+              size='large'
+              type='submit'
+            >
+              Enviar
+            </Button>
+          </div>
         </form>
       </Fade>
       <Fade triggerOnce={true} duration={800} delay={300}>
@@ -155,7 +158,10 @@ const Contacto = () => {
                 <FacebookIcon
                   sx={{
                     color: "#12824c",
-                    fontSize: "60px",
+                    fontSize: {
+                      xs: '50px',
+                      sm: '60px',
+                    },
                     '&:hover': { transform: 'scale(1.2)' },
                     transition: 'transform 0.3s ease, color 0.3s ease',
                   }}
@@ -173,7 +179,10 @@ const Contacto = () => {
                   <FacebookIcon
                     sx={{
                       color: "#12824c",
-                      fontSize: "60px",
+                      fontSize: {
+                        xs: '50px',
+                        sm: '60px',
+                      },
                       '&:hover': { transform: 'scale(1.2)' },
                       transition: 'transform 0.3s ease, color 0.3s ease',
                     }}
@@ -183,7 +192,10 @@ const Contacto = () => {
                   <InstagramIcon
                     sx={{
                       color: "#12824c",
-                      fontSize: "60px",
+                      fontSize: {
+                        xs: '50px',
+                        sm: '60px',
+                      },
                       '&:hover': { transform: 'scale(1.2)' },
                       transition: 'transform 0.3s ease, color 0.3s ease',
                     }}

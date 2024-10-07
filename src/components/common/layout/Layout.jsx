@@ -19,11 +19,13 @@ const Layout = () => {
 
     return (
         <div>
-        <Header 
-            title={isNavePage || isMutualPage || isFormPage ? '' : title} 
-            logo={isNavePage || isFormPage ? logoNaveBlanco : isMutualPage ? LogoMutualBlanco : undefined}
-            isMutual={isMutualPage}
+            
+            <Header 
+                title={isNavePage || isMutualPage || isFormPage ? '' : title} 
+                logo={isNavePage || isFormPage ? logoNaveBlanco : isMutualPage ? LogoMutualBlanco : undefined}
+                isMutual={isMutualPage}
             />
+            
             <Outlet />
             <Footer />
         </div>

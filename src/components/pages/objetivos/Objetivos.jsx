@@ -70,16 +70,19 @@ const Objetivos = () => {
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <div className='objetivos-articulo-container'>
                         <p className='objetivos-articulo'>De acuerdo con el <strong style={{color: "#12824c"}}>ARTÍCULO CINCO</strong> del Estatuto Social vigente que se transcribe en forma textual, los objetivos sociales de la Cooperativa son los que se indican.</p>
-                        <Link to={"/servicio-electrico"}>
-                            <Button sx={{ 
-                                height: "60px",
-                                fontFamily: "archivo",
-                                backgroundColor: "#12824c"
-                                }} 
-                                variant='contained' 
-                                size='large'>Volver
-                            </Button>
-                        </Link>
+                        <div className='objetivos-button-container'>
+                            <Link to={"/servicio-electrico"}>
+                                <Button sx={{ 
+                                    width: "100%",
+                                    height: "60px",
+                                    fontFamily: "archivo",
+                                    backgroundColor: "#12824c"
+                                    }} 
+                                    variant='contained' 
+                                    size='large'>Volver
+                                </Button>
+                            </Link>
+                        </div>
                     </div>
                     <div className='objetivos-logo'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/05/des_soc.png" alt="objetivos sociales" width={"100%"} /></div>
                 </Fade>

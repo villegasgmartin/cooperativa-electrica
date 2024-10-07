@@ -104,3 +104,125 @@
 #light-font{
     color: white;
 }
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1550px){
+    .principios-container{
+        gap: 6.25rem;
+    }
+    .principios-text-container{
+        width: 28.125rem;
+    }
+    .principios-second-container{
+        gap: 1.5625rem;
+    }
+    .principios-title{
+        font-size: 1.5625rem;
+    }
+    .principios-description{
+        font-size: 1.125rem;
+    }
+    .principios-image-container{
+        width: 31.25rem;
+        height: 21.875rem;
+    }
+}
+
+@media (max-width: 1170px){
+    .principios-intro{
+        font-size: 1.25rem;
+    }
+    .principios-container{
+        gap: 3.125rem;
+    }
+    .principios-text-container{
+        width: 25rem;
+    }
+    .principios-title{
+        font-size: 1.25rem;
+    }
+    .principios-description{
+        font-size: 1rem;
+    }
+    .principios-image-container{
+        width: 25rem;
+        height: 15.625rem;
+    }
+    .principios-image-container::before{
+        transform: translate(10px, 10px) /*Acomodar esto*/
+    }
+}
+
+@media (max-width: 950px){
+    .principios-container{
+        gap: 1.25rem;
+    }
+    .principios-text-container{
+        width: 21.875rem;
+    }
+    .principios-image-container{
+        width: 21.875rem;
+        height: 12.5rem;
+    }
+}
+
+@media (max-width: 760px){
+    .principios-intro{
+        font-size: 1.5625rem;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .principios-main-container{
+        padding-top: 4rem;
+    }
+    .principios-container{
+        flex-direction: column;
+        gap: 1.875rem
+    }
+    .principios-text-container{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .principios-title{
+        font-size: 25px;
+    }
+    .principios-description{
+        font-size: 1.25rem;
+    }
+    .principios-image-container{
+        width: 30rem;
+        height: 25rem;
+    } 
+}
+
+@media (max-width: 650px){
+    .principios-container{
+        padding-top: 4rem;
+    }
+    .principios-intro{
+        font-size: 1.25rem;
+    }
+    .principios-text-container{
+        width: 90%;
+    }
+    .principios-title{
+        font-size: 1.25rem;
+    }
+    .principios-description{
+        font-size: 1.125rem;
+    }
+    .principios-image-container{
+        width: 23.75rem;
+        height: 18.75rem;
+    } 
+}
+
+@media (max-width: 440px){
+    .principios-image-container{
+        width: 18.75rem;
+        height: 250px;
+    } 
+}

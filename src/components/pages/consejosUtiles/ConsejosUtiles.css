@@ -84,18 +84,146 @@
     color: white;
 }
 
-/*Contenedot de botón y logo*/
-.consejos-boton-container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: .3125rem;
-    margin-top: 1.875rem;
-}
-
 /*Contenedor del logo*/
 .consejos-logo-container{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: .625rem;
     width: 9.375rem;
-    
+    border-top: .1875rem solid var(--darkgreen);
+}
+
+/*Contenedor del botón*/
+.consejos-button-container{
+    width: 18.75rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1460px){
+    .consejos-container{
+        gap: 6.25rem;
+    }
+    .consejos-text-container{
+        width: 28.125rem;
+    }
+    .consejos-image-container{
+        width: 31.25rem;
+        height: 31.25rem
+    } 
+}
+
+@media (max-width: 1170px){
+    .consejos-container{
+        gap: 3.125rem;
+    }
+    .consejos-text-container{
+        width: 400px;
+    }
+    .consejos-number{
+        font-size: 1.875rem;
+    }
+    .consejos-text{
+        font-size: 1.25rem;
+    }
+    .consejos-image-container{
+        width: 25rem;
+        height: 25rem
+    } 
+}
+
+@media (max-width: 950px){
+    .consejos-text-container{
+        width: 21.875rem;
+    }
+    .consejos-number{
+        font-size: 1.5625rem;
+    }
+    .consejos-text{
+        font-size: 1.0625rem;
+    }
+    .consejos-image-container{
+        width: 18.75rem;
+        height: 18.75rem
+    }
+    .consejos-image-container::before{
+        transform: translate(10px, 10px) /*Acomodar esto*/
+    }
+}
+
+@media (max-width: 760px){
+    .consejos-main-container{
+        margin-bottom: 4rem;
+    }
+    .consejos-container{
+        flex-direction: column;
+        gap: 1.875rem;
+    }
+    .consejos-text-container{
+        width: 80%;
+        margin: auto;
+    }
+    .consejos-number{
+        font-size: 1.875rem;
+    }
+    .consejos-text{
+        font-size: 1.5625rem;
+    }
+    .consejos-image-container{
+        width: 25rem;
+        height: 400px
+    }
+}
+
+@media (max-width: 700px){
+    .consejos-button-container{
+        width: 90%;
+        margin-top: 1.875rem;
+    }
+}
+
+@media (max-width: 650px){
+    .consejos-container{
+        padding-top: 4rem;
+    }
+}
+
+@media (max-width: 550px){
+    .consejos-text-container{
+        width: 90%;
+    }
+    .consejos-number{
+        font-size: 1.5625rem;
+    }
+    .consejos-text{
+        font-size: 1.25rem;
+    }
+    .consejos-image-container{
+        width: 18.75rem;
+        height: 18.75rem
+    }
+    .consejos-logo-container{
+        width: 7.5rem;
+    }
+}
+
+@media (max-width: 400px){
+    .consejos-number{
+        font-size: 1.375rem;
+    }
+    .consejos-text{
+        font-size: 1.0625rem;
+    }
+    .consejos-image-container{
+        width: 15.625rem;
+        height: 15.625rem
+    }
+    .consejos-logo-container{
+        width: 6.25rem;
+    }
+    .consejos-boton-container{
+        margin-top: 0%;
+    }
 }

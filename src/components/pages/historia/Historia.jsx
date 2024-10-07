@@ -39,7 +39,8 @@ const Historia = () => {
           <Fade triggerOnce={true} duration={800} delay={300}><HistoriaAcordeon/></Fade>
         </div>
       </div>
-      <section className='valores-container'>
+      {/* 
+             <section className='valores-container'>
           <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='valores-image-container'>
             <img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/04/icon_03.png" style={{width: "100%"}} alt="imágen de historia" />
@@ -60,7 +61,8 @@ const Historia = () => {
             <img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/05/valores.png" style={{width: "100%"}} alt="imágen de valores" />
           </div>
         </Fade>
-      </section>
+      </section>      
+      */}
       <BotonFlotante/>
     </section>
   );

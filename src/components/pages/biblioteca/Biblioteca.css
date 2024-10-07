@@ -73,3 +73,88 @@
 .biblioteca-image-container{
     width: 21.875rem;
 }
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1400px){
+    .biblioteca-servicios{
+        width: 46.875rem;
+    }
+}
+
+@media (max-width: 1300px){
+    .biblioteca-accordion-container{
+        width: 43.75rem;
+    }
+    .biblioteca-servicios{
+        width: 28.125rem;
+    }
+    .biblioteca-image-container{
+        width: 18.75rem;
+    }
+}
+
+@media (max-width: 1000px){
+    .biblioteca-title{
+        font-size: 2.375rem;
+    }
+    .biblioteca-servicios{
+        width: 25rem;
+    }
+    .biblioteca-image-container{
+        width: 15.625rem;
+    }
+}
+
+@media (max-width: 760px){
+    .biblioteca-main-container{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+    .biblioteca-title{
+        font-size: 2.1875rem;
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    .biblioteca-accordion-container{
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 3rem;
+    }
+    .biblioteca-servicios-container{
+        flex-direction: column;
+        gap: 3rem;
+    }
+    .biblioteca-servicios{
+        width: 25rem;
+    }
+    .biblioteca-servicios{
+        width: 80%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 600px){
+    .biblioteca-title{
+        font-size: 1.875rem;
+    }
+    .biblioteca-servicios-title{
+        font-size: 1.25rem;
+    }
+    .biblioteca-servicios-text{
+        font-size: .9375rem;
+    }
+}
+
+@media (max-width: 450px){
+    .biblioteca-title{
+        font-size: 1.5625rem;
+    }
+    .biblioteca-servicios{
+        width: 90%;
+    }
+    .biblioteca-image-container{
+        width: 12.5rem;
+    }
+}
