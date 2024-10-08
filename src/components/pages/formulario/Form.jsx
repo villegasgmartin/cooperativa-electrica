@@ -185,7 +185,6 @@ const Form = () => {
                     <MenuItem value="Ninguna">Ninguna</MenuItem>
                     </Select>
                 </FormControl>
-                </form>
                 <div className='form-button-container'>
                     <Button
                     sx={{
@@ -200,6 +199,7 @@ const Form = () => {
                         Enviar
                     </Button>
                 </div>
+                </form>
             </Fade>
         </div>
         </section>

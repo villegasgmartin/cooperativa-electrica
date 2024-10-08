@@ -23,7 +23,7 @@ const HomeBlog = () => {
         </div>
       </Fade>
       <div className='HomeBlog-NoticiasContainer'>
-        <Fade cascade={true} duration={800} delay={300} triggerOnce={true} >
+        <Fade cascade={true} duration={800} triggerOnce={true} >
           <div className='HomeBlog-noticia'>
             <Link to={"/blog"}>
               <img className='HomeBlog-img' 
