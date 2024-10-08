@@ -22,11 +22,11 @@ const Footer = () => {
             <div className="footer-info-container">
                 <div>
                     <h4 className="footer-info-title">TELEFONOS:</h4>
-                    <a href="tel:08003330357"><p className="footer-info">0800-333-0357 / (0223) 495-1411</p></a>
+                    <a href="tel:08003330357" style={{textDecoration: "none"}}><p className="footer-info">0800-333-0357 / (0223) 495-1411</p></a>
                 </div>
                 <div>
                     <h4 className="footer-info-title">INTERNET NAVE:</h4>
-                    <a href="tel:5492235376973"><p className="footer-info">(+549) 223 537-6973</p></a>
+                    <a href="tel:5492235376973" style={{textDecoration: "none"}}><p className="footer-info">(+549) 223 537-6973</p></a>
                 </div>
                 <div>
                     <h4 className="footer-info-title">HORARIOS DE ATENCIÓN NAVE INTERNET:</h4>
@@ -38,9 +38,9 @@ const Footer = () => {
                 </div>
                 <div>
                     <h4 className="footer-info-title">GUARDIA SERVICIO ELÉCTRICO:</h4>
-                    <a href="tel:2235353648"><p className="footer-info">223 535-3648</p></a>
-                    <a href="tel:2235354042"><p className="footer-info">223 535-4042</p></a>
-                    <a href="tel:2235351358"><p className="footer-info">223 535-1358</p></a>
+                    <a href="tel:2235353648" style={{textDecoration: "none"}}><p className="footer-info">223 535-3648</p></a>
+                    <a href="tel:2235354042" style={{textDecoration: "none"}}><p className="footer-info">223 535-4042</p></a>
+                    <a href="tel:2235351358" style={{textDecoration: "none"}}><p className="footer-info">223 535-1358</p></a>
                 </div>
             </div>
         </footer>

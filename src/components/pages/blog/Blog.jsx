@@ -29,12 +29,12 @@ const Blog = () => {
         <Fade triggerOnce={true} duration={800} delay={300}>
           <div>
             <Link to={"/"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/"}><h3 className='blog-title'>Título noticia</h3></Link>
+            <Link to={"/"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título noticia</h3></Link>
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
           </div>
           <div>
             <Link to={"/"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/"}><h3 className='blog-title'>Título noticia</h3></Link>
+            <Link to={"/"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título noticia</h3></Link>
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
           </div>
         </Fade>
@@ -43,12 +43,12 @@ const Blog = () => {
         <Fade triggerOnce={true} duration={800} delay={300}>
           <div>
             <Link to={"/"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/"}><h3 className='blog-title'>Título noticia</h3></Link>
+            <Link to={"/"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título noticia</h3></Link>
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
           </div>
           <div>
             <Link to={"/"}><div className='blog-image-container'><img src={blogImage04} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/"}><h3 className='blog-title'>Título noticia</h3></Link>
+            <Link to={"/"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título noticia</h3></Link>
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
           </div>
         </Fade>
