@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import "../navBarTest/NavBarTest.css";
 import LogoHorizontal from "../../../../assets/images/logo-horizontal.png";
 import { Link } from "react-router-dom";
+// import "../navBarTest/navBarTest.css";
 
 const NavBarTest = () => {
   const [openMenu, setOpenMenu] = useState({
