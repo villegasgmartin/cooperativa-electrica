@@ -214,3 +214,12 @@
         width: 6.25rem;
     }
 }
+
+@media (max-width: 400px){
+    .laboratorio-image-container::before{
+        transform: translate(1px, 2px)
+    }
+    .laboratorio-background-position::before {
+        transform: translate(-9px, 2px);
+    }
+}

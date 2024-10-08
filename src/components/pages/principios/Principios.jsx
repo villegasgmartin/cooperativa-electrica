@@ -38,7 +38,7 @@ const Principios = () => {
       </div>
       <div className='principios-container' id='dark-background'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='principios-image-container' id='background-position'>
+          <div className='principios-image-container principios-background-position'>
             <img className='principios-img' src="https://static.vecteezy.com/system/resources/previews/006/445/634/non_2x/illustration-graphic-cartoon-character-of-business-cooperation-vector.jpg" alt="imágen de principios cooperativos"/>
           </div>
           <div className='principios-second-container'>

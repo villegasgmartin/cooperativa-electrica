@@ -272,3 +272,12 @@
         width: 9.375rem;
     }
 }
+
+@media (max-width: 400px){
+    .objetivos-image-container::before{
+        transform: translate(2px, 2px)
+    }
+    .objetivos-background-position::before {
+        transform: translate(-9px, 2px);
+    }
+}

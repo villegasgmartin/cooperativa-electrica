@@ -67,6 +67,7 @@
 .footer-info{
     color: white;
     font-family: "InterTight";
+    text-decoration: none;
 }
 
 /*----------------Media Queries----------------*/

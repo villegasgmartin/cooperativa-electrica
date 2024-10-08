@@ -38,8 +38,8 @@
 }
 
 /*Fondo verde invertido*/
-#background-position::before {
-    transform: translate(-20px, 20px);
+.principios-background-position::before {
+    transform: translate(-25px, 20px);
 }
 
 
@@ -150,7 +150,10 @@
         height: 15.625rem;
     }
     .principios-image-container::before{
-        transform: translate(10px, 10px) /*Acomodar esto*/
+        transform: translate(10px, 10px) 
+    }
+    .principios-background-position::before {
+        transform: translate(-18px, 10px);
     }
 }
 
@@ -220,9 +223,15 @@
     } 
 }
 
-@media (max-width: 440px){
+@media (max-width: 450px){
     .principios-image-container{
         width: 18.75rem;
         height: 250px;
+    }
+    .principios-image-container::before{
+        transform: translate(2px, 2px) 
+    }
+    .principios-background-position::before {
+        transform: translate(-9px, 2px);
     } 
 }

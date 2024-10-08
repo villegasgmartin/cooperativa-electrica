@@ -267,9 +267,6 @@ position: relative;
         width: 25rem;
         height: 18.75rem;
     }
-    #background-position::before {
-        transform: translate(10px, 10px);/*Acomodar esto*/ 
-    }
     #dark-background{
         flex-direction: column-reverse;
     }
@@ -328,5 +325,11 @@ position: relative;
     .servicio-image-container{
         width: 15.625rem;
         height: 9.375rem;
+    }
+    .servicio-image-container::before{
+        transform: translate(2px, 2px)
+    }
+    .servicio-background-position::before {
+        transform: translate(-9px, 2px);
     }
 }

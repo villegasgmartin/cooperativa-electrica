@@ -300,4 +300,10 @@
         width: 15.625rem;
         height: 15.625rem;
     }
+    .comunicados-image-container::before{
+        transform: translate(2px, 2px)
+    }
+    .comunicados-background-position::before {
+        transform: translate(-9px, 2px);
+    }
 }
