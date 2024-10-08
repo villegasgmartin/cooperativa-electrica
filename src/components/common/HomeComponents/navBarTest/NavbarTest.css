@@ -1,0 +1,79 @@
+/* Navbar principal */
+.navbar-container {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background-color: rgba(0, 0, 0, 0.5);
+width: 80%;
+margin: auto;
+border-radius: 0.3125rem;
+height: 5.3125rem;
+padding-left: 1.25rem;
+padding-right: 1.25rem;
+}
+
+/* Contenedor del logo */
+.logo-container {
+width: 13.125rem;
+}
+
+/* Contenedor de enlaces */
+.link-container {
+display: flex;
+gap: 1.25rem;
+}
+
+a {
+text-decoration: none;
+}
+
+/* Estilos de los enlaces principales */
+.navbar-link {
+color: white;
+font-family: "interTight";
+list-style: none;
+cursor: pointer;
+transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-link:hover {
+color: var(--lightgreen);
+}
+
+/* Submenús */
+.submenu {
+position: absolute;
+background-color: rgba(255, 255, 255, 0.8);
+padding: 15px;
+margin-top: 30px;
+list-style: none;
+font-family: "interTight";
+font-weight: bold;
+opacity: 0;
+max-height: 0;
+overflow: hidden;
+transition: all 0.5s ease; /* Transición suave */
+}
+
+.submenu.open {
+opacity: 1;
+max-height: 400px; /* Altura máxima para el despliegue */
+}
+
+.submenu li {
+color: var(--black); /* Letras grises */
+text-decoration: underline;
+text-underline-offset: .3125rem;
+padding: .625rem;
+margin: 5px 0;
+transition: color 0.3s ease;
+}
+
+.submenu li:hover {
+color: var(--darkgreen); /* Cambiar color en hover */
+}
+
+/* Quitar viñetas del submenú */
+.submenu li {
+list-style-type: none;
+}

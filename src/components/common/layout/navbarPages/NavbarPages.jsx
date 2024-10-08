@@ -21,15 +21,14 @@ const pages = [
         { name: 'Servicio Eléctrico', path: "/servicio-electrico" },
         { name: 'Laboratorio de medidores', path: '/laboratorio-de-medidores' },
         { name: 'Biblioteca', path: '/biblioteca' },
-        { name: 'Provincia NET', path: '/provinciaNET' },
         { name: 'AMI Mutual', path: '/AMImutual' },
     ]},
     { name: 'INSTITUCIONAL', path: '#', submenu: [
         { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
-        { name: 'Valores', path: '/valores' },
         { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
         { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
         { name: 'Historia', path: '/historia' },
+        { name: 'Blog', path: '/Blog' }
     ]},
     { name: 'USUARIOS', path: '#', submenu: [
         { name: 'Formas y lugares de pago', path: '/formas-de-pago' },
@@ -70,15 +69,10 @@ function ResponsiveAppBar() {
 
     return (
         <AppBar position="static" sx={{
-            position: "absolute",
-            left: "50%",
-            transform: 'translateX(-50%)',
-            top: "50px",
             width: '80%',
             mx: 'auto',
             borderRadius: "5px",
             backgroundColor:"#12824c" ,
-            zIndex: (theme) => theme.zIndex.drawer + 1,
             height: { xs: '50px', sm: '60px', md: '85px' }
         }}>
             <Container maxWidth="xl">

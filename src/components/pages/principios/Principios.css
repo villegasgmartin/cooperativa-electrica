@@ -1,9 +1,7 @@
 /*Contenedor principal*/
 .principios-main-container{
-    margin-top: 5rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    padding-top: 5rem;
+    background-color: rgb(248, 248, 248);
 }
 
 /*Introducción*/
@@ -18,11 +16,10 @@
 .principios-container{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 9.375rem;
     padding-top: 5rem;
     padding-bottom: 5rem;
-    padding-left: 100%;
-    padding-right: 100%;
 }
 
 /*Fondo Verde*/
@@ -49,8 +46,8 @@
 /*Contenedor de imagen*/
 .principios-image-container{
     position: relative;
-    width: 37.5rem;
-    height: 37.5rem;
+    width: 43.75rem;
+    height: 34.375rem;
 }
 
 /*Imágen*/
@@ -60,13 +57,20 @@
     height: 100%;
 }
 
+/*Segundo contenedor*/
+.principios-second-container{
+    display: flex;
+    flex-direction: column;
+    gap: 3.125rem;
+}
+
 /*Contenedor de texto*/
 .principios-text-container{
     display: flex;
     flex-direction: column;
     text-align: center;
-    gap: 1.25rem;
     width: 37.5rem;
+    gap: .625rem;
 }
 
 /*Principio*/
@@ -99,4 +103,126 @@
 /*Letras blancas*/
 #light-font{
     color: white;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1550px){
+    .principios-container{
+        gap: 6.25rem;
+    }
+    .principios-text-container{
+        width: 28.125rem;
+    }
+    .principios-second-container{
+        gap: 1.5625rem;
+    }
+    .principios-title{
+        font-size: 1.5625rem;
+    }
+    .principios-description{
+        font-size: 1.125rem;
+    }
+    .principios-image-container{
+        width: 31.25rem;
+        height: 21.875rem;
+    }
+}
+
+@media (max-width: 1170px){
+    .principios-intro{
+        font-size: 1.25rem;
+    }
+    .principios-container{
+        gap: 3.125rem;
+    }
+    .principios-text-container{
+        width: 25rem;
+    }
+    .principios-title{
+        font-size: 1.25rem;
+    }
+    .principios-description{
+        font-size: 1rem;
+    }
+    .principios-image-container{
+        width: 25rem;
+        height: 15.625rem;
+    }
+    .principios-image-container::before{
+        transform: translate(10px, 10px) /*Acomodar esto*/
+    }
+}
+
+@media (max-width: 950px){
+    .principios-container{
+        gap: 1.25rem;
+    }
+    .principios-text-container{
+        width: 21.875rem;
+    }
+    .principios-image-container{
+        width: 21.875rem;
+        height: 12.5rem;
+    }
+}
+
+@media (max-width: 760px){
+    .principios-intro{
+        font-size: 1.5625rem;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .principios-main-container{
+        padding-top: 4rem;
+    }
+    .principios-container{
+        flex-direction: column;
+        gap: 1.875rem
+    }
+    .principios-text-container{
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .principios-title{
+        font-size: 25px;
+    }
+    .principios-description{
+        font-size: 1.25rem;
+    }
+    .principios-image-container{
+        width: 30rem;
+        height: 25rem;
+    } 
+}
+
+@media (max-width: 650px){
+    .principios-container{
+        padding-top: 4rem;
+    }
+    .principios-intro{
+        font-size: 1.25rem;
+    }
+    .principios-text-container{
+        width: 90%;
+    }
+    .principios-title{
+        font-size: 1.25rem;
+    }
+    .principios-description{
+        font-size: 1.125rem;
+    }
+    .principios-image-container{
+        width: 23.75rem;
+        height: 18.75rem;
+    } 
+}
+
+@media (max-width: 440px){
+    .principios-image-container{
+        width: 18.75rem;
+        height: 250px;
+    } 
 }

@@ -4,19 +4,28 @@ import Header from "./header/Header"
 import { Outlet } from "react-router-dom"
 import { useSelector } from "react-redux"
 import { useLocation } from "react-router-dom"
-import logoNaveBlanco from '../../../assets/images/Logo_Nave_blanco.png'; // Ajusta la ruta a tu logo
+import logoNaveBlanco from '../../../assets/images/Logo_Nave_blanco.png';
+import LogoMutualBlanco from "../../../assets/images/Logo_Mutual_blanco.png"
 
 // JSX:
 const Layout = () => {
     const title = useSelector((state) => state.title.currentTitle);
-    const location = useLocation(); // Obtener la ubicación actual
+    const location = useLocation();
 
-    // Verificar si estamos en la ruta de 'Nave'
-    const isNavePage = location.pathname === '/nave'; // Asegúrate de que esta sea la ruta correcta
+    const isNavePage = location.pathname === '/nave';
+    const isMutualPage = location.pathname === '/AMImutual'
+    const isFormPage = location.pathname === '/formulario';
+
 
     return (
         <div>
-            <Header title={isNavePage ? '' : title} logo={isNavePage ? logoNaveBlanco : undefined} />
+            
+            <Header 
+                title={isNavePage || isMutualPage || isFormPage ? '' : title} 
+                logo={isNavePage || isFormPage ? logoNaveBlanco : isMutualPage ? LogoMutualBlanco : undefined}
+                isMutual={isMutualPage}
+            />
+            
             <Outlet />
             <Footer />
         </div>

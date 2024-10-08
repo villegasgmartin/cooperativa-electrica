@@ -21,15 +21,14 @@ const pages = [
         { name: 'Servicio Eléctrico', path: "/servicio-electrico" },
         { name: 'Laboratorio de medidores', path: '/laboratorio-de-medidores' },
         { name: 'Biblioteca', path: '/biblioteca' },
-        { name: 'Provincia NET', path: '/provinciaNET' },
         { name: 'AMI Mutual', path: '/AMImutual' },
     ]},
     { name: 'INSTITUCIONAL', path: '#', submenu: [
         { name: 'Comunicados Institucionales', path: '/comunicados-institucionales' },
-        { name: 'Valores', path: '/valores' },
         { name: 'Consejo de Administración', path: '/consejo-de-administracion' },
         { name: 'Principios Cooperativos', path: '/principios-cooperativos' },
         { name: 'Historia', path: '/historia' },
+        { name: 'Blog', path: '/Blog' }
     ]},
     { name: 'USUARIOS', path: '#', submenu: [
         { name: 'Formas y lugares de pago', path: '/formas-de-pago' },

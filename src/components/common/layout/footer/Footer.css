@@ -3,18 +3,15 @@
     background-color: var(--black);
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 1.875rem;
+    justify-content: space-evenly;
     align-items: center;
     padding-top: 5rem;
     padding-bottom: 5rem;
-    padding-left: 10%;
-    padding-right: 10%;
 }
 
 /*Contenedor del logo*/
 .footer-logo-container{
-    width: 18.75rem;
+    width: 16.875rem;
 }
 
 /*Logo*/
@@ -28,7 +25,7 @@
     flex-direction: column;
     gap: 1.25rem;
     align-items: center;
-    margin-right: 3.125rem;
+    width: 16.875rem;
 }
 
 /*Bordes estéticos*/
@@ -57,6 +54,7 @@
     display: flex;
     flex-direction: column;
     gap: .9375rem;
+    width: 16.875rem;
 }
 
 /*Títulos*/
@@ -73,27 +71,62 @@
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1160px){
-    .footer-container{
-        padding-left: 5%;
-        padding-right: 5%;
-    }
+@media(max-width:1170px){
     .footer-logo-container{
-        width: 12.5rem;
+        width: 14.375rem;
     }
-    .footer-links-container{
-        margin-right: 0%;
+    .footer-info-container{
+        width: 14.375rem;
     }
 }
 
-@media(max-width:885px){
+@media(max-width:890px){
+    .footer-logo-container{
+        width: 12.5rem;
+    }
+    .footer-info-container{
+        width: 12.5rem;
+    }
+}
+
+@media(max-width:760px){
     .footer-container{
+        flex-direction: column;
         padding-top: 4rem;
         padding-bottom: 4rem;
-        justify-content: center;
-        gap: 4.375rem;
+        gap: 3.125rem;
     }
     .footer-logo-container{
         width: 15.625rem;
+    }
+    .footer-info-container{
+        width: 21.875rem;   
+    }
+    .footer-info-title{
+        text-align: center;
+    }
+    .footer-info{
+        text-align: center;
+    }
+}
+
+@media(max-width:550px){
+    .footer-container{
+        gap: 2.5rem
+    }
+    .footer-logo-container{
+        width: 11.25rem;
+    }
+    .footer-info-container{
+        width: 12.5rem;
+    }
+}
+
+@media(max-width:400px){
+    .footer-container{
+        gap: 1.875rem
+    }
+    .footer-logo-container{
+        width: 9.375rem;
     }
 }

@@ -1,0 +1,216 @@
+/*Contenedor principal*/
+.laboratorio-main-container{
+    margin-bottom: 5rem;
+}
+
+/*Contenedor de info*/
+.laboratorio-info-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9.375rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+/*Contenedor de texto*/
+.laboratorio-text-container{
+    width: 40.625rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: justify;
+    gap: 1.25rem;
+}
+
+/*Títtulo de info*/
+.laboratorio-title{
+    font-family: "archivo";
+    color: var(black);
+    text-align: center;
+}
+
+/*Fondo Violeta*/
+.color-title{
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+
+/*Descripción*/
+.laboratorio-text{
+    font-family: "interTight";
+    line-height: 1.5rem;
+}
+
+/*Fondo oscuro*/
+#dark-background{
+    background-color: var(--black)
+}
+
+/*Letras blancas*/
+#light-font{
+    color: white;
+}
+
+/*Contenedor de imágen*/
+.laboratorio-image-container{
+    position: relative;
+    width: 43.75rem;
+    height: 34.375rem;
+}
+
+/*Imágen*/
+.laboratorio-image{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+/*Fondo Verde*/
+.laboratorio-image-container::before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 4px solid #12824C;
+    transform: translate(20px, 20px);
+    transform-origin: top left;
+    pointer-events: none; 
+    background: #12824C;
+}
+
+/*Fondo verde invertido*/
+.laboratorio-background-position::before {
+    transform: translate(-30px, 20px);
+}
+
+/*Pié de kaboratorio*/
+.laboratorio-final-container{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-top: 5rem;
+}
+
+/*Contenedor del texto final*/
+.laboratorio-final-content{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    width: 46.875rem;
+    border: .1875rem solid var(--darkgreen);
+    padding: 1.875rem;
+    gap: .625rem;
+}
+
+/*Primer texto*/
+.laboratoeio-final-firma{
+    font-family: "interTight";
+    color: var(--darkgreen);
+    font-size: 1.5625rem;
+}
+
+/*Segundo texto*/
+.laboratorio-final-description{
+    font-family: "interTight";
+    font-size: 1.25rem;
+}
+
+/*Contenedor del logo*/
+.laboratorio-final-logo{
+    width: 18.75rem;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1557px){
+    .laboratorio-image-container{
+        width: 31.25rem;
+        height: 21.875rem;
+    }
+    .laboratorio-info-container{
+        gap: 5rem;
+    }
+    .laboratorio-image-container::before{
+        transform: translate(10px, 10px)
+    }
+    .laboratorio-background-position::before {
+        transform: translate(-20px, 10px);
+    }
+}
+
+@media (max-width: 1300px){
+    .laboratorio-info-container{
+        flex-direction: column-reverse;
+        gap: 3rem;
+    }
+    .laboratorio-text-container{
+        width: 70%;
+        margin: auto;
+    }
+    .laboratorio-image-container{
+        width: 37.5rem;
+        height: 28.125rem;
+    }
+    .laboratorio-final-container{
+        flex-direction: column;
+        gap: 3.125rem;
+    }
+    .laboratorio-final-content{
+        width: 70%;
+        margin: auto;
+    }
+    .laboratorio-final-logo{
+        width: 12.5rem;
+    }
+    
+}
+
+@media (max-width: 760px){
+    .laboratorio-main-container{
+        margin-bottom: 4rem;
+    }
+    .laboratorio-info-container{
+        padding-top: 4rem;
+    }
+    .laboratorio-text-container{
+        width: 80%;
+    }
+    .laboratorio-image-container{
+        width: 28.125rem;
+        height: 18.75rem;
+    }
+    .laboratorio-final-content{
+        width: 80%;
+    }
+    .laboratorio-final-logo{
+        width: 9.375rem;
+    }
+}
+
+@media (max-width: 600px){
+    .laboratorio-title{
+        font-size: 1.25rem;
+    }
+    .laboratorio-image-container{
+        width: 18.75rem;
+        height: 9.375rem;
+    }
+    .laboratorio-image-container::before{
+        transform: translate(5px, 5px)
+    }
+    .laboratoeio-final-firma{
+        font-size: 1.25rem;
+    }
+    .laboratorio-final-description{
+        font-size: 1.125rem;
+    }
+    .laboratorio-final-logo{
+        width: 6.25rem;
+    }
+}

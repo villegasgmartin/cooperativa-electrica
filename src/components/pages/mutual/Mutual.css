@@ -1,0 +1,165 @@
+/*Contenedor principal*/
+.mutual-main-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/*Texto*/
+.mutual-text{
+    text-align: center;
+    font-family: "interTight";
+    color: grey;
+    font-size: 1.5625rem;
+    width: 56.25rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Contenedor de información*/
+.mutual-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5rem;
+    gap: 6.25rem;
+}
+
+/*Contenedor de imágen*/
+.mutual-image-container{
+    width: 31.25rem;
+    height: 31.25rem;
+}
+
+/*Imágen*/
+.mutual-image{
+    width: 100%;
+    height: 100%;
+}
+
+/*Contenedor de formulario*/
+.mutual-form-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 43.75rem;
+}
+
+/*Contenedor de texto y boton*/
+.mutual-enlace{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-top: .1875rem solid var(--darkgreen);
+    padding-top: 1.875rem;
+    border-bottom: .1875rem solid var(--darkgreen);
+    padding-bottom: 1.875rem;
+    margin-top: 5rem;
+    width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+    gap: .625rem;
+}
+
+/*Texto*/
+.mutual-enlace-text{
+    color: grey;
+    font-family: "interTight";
+    font-size: 1.5625rem;
+    text-align: center;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1350px){
+    .mutual-image-container{
+        width: 400px;
+        height: 25rem;
+    }
+    .mutual-form-container{
+        width: 500px;
+    }
+    .mutual-container{
+        gap: 5rem;
+    }
+}
+
+@media (max-width: 1050px){
+    .mutual-text{
+        font-size: 1.25rem;
+        width: 80%;
+    }
+    .mutual-image-container{
+        width: 18.75rem;
+        height: 18.75rem;
+    }
+    .mutual-form-container{
+        width: 21.875rem;
+    }
+    .mutual-container{
+        gap: 4rem;
+    }
+    .mutual-enlace{
+        width: 70%;
+    }
+    .mutual-enlace-text{
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 760px){
+    .mutual-main-container{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+    .mutual-container{
+        flex-direction: column-reverse;
+        gap: 4rem;
+    }
+    .mutual-form-container{
+        width: 31.25rem;
+    }
+    .mutual-image-container{
+        width: 21.875rem;
+        height: 21.875rem;
+    }
+    .mutual-enlace{
+        margin-top: 4rem;
+    }
+}
+
+@media (max-width: 700px){
+    .form-buttonContainer{
+        width: 100%;
+    }
+    .form-buttonFinal-container{
+        width: 100%;
+    }
+}
+
+@media (max-width: 560px){
+    .mutual-text{
+        font-size: 1.125rem;
+        width: 90%;
+    }
+    .mutual-form-container{
+        width: 21.875rem;
+    }
+    .mutual-image-container{
+        width: 18.75rem;
+        height: 18.75rem;
+    }
+    .mutual-enlace{
+        width: 80%;;
+    }
+    .mutual-enlace-text{
+        font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 400px){
+    .mutual-form-container{
+        width: 18.75rem;
+    }
+}

@@ -1,0 +1,12 @@
+/*Contenido de acordeón*/
+.FormasPago-accordion-content{
+    font-family: "interTight";
+    margin-left: 1.25rem;
+}
+
+/*Estilo para links*/
+.FormasPago-accordion-link{
+    text-decoration: none;
+    color: var(--darkgreen);
+    font-weight: bold;
+}

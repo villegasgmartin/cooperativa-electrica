@@ -31,9 +31,9 @@ const Comunicados = () => {
       </div>
       <div className='comunicado-container' id='dark-background'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='comunicados-image-container' id='background-position'><img src={image03} className='comunicados-image' alt="foto del comunicado" /></div>
+          <div className='comunicados-image-container comunicados-background-position'><img src={image03} className='comunicados-image' alt="foto del comunicado" /></div>
           <div className='comunicados-text-containter'>
-            <h2 className='comunicados-title' id='light-font'>Encuentro de cierre de año en el <span className='color-title'>Espacio 75</span> – <span className='color-title'>Club Tri</span></h2>
+            <h2 className='comunicados-title' id='light-font'>Encuentro de cierre de año en el <span className='color-title'>Espacio 75</span> – <span className='color-title'>ClubTri</span></h2>
             <ul>
               <li className='comunicados-description text-left' id='light-font'>Reconocimientos a Luis Berardo y Jorge Falcone por su trayectoria laboral</li>
               <li className='comunicados-description text-left' id='light-font'>Al Club Tri por su accionar conjunto</li>
@@ -54,9 +54,9 @@ const Comunicados = () => {
       </div>
       <div className='comunicado-container' id='dark-background'>
         <Fade triggerOnce={true} duration={800} delay={300}>
-          <div className='comunicados-image-container' id='background-position'><img src={image04} className='comunicados-image' alt="foto del comunicado" /></div>
+          <div className='comunicados-image-container comunicados-background-position'><img src={image04} className='comunicados-image' alt="foto del comunicado" /></div>
           <div className='comunicados-text-containter'>
-            <h2 className='comunicados-title' id='light-font'>A partir de Noviembre de 2023, tenemos un nuevo gerente técnico y comercial de nuestra cooperativa, <span className='color-title'>Manuel Pérez</span>.⁣</h2>
+            <h2 className='comunicados-title' id='light-font'>A partir de Noviembre de 2023, tenemos un nuevo gerente técnico y comercial de nuestra cooperativa, <span className='color-title'>Manuel</span> <span className='color-title'>Pérez</span>.⁣</h2>
             <p className='comunicados-description' id='light-font'>Firma el contrato con nuestro Presidente Juan Carlos Denti y nuestros empleados le dan una cálida bienvenida.⁣</p>
           </div>
         </Fade>

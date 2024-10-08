@@ -1,0 +1,244 @@
+/*Contenedor principal*/
+.pagos-main-container{
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/*Contenedor de acordeón*/
+.pagos-accordion-container{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Contenedor final*/
+.pagos-info-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Contenedors de Provincia NET*/
+.provinciaNet-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+    margin-bottom: 3.125rem;
+}
+
+/*Contenedor texto Provincia NET*/
+.provinciaNet-textContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 46.875rem;
+    text-align: center;
+}
+
+/*Titulo Provincia NET*/
+.pagos-info-title{
+    font-family: "archivo";
+    color: var(--darkgreen);
+    font-size: 2.1875rem;
+}
+
+/*Texto Provincia NET*/
+.provinciaNet-text{
+    font-family: "interTight";
+    color: var(--black);
+    font-size: 1.5625rem;
+    text-align: center;
+}
+
+/*Link Provincia NET*/
+.provinciaNet-link{
+    text-decoration: none;
+    color: var(--darkgreen);
+}
+
+/*Logo provinciaNet*/
+.pagos-info-image03{
+    width: 21.875rem;
+}
+
+/*Contenedor de texto e imágenes*/
+.pagos-usuarios-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 3.125rem;
+    gap: 6.875rem;
+}
+
+/*Texto a usuarios*/
+.pagos-info-text{
+    font-family: "interTight";
+    font-size: 1.25rem;
+    width: 37.5rem;
+    height: 16.25rem;
+    color: var(--black);
+    border: .1875rem solid var(--darkgreen);
+    padding: 1.875rem;
+}
+
+/*Contenedor de logos*/
+.pagos-logos-container{
+    display: flex;
+    align-items: center;
+    gap: 6.25rem;
+    margin-top: 3.125rem;
+}
+
+/*Contenedor de imágen de métdos de pago*/
+.pagos-info-image01{
+    width: 25rem;
+}
+
+/*Contenedor de alias*/
+.alias-container{
+    display: flex;
+    flex-direction: column;
+}
+
+/*Alias*/
+.alias{
+    font-family: "interTight";
+    background-color: var(--darkgreen);
+    color: white;
+    font-size: 1.5625rem;
+    padding: 1.875rem;
+    border-radius: 1.25rem;
+}
+
+/*Logo pagos*/
+.pagos-info-image02{
+    width: 9.375rem;
+}
+
+
+.pagos-infoUsuario{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2.5rem;
+    gap: 9.375rem;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1390px){
+    .pagos-accordion-container{
+        max-width: 900px;
+    }
+    .provinciaNet-container{
+        flex-direction: column;
+        gap: 1.875rem;
+    }
+    .pagos-info-text{
+        width: 400px;
+        height: 21.875rem;
+    }
+}
+
+@media (max-width: 1140px){
+    .pagos-info-title{
+        font-size: 1.875rem;
+    }
+    .pagos-info-image03{
+        width: 18.75rem;
+    }
+    .pagos-accordion-container{
+        max-width: 700px;
+    }
+    .pagos-info-text{
+        width: 18.75rem;
+        height: 28.125rem;
+    }
+    .pagos-logos-container{
+        gap: 3.125rem;
+    }
+    .alias{
+        font-size: 1.125rem;
+    }
+    .pagos-info-image01{
+        width: 15.625rem;
+    }
+    .pagos-info-image02{
+        width: 8.125rem;
+    }
+}
+
+@media (max-width: 760px){
+    .pagos-main-container{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+    .provinciaNet-textContainer{
+        width: 80%;
+        margin: auto;
+    }
+    .pagos-info-title{
+        font-size: 1.5625rem;
+    }
+    .provinciaNet-text{
+        font-size: 1.25rem;
+    }
+    .pagos-info-image03{
+        width: 15.625rem;
+    }
+    .pagos-accordion-container{
+        width: 90%;
+    }
+    .pagos-usuarios-container{
+        flex-direction: column;
+        gap: 1.875rem;
+    }
+    .pagos-info-text{
+        width: 90%;
+        height: auto;
+        margin: auto;
+    }
+    .pagos-logos-container{
+        flex-direction: column;
+    }
+    .alias{
+        font-size: 1.875rem;
+    }
+    .pagos-info-image01{
+        width: 28.125rem;
+    }
+    .pagos-info-image02{
+        width: 9.375rem;
+    }
+}
+
+@media (max-width: 550px){
+    .provinciaNet-container{
+        gap: 1.25rem;
+    }
+    .provinciaNet-textContainer{
+        width: 90%;
+    }
+    .pagos-info-title{
+        font-size: 1.375rem;
+    }
+    .provinciaNet-text{
+        font-size: 1.125rem;
+    }
+    .pagos-info-image03{
+        width: 12.5rem;
+    }
+    .pagos-info-text{
+        font-size: 1.125rem;
+    }
+    .alias{
+        font-size:  1.25rem;
+    }
+    .pagos-info-image01{
+        width: 300px;
+    }
+    .pagos-info-image02{
+        width: 7.5rem;
+    }
+}
