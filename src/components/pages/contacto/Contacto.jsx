@@ -1,16 +1,20 @@
-/*Importaciones*/
+//Importaciones:
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
+import { enviarFormulario } from '../../../store/contactoSlice';
 import { TextField, Button, Select, MenuItem, FormControl } from '@mui/material';
 import "../contacto/Contacto.css";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Fade } from 'react-awesome-reveal';
 
-const Contacto = () => {
 
+//JSX:
+const Contacto = () => {
   const dispatch = useDispatch();
+  
+  const { loading, success, error } = useSelector((state) => state.contacto);
 
   useEffect(() => {
     dispatch(setTitle('Contacto'));
@@ -29,8 +33,12 @@ const Contacto = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Lógica para enviar el formulario , consultar a donde va la información
-    console.log(formData);
+
+    const destino = formData.consulta === "Consulta sobre NAVE" 
+      ? "aurelianopuente@hotmail.com" 
+      : "aurepuente25@gmail.com";
+
+    dispatch(enviarFormulario({ ...formData, destino }));
   };
 
   return (
@@ -140,10 +148,14 @@ const Contacto = () => {
               variant='contained'
               size='large'
               type='submit'
+              disabled={loading}
             >
-              Enviar
+              {loading ? 'Enviando...' : 'Enviar'}
             </Button>
           </div>
+
+          {error && <p className='error-message'>{error}</p>}
+          {success && <p className='success-message'>Mensaje enviado con éxito!</p>} {/* Tengo que editar el estilo de este mensaje */}
         </form>
       </Fade>
       <Fade triggerOnce={true} duration={800} delay={300}>
@@ -153,7 +165,7 @@ const Contacto = () => {
             <div className='contacto-info-align'>
               <p className='contacto-info-text'><strong>Área comercial: </strong>comercial@coopelectmdp.com.ar</p>
               <p className='contacto-info-text'><strong>Horarios de atención: </strong>Lunes a Viernes de 7:30 a 12:30 hs.</p>
-              <a href="https://www.facebook.com/cooperativa.mardelplata" target='_blank'>
+              <a href="https://www.facebook.com/people/Cooperativa-El%C3%A9ctrica-MDP-Nave-Internet/61565189905138/" target='_blank' rel='noopener noreferrer'>
                 <FacebookIcon
                   sx={{
                     color: "#12824c",
@@ -174,7 +186,7 @@ const Contacto = () => {
               <p className='contacto-info-text'><strong>Comercial NAVE: </strong>nave@cooperativamdp.com.ar</p>
               <p className='contacto-info-text'><strong>Facturación NAVE: </strong>nave-adm@cooperativamdp.com.ar</p>
               <div className='contacto-icons'>
-                <a href="https://www.facebook.com/naveinternetoficial" target='_blank'>
+                <a href="https://www.facebook.com/naveinternetoficial" target='_blank' rel='noopener noreferrer'>
                   <FacebookIcon
                     sx={{
                       color: "#12824c",
@@ -187,7 +199,7 @@ const Contacto = () => {
                     }}
                   />
                 </a>
-                <a href="https://www.instagram.com/coopelectmdp_nave/" target='_blank'>
+                <a href="https://www.instagram.com/coopelectmdp_nave/" target='_blank' rel='noopener noreferrer'>
                   <InstagramIcon
                     sx={{
                       color: "#12824c",
