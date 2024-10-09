@@ -111,7 +111,17 @@
     .preguntas-usuarios-description{
         font-size: 1rem;
     }
+    .preguntas-logo-text-container{
+        gap: 1.875rem;
+    }
     .preguntas-logo-container{
-        width: 9.375rem;
+        width: 8.125rem;
+    }
+}
+
+@media (max-width: 450px){
+    .preguntas-main-container{
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
 }

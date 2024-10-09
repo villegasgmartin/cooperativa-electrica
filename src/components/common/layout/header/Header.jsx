@@ -22,7 +22,7 @@ const Header = ({title, logo, isMutual}) => {
                     <h4 className="header-contactosText">0800-333-0357 / (0223) 495-1411</h4>
                 </div>
             </div>
-            <ResponsiveAppBar/>
+            <div className="navbar-container"><ResponsiveAppBar/></div>
             <div className="header-title-container">
                 {logo ? <img 
                     src={logo} 

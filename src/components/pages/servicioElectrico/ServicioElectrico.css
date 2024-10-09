@@ -262,6 +262,7 @@ position: relative;
     .servicio-usuarios-description{
         font-size: 1.25rem;
         width: 80%;
+        text-align: center;
     }
     .servicio-image-container{
         width: 25rem;
@@ -308,6 +309,13 @@ position: relative;
     }
     .servicio-buttonContainer{
         width: 90%;
+    }
+}
+
+@media (max-width: 450px){
+    .servicio-main-container{
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
 }
 

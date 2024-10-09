@@ -23,16 +23,22 @@ const Card = ({ servicio, precio }) => {
                 borderRadius: "30px",
                 padding:{
                     xs: "10px",
-                    sm: "13px"
-                } ,
+                    sm: "13px",
+                    '@media (max-width: 460px)': {
+                        padding: '5px',
+                            }
+                },
                 fontFamily: "archivo",
                 textTransform: 'none',
                 fontSize: {
-                    xs: '12px', 
-                    sm: '14px', 
-                    }
-            }}
-            >
+                    xs: '12px',
+                    sm: '14px',
+                    '@media (max-width: 460px)': {
+                        fontSize: '11px',
+                            }
+                        }
+                    }}
+                    >
             Contratar online
             </Button>
             <a href="https://wa.me/2235376973" target="_blank" rel="noopener noreferrer">
@@ -44,7 +50,10 @@ const Card = ({ servicio, precio }) => {
                 borderRadius: "30px",
                 padding:{
                     xs: "10px",
-                    sm: "13px"
+                    sm: "13px",
+                    '@media (max-width: 460px)': {
+                        padding: '5px',
+                            }
                 },
                 fontFamily: "archivo",
                 borderWidth: "3px",
@@ -52,9 +61,12 @@ const Card = ({ servicio, precio }) => {
                 fontSize: {
                     xs: '12px',
                     sm: '14px',
-                    }
-                }}
-            >
+                    '@media (max-width: 460px)': {
+                        fontSize: '11px',
+                            }
+                        }
+                    }}
+                >
                 <WhatsAppIcon fontSize='small' /> Contratar por Whatsapp
             </Button>
             </a>

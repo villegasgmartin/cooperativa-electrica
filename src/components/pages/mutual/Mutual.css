@@ -116,6 +116,7 @@
     .mutual-container{
         flex-direction: column-reverse;
         gap: 4rem;
+        margin-top: 1.875rem;
     }
     .mutual-form-container{
         width: 31.25rem;
@@ -155,6 +156,15 @@
     }
     .mutual-enlace-text{
         font-size: 1.125rem;
+    }
+}
+
+@media (max-width: 450px){
+    .mutual-main-container{
+        margin-top: 3rem;
+    }
+    .mutual-container{
+        margin-top: 1.25rem;
     }
 }
 
