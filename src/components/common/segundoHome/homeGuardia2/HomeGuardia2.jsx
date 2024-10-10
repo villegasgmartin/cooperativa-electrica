@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import { Fade } from "react-awesome-reveal";
-import "../homeGuardia2/homeGuardia2.css";
+import "../homeGuardia2/HomeGuardia2.css";
 import { Link } from "react-router-dom";
 
 const HomeGuardia = () => {
