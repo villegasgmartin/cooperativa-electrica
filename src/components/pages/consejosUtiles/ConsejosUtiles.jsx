@@ -19,7 +19,7 @@ const ConsejosUtiles = () => {
   return (
     <section className='consejos-main-container'>
       <div className='consejos-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Primer Consejo:</h3>
             <p className='consejos-text'>Recuerde cambiar la titularidad del medidor a nombre de quien usa realmente la energía, dado que el titular es el único autorizado a solicitar verificación técnica, hacer reclamos por el servicio, y toda situación que tenga que ver con el suministro de energía del domicilio.</p>
@@ -28,7 +28,7 @@ const ConsejosUtiles = () => {
         </Fade>
       </div>
       <div className='consejos-container' id='dark-background'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='consejos-image-container consejos-background-position'><img src="https://static.vecteezy.com/system/resources/previews/026/562/385/non_2x/green-energy-concept-illustration-isolated-flat-cartoon-bulb-lamp-eco-electricity-saving-alternative-renewable-resources-green-leaves-logo-design-element-vector.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Segundo Consejo:</h3>
@@ -37,7 +37,7 @@ const ConsejosUtiles = () => {
         </Fade>
       </div>
       <div className='consejos-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Tercer Consejo:</h3>
             <p className='consejos-text'>Recuerde que el uso indiscriminado de los toma múltiple función, conocidos comúnmente como zapatillas, son probables puntos de falla de su instalación y disminuyen la seguridad y confiabilidad de la misma.</p>
@@ -46,7 +46,7 @@ const ConsejosUtiles = () => {
         </Fade>
       </div>
       <div className='consejos-container' id='dark-background'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='consejos-image-container consejos-background-position'><img src="https://static.vecteezy.com/system/resources/previews/005/483/099/original/home-electrical-appliances-broken-microwave-damaged-device-cartoon-flat-illustration-fire-safety-vector.jpg" alt="imágen consejos útiles" className='consejos-image'/></div>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Cuarto Consejo:</h3>
@@ -55,7 +55,7 @@ const ConsejosUtiles = () => {
         </Fade>
       </div>
       <div className='consejos-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='consejos-text-container'>
             <h3 className='consejos-number'>Quinto Consejo:</h3>
             <p className='consejos-text'>Recuerde que ante cualquier duda que surja respecto a su servicio nuestra oficina comercial ubicada en calle Alberti 3600, está abierta de lunes a viernes, excepto feriados, de 7,30 hs a 12,30 hs. No dude en consultar, le evitará problemas futuros.</p>

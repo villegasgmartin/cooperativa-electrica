@@ -5,6 +5,7 @@ import { Button } from "@mui/material"
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import { Link } from "react-router-dom";
+import { motion } from 'framer-motion';
 import NavBarTest from "../navBarTest/NavBarTest";
 
 //JSX:
@@ -28,11 +29,21 @@ const HomePortada = () => {
                 </div>
                 {/*<NavBarTest/> */}
                 <ResponsiveAppBar/>
-                <div className="homePortada-bienvenidaContainer">
+                <motion.div
+                    initial={{ opacity: 0, x: -100 }}  
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                    className="homePortada-bienvenidaContainer"
+                >
                     <h1 className="homePortada-title">Internet a tu alcance</h1>
                     <p className="homePortada-description">Descubre el mejor internet para tu hogar y negocio. Instalaciones, mantenimiento y asesoramiento con los mejores profesionales a tu disposición.</p>
-                </div>
-                <div className="homePortada-buttonContainer">
+                </motion.div>
+                <motion.div
+                    initial={{ opacity: 0, x: -100 }} 
+                    animate={{ opacity: 1, x: 0 }}  
+                    transition={{ duration: 1, delay: 0.4 }}
+                    className="homePortada-buttonContainer"
+                >
                     <Link to={"/nave"}>
                         <Button sx={{
                             width: "100%", 
@@ -41,7 +52,7 @@ const HomePortada = () => {
                             backgroundColor: "#12824c"
                             }} variant="contained">Contratá</Button>
                     </Link>
-                </div>
+                </motion.div>
             </section>
         </div>
     )

@@ -21,7 +21,7 @@ const Laboratorio = () => {
   return (
     <section className='laboratorio-main-container'>
       <div className='laboratorio-info-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='laboratorio-image-container laboratorio-background-position'><img src={LabImage01} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>
           <div className='laboratorio-text-container'>
             <h2 className='laboratorio-title color-title'>"LACOP"</h2>
@@ -33,7 +33,7 @@ const Laboratorio = () => {
         </Fade>
       </div>
       <div className='laboratorio-info-container' id='dark-background'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='laboratorio-text-container'>
             <h2 className='laboratorio-title' id='light-font'><span className='color-title'>Antecedentes:</span> El Marco Eléctrico Regulatorio en la Provincia de Buenos Aires. Motivos conducentes a la creación del laboratorio.</h2>
             <p className='laboratorio-text' id='light-font'>A partir de la sanción del nuevo Marco Eléctrico Regulatorio en al ámbito de la Provincia de Buenos Aires, por ley nº 11769/96 y su decreto reglamentario 1208/97, las distribuidoras y cooperativas eléctricas deben ajustar sus prestaciones a las exigencias impuestas por el Organismo de Control de Energía de la Provincia de Buenos Aires –OCEBA-, creado por la misma ley.<br/>
@@ -45,7 +45,7 @@ const Laboratorio = () => {
         </Fade>
       </div>
       <div className='laboratorio-info-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='laboratorio-image-container laboratorio-background-position'><img src={LabImage03} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>
           <div className='laboratorio-text-container'>
             <p className='laboratorio-text'>
@@ -58,7 +58,7 @@ const Laboratorio = () => {
         </Fade>
       </div>
       <div className='laboratorio-info-container' id='dark-background'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='laboratorio-text-container'>
           <h2 className='laboratorio-title' id='light-font'>Importancia del servicio técnico a prestar. <span className='color-title'>Equipamiento</span></h2>
             <p className='laboratorio-text' id='light-font'>La medición de la energía eléctrica que suministran las cooperativas distribuidoras a sus socios o clientes, es un punto de vital importancia para la economía de las mismas, que hace a la calidad y eficiencia de la correcta facturación, -en salvaguarda de los derechos del usuario-, por lo que queda de manifiesto la importancia de medir los consumos sin márgenes de error.<br/>

@@ -16,14 +16,14 @@ import ImageD from "../../../../assets/images/blog/blog-image-04.jpeg"
 const HomeBlog = () => {
   return (
     <section className='HomeBlog-container'>
-      <Fade triggerOnce={true}  delay={300}>
+      <Fade triggerOnce={true}  delay={300} direction='left'>
         <div className='HomeBlog-textContainer'>
           <h2 className='HomeBlog-title'>Blog</h2>
           <p className='HomeBlog-description'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</p>
         </div>
       </Fade>
       <div className='HomeBlog-NoticiasContainer'>
-        <Fade cascade={true} duration={800} triggerOnce={true} >
+        <Fade cascade={true} duration={500} triggerOnce={true} >
           <div className='HomeBlog-noticia'>
             <Link to={"/blog"}>
               <img className='HomeBlog-img' 

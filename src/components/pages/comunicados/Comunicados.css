@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .comunicadosPage-container{
     margin-bottom: 5rem;
+    overflow: hidden;
 }
 
 /*Contenedor de comunicado*/

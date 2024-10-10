@@ -20,7 +20,7 @@ const Principios = () => {
         <p className='principios-intro'>Los principios cooperativos son las directrices mediante las que las cooperativas ponen en práctica sus valores.</p>
       </Fade>
       <div className='principios-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='principios-second-container'>
             <div className='principios-text-container'>
               <h3 className='principios-title'><span className='color-title'>1º Principio:</span> ”Membresía Abierta y Voluntaria”</h3>
@@ -37,7 +37,7 @@ const Principios = () => {
         </Fade>
       </div>
       <div className='principios-container' id='dark-background'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='principios-image-container principios-background-position'>
             <img className='principios-img' src="https://static.vecteezy.com/system/resources/previews/006/445/634/non_2x/illustration-graphic-cartoon-character-of-business-cooperation-vector.jpg" alt="imágen de principios cooperativos"/>
           </div>
@@ -54,7 +54,7 @@ const Principios = () => {
         </Fade>
       </div>
       <div className='principios-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='principios-second-container'>
             <div className='principios-text-container'>
               <h3 className='principios-title'><span className='color-title'>5º Principio:</span> “Educación, Entrenamiento e Información”</h3>

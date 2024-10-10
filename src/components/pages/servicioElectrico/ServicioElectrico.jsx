@@ -23,7 +23,7 @@ const ServicioElectrico = () => {
   return (
     <section className='servicio-main-container'>
         <div className='servicio-accordion-container'>
-          <Fade triggerOnce={true} duration={800} delay={300}>
+          <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
             <AccordionGroup variant='soft' size='lg'>
               <Accordion>
                 <AccordionSummary>NUEVO CUADRO TARIFARIO PARA CONSUMOS A PARTIR DEL 01/02/2024</AccordionSummary>
@@ -50,35 +50,35 @@ const ServicioElectrico = () => {
             </AccordionGroup>
           </Fade>
         </div>
-        <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='servicio-usuarios'>
+            <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'>Sres. Usuarios:</h3>
                 <p className='servicio-usuarios-description'>Por Res. Oceba N° 167/18 La falta de pago de cualquier concepto ajeno al precio de la energía consumida por el usuario y los cargos que correspondan de acuerdo al primer párrafo del presente artículo, no podrán constituir causal de incumplimiento habilitante para la interrupción o desconexión del suministro a dicho usuario (Art. 78 de la Ley 11769).</p>
               </div>
               <div className='servicio-image-container'><img src="https://cdn.prod.website-files.com/64cb8feadae4f2e5a069eb86/64d496b7f051c502a51c450e_Set%20Reminders%20on%20WhatsApp%20with%20EazyBe%20Chrome%20Extension.png" alt="imágen de aviso" className='servicio-image'/></div>
+            </Fade>
           </div>
-          </Fade>
-          <Fade triggerOnce={true} duration={800} delay={300}>
-            <div className='servicio-usuarios'id='dark-background'>
+          <div className='servicio-usuarios'id='dark-background'>
+            <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
               <div className='servicio-image-container servicio-background-position' ><img src="https://www.enel.cl/content/dam/enel-cl/es/personas/informacion-de-utilidad/que-hace-enel-ante-un-corte-de-luz/08.png" alt="imágen de aviso" className='servicio-image' /></div>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'id='light-font'>Sres. Usuarios:</h3>
                 <p className='servicio-usuarios-description' id='light-font'>En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos.</strong>
                   ‼️ Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones.Muchas gracias.</p>
               </div>
-            </div>
-          </Fade>
-          <Fade triggerOnce={true} duration={800} delay={300}>
-            <div className='servicio-usuarios'>
+            </Fade>
+          </div>
+          <div className='servicio-usuarios'>
+            <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'>Sres. Usuarios Residenciales y Tarifa Social:</h3>
                 <p className='servicio-usuarios-description'>A los efectos de mantener los subsidios, los usuarios deben realizar la presentación de la Declaración Jurada a través de la página web <strong><a className='servicio-enlace' href="https://www.argentina.gob.ar/subsidios">www.argentina.gob.ar/subsidios.</a></strong> En caso de no presentarla, estarán en condiciones de perder dicho beneficio.
                   Usted puede consultar por su inclusión en la Tarifa Social en la página web del Organismo de Control de Energía Eléctrica de la Pcia de Buenos Aires: <strong><a className='servicio-enlace' href="https://oceba.gba.gov.ar/tarifa_social/pordni">oceba.gba.gov.ar/tarifa_social/pordni</a></strong></p>
               </div>
               <div className='servicio-image-container'><img src="https://www.jotform.com/blog/wp-content/uploads/2018/12/New-feature-reminder-email-blog-00B894-700x424.png?3.3.57079" alt="imágen de aviso" className='servicio-image'/></div>
-            </div>
-          </Fade>
+            </Fade>
+          </div>
             <div className='servicio-info-container'>
         <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='servicio-info'>

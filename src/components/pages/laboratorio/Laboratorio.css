@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .laboratorio-main-container{
     margin-bottom: 5rem;
+    overflow: hidden;
 }
 
 /*Contenedor de info*/

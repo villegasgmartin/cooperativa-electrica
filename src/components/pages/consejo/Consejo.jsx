@@ -20,11 +20,13 @@ const Consejo = () => {
 
   return (
     <section className='consejo-container'>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={1000} delay={300} direction='left'>
         <div className='consejo-text-container'>
           <h2 className='consejo-title'>Órgano de Conducción</h2>
           <p className='consejo-text'>El Consejo de Administración de la Cooperativa de Provisión de Electricidad, Servicios Públicos, Vivienda y Crédito de Mar del Plata Limitada está integrado por 12 Consejeros Titulares y 4 Consejeros Suplentes. La Fiscalización Privada se halla a cargo de 1 Síndico Titular y 1 Síndico Suplente.</p>
         </div>
+      </Fade>
+      <Fade triggerOnce={true} duration={1000} delay={300} direction='right'>
         <div className='consejo-accordion-container'>
           <AccordionGroup variant='soft' size='lg'>
           <Accordion>

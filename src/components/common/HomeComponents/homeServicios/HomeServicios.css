@@ -5,6 +5,7 @@
     padding-bottom: 5rem;
     border-bottom: .0625rem solid var(--lightgreen);
     border-top: .0625rem solid var(--lightgreen);
+    overflow: hidden;
 }
 
 /*Contenedor del logo*/
