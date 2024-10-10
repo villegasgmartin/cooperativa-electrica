@@ -57,9 +57,11 @@
 @media(max-width:899px){
     .header-logo-nave{
         width: 9.375rem;
+        padding-top: 5rem;
     }
     .header-logo-mutual{
         width: 15.625rem;
+        padding-top: 5rem;
     }
 }
 
@@ -71,14 +73,60 @@
 
 @media(max-width:760px){
     .header-contactos-container{
-        flex-direction: column;
-        align-items: center;
-        gap: .625rem;
-        padding-bottom: .9375rem;
-        padding-top: .9375rem;
+        display: none;
+    }
+    .navbar-container{
+        padding-top: 3.125rem;
+    }
+    .header-title{
+        padding-top: 6.25rem;
+        padding-right: 10%;
     }
 }
 
+@media(max-width:650px){
+    .header-title{
+        padding-top: 3.125rem;
+    }
+}
+
+@media(max-width:599px){
+    .header-main-container{
+        height: 21.875rem;
+    }
+    .header-title{
+        font-size: 2.8125rem;
+    }
+    .header-logo-nave{
+        width: 7.5rem;
+        padding-top: 4.375rem;
+    }
+    .header-logo-mutual{
+        width: 12.5rem;
+        padding-top: 4.375rem;
+    }
+}
+
+@media(max-width:450px){
+    .header-title{
+        padding-left: 10%;
+        text-align: center;
+        font-size: 2.5rem;
+    }
+}
+
+@media(max-width:370px){
+    .header-title{
+        font-size: 2.1875rem;
+    }
+}
+
+
+
+
+
+
+/*
 @media(max-width:599px){
     .header-main-container{
         height: 21.875rem;
@@ -97,3 +145,4 @@
         font-size: 2.1875rem;
     }
 }
+*/

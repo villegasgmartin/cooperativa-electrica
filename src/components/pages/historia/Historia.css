@@ -2,6 +2,7 @@
 .historia-container{
     margin-top: 5rem;
     margin-bottom: 5rem;
+    overflow: hidden;
 }
 
 /*Frase*/
@@ -178,6 +179,9 @@
     .historia-background-position::before {
         transform: translate(-18px, 10px);
     }
+    .historia-accordion-container{
+        padding-bottom: 4rem;
+    }
     .valores-text-container{
         width: 21.875rem;
     }
@@ -204,6 +208,7 @@
     }
     .historia-accordion-container{
         width: 80%;
+        padding-bottom: 2rem;
     }
 }
 
@@ -211,6 +216,7 @@
     .historia-intro{
         width: 90%;
         font-size: 1.25rem;
+        text-align: center;
     }
     .historia-container{
         margin-top: 4rem;
@@ -226,6 +232,7 @@
         width: 80%;
         margin: auto;
         font-size: 1.125rem;
+        text-align: center;
     }
     .historia-image-container{
         width: 28.125rem;
@@ -263,6 +270,10 @@
 @media (max-width: 550px){
     .historia-intro{
         font-size: 1.125rem;
+        padding: 1.5625rem;
+    }
+    .historia-bio-container{
+        padding-top: 3rem;
     }
     .historia-text{
         width: 90%;
@@ -278,6 +289,12 @@
         width: 90%;
         margin: auto;
     }
+    .historia-image-container::before{
+        transform: translate(2px, 2px) 
+    }
+    .historia-background-position::before {
+        transform: translate(-9px, 2px);
+    } 
 }
 
 @media (max-width: 400px){

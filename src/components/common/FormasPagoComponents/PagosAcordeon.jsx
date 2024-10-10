@@ -23,7 +23,7 @@ export default function PagosAcordeon() {
             <li className='FormasPago-accordion-content'>Ingresa a Homebanking</li>
             <li className='FormasPago-accordion-content'>Seleccioná por rubro: Luz, Agua, Gas</li>
             <li className='FormasPago-accordion-content'>Seleccioná por Ente: Coop Electricidad MDP</li>
-            <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/Ej-FC-Servicio-Electrico.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/Ej-FC-Nave-Internet.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
+            <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_energia_yef0tt.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_NAVE_qclwju.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
           </ol>
           <strong className='FormasPago-accordion-content'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
         </AccordionDetails>
@@ -48,7 +48,7 @@ export default function PagosAcordeon() {
           <li className='FormasPago-accordion-content'>Ingresá a Homebanking</li>
           <li className='FormasPago-accordion-content'>Seleccioná por rubro: Luz, Agua, Gas</li>
           <li className='FormasPago-accordion-content'>Seleccioná por Ente: Cooperativa de Electricidad Mar del Plata</li>
-          <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/Ej-FC-Servicio-Electrico.png" target='_blank' className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/Ej-FC-Nave-Internet.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
+          <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_energia_yef0tt.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_NAVE_qclwju.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
         </ol>
         <strong className='FormasPago-accordion-content'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
         </AccordionDetails>

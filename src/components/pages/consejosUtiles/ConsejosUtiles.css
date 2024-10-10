@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .consejos-main-container{
     margin-bottom: 5rem;
+    overflow: hidden;
 }
 
 /*Contenedor de consejos e imágen*/
@@ -89,6 +90,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-bottom: .625rem;
+    margin-top: 4rem;
     width: 9.375rem;
     border-top: .1875rem solid var(--darkgreen);
 }
@@ -209,6 +211,7 @@
     }
     .consejos-logo-container{
         width: 7.5rem;
+        margin-top: 2rem;
     }
 }
 
@@ -225,6 +228,7 @@
     }
     .consejos-logo-container{
         width: 6.25rem;
+        margin-top: 1rem;
     }
     .consejos-boton-container{
         margin-top: 0%;

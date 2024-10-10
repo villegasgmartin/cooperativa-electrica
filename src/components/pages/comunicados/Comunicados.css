@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .comunicadosPage-container{
     margin-bottom: 5rem;
+    overflow: hidden;
 }
 
 /*Contenedor de comunicado*/
@@ -132,6 +133,8 @@
 .comunicados-links{
     text-decoration: none;
     color: var(--darkgreen);
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
 
 /*Saludo*/
@@ -291,7 +294,7 @@
 
 @media (max-width: 400px){
     .comunicados-title{
-        font-size: 1.25rem;
+        font-size: 1.375rem;
     }
     .comunicados-description{
         font-size: 1rem;

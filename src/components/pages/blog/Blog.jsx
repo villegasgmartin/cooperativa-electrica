@@ -24,9 +24,9 @@ const Blog = () => {
 
   return (
     <section className='blog-main-container'>
-      <Fade triggerOnce={true} duration={800} delay={300}><h2 className='blog-intro'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</h2></Fade>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='left'><h2 className='blog-intro'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</h2></Fade>
       <div className='blog-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div>
             <Link to={"/"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título noticia</h3></Link>
@@ -40,7 +40,7 @@ const Blog = () => {
         </Fade>
       </div>
       <div className='blog-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div>
             <Link to={"/"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título noticia</h3></Link>

@@ -16,21 +16,21 @@ import ImageD from "../../../../assets/images/blog/blog-image-04.jpeg"
 const HomeBlog = () => {
   return (
     <section className='HomeBlog-container'>
-      <Fade triggerOnce={true}  delay={300} direction='left'>
+      <Fade triggerOnce={true}  delay={300}>
         <div className='HomeBlog-textContainer'>
           <h2 className='HomeBlog-title'>Blog</h2>
           <p className='HomeBlog-description'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</p>
         </div>
       </Fade>
       <div className='HomeBlog-NoticiasContainer'>
-        <Fade cascade={true} duration={500} triggerOnce={true} >
+        <Fade cascade={true} duration={800} triggerOnce={true} >
           <div className='HomeBlog-noticia'>
             <Link to={"/blog"}>
               <img className='HomeBlog-img' 
                   src={ImageA} 
                   alt="descripción de la imagen" />
             </Link>
-            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+            <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
           </div>
           <div className='HomeBlog-noticia'>
             <Link to={"/blog"}>
@@ -39,7 +39,7 @@ const HomeBlog = () => {
                   alt="descripción de la imagen"
                   />
             </Link>
-            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+            <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
           </div>
           <div className='HomeBlog-noticia'>
             <Link to={"/blog"}>
@@ -47,7 +47,7 @@ const HomeBlog = () => {
                   src={ImageC} 
                   alt="descripción de la imagen" />
             </Link>
-            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+            <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
           </div>
           <div className='HomeBlog-noticia'>
             <Link to={"/blog"}>
@@ -55,11 +55,11 @@ const HomeBlog = () => {
                   src={ImageD} 
                   alt="descripción de la imagen"/>
             </Link>
-            <Link to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
+            <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link> {/*Titulo de imágen*/}
           </div>
         </Fade>
       </div>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
         <div className='HomeBlog-buttonContainer'>
           <Link to={"/blog"}>
             <Button sx={{

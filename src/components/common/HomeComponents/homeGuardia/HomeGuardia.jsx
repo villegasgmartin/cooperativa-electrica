@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const HomeGuardia = () => {
     return (
         <section className="HomeGuardia-container">
-            <Fade className="HomeGuardia-infoContainer"  triggerOnce={true} duration={800}>
+            <Fade className="HomeGuardia-infoContainer"  triggerOnce={true} duration={900} direction="right">
                     <div className="HomeGuardia-infoContainer">
                         <h2 className="HomeGuardia-title">
                             Servicio <span className="color-title">Eléctrico</span>

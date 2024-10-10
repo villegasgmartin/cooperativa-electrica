@@ -21,7 +21,7 @@ const Nave = () => {
         <h1 className='nave-title'>Internet Cooperativa</h1>
         <p className='nave-text'>Descubre nuestras increíbles opciones de Internet y televisión diseñadas para satisfacer todas tus necesidades de entretenimiento y conectividad.</p>
       </Fade>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
         <CardCarousel/>
       </Fade>
     </section>

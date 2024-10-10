@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .laboratorio-main-container{
     margin-bottom: 5rem;
+    overflow: hidden;
 }
 
 /*Contenedor de info*/
@@ -180,10 +181,14 @@
     }
     .laboratorio-text-container{
         width: 80%;
+        text-align: center;
     }
     .laboratorio-image-container{
         width: 28.125rem;
         height: 18.75rem;
+    }
+    .laboratorio-final-container{
+        margin-top: 4rem;
     }
     .laboratorio-final-content{
         width: 80%;
@@ -212,6 +217,19 @@
     }
     .laboratorio-final-logo{
         width: 6.25rem;
+    }
+}
+
+@media (max-width: 450px){
+    .laboratorio-main-container{
+        margin-bottom: 3rem;
+    }
+    .laboratorio-info-container{
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+    }
+    .laboratorio-final-container{
+        margin-top: 3rem;
     }
 }
 

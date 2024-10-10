@@ -6,9 +6,8 @@ import WifiTetheringIcon from "@mui/icons-material/WifiTethering";
 import { Link } from "react-router-dom";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import { Fade } from "react-awesome-reveal";
-import HomeLogoNave from "../../../../assets/images/Logo_Nave_blanco.png"
+import HomeLogoNave from "../../../../assets/images/Logo_Nave_blanco.png";
 
-// JSX:
 // Imágenes de los servicios
 import ServiceImage100 from "../../../../assets/images/services/100.jpeg";
 import ServiceImage300 from "../../../../assets/images/services/300.jpeg";
@@ -60,6 +59,7 @@ const services = [
   },
 ];
 
+
 const HomeServicios = () => {
   const [selectedService, setSelectedService] = useState(services[0]);
 
@@ -69,17 +69,19 @@ const HomeServicios = () => {
 
   return (
     <section className="homeServicios-container">
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={100}>
         <div className="homeServicios-logo"><img src={HomeLogoNave} alt="logo de nave" width={"100%"} /></div>
       </Fade>
-      <Fade triggerOnce={true} duration={800} delay={300}><h2 className="homeServicios-title">Internet Cooperativa</h2></Fade>
-      <Fade triggerOnce={true}  duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300}>
+        <h2 className="homeServicios-title">Internet Cooperativa</h2>
+      </Fade>
+      <Fade triggerOnce={true} duration={800} delay={500} direction="right">
         <div className="homeServicios-description">
           <h3 className="homeServicios-text">Instalación sin cargo!</h3>
           <h3 className="homeServicios-text">Modem Dual Band a comodato</h3>
         </div>
       </Fade>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={700} direction="left">
         <div className="homeServicios-buttonContainer">
           {services.map((service, index) => (
             <button
@@ -98,7 +100,7 @@ const HomeServicios = () => {
           ))}
         </div>
       </Fade>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={900} direction="up">
         <div className="info-servicio-container">
           <div className="info-servicio-text-button">
             <div className="info-servicio-text">
@@ -110,25 +112,26 @@ const HomeServicios = () => {
               <Link to={"/formulario"}>
                 <Button variant="contained" 
                   size="large"
-                  sx={{backgroundColor: "#ffff",
+                  sx={{
+                    backgroundColor: "#ffff",
                     color: "#12824c",
                     fontFamily: "archivo"
-                  }} >
+                  }}>
                   Contratar
                 </Button>
               </Link>
             </div>
           </div>
           <div className="info-servicio-img">
-            <img src={selectedService.image} width="100%" alt={selectedService.title} style={{borderRadius: "10px"}} />
+            <img src={selectedService.image} width="100%" alt={selectedService.title} style={{ borderRadius: "10px" }} />
           </div>
         </div>
       </Fade>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={1100}>
         <a className="whatsapp-container" href="https://wa.me/2235376973" target="_blank">
           <WhatsAppIcon
             fontSize="large"
-            sx={{color: "#2eed8d"}}
+            sx={{ color: "#2eed8d" }}
           />
           <h4 className="whatsapp">(223)537-6973</h4>
         </a>

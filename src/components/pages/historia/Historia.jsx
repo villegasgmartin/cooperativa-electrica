@@ -17,11 +17,11 @@ const Historia = () => {
 
   return (
     <section className='historia-container'>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={1000} delay={300} direction='right'>
         <p className='historia-intro'>“Hoy nuestra entidad es la Cooperativa más antigua de Mar del Plata en actividad, sin distinción de especialidades. Es importante destacar que 17 calles o lugares públicos de la ciudad llevan el nombre de directivos o fundadores de la Cooperativa y 7 de ellos fueron elegidos, por el voto popular, intendentes del Partido de General Pueyrredon”.</p>
       </Fade>
       <div className='historia-bio-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={500} delay={300}>
           <p className='historia-text'>Nuestra Cooperativa, nació en el año 1934, como producto de la reacción ante los excesos cometidos por la Compañía de Electricidad del Sud Argentino (C.E.S.A.), dependiente del grupo estadounidense A.N.S.E.C. (Andes, Norte, Sud, Este y Centro), que prestaba servicio en condiciones de abuso y onerosidad extremos, rayanos con la expoliación. Esta firma era, probablemente, controlada por la Banca Morgan.</p>
           <div className='historia-image-container historia-bacground-position'><img className='historia-image' src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgHc5xL0e3sqJBx3fhnIGZVdEpn2UwzuH1cJ5cQeId2-vqlZXfweyK1kzzgCwGZAJLtjX-htxa4kewu1uoL0Q-S020ZmydhAa81kF0awUTmtZHTUnEkceGeUZLSeobn0pHFhxElqZ0n7bgE/s1600/Comitiva+que+avanzo+por+Diag.+Pueyrredon+a%25C3%25B1o+1939.jpg" alt="" /></div>
         </Fade>
@@ -33,9 +33,9 @@ const Historia = () => {
         </Fade>
       </div>
       <div className='historia'>
-        <Fade triggerOnce={true} duration={800} delay={300}><h2 className='historia-title'>Principales Hitos Históricos</h2></Fade>
+        <Fade triggerOnce={true} duration={1000} delay={300} direction='up'><h2 className='historia-title'>Principales Hitos Históricos</h2></Fade>
         <div className='historia-accordion-container'>
-          <Fade triggerOnce={true} duration={800} delay={300}><HistoriaAcordeon/></Fade>
+          <Fade triggerOnce={true} duration={1200} delay={300} direction='up'><HistoriaAcordeon/></Fade>
         </div>
       </div>
           <section className='valores-container'>

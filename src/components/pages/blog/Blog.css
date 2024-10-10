@@ -119,6 +119,7 @@
     .blog-intro{
         font-size: 1.25rem;
         width: 80%;
+        text-align: center;
     }
     .blog-image-container{
         width: 28.125rem;
@@ -130,6 +131,7 @@
     .blog-description{
         font-size: 1.125rem;
         width: 28.125rem;
+        text-align: center;
     }
 }
 
