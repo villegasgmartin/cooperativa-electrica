@@ -1,8 +1,8 @@
 //Importaciones:
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import "../homeBlog/HomeBlog.css"
 import { Fade } from 'react-awesome-reveal'
+import "../homeBlog2/HomeBlog2.css"
 
 /*---------Imágenes del Blog: para cambiarlas, colocar las nuevas imágenes en la carpeta "blog", dentro de "images" y luego modificar
 solo la parte final de las rutas que estan a continuacion por el nombre de las nuevas imágenes--------- */
@@ -15,7 +15,7 @@ import ImageD from "../../../../assets/images/blog/blog-image-04.jpeg"
 //JSX:
 const HomeBlog = () => {
   return (
-    <section className='HomeBlog-container'>
+    <section className='HomeBlog-container2'>
       <Fade triggerOnce={true}  delay={300}>
         <div className='HomeBlog-textContainer'>
           <h2 className='HomeBlog-title'>Blog</h2>

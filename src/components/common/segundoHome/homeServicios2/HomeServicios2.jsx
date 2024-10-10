@@ -1,7 +1,7 @@
 // Importaciones:
 import { useState } from "react";
 import { Button } from "@mui/material";
-import "../homeServicios/HomeServicios2.css";
+import "../homeServicios2/HomeServicios2.css";
 import WifiTetheringIcon from "@mui/icons-material/WifiTethering";
 import { Link } from "react-router-dom";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -82,7 +82,7 @@ const HomeServicios = () => {
             {services.map((service, index) => (
               <button
                 key={index}
-                className={`button-services ${selectedService === service ? "active" : ""}`}
+                className={`button-services2 ${selectedService === service ? "active" : ""}`}
                 onClick={() => handleServiceClick(service)}
               >
                 <div className="button-info-container2">

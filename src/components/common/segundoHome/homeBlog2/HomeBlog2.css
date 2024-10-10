@@ -1,5 +1,5 @@
 /*Contenedor principal*/
-.HomeBlog-container{
+.HomeBlog-container2{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -127,7 +127,6 @@ a.link-blog{
 .HomeBlog-noticia:hover .HomeBlog-img{
     filter: brightness(70%);
 
-}
 }
 
 

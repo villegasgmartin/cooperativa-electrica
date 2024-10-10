@@ -58,7 +58,7 @@
 }
 
 /* Reset de botón */
-.button-services {
+.button-services2 {
     background: none;
     cursor: pointer;
     border: none;
@@ -165,21 +165,21 @@
 }
 
 /* Efecto hover en los botones */
-.button-services:hover .button-info-container2 {
+.button-services2:hover .button-info-container2 {
     background-color: #8048ff;
     color: var(--white);
     border-color: #8048ff
 }
-.button-services .button-info-container2{
+.button-services2 .button-info-container2{
     border-color:#fff;
 }
-.button-services:hover .button-text2{
+.button-services2:hover .button-text2{
     color:#fff;
 }
 
 /*Hover de megas e icono */
-.button-services:hover .button-info-container2 .MuiSvgIcon-root,
-.button-services:hover .button-info-container2 .megas{
+.button-services2:hover .button-info-container2 .MuiSvgIcon-root,
+.button-services2:hover .button-info-container2 .megas{
     color: var(--white);
 }
 
@@ -319,10 +319,10 @@
     background-color: #fff;
     padding: 10px 20px;
 }
-.button-services {
+.button-services2 {
     width: 250px;
 }
-.button-services div{
+.button-services2 div{
     width: 100%;
 }
 .tipoServicio2{
