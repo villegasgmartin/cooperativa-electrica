@@ -1,6 +1,6 @@
 //Importaciones:
 import HomeBlog from "../../common/segundoHome/homeBlog/HomeBlog"
-import HomeGuardia from "../../common/segundoHome/homeGuardia/HomeGuardia"
+import HomeGuardia2 from "../../common/segundoHome/homeGuardia2/HomeGuardia2"
 import HomePortada from "../../common/segundoHome/homePortada/HomePortada"
 import HomeServicios from "../../common/segundoHome/homeServicios/HomeServicios"
 import Footer from "../../common/layout/footer/Footer"
@@ -12,7 +12,7 @@ const Home2 = () => {
         <div>
             <HomePortada/>
             <HomeServicios/>
-            <HomeGuardia/>
+            <HomeGuardia2/>
             <HomeBlog/>
             <Footer/>
         </div>
