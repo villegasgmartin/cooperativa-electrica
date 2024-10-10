@@ -1,13 +1,12 @@
 import { Button } from "@mui/material";
 import { Fade } from "react-awesome-reveal";
-import "../homeGuardia/HomeGuardia2.css";
+import "../homeGuardia2/HomeGuardia2.css";
 import { Link } from "react-router-dom";
 
 const HomeGuardia = () => {
     return (
         <section className="HomeGuardia-container2">
        
-       <div className="contenedorGuardia2">
        <div className="imagenGuardia2"></div>
                         <div className="HomeGuardia-infoContainer2">
                         <Fade triggerOnce={true} duration={800} direction="right" delay={300}>
@@ -38,7 +37,6 @@ const HomeGuardia = () => {
                         </div>
                         </Fade>
                         </div>
-       </div>
                 
                
            

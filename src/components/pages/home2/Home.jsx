@@ -1,8 +1,8 @@
 //Importaciones:
-import HomeBlog from "../../common/segundoHome/homeBlog/HomeBlog"
-import HomeGuardia from "../../common/segundoHome/homeGuardia/HomeGuardia"
+import HomeBlog2 from "../../common/segundoHome/homeBlog2/HomeBlog2"
+import HomeGuardia2 from "../../common/segundoHome/homeGuardia2/HomeGuardia2"
 import HomePortada from "../../common/segundoHome/homePortada/HomePortada"
-import HomeServicios from "../../common/segundoHome/homeServicios/HomeServicios"
+import HomeServicios2 from "../../common/segundoHome/homeServicios2/HomeServicios2"
 import Footer from "../../common/layout/footer/Footer"
 import "../home/Home.css"
 
@@ -11,9 +11,9 @@ const Home2 = () => {
     return (
         <div>
             <HomePortada/>
-            <HomeServicios/>
-            <HomeGuardia/>
-            <HomeBlog/>
+            <HomeServicios2/>
+            <HomeGuardia2/>
+            <HomeBlog2/>
             <Footer/>
         </div>
     )
