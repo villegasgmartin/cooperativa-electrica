@@ -1,20 +1,18 @@
-//Importaciones:
+// Importaciones:
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import { enviarFormulario } from '../../../store/contactoSlice';
 import { TextField, Button, Select, MenuItem, FormControl } from '@mui/material';
+import Swal from 'sweetalert2'; // Importar SweetAlert
 import "../contacto/Contacto.css";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Fade } from 'react-awesome-reveal';
 
-
-//JSX:
+// JSX:
 const Contacto = () => {
   const dispatch = useDispatch();
-  
-  const { loading, success, error } = useSelector((state) => state.contacto);
 
   useEffect(() => {
     dispatch(setTitle('Contacto'));
@@ -34,11 +32,45 @@ const Contacto = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const destino = formData.consulta === "Consulta sobre NAVE" 
-      ? "aurelianopuente@hotmail.com" 
-      : "aurepuente25@gmail.com";
+    // Validar que todos los campos estén completos
+    if (formData.nombre && formData.correo && formData.consulta && formData.mensaje) {
+      const destino =
+        formData.consulta === "Consulta sobre NAVE"
+          ? "aurelianopuente@hotmail.com"
+          : "aurelianopuente@hotmail.com";
 
-    dispatch(enviarFormulario({ ...formData, destino }));
+      // Mostrar SweetAlert antes de despachar la acción
+      Swal.fire({
+        icon: 'success',
+        title: '¡Mensaje enviado!',
+        text: 'Tu consulta ha sido enviada correctamente.',
+        confirmButtonColor: '#12824c',
+        customClass: {
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm'
+        }
+      });
+
+      // Limpiar los campos del formulario
+      setFormData({
+        nombre: '',
+        correo: '',
+        consulta: 'Consulta sobre NAVE',
+        mensaje: ''
+      });
+
+      // Enviar el formulario
+      dispatch(enviarFormulario({ ...formData, destino }));
+    } else {
+      // Mostrar SweetAlert si falta algún campo
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Por favor, completa todos los campos.',
+        confirmButtonColor: '#12824c',
+      });
+    }
   };
 
   return (
@@ -148,18 +180,15 @@ const Contacto = () => {
               variant='contained'
               size='large'
               type='submit'
-              disabled={loading}
             >
-              {loading ? 'Enviando...' : 'Enviar'}
+              Enviar
             </Button>
           </div>
-
-          {error && <p className='error-message'>{error}</p>}
-          {success && <p className='success-message'>Mensaje enviado con éxito!</p>} {/* Tengo que editar el estilo de este mensaje */}
         </form>
       </Fade>
+
       <Fade triggerOnce={true} duration={800} delay={300}>
-        <div className='contacto-info-container'>
+      <div className='contacto-info-container'>
           <div className='contacto-info'>
             <h4 className='contacto-info-title'>Servicio Eléctrico</h4>
             <div className='contacto-info-align'>

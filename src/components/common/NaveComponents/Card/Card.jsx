@@ -16,6 +16,7 @@ const Card = ({ servicio, precio }) => {
         <div className='card-buttonsContainer'>
             <Button 
             variant='contained'
+            className="internet"
             LinkComponent={Link}
             to="/formulario"
             sx={{
@@ -44,6 +45,7 @@ const Card = ({ servicio, precio }) => {
             <a href="https://wa.me/2235376973" target="_blank" rel="noopener noreferrer">
             <Button 
                 variant='outlined'
+                className="internet"
                 sx={{
                 color: "#8048ff",
                 borderColor: "#8048ff",

@@ -112,6 +112,7 @@ const HomeServicios = () => {
               <Link to={"/formulario"}>
                 <Button variant="contained" 
                   size="large"
+                  className="internet"
                   sx={{
                     backgroundColor: "#ffff",
                     color: "#12824c",

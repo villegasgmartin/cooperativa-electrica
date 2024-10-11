@@ -45,7 +45,9 @@ const HomePortada = () => {
                     className="homePortada-buttonContainer"
                 >
                     <Link to={"/nave"}>
-                        <Button sx={{
+                        <Button 
+                        className="internet"
+                        sx={{
                             width: "100%", 
                             height: "50px",
                             fontFamily: "archivo",
