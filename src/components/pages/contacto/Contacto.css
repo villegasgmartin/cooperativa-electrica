@@ -97,9 +97,15 @@
 .swal2-content {
     font-family: 'interTight';
     color: var(--black);
+    font-size: 16px;
+
 }
 .swal2-confirm {
-    font-family: 'Archivo',
+    font-family: 'interTight',
+}
+.swal2-popup-custom {
+    border: 5px solid #12824c;
+    border-radius: 20px;
 }
 
 
@@ -134,6 +140,9 @@
     }
     .contacto-info-title{
         font-size: 1.5625rem;
+    }
+    .swal2-popup-custom {
+        transform: scale(0.8); 
     }
 }
 

@@ -26,6 +26,8 @@ import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
 import BotonFlotante from "./components/common/BotonFlotante/BotonFlotante.jsx"
 import Home2 from "./components/pages/home2/Home.jsx"
+{/*import 'bootstrap/dist/css/bootstrap.min.css';*/}
+
 
 //JSX:
 function App() {

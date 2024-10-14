@@ -5,6 +5,7 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import ResponsiveAppBar from "../navbarPages/NavbarPages";
 import { Fade } from "react-awesome-reveal";
 import { useEffect, useState } from "react";
+{/*import NavbarPages from "../navbarPages/NavBarPagesTest";*/}
 
 // Componente Header:
 const Header = ({ title, logo, isMutual }) => {
@@ -40,7 +41,8 @@ const Header = ({ title, logo, isMutual }) => {
                 </div>
             </div>
             <div className="navbar-container">
-                <ResponsiveAppBar />
+                {/*<NavbarPages/>*/}
+                <ResponsiveAppBar/>
             </div>
             <Fade key={fadeKey} duration={800} triggerOnce={true}>
                 <div className="header-title-container">

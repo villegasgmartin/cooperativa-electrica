@@ -6,7 +6,7 @@ import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
-import NavBarTest from "../navBarTest/NavBarTest";
+{/*import NavBarTest from "../navBarTest/NavBarTest";*/}
 
 //JSX:
 const HomePortada = () => {
@@ -27,8 +27,8 @@ const HomePortada = () => {
                         <h4 className="homePortada-contactosText">0800-333-0357 / (0223) 495-1411</h4>
                     </a>
                 </div>
-                {/*<NavBarTest/> */}
-                <ResponsiveAppBar/>
+                {/* <NavBarTest/>*/}
+                <ResponsiveAppBar/>*
                 <motion.div
                     initial={{ opacity: 0, x: -100 }}  
                     animate={{ opacity: 1, x: 0 }}

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import { enviarFormulario } from '../../../store/contactoSlice';
 import { TextField, Button, Select, MenuItem, FormControl } from '@mui/material';
-import Swal from 'sweetalert2'; // Importar SweetAlert
+import Swal from 'sweetalert2';
 import "../contacto/Contacto.css";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -32,43 +32,57 @@ const Contacto = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Validar que todos los campos estén completos
     if (formData.nombre && formData.correo && formData.consulta && formData.mensaje) {
       const destino =
         formData.consulta === "Consulta sobre NAVE"
           ? "aurelianopuente@hotmail.com"
           : "aurelianopuente@hotmail.com";
 
-      // Mostrar SweetAlert antes de despachar la acción
       Swal.fire({
-        icon: 'success',
-        title: '¡Mensaje enviado!',
-        text: 'Tu consulta ha sido enviada correctamente.',
-        confirmButtonColor: '#12824c',
-        customClass: {
-          title: 'swal2-title',
-          content: 'swal2-content',
-          confirmButton: 'swal2-confirm'
+        title: 'Enviando...',
+        text: 'Tu consulta está siendo enviada.',
+        showConfirmButton: false,
+        didOpen: () => {
+          Swal.showLoading(); 
         }
       });
 
-      // Limpiar los campos del formulario
-      setFormData({
-        nombre: '',
-        correo: '',
-        consulta: 'Consulta sobre NAVE',
-        mensaje: ''
-      });
+      setTimeout(() => {
+        Swal.fire({
+          icon: 'success',
+          title: '¡Mensaje enviado!',
+          text: 'Tu consulta ha sido enviada correctamente.',
+          confirmButtonColor: '#12824c',
+          customClass: {
+            title: 'swal2-title',
+            content: 'swal2-content',
+            confirmButton: 'swal2-confirm',
+            popup: 'swal2-popup-custom'
+          }
+        });
 
-      // Enviar el formulario
-      dispatch(enviarFormulario({ ...formData, destino }));
+        setFormData({
+          nombre: '',
+          correo: '',
+          consulta: 'Consulta sobre NAVE',
+          mensaje: ''
+        });
+
+        dispatch(enviarFormulario({ ...formData, destino }));
+      }, 1000);
+
     } else {
-      // Mostrar SweetAlert si falta algún campo
       Swal.fire({
         icon: 'error',
         title: 'Oops...',
         text: 'Por favor, completa todos los campos.',
         confirmButtonColor: '#12824c',
+        customClass: {
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm',
+          popup: 'swal2-popup-custom'
+        }
       });
     }
   };

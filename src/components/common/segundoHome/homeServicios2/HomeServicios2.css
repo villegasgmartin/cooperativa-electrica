@@ -200,112 +200,12 @@
     font-family: "intertight";
     font-size: 1.5625rem;
 }
-/*----------------Media Queries----------------*/
-
-@media(max-width:1435px){
-    .button-info-container2{
-        height: auto;
-        width: 9.375rem;
-    }
-    .button-text2{
-        font-size: 2.1875rem;
-    }
-}
-
-@media(max-width:1220px){
-    .button-info-container2{
-        height: 6rem;
-        width: 6rem;
-    }
-    .button-text2{
-        font-size: 1.375rem;
-    }
-    .homeServicios-logo2{
-        width: 8.125rem;
-    }
-    .homeServicios-title2{
-        font-size: 1.0625rem;
-    }
-}
-
-@media(max-width:1100px){
-    .info-servicio-container2{
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-    .info-servicio-text-button2{
-        gap: 1.25rem;
-    }
-}
-
-@media(max-width:908px){
-    .homeServicios-buttonContainer2{
-        gap: .9375rem;
-    }
-}
-
-@media(max-width:820px){
-    .homeServicios-description2{
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-    .homeServicios-text2{
-        width: 90%
-    }
-    .info-servicio-container2{
-        width: 90%;
-    }
-}
-
-@media(max-width:750px){
-    .homeServicios-container2{
-        padding: 4rem 0.5rem;
-    }
-    .contratar2{
-        flex-direction: column;
-        gap:.625rem
-    }
-    .info-servicio-img2{display: none;}
-    .whatsapp2{
-        font-size: 1.25rem;
-    }
-    .homeServicios-logo2{
-        width: 7.5rem;
-    }
-    .homeServicios-title2{
-        font-size: .9375rem;
-    }
-}
-
-@media(max-width:450px){
-    .button-info-container2{
-        height: 5rem;
-        width: 5rem;
-    }.button-text2{
-        font-size: 1.125rem;
-    }.info-servicio-title2{
-        font-size: 1.375rem;
-    }
-    .info-servicio-img2{
-        display: none;
-    }
-    .homeServicios-logo2{
-        width: 6.25rem;
-    }
-    .homeServicios-title2{
-        font-size: .8125rem;
-    }
-    .homeServicios-text2{
-        font-size: 1rem;
-    }
-}
 
 
 /*agregados*/
 .containerglobal2{
     display: flex;
     flex-direction: row-reverse;
-    justify-content: center;
     margin: 20px auto;
     max-width: 1200px;
     padding: 20px;
@@ -371,4 +271,12 @@
 }
 .info-servicio-container2.dinamico .contratar2 h5{
     color:#000;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1250px) {
+    .containerglobal2 {
+        transform: scale(0.9);
+    }
 }
