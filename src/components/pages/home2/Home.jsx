@@ -10,10 +10,10 @@ import "../home/Home.css"
 const Home2 = () => {
     return (
         <div>
-            {/*<HomePortada/> */}
+            *<HomePortada/>
             <HomeServicios2/>
-            {/*<HomeGuardia2/> */}
-            {/*<HomeBlog2/> */}
+            <HomeGuardia2/>
+            <HomeBlog2/>
             <Footer/>
         </div>
     )
