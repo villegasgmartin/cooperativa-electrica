@@ -75,7 +75,7 @@ const Mutual = () => {
 
   return (
     <section className='mutual-main-container'>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={900} delay={300}>
         <p className='mutual-text'>
           SI SOS ASOCIADO Y NO TENES DEUDA EN LA FACTURACIÓN DE ELECTRICIDAD, 
           COMPLETA EL FORMULARIO Y CONSULTÁ SOBRE TU CARNET CON BENEFICIOS.
@@ -185,7 +185,7 @@ const Mutual = () => {
           </form>
         </Fade>
       </div>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
         <div className='mutual-enlace'>
           <p className='mutual-enlace-text'>LISTADO DE PROFESIONALES Y COMERCIOS ADHERIDOS</p>
           <a href="https://mutualami.org.ar/mutual/beneficios/" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>

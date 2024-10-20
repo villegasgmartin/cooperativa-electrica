@@ -20,9 +20,9 @@ const Biblioteca = () => {
 
   return (
     <section className='biblioteca-main-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}><h2 className='biblioteca-title'>Biblioteca Ingeniero Julio Rateriy</h2></Fade>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'><h2 className='biblioteca-title'>Biblioteca Ingeniero Julio Rateriy</h2></Fade>
         <div className='biblioteca-accordion-container'>
-          <Fade triggerOnce={true} duration={800} delay={300}>
+          <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
             <AccordionGroup variant='soft' size='lg'>
             <Accordion>
               <AccordionSummary>Biblioteca Ingeniero Julio Rateriy</AccordionSummary>
@@ -76,7 +76,7 @@ const Biblioteca = () => {
           </Fade>
       </div>
       <div className='biblioteca-servicios-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='biblioteca-servicios'>
             <h3 className='biblioteca-servicios-title'>SERVICIOS:</h3>
             <ul>
@@ -90,6 +90,8 @@ const Biblioteca = () => {
             </ul>
             <p className='biblioteca-adress'>20 DE SEPTIEMBRE 2638 – MAR DEL PLATA – ARGENTINA (0223) 493-5777 (interno 5) – Lunes a Viernes de 7,30 a 13,30 hs. </p>
           </div>
+        </Fade>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='biblioteca-image-container'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/05/logobiblio.png" alt="logo de biblioteca" width={"100%"}/></div>
         </Fade>
       </div>

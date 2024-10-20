@@ -89,7 +89,7 @@ const Contacto = () => {
 
   return (
     <section className='contacto-main-container'>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
         <div className='contacto-mensaje-container'>
           <h3 className='contacto-number'>0800-3330357</h3>
           <p className='contacto-mensaje'>
@@ -201,7 +201,7 @@ const Contacto = () => {
         </form>
       </Fade>
 
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
       <div className='contacto-info-container'>
           <div className='contacto-info'>
             <h4 className='contacto-info-title'>Servicio Eléctrico</h4>

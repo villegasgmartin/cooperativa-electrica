@@ -68,14 +68,14 @@ const Form = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    sx={{ backgroundColor: "#d9f3e3",
+                    sx={{ backgroundColor: "#edeaff",
                     '& .MuiOutlinedInput-root': {
                         '&.Mui-focused fieldset': {
-                        borderColor: '#12824c',
+                        borderColor: '#8048ff;',
                         },
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: '#12824c',
+                        color: '#8048ff;',
                     }
                     }}
                 />
@@ -86,14 +86,14 @@ const Form = () => {
                     required
                     value={dni}
                     onChange={(e) => setDni(e.target.value)}
-                    sx={{ backgroundColor: "#d9f3e3",
+                    sx={{ backgroundColor: "#edeaff",
                     '& .MuiOutlinedInput-root': {
                         '&.Mui-focused fieldset': {
-                        borderColor: '#12824c',
+                        borderColor: '#8048ff;c',
                         },
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: '#12824c',
+                        color: '#8048ff;',
                     }
                     }}
                 />
@@ -104,14 +104,14 @@ const Form = () => {
                     required
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    sx={{ backgroundColor: "#d9f3e3",
+                    sx={{ backgroundColor: "#edeaff",
                     '& .MuiOutlinedInput-root': {
                         '&.Mui-focused fieldset': {
-                        borderColor: '#12824c',
+                        borderColor: '#8048ff;',
                         },
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: '#12824c',
+                        color: '#8048ff;',
                     }
                     }}
                 />
@@ -122,14 +122,14 @@ const Form = () => {
                     required
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    sx={{ backgroundColor: "#d9f3e3",
+                    sx={{ backgroundColor: "#edeaff",
                     '& .MuiOutlinedInput-root': {
                         '&.Mui-focused fieldset': {
-                        borderColor: '#12824c',
+                        borderColor: '#8048ff;',
                         },
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: '#12824c',
+                        color: '#8048ff;',
                     }
                     }}
                 />
@@ -141,14 +141,14 @@ const Form = () => {
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    sx={{ backgroundColor: "#d9f3e3",
+                    sx={{ backgroundColor: "#edeaff",
                     '& .MuiOutlinedInput-root': {
                         '&.Mui-focused fieldset': {
-                        borderColor: '#12824c',
+                        borderColor: '#8048ff;',
                         },
                     },
                     '& .MuiInputLabel-root.Mui-focused': {
-                        color: '#12824c',
+                        color: '#8048ff;',
                     }
                     }}
                 />
@@ -161,7 +161,7 @@ const Form = () => {
                     value={internetPlan}
                     label="Plan que solicita de internet"
                     onChange={handleInternetChange}
-                    sx={{ backgroundColor: "#d9f3e3",}}
+                    sx={{ backgroundColor: "#edeaff",}}
                     >
                     <MenuItem value="50 megas">50 megas</MenuItem>
                     <MenuItem value="100 megas">100 megas</MenuItem>
@@ -178,7 +178,7 @@ const Form = () => {
                     value={tvPlan}
                     label="Plan que solicita de TV"
                     onChange={handleTvChange}
-                    sx={{ backgroundColor: "#d9f3e3",}}
+                    sx={{backgroundColor: "#edeaff",}}
                     >
                     <MenuItem value="Full TV">Full TV</MenuItem>
                     <MenuItem value="Fútbol Premium">Fútbol Premium</MenuItem>
@@ -190,7 +190,7 @@ const Form = () => {
                     sx={{
                         width: "100%",
                         height: "60px",
-                        backgroundColor: "#12824c",
+                        backgroundColor: "#8048ff;",
                         fontFamily: "archivo",
                     }}
                     variant="contained"
