@@ -3,21 +3,14 @@ import Slider from "react-slick";
 import Card from '../Card/Card';
 import './CardCarousel.css';
 
-const CardCarousel = () => {
-    const servicios = [
-        { servicio: "50 megas", precio: "$12.614 x mes" },
-        { servicio: "100 megas", precio: "$16.846 x mes" },
-        { servicio: "300 megas", precio: "$19.864 x mes" },
-        { servicio: "500 megas", precio: "$24.893 x mes" },
-        { servicio: "Full TV", precio: "$8.570 x mes" },
-        { servicio: "Fútbol Premium", precio: "$8.786 x mes" },
-    ];
-
+const CardCarousel = ({servicios , showArrowsAndDots}) => {
+    
     // Configuración del carrusel
     const settings = {
-    dots: true,
+    dots: showArrowsAndDots,
+    arrows: showArrowsAndDots, 
     infinite: false,
-    speed: 500,
+    speed: 600,
     slidesToShow: 3,
     slidesToScroll: 1,
     responsive: [
@@ -29,7 +22,7 @@ const CardCarousel = () => {
         },
     },
     {
-        breakpoint: 770,
+        breakpoint: 820,
         settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

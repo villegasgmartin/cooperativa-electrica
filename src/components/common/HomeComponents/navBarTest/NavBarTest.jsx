@@ -6,6 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import LogoNavbar from "../../../../assets/images/logo-horizontal.png";
 import "../navBarTest/NavBarTest.css";
+{/*import 'bootstrap/dist/css/bootstrap.min.css';*/}
 
 // JSX
 function BasicExample() {

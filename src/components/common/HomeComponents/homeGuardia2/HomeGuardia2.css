@@ -1,0 +1,205 @@
+/*Contenedor principal*/
+.HomeGuardia-container2{
+    background-color: rgb(245,245,245);
+    padding-bottom: 5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*Botón para movile*/
+.HomeGuardia-buttonContainer2-column{
+    display: none;
+}
+
+/*Imágen*/
+.imagenGuardia2{
+    background-image: url(../../../../assets/images/pexels-chris-f-38966-10130754.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 37.5rem;
+    height: 31.25rem;
+    border-radius: 1.25rem;
+}
+
+/*Contenedor de título y texto*/
+.HomeGuardia-infoContainer2{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    max-width: 50%;
+    margin:0;
+    width: 37.5rem;
+    gap: .625rem;
+}
+
+/*Título*/
+.HomeGuardia-title2{
+    font-family: "Archivo";
+    font-size: 2.5rem;
+    color:  var(--black);
+}
+
+/*Fondo de color "Eléctrica"*/
+.color-title2{
+    background:#8048ff;
+    color:#fff;
+    padding: 2px 15px;
+    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+}
+
+/*Texto*/
+.HomeGuardia-description2{
+    margin-left: 0;
+    margin-right: 0;
+    font-family: "InterTight";
+    text-align: justify;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    color: var(--black);
+}
+
+/*Contenedor de botón*/
+.HomeGuardia-buttonContainer2{
+    margin-top: 20px;
+    width: 14.375rem;
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:1250px){
+    .imagenGuardia2{
+        width: 34.375rem;
+        height: 28.125rem;
+    }
+    .HomeGuardia-title2{
+        font-size: 2.1875rem;
+    }
+    .HomeGuardia-description2{
+        font-size: .9375rem;
+    }
+    .HomeGuardia-infoContainer2{
+        height: 28.125rem;
+        width: 31.25rem;
+    }
+    .HomeGuardia-buttonContainer2{
+        margin-top: .9375rem;
+    }
+}
+
+@media(max-width:1110px){
+    .HomeGuardia-container2{
+        flex-direction: column-reverse;
+        gap: 30px;
+    }
+    .imagenGuardia2{
+        width: 37.5rem;
+        height: 31.25rem;
+    }
+    .HomeGuardia-title2{
+        font-size: 2.5rem;
+    }
+    .HomeGuardia-description2{
+        font-size: 1rem;
+    }
+    .HomeGuardia-infoContainer2{
+        height: 100%;
+        width: 100%;
+        max-width: 50rem;
+    }
+    .HomeGuardia-buttonContainer2{
+        display: none;
+    }
+    .HomeGuardia-buttonContainer2-column{
+        display: block;
+        width: 14.375rem;
+        height: 3.75rem;
+        margin-top: 1.25rem;
+    }
+}
+
+@media(max-width:850px){
+    .HomeGuardia-container2{
+        gap: 20px;
+    }
+    .imagenGuardia2{
+        width: 31.25rem;
+        height: 25rem;
+    }
+    .HomeGuardia-infoContainer2{
+        max-width: 40.625rem;
+    }
+    .HomeGuardia-buttonContainer2-column{
+        display: block;
+        width: 14.375rem;
+        height: 3.75rem;
+    }
+}
+
+@media(max-width:760px){
+    .HomeGuardia-title2{
+        font-size: 2.1875rem;
+    }
+    .HomeGuardia-infoContainer2{
+        max-width: 80%;
+    }
+}
+
+@media(max-width:700px){
+    .HomeGuardia-buttonContainer2-column{
+        width: 80%;
+    }
+}
+
+@media(max-width:650px){
+    .HomeGuardia-container2{
+        padding-bottom: 4rem;
+    }
+}
+
+@media(max-width:600px){
+    .HomeGuardia-title2{
+        font-size: 1.875rem;
+    }
+    .imagenGuardia2{
+        width: 25rem;
+        height: 18.75rem;
+    }
+    .HomeGuardia-infoContainer2{
+        max-width: 90%;
+    }
+}
+
+@media(max-width:450px){
+    .imagenGuardia2{
+        width: 18.75rem;
+        height: 12.5rem;
+    }
+    .HomeGuardia-buttonContainer2-column{
+        width: 90%;
+    }
+}
+
+@media(max-width:403px){
+    .HomeGuardia-title2{
+        font-size: 1.5625rem;
+    }
+    .HomeGuardia-description2{
+        text-align: center;
+    }
+}
+
+@media(max-width:350px){
+    .HomeGuardia-title2{
+        font-size: 1.4375rem;
+    }
+}
+
+@media(max-width:327px){
+    .HomeGuardia-title2{
+        font-size: 1.375rem;
+    }
+}

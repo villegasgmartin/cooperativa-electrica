@@ -1,14 +1,16 @@
 //Importaciones:
-import { useState, useEffect } from "react";
-import HomeBlog from "../../common/HomeComponents/homeBlog/HomeBlog";
-import HomeGuardia from "../../common/HomeComponents/homeGuardia/HomeGuardia";
-import HomePortada from "../../common/HomeComponents/homePortada/HomePortada";
-import HomeServicios from "../../common/HomeComponents/homeServicios/HomeServicios";
+import HomePortada2 from "../../common/HomeComponents/homePortada/HomePortada"
+import HomeServices3 from "../../common/HomeComponents/homeServices3/HomeServices3";
+import HomeGuardia2 from "../../common/HomeComponents/homeGuardia2/HomeGuardia2";
+import HomeBlog2 from "../../common/HomeComponents/homeBlog2/HomeBlog2";
 import Footer from "../../common/layout/footer/Footer";
-import "../home/Home.css";
 import ModalHome from "../../../assets/images/home-alert.jpeg"
+import { useState, useEffect } from "react";
+import "../home/Home.css"
 
+//JSX:
 const Home = () => {
+
     const [showImageModal, setShowImageModal] = useState(false);
 
     useEffect(() => {
@@ -29,7 +31,7 @@ const Home = () => {
 
     return (
         <div>
-        {showImageModal && (
+            {showImageModal && (
             <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content">
                 <img
@@ -40,13 +42,13 @@ const Home = () => {
             </div>
             </div>
         )}
-        <HomePortada />
-        <HomeServicios />
-        <HomeGuardia />
-        <HomeBlog />
-        <Footer />
+            <HomePortada2/>
+            <HomeServices3/>
+            <HomeGuardia2/>
+            <HomeBlog2/>
+            <Footer/>
         </div>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
