@@ -38,7 +38,7 @@ const HomeServices3 = () => {
         <div className='homeSeervicios-logo'>
           <img src={LogoNave} alt="logo NAVE" width="100%" />
         </div>
-        <h2 className='homeServicios-titile'>Internet Cooperativa</h2>
+        <h2 className='homeServicios-title'>Internet Cooperativa</h2>
         <Fade triggerOnce={true} duration={800} delay={300}>
           <p className='homeServicios-text'>Descubre nuestras increíbles opciones de Internet y televisión diseñadas para satisfacer todas tus necesidades de entretenimiento y conectividad.</p>
         </Fade>

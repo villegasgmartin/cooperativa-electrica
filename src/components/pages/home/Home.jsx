@@ -4,13 +4,14 @@ import HomeServices3 from "../../common/HomeComponents/homeServices3/HomeService
 import HomeGuardia2 from "../../common/HomeComponents/homeGuardia2/HomeGuardia2";
 import HomeBlog2 from "../../common/HomeComponents/homeBlog2/HomeBlog2";
 import Footer from "../../common/layout/footer/Footer";
-import ModalHome from "../../../assets/images/home-alert.jpeg"
-import { useState, useEffect } from "react";
+/*import ModalHome from "../../../assets/images/home-alert.jpeg"*/
+/*import { useState, useEffect } from "react"*/
 import "../home/Home.css"
 
 //JSX:
 const Home = () => {
 
+/*
     const [showImageModal, setShowImageModal] = useState(false);
 
     useEffect(() => {
@@ -28,9 +29,11 @@ const Home = () => {
     const closeModal = () => {
         setShowImageModal(false);
     };
+*/
 
     return (
         <div>
+            {/*
             {showImageModal && (
             <div className="modal-overlay" onClick={closeModal}>
             <div className="modal-content">
@@ -42,6 +45,7 @@ const Home = () => {
             </div>
             </div>
         )}
+            */}
             <HomePortada2/>
             <HomeServices3/>
             <HomeGuardia2/>

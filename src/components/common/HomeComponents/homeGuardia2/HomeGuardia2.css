@@ -188,9 +188,6 @@
     .HomeGuardia-title2{
         font-size: 1.5625rem;
     }
-    .HomeGuardia-description2{
-        text-align: center;
-    }
 }
 
 @media(max-width:390px){
