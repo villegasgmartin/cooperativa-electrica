@@ -31,7 +31,7 @@ const pages = [
         { name: 'Blog', path: '/Blog' }
     ]},
     { name: 'USUARIOS', path: '#', submenu: [
-        { name: 'Formas y lugares de pago', path: '/formas-de-pago' },
+        { name: 'Medios de pago', path: '/formas-de-pago' },
         { name: 'Consejos útiles', path: '/consejos-utiles' },
     ]},
     { name: 'CONTACTO', path: '/contacto' },

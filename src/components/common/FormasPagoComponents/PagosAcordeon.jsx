@@ -12,7 +12,7 @@ export default function PagosAcordeon() {
       <Accordion>
         <AccordionSummary>En Efectivo</AccordionSummary>
         <AccordionDetails>
-          <p className='FormasPago-accordion-content'>Puede realizar el pago de sus facturas de Servicio Eléctrico o de Nave Internet en la Sede de nuestra Cooperativa, Alberti 3600 (esquina 20 de Septiembre), Mar del Plata de lunes a viernes de 7:30 a 12:30 hs.</p>
+          <p className='FormasPago-accordion-content'>Puede realizar el pago de sus facturas de Servicio Eléctrico o de Nave Internet en la Sede de nuestra Cooperativa, Alberti 3600 (esquina 20 de Septiembre), Mar del Plata. De lunes a viernes de 7:30 a 12:30 hs.</p>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -25,19 +25,19 @@ export default function PagosAcordeon() {
             <li className='FormasPago-accordion-content'>Seleccioná por Ente: Coop Electricidad MDP</li>
             <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_energia_yef0tt.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_NAVE_qclwju.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
           </ol>
-          <strong className='FormasPago-accordion-content'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
+          <strong className='FormasPago-accordion-content FormasPago-accordion-link'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
         </AccordionDetails>
       </Accordion>
       <Accordion>
         <AccordionSummary>La Red de Agentes de cobranzas Provincia NET Pagos</AccordionSummary>
         <AccordionDetails>
-          <p className='FormasPago-accordion-content'>En convenio con Bapro Medios de Pagos Sociedad Anónima, ud. puede abonar la factura de Suministro Eléctrico o de Nave Internet, de la Cooperativa en cualquier ventanilla Provincia NET Pagos</p>
+          <p className='FormasPago-accordion-content'>En convenio con Bapro Medios de Pagos Sociedad Anónima, Ud. puede abonar la factura de Suministro Eléctrico o de Nave Internet, de la Cooperativa en cualquier ventanilla Provincia NET Pagos</p>
         </AccordionDetails>
       </Accordion>
       <Accordion>
         <AccordionSummary>Tarjeta de Débito y Crédito - VISA y Master</AccordionSummary>
         <AccordionDetails>
-          <p>Puede realizar el pago de su Factura de Servicio Eléctrico y Nave Internet con Tarjeta de Débito y Crédito (en 1 pago) de cualquier banco en la Sede de nuestra Cooperativa, Alberti 3600 esquina 20 de Septiembre, Mar del Plata de lunes a viernes de 7:30 a 12:30 hs.). Para el pago de su Factura de Servicio Internet NAVE en las oficinas comerciales de calle 20 de septiembre 2638 de lunes a viernes de 8 hs a 15 hs.</p>
+          <p>&quot;Puede abonar sus facturas de servicio eléctrico y NAVE Internet con tarjetas de débito y crédito (en 1 pago) en la Caja 1 de la Sede de Alberti 3600. El Servicio NAVE Internet puede abonarse con tarjeta de débito o crédito en las oficinas comerciales de calle 20 de septiembre 2638.</p>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -59,7 +59,6 @@ export default function PagosAcordeon() {
           <ul>
             <li className='FormasPago-accordion-content'>Indicar la cuenta que se cancela por e-mail:</li>
             <li className='FormasPago-accordion-content'>Si corresponde a suministro eléctrico a <a href="mailto:comercial@coopelectmdp.com.ar" className='FormasPago-accordion-link'>comercial@coopelectmdp.com.ar</a> o <a href="mailto:comercialgc@cooperativamdp.com.ar" className='FormasPago-accordion-link'>comercialgc@cooperativamdp.com.ar</a></li>
-            <li className='FormasPago-accordion-content'>Si corresponde a suministro de Nave internet a: <a href="mailto:nave-adm@cooperativamdp.com.ar" className='FormasPago-accordion-link'>nave-adm@cooperativamdp.com.ar</a></li>
             <li className='FormasPago-accordion-content'>Los cheques deberán ser del titular del suministro y extendido a la orden de COOPERATIVA DE PROVISIÓN DE ELECTRICIDAD, SERVICIOS PÚBLICOS, VIVIENDA Y CRÉDITO DE MAR DEL PLATA LIMITADA – NO A LA ORDEN.</li>
           </ul>
         </AccordionDetails>
@@ -84,12 +83,6 @@ export default function PagosAcordeon() {
             <li className='FormasPago-accordion-content'>ALIAS: COOP-PROVINCIA</li>
             <li className='FormasPago-accordion-content'>CUENTA CORRIENTE N° 10412/2</li>
           </ul>
-        </AccordionDetails>
-      </Accordion>
-      <Accordion>
-        <AccordionSummary>Macro Click Pago</AccordionSummary>
-        <AccordionDetails>
-          <p className='FormasPago-accordion-content'>Ingresar al siguiente link: <a href="https://pagos.macroclickpago.com.ar/SearchDeuda/796346" target='_blank' className='FormasPago-accordion-link'>http://pagos.macroclickpago.com.ar/796346</a> luego completar el Código de Pago Electrónico, seleccionar el concepto a pagar y por último elegir el medio de pago: tarjeta de débito, crédito o debin.</p>
         </AccordionDetails>
       </Accordion>
     </AccordionGroup>

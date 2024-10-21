@@ -4,14 +4,14 @@
 
 /* Estilos del Carousel */
 .carousel-container {
-    width: 62.5rem; 
+    width: 75rem; 
     margin-left: auto; 
     margin-right: auto;
 }
 
 /* Espaciado entre cards */
 .slick-slide {
-    padding: 5px 5px;
+    padding: 5px 25px;
 }
 
 /* Puntos de navegación */
@@ -40,11 +40,11 @@
 
 /* Distancia entre las flechas y las cards */
 .slick-prev {
-    left: -40px;
+    left: -15px;
 }
 
 .slick-next {
-    right: -10px;
+    right: -5px;
 }
 
 /* Hover de las flechas */
@@ -56,26 +56,98 @@
 
 /*----------------Media Queries----------------*/
 
+@media(max-width:1300px){
+    .slick-prev {
+        left: 8px;
+    }
+    
+    .slick-next {
+        right: 18px;
+    }
+}
+
+@media(max-width:1250px){
+    .carousel-container{
+        width: 68.75rem;
+    }
+    .slick-slide {
+        padding: 0px 10px;
+    }
+}
+
 @media(max-width:1110px){
     .carousel-container{
-        width: 650px;
+        width: 50rem;
     }
-    .slick-next {
-        right: -15px;
-    }
-}
-
-@media(max-width:770px){
-    .carousel-container{
-        width: 19.375rem;
-    }
-    .slick-next {
-        right: -30px;
+    .slick-slide {
+        padding: 5px 25px;
     }
 }
 
-@media(max-width:460px){
+@media(max-width:950px){
     .carousel-container{
-        width: 13.125rem
+        width: 43.75rem;
+    }
+    .slick-slide {
+        padding: 5px 0px;
+    }
+    .slick-prev {
+        left: -15px;
+    }
+    
+    .slick-next {
+        right: -5px;
+    }
+}
+
+@media(max-width:820px){
+    .carousel-container{
+        width: 22.5rem;
+    }
+    .slick-slide {
+        padding: 5px 5px;
+    }
+}
+
+@media(max-width:500px){
+    .carousel-container{
+        width: 21.875rem;
+    }
+    .slick-slide {
+        padding: 5px 0px;
+    }
+    .slick-prev {
+        left: -10px;
+    }
+    .slick-next {
+        right: 0px;
+    }
+    .slick-dots li button:before {
+        padding-top: 5px;
+    }
+    
+}
+
+@media(max-width:440px){
+    .carousel-container{
+        width: 18.75rem;
+    }
+    .slick-slide {
+        padding: 5px 0px;
+    }
+    .slick-prev {
+        left: -10px;
+    }
+    .slick-next {
+        right: 0px;
+    }
+    .slick-dots li button:before {
+        padding-top: 5px;
+    }
+}
+
+@media(max-width:385px){
+    .carousel-container{
+        width: 16.25rem;
     }
 }

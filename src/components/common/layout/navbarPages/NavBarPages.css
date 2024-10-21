@@ -1,0 +1,80 @@
+/*Contenedor Principal*/
+.custom-navbar2 {
+    width: 80%;
+    margin: auto;
+    background-color: var(--darkgreen);
+    border-radius: .3125rem;
+}
+
+/*Logo*/
+.navbar-logo{
+    width: 13.125rem;
+}
+
+/*Color del botón del menú movile*/
+.custom-navbar2 .navbar-toggler-icon {
+background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/*Color del borde del botón*/
+.custom-navbar2 .navbar-toggler {
+border-color: white;
+}
+
+/* Color de enlaces */
+.custom-navbar2 .nav-link,
+.custom-navbar2 .nav-link:active,
+.custom-navbar2 .nav-link:focus,
+.custom-navbar2 .nav-link:visited {
+color: white !important;
+}
+
+/*Hover de los enlaces*/
+.custom-navbar2 .nav-link:hover {
+color: var(--lightgreen) !important; 
+}
+
+/* Hover de los submenú*/
+#servicio-electrico:hover,
+#laboratorio-medidores:hover,
+#biblioteca:hover,
+#ami-mutual:hover,
+#comunicados-institucionales:hover,
+#consejo-administracion:hover,
+#principios-cooperativos:hover,
+#historia:hover,
+#blog:hover,
+#formas-pago:hover,
+#consejos-utiles:hover {
+background-color: var(--darkgreen);
+color: white;
+}
+
+/*----------------Media Queries----------------*/
+
+@media(max-width:1055px){
+.navbar-logo{
+    width: 11.875rem;
+}
+.custom-navbar2 .nav-link {
+    font-size: .875rem;
+}
+}
+
+@media(max-width:991px){
+.custom-navbar2 .nav-link {
+    font-size: 1rem;
+}
+}
+
+@media(max-width:760px){
+.navbar-logo{
+    width: 10rem;
+}
+}
+
+@media(max-width:600px){
+.navbar-logo{
+    width: 8.75rem;
+}
+}

@@ -1,79 +1,36 @@
 //Importaciones:
-import { Button } from '@mui/material';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import LogoCooperativa from "../../../../assets/images/logo-horizontal.png";
+import { Button } from "@mui/material";
 import "../Card/Card.css";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 //JSX:
-const Card = ({ servicio, precio }) => {
+const Card = ({servicio, precio}) => {
     return (
         <div className='card'>
-        <div className='card-servicioContainer'>
-            <h4 className='card-servicio'>{servicio}</h4>
-            <h3 className='card-precio'>{precio}</h3>
-        </div>
-        <div className='card-buttonsContainer'>
-            <Button 
-            variant='contained'
-            LinkComponent={Link}
-            to="/formulario"
-            sx={{
-                backgroundColor: "#8048ff",
-                borderRadius: "30px",
-                padding:{
-                    xs: "10px",
-                    sm: "13px",
-                    '@media (max-width: 460px)': {
-                        padding: '5px',
-                            }
-                },
-                fontFamily: "archivo",
-                textTransform: 'none',
-                fontSize: {
-                    xs: '12px',
-                    sm: '14px',
-                    '@media (max-width: 460px)': {
-                        fontSize: '11px',
-                            }
-                        }
-                    }}
-                    >
-            Contratar online
-            </Button>
-            <a href="https://wa.me/2235376973" target="_blank" rel="noopener noreferrer">
-            <Button 
-                variant='outlined'
-                sx={{
-                color: "#8048ff",
-                borderColor: "#8048ff",
-                borderRadius: "30px",
-                padding:{
-                    xs: "10px",
-                    sm: "13px",
-                    '@media (max-width: 460px)': {
-                        padding: '5px',
-                            }
-                },
-                fontFamily: "archivo",
-                borderWidth: "3px",
-                textTransform: 'none',
-                fontSize: {
-                    xs: '12px',
-                    sm: '14px',
-                    '@media (max-width: 460px)': {
-                        fontSize: '11px',
-                            }
-                        }
-                    }}
-                >
-                <WhatsAppIcon fontSize='small' /> Contratar por Whatsapp
-            </Button>
-            </a>
-        </div>
-        <div className='card-logoContainer'>
-            <img src={LogoCooperativa} style={{filter: "invert(1)"}} width="50%" alt="Logo de la Cooperativa Eléctrica" />
-        </div>
+            <div className="card-servicio-container">
+                <p className="card-servicio">{servicio}</p>
+            </div>
+            <div className="card-info-container">
+                <p className="card-precio-promo">Precio de lista <span className="tachado">$43000</span></p>
+                <p className="card-precio">{precio}</p>
+                <p className="card-precio-text">final por mes</p>
+                <div className="card-button-container">
+                    <Link to={"/formulario"}>
+                        <Button
+                            variant="contained"
+                            sx={{
+                                backgroundColor: "#8048ff",
+                                fontFamily: "archivo",
+                                width: "100%",
+                                height: "100%",
+                                textTransform: "none",
+                                fontSize: "16px"
+                            }}
+                        >¡Lo quiero!</Button>
+                    </Link>
+                </div>
+                <p className="card-promo">46% OFF por 3 meses</p>
+            </div>
         </div>
     );
     };

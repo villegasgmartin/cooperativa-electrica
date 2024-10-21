@@ -1,79 +1,80 @@
-/* Navbar principal */
-.navbar-container {
-display: flex;
-align-items: center;
-justify-content: space-between;
-background-color: rgba(0, 0, 0, 0.5);
-width: 80%;
-margin: auto;
-border-radius: 0.3125rem;
-height: 5.3125rem;
-padding-left: 1.25rem;
-padding-right: 1.25rem;
+/*Contenedor Principal*/
+.custom-navbar {
+    width: 80%;
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: .3125rem;
 }
 
-/* Contenedor del logo */
-.logo-container {
-width: 13.125rem;
+/*Logo*/
+.navbar-logo{
+    width: 13.125rem;
 }
 
-/* Contenedor de enlaces */
-.link-container {
-display: flex;
-gap: 1.25rem;
+/*Color del botón del menú movile*/
+.custom-navbar .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-a {
-text-decoration: none;
+/*Color del borde del botón*/
+.custom-navbar .navbar-toggler {
+  border-color: white;
 }
 
-/* Estilos de los enlaces principales */
-.navbar-link {
-color: white;
-font-family: "interTight";
-list-style: none;
-cursor: pointer;
-transition: color 0.3s ease, transform 0.3s ease;
+/* Color de enlaces */
+.custom-navbar .nav-link,
+.custom-navbar .nav-link:active,
+.custom-navbar .nav-link:focus,
+.custom-navbar .nav-link:visited {
+  color: white !important;
 }
 
-.navbar-link:hover {
-color: var(--lightgreen);
+/*Hover de los enlaces*/
+.custom-navbar .nav-link:hover {
+  color: var(--lightgreen) !important; 
 }
 
-/* Submenús */
-.submenu {
-position: absolute;
-background-color: rgba(255, 255, 255, 0.8);
-padding: 15px;
-margin-top: 30px;
-list-style: none;
-font-family: "interTight";
-font-weight: bold;
-opacity: 0;
-max-height: 0;
-overflow: hidden;
-transition: all 0.5s ease; /* Transición suave */
+/* Hover de los submenú*/
+#servicio-electrico:hover,
+#laboratorio-medidores:hover,
+#biblioteca:hover,
+#ami-mutual:hover,
+#comunicados-institucionales:hover,
+#consejo-administracion:hover,
+#principios-cooperativos:hover,
+#historia:hover,
+#blog:hover,
+#formas-pago:hover,
+#consejos-utiles:hover {
+  background-color: var(--darkgreen);
+  color: white;
 }
 
-.submenu.open {
-opacity: 1;
-max-height: 400px; /* Altura máxima para el despliegue */
+/*----------------Media Queries----------------*/
+
+@media(max-width:1055px){
+  .navbar-logo{
+    width: 11.875rem;
+  }
+  .custom-navbar .nav-link {
+    font-size: .875rem;
+  }
 }
 
-.submenu li {
-color: var(--black); /* Letras grises */
-text-decoration: underline;
-text-underline-offset: .3125rem;
-padding: .625rem;
-margin: 5px 0;
-transition: color 0.3s ease;
+@media(max-width:991px){
+  .custom-navbar .nav-link {
+    font-size: 1rem;
+  }
 }
 
-.submenu li:hover {
-color: var(--darkgreen); /* Cambiar color en hover */
+@media(max-width:760px){
+  .navbar-logo{
+    width: 10rem;
+  }
 }
 
-/* Quitar viñetas del submenú */
-.submenu li {
-list-style-type: none;
+@media(max-width:600px){
+  .navbar-logo{
+    width: 8.75rem;
+  }
 }

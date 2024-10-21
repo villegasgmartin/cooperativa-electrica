@@ -1,6 +1,5 @@
 //Importaciones:
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Home from "./components/pages/home/Home.jsx"
 import Blog from "./components/pages/blog/Blog.jsx"
 import Comunicados from "./components/pages/comunicados/Comunicados.jsx"
 import Consejo from "./components/pages/consejo/Consejo.jsx"
@@ -25,7 +24,7 @@ import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
 import BotonFlotante from "./components/common/BotonFlotante/BotonFlotante.jsx"
-import Home2 from "./components/pages/home2/Home.jsx"
+import Home from "./components/pages/home/Home.jsx"
 
 //JSX:
 function App() {
@@ -33,7 +32,6 @@ function App() {
     <ScrollToTop/>
     <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/home2" element={<Home2/>} />
         <Route element={<Layout/>} >
           <Route path="/comunicados-institucionales" element={<Comunicados/>}/>
           <Route path="/consejo-de-administracion" element={<Consejo/>}/>

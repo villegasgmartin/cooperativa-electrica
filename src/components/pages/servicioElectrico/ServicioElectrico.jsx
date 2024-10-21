@@ -1,60 +1,86 @@
-//Importaciones:
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import { Button } from '@mui/material';
-import "../servicioElectrico/ServicioElectrico.css"
+import "../servicioElectrico/ServicioElectrico.css";
 import AccordionGroup from '@mui/joy/AccordionGroup';
 import Accordion from '@mui/joy/Accordion';
-import AccordionDetails from '@mui/joy/AccordionDetails';
+import AccordionDetails from '@mui/joy/AccordionDetails';     
 import AccordionSummary from '@mui/joy/AccordionSummary';
-import { Fade } from 'react-awesome-reveal'
+import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 
-//JSX:
 const ServicioElectrico = () => {
-
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   useEffect(() => {
     dispatch(setTitle('Servicio Eléctrico'));
+
+    const modalShown = sessionStorage.getItem('modalShown');
+    if (!modalShown) {
+      setTimeout(() => {
+        setIsModalOpen(true);
+        sessionStorage.setItem('modalShown', 'true'); 
+      }, 1000); 
+    }
   }, [dispatch]);
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <section className='servicio-main-container'>
-        <div className='servicio-accordion-container'>
-          <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
-            <AccordionGroup variant='soft' size='lg'>
-              <Accordion>
-                <AccordionSummary>NUEVO CUADRO TARIFARIO PARA CONSUMOS A PARTIR DEL 01/02/2024</AccordionSummary>
-                <AccordionDetails>
-                  <div className='servicio-accordion-details'>
-                    <p className='servicio-accordion-content'>Con fecha 23/2/24 se publicó en Boletín Oficial la Res. 198/24 del MIySP que traslada los precios mayoristas de la energía aprobados por Res. 07/24 de la Secretaria de Energía de la Nación, publicada el pasado 07/02/24. En primer término, se informa que se mantienen los segmentos tarifarios N1, N2 (equiparable en costos a la tarifa social) y N3.
-                    Para los segmentos residenciales de menores ingresos (N2) y de ingresos medios (N3) de menos de 400 kWh/mes, no se modificaron los precios por lo que permanecen vigentes los valores aplicados hasta la última factura.
-                    Lo mismo sucede con los usuarios de Tarifa Social y Clubes de Barrio. Para el resto de los segmentos, es decir, los usuarios residenciales de mayores ingresos (N1), los de ingresos medios de más de 400 kWh/mes y los NO residenciales, se les aplica el precio de la energía SIN SUBSIDIO.
-                    En el caso de los usuarios T2 y T3 los incrementos promedian el 140%. Reiteramos, tal como lo hicimos en comunicado anterior que estas tarifas son de aplicación a los consumos a partir del 1/2/24 por lo cual se verán reflejadas en la factura del período 02/24.
-                    Consejo de Administración.</p>
-                      <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2024/03/Incrementos-tarifarios-febrero-24-Res.-198-24.pdf" target='_blank'
-                        >
-                        <Button sx={{
-                        height: "60px",
-                        fontFamily: "archivo",
-                        backgroundColor: "#12824c"
-                      }} 
-                        variant='contained' 
-                        size='large'>Leer el Documento</Button>
-                      </a>
-                  </div>
-                </AccordionDetails>
-              </Accordion>
-            </AccordionGroup>
-          </Fade>
+      {isModalOpen && (
+        <div className='guardia-modal-overlay'>
+          <div className='guardia-modal-content'>
+            <h4 className='guardia-modal-title'>Estimados usuarios:</h4>
+            <p className='guardia-modal-description'>A partir del día lunes 20 de Mayo estaremos realizando una Obra de tendido subterráneo por Avenida Colón entre las calles Salta y España.</p>
+            <p className='guardia-modal-description'>Sepan disculpar las molestias ocasionadas.</p>
+            <Button 
+              variant="contained" 
+              onClick={closeModal}
+              sx={{
+                backgroundColor: "#12824c",
+                marginTop: '20px',
+                fontFamily: "archivo"
+              }}>
+              Cerrar
+            </Button>
+          </div>
+        </div>
+      )}
+      <div className='servicio-accordion-container'>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
+          <AccordionGroup variant='soft' size='lg'>
+            <Accordion>
+              <AccordionSummary>NUEVO CUADRO TARIFARIO PARA CONSUMOS A PARTIR DEL 01/02/2024</AccordionSummary>
+              <AccordionDetails>
+                <div className='servicio-accordion-details'>
+                  <p className='servicio-accordion-content'>Con fecha 23/2/24 se publicó en Boletín Oficial la Res. 198/24 del MIySP...</p>
+                  <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2024/03/Incrementos-tarifarios-febrero-24-Res.-198-24.pdf" target='_blank'>
+                    <Button sx={{
+                      height: "60px",
+                      fontFamily: "archivo",
+                      backgroundColor: "#12824c"
+                    }} 
+                      variant='contained' 
+                      size='large'>
+                      Leer el Documento
+                    </Button>
+                  </a>
+                </div>
+              </AccordionDetails>
+            </Accordion>
+          </AccordionGroup>
+        </Fade>
         </div>
           <div className='servicio-usuarios'>
             <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'>Sres. Usuarios:</h3>
-                <p className='servicio-usuarios-description'>Por Res. Oceba N° 167/18 La falta de pago de cualquier concepto ajeno al precio de la energía consumida por el usuario y los cargos que correspondan de acuerdo al primer párrafo del presente artículo, no podrán constituir causal de incumplimiento habilitante para la interrupción o desconexión del suministro a dicho usuario (Art. 78 de la Ley 11769).</p>
+                <p className='servicio-usuarios-description'>Por Res. Oceba N° 167/18, la <span className='resaltado'>falta de pago</span> de cualquier concepto ajeno al precio de la energía consumida por el usuario y los cargos que correspondan de acuerdo al primer párrafo del presente artículo, no podrán constituir causal de incumplimiento habilitante para la interrupción o desconexión del suministro a dicho usuario (Art. 78 de la Ley 11769).</p>
               </div>
               <div className='servicio-image-container'><img src="https://cdn.prod.website-files.com/64cb8feadae4f2e5a069eb86/64d496b7f051c502a51c450e_Set%20Reminders%20on%20WhatsApp%20with%20EazyBe%20Chrome%20Extension.png" alt="imágen de aviso" className='servicio-image'/></div>
             </Fade>
@@ -64,8 +90,8 @@ const ServicioElectrico = () => {
               <div className='servicio-image-container servicio-background-position' ><img src="https://www.enel.cl/content/dam/enel-cl/es/personas/informacion-de-utilidad/que-hace-enel-ante-un-corte-de-luz/08.png" alt="imágen de aviso" className='servicio-image' /></div>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'id='light-font'>Sres. Usuarios:</h3>
-                <p className='servicio-usuarios-description' id='light-font'>En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos.</strong>
-                  ‼️ Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones.Muchas gracias.</p>
+                <p className='servicio-usuarios-description' id='light-font'>En caso de <span className='resaltado2'>corte de servicio por falta de pago</span>, si abonan el valor de la reconexión por transferencia o depósito, <span className='resaltado2'>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos‼️.</span>
+                  Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones.Muchas gracias.</p>
               </div>
             </Fade>
           </div>
@@ -73,7 +99,7 @@ const ServicioElectrico = () => {
             <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'>Sres. Usuarios Residenciales y Tarifa Social:</h3>
-                <p className='servicio-usuarios-description'>A los efectos de mantener los subsidios, los usuarios deben realizar la presentación de la Declaración Jurada a través de la página web <strong><a className='servicio-enlace' href="https://www.argentina.gob.ar/subsidios">www.argentina.gob.ar/subsidios.</a></strong> En caso de no presentarla, estarán en condiciones de perder dicho beneficio.
+                <p className='servicio-usuarios-description'>A los efectos de <span className='resaltado'>mantener los subsidios</span>, los usuarios deben realizar la presentación de la Declaración Jurada a través de la página web <strong><a className='servicio-enlace' href="https://www.argentina.gob.ar/subsidios">www.argentina.gob.ar/subsidios.</a></strong> En caso de no presentarla, estarán en condiciones de perder dicho beneficio.
                   Usted puede consultar por su inclusión en la Tarifa Social en la página web del Organismo de Control de Energía Eléctrica de la Pcia de Buenos Aires: <strong><a className='servicio-enlace' href="https://oceba.gba.gov.ar/tarifa_social/pordni">oceba.gba.gov.ar/tarifa_social/pordni</a></strong></p>
               </div>
               <div className='servicio-image-container'><img src="https://www.jotform.com/blog/wp-content/uploads/2018/12/New-feature-reminder-email-blog-00B894-700x424.png?3.3.57079" alt="imágen de aviso" className='servicio-image'/></div>

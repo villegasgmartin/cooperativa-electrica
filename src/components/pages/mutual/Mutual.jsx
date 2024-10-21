@@ -1,4 +1,3 @@
-// Importaciones:
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
@@ -7,8 +6,8 @@ import { Button, TextField, Typography } from '@mui/material';
 import "../mutual/Mutual.css";
 import MutualImage from "../../../assets/images/mutual.jpeg";
 import { Fade } from 'react-awesome-reveal';
+import Swal from 'sweetalert2';
 
-//JSX: 
 const Mutual = () => {
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.mutual);
@@ -29,12 +28,54 @@ const Mutual = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    Swal.fire({
+      title: 'Enviando...',
+      text: 'Tu consulta está siendo enviada.',
+      showConfirmButton: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+
     dispatch(enviarFormularioMutual(formData));
   };
 
+  useEffect(() => {
+    if (success) {
+      Swal.fire({
+        icon: 'success',
+        title: '¡Mensaje enviado!',
+        text: 'Tu mensaje ha sido enviada con éxito',
+        confirmButtonColor: '#12824c',
+        customClass: {
+          title: 'swal2-title',
+          content: 'swal2-content',
+          confirmButton: 'swal2-confirm',
+          popup: 'swal2-popup-custom'
+        }
+      });
+    }
+
+    setFormData({
+      nombre: '',
+      correo: '',
+      mensaje: ''
+    });
+
+    if (error) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un problema al enviar la consulta. Por favor, intenta nuevamente.',
+        confirmButtonColor: '#12824c',
+      });
+    }
+  }, [success, error]);
+
   return (
     <section className='mutual-main-container'>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={900} delay={300}>
         <p className='mutual-text'>
           SI SOS ASOCIADO Y NO TENES DEUDA EN LA FACTURACIÓN DE ELECTRICIDAD, 
           COMPLETA EL FORMULARIO Y CONSULTÁ SOBRE TU CARNET CON BENEFICIOS.
@@ -67,6 +108,7 @@ const Mutual = () => {
               name="nombre"
               value={formData.nombre}
               onChange={handleChange}
+              required 
               sx={{
                 backgroundColor: "#d9f3e3",
                 '& .MuiOutlinedInput-root': {
@@ -88,6 +130,7 @@ const Mutual = () => {
               name="correo"
               value={formData.correo}
               onChange={handleChange}
+              required 
               sx={{
                 backgroundColor: "#d9f3e3",
                 '& .MuiOutlinedInput-root': {
@@ -110,6 +153,7 @@ const Mutual = () => {
               name="mensaje"
               value={formData.mensaje}
               onChange={handleChange}
+              required 
               sx={{
                 backgroundColor: "#d9f3e3",
                 '& .MuiOutlinedInput-root': {
@@ -138,12 +182,10 @@ const Mutual = () => {
                 {loading ? 'Enviando...' : 'Enviar'}
               </Button>
             </div>
-            {error && <p>{error}</p>}
-            {success && <p>Consulta enviada con éxito!</p>}
           </form>
         </Fade>
       </div>
-      <Fade triggerOnce={true} duration={800} delay={300}>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
         <div className='mutual-enlace'>
           <p className='mutual-enlace-text'>LISTADO DE PROFESIONALES Y COMERCIOS ADHERIDOS</p>
           <a href="https://mutualami.org.ar/mutual/beneficios/" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>

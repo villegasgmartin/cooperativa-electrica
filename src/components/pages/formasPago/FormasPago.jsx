@@ -12,13 +12,13 @@ const FormasPago = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setTitle('Formas y lugares de pago'));
+    dispatch(setTitle('Medios de pago'));
   }, [dispatch]);
 
   return (
     <section className='pagos-main-container'>
       <div className='provinciaNet-container'>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='provinciaNet-textContainer'>
             <h3 className='pagos-info-title'>¡Pagá tus impuestos y servicios!</h3>
             <p className='provinciaNet-text'>Extraé dinero en efectivo con tu tarjeta de débito del Banco Provincia</p>
@@ -29,12 +29,12 @@ const FormasPago = () => {
           <div className='pagos-info-image03'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/logo-PN-Pagos-VF_.jpg" alt="imágen provincia net" width={"100%"} /></div>
         </Fade>
       </div>
-        <Fade triggerOnce={true} duration={800} delay={300}>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='pagos-accordion-container'><PagosAcordeon/></div>
         </Fade>
         <div className='pagos-info-container'>
           <div className='pagos-usuarios-container'>
-            <Fade triggerOnce={true} duration={800} delay={300}>
+            <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
               <p className='pagos-info-text'><span style={{color: "#12824c", fontWeight: "bold"}}>Sres. Usuarios</span><br/>
                 En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos</strong>.Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones.<br/>
                 Muchas gracias.
@@ -43,7 +43,7 @@ const FormasPago = () => {
               </p>
             </Fade>
           </div>
-          <Fade triggerOnce={true} duration={800} delay={300}>
+          <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
             <div className='pagos-logos-container'>
                 <div className='alias-container'>
                   <p className='alias'>ALIAS: <strong>COOP-PROVINCIA</strong><br/>ó ALIAS: <strong>COOP-NACION</strong></p>

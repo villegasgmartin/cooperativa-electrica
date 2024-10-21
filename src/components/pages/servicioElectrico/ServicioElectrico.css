@@ -43,7 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: justify;
+    text-align: left;
     gap: .3125rem;
 }
 
@@ -142,6 +142,21 @@ position: relative;
     line-height: 1.5rem;
 }
 
+/*Texto resaltado*/
+.resaltado{
+    text-transform: uppercase;
+    color: var(--darkgreen);
+    font-weight: bold;
+}
+
+/*Texto resaltado para fondo oscuro*/
+.resaltado2{
+    text-transform: uppercase;
+    color: var(--lightgreen);
+    font-weight: bold;
+}
+
+
 /*Información final*/
 .servicio-extra-info{
     display: flex;
@@ -184,6 +199,57 @@ position: relative;
     font-size:.9375rem;
     color: var(--black);
     width: 31.25rem;
+}
+
+/* Modal al principio */
+.guardia-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* Contenido del modal */
+.guardia-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 5px solid var(--darkgreen);
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s;
+}
+
+.guardia-modal-title{
+    font-family: "archivo";
+    font-size: 25px;
+    color: var(--darkgreen);
+}
+
+.guardia-modal-description{
+    font-family: "intertight";
+    color: grey;
+    font-size: 1.0625rem;
+    padding-top: .3125rem;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: scale(0.95);
+}
+to {
+    opacity: 1;
+    transform: scale(1);
+}
 }
 
 /*----------------Media Queries----------------*/
@@ -311,12 +377,25 @@ position: relative;
     .servicio-buttonContainer{
         width: 90%;
     }
+    .guardia-modal-content {
+        max-width: 400px;
+    }
 }
 
 @media (max-width: 450px){
     .servicio-main-container{
         margin-top: 3rem;
         margin-bottom: 3rem;
+    }
+    .guardia-modal-content {
+        max-width: 250px;
+    }
+    .guardia-modal-title{
+        font-size: 21px;
+    }
+    
+    .guardia-modal-description{
+        font-size: .9375rem;
     }
 }
 

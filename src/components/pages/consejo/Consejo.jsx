@@ -77,7 +77,7 @@ const Consejo = () => {
               <AccordionDetails>
                 <ul>
                   <li className='consejo-accordion-content'><strong>Síndico Titular:</strong> Gabriela E. García</li>
-                  <li className='consejo-accordion-content'><strong>Síndico Suplente:</strong> Alejandro Erran Neuman</li>
+                  <li className='consejo-accordion-content'><strong>Síndico Suplente:</strong> Alejandro Herrán Neuman</li>
                 </ul>
               </AccordionDetails>
           </Accordion>

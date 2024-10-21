@@ -108,7 +108,7 @@
     flex-direction: column;
     gap: .625rem;
     width: 36.25rem;
-    height: 40.625rem;
+    height: 41.875rem;
     padding: 1.875rem;
     border: .1875rem solid var(--darkgreen);
 }
@@ -127,6 +127,13 @@
     font-size: 1.125rem;
     line-height: 1.6875rem;
     margin-left: 1.875rem;
+}
+
+/*Resaltado de texto*/
+.comunicados-resaltado{
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--darkgreen);
 }
 
 /*Enlaces en la info*/

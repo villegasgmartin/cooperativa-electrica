@@ -24,6 +24,13 @@
     font-family: "interTight";
 }
 
+/*Resaltado en texto*/
+.biblioteca-resaltado{
+    text-transform: uppercase;
+    color: var(--darkgreen);
+    font-weight: bold;
+}
+
 /*Servicios contenedor*/
 .biblioteca-servicios-container{
     display: flex;
