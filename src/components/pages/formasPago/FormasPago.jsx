@@ -12,7 +12,7 @@ const FormasPago = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setTitle('Formas y lugares de pago'));
+    dispatch(setTitle('Medios de pago'));
   }, [dispatch]);
 
   return (

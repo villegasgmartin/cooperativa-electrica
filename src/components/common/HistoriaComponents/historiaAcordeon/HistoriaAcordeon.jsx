@@ -13,13 +13,13 @@ const HistoriaAcordeon = () => {
                 <Accordion>
                     <AccordionSummary>22/10/1934</AccordionSummary>
                     <AccordionDetails>
-                        <p className='historia-accordion-details'>Sanción de una ordenanza por la cual la Municipalidad se compromete a ser consumidora y a suscribir acciones de la futura Cooperativa por $360.000, con la condición de que la usina generadora se ponga en marcha antes de los dos años.</p>
+                        <p className='historia-accordion-details'>Sanción de una ordenanza por la cual la Municipalidad se compromete a ser consumidora y a suscribir acciones de la futura Cooperativa por $360.000, con la condición de que la Usina generadora se ponga en marcha antes de los dos años.</p>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
                     <AccordionSummary>18/11/1934</AccordionSummary>
                     <AccordionDetails>
-                        <p className='historia-accordion-details'>Durante una asamblea popular realizada en el Teatro Colón, queda constituida oficialmente la Cooperativa de Electricidad de Mar del Plata. El primer Directorio estaba así integrado:</p>
+                        <p className='historia-accordion-details'>Durante una asamblea popular realizada en el Teatro Colón, queda constituida oficialmente la Cooperativa de Electricidad de Mar del Plata. El primer Directorio estaba integrado por:</p>
                         <div style={{display: "flex", justifyContent: "space-evenly", marginTop: "5px",}}>
                             <ul style={{marginLeft: "20px"}}>
                                 <li className='historia-accordion-details'>Presidente: <strong>Ingeniero Julio Rateriy</strong></li>
@@ -44,7 +44,7 @@ const HistoriaAcordeon = () => {
                 <Accordion>
                     <AccordionSummary>16/11/1935</AccordionSummary>
                     <AccordionDetails>
-                        <p className='historia-accordion-details'>La Municipalidad otorga a la Cooperativa la concesión para instalar y explotar una usina eléctrica. Esta concesión se extiende luego al alumbrado público.</p>
+                        <p className='historia-accordion-details'>La Municipalidad otorga a la Cooperativa la concesión para instalar y explotar una Usina Eléctrica. Esta concesión se extiende luego al alumbrado público.</p>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
@@ -62,7 +62,7 @@ const HistoriaAcordeon = () => {
                 <Accordion>
                     <AccordionSummary>30/12/1936</AccordionSummary>
                     <AccordionDetails>
-                        <p className='historia-accordion-details'>El Intendente José Camusso veta esta ordenanza. El Concejo Deliberante, en votación dividida, no rechaza el veto – como sí lo había hecho un año antes, al no aceptar el Departamento Ejecutivo la ordenanza-contrato para la provisión de energía por parte de la Cooperativa para el alumbrado público- y de inmediato renueva por 20 años la concesión a la compañía norteamericana que prestaba el servicio en condiciones de abuso y onerosidad. Se incluyó al alumbrado público, antes concedido a la Cooperativa. Un decreto posterior declaró fenecido el compromiso financiero de la Municipalidad hacia la Cooperativa, la que sólo conservó autorización para el servicio domiciliario, en competencia con la empresa extranjera.</p>
+                        <p className='historia-accordion-details'>El Intendente José Camusso veta esta Ordenanza. El Concejo Deliberante, en votación dividida, no rechaza el veto – como sí lo había hecho un año antes, al no aceptar el Departamento Ejecutivo la Ordenanza-contrato para la provisión de energía por parte de la Cooperativa para el alumbrado público- y de inmediato renueva por 20 años la concesión a la compañía norteamericana que prestaba el servicio en condiciones de abuso y onerosidad. Se incluyó al alumbrado público, antes concedido a la Cooperativa. Un decreto posterior declaró fenecido el compromiso financiero de la Municipalidad hacia la Cooperativa, la que sólo conservó autorización para el servicio domiciliario, en competencia con la empresa extranjera.</p>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>

@@ -89,14 +89,22 @@ const Contacto = () => {
 
   return (
     <section className='contacto-main-container'>
-      <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-        <div className='contacto-mensaje-container'>
-          <h3 className='contacto-number'>0800-3330357</h3>
-          <p className='contacto-mensaje'>
-            Solo para EMERGENCIAS de guardia técnica servicio eléctrico (Corresponde a casos de Personas Electrodependientes)
-          </p>
-        </div>
-      </Fade>
+      <div className='contacto-mensaje-container'> 
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
+          <div className='contacto-mensaje-electrica'>
+            <h3 className='contacto-number'>Guardia técnica Servicio Eléctrico</h3>
+            <p className='contacto-mensaje'>Solo para EMERGENCIAS (Corresponde a casos de Personas Electrodependientes)</p>
+            <h3 className='contacto-number'>0800-3330357</h3>
+          </div>
+        </Fade>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
+            <div className='contacto-mensaje-nave'>
+              <h3 className='contacto-number'>Guardia técnica NAVE Internet</h3>
+              <p className='contacto-mensaje'>De Lunes a Viernes de 7 a 23hs (Solo llamados)</p>
+              <h3 className='contacto-number'>153060280</h3>
+            </div>
+        </Fade>
+      </div>
       <Fade triggerOnce={true} duration={800} delay={300}>
         <form onSubmit={handleSubmit} className='contacto-form-container'>
           <TextField
@@ -208,6 +216,7 @@ const Contacto = () => {
             <div className='contacto-info-align'>
               <p className='contacto-info-text'><strong>Área comercial: </strong>comercial@coopelectmdp.com.ar</p>
               <p className='contacto-info-text'><strong>Horarios de atención: </strong>Lunes a Viernes de 7:30 a 12:30 hs.</p>
+              <p className='contacto-info-text'><strong>Consejo de Administración: </strong>consejo@coopelectmdp.com.ar</p>
               <a href="https://www.facebook.com/people/Cooperativa-El%C3%A9ctrica-MDP-Nave-Internet/61565189905138/" target='_blank' rel='noopener noreferrer'>
                 <FacebookIcon
                   sx={{
@@ -226,7 +235,8 @@ const Contacto = () => {
           <div className='contacto-info'>
             <h4 className='contacto-info-title'>NAVE Internet</h4>
             <div className='contacto-info-align'>
-              <p className='contacto-info-text'><strong>Comercial NAVE: </strong>nave@cooperativamdp.com.ar</p>
+              <p className='contacto-info-text'><strong>Área comercial: </strong>nave@cooperativamdp.com.ar</p>
+              <p className='contacto-info-text'><strong>Horarios de atención: </strong>Lunes a Viernes de 8 a 15 hs.</p>
               <p className='contacto-info-text'><strong>Facturación NAVE: </strong>nave-adm@cooperativamdp.com.ar</p>
               <div className='contacto-icons'>
                 <a href="https://www.facebook.com/naveinternetoficial" target='_blank' rel='noopener noreferrer'>

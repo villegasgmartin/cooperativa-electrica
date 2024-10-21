@@ -43,7 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: justify;
+    text-align: left;
     gap: .3125rem;
 }
 
@@ -141,6 +141,21 @@ position: relative;
     font-size: 1.125rem;
     line-height: 1.5rem;
 }
+
+/*Texto resaltado*/
+.resaltado{
+    text-transform: uppercase;
+    color: var(--darkgreen);
+    font-weight: bold;
+}
+
+/*Texto resaltado para fondo oscuro*/
+.resaltado2{
+    text-transform: uppercase;
+    color: var(--lightgreen);
+    font-weight: bold;
+}
+
 
 /*Información final*/
 .servicio-extra-info{

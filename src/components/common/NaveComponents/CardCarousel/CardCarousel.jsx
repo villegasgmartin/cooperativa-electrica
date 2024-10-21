@@ -9,9 +9,10 @@ const CardCarousel = ({servicios , showArrowsAndDots}) => {
     const settings = {
     dots: showArrowsAndDots,
     arrows: showArrowsAndDots, 
-    infinite: false,
+    infinite: true,
     speed: 600,
     slidesToShow: 3,
+    autoplay: false,
     slidesToScroll: 1,
     responsive: [
     {
@@ -19,6 +20,8 @@ const CardCarousel = ({servicios , showArrowsAndDots}) => {
         settings: {
             slidesToShow: 2,
             slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
         },
     },
     {
@@ -26,6 +29,8 @@ const CardCarousel = ({servicios , showArrowsAndDots}) => {
         settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
+            autoplay: true,
+            autoplaySpeed: 3000,
         },
     },
     ],
