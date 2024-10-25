@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import logoNavbar from "../../../../assets/images/logo-horizontal.png";
 import logoDrawer from "../../../../assets/images/logo.png";
-import "../navBarTest/navBarTest.css";
+import "../navBarTest/NavBarTest.css";
 import { motion } from 'framer-motion';
 import { Fade } from 'react-awesome-reveal';
 
