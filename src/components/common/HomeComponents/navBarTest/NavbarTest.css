@@ -1,80 +1,236 @@
-/*Contenedor Principal*/
-.custom-navbar {
-    width: 80%;
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: .3125rem;
+/*Contenedor principal*/
+.navbar-container {
+  padding-left: 1.5625rem;
+  padding-right: 1.5625rem;
+  width: 80%;
+  height: 5.3125rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: .3125rem;
 }
 
-/*Logo*/
-.navbar-logo{
-    width: 13.125rem;
+/*Contenedor del logo*/
+.navbar-logo {
+  width: 13.125rem;
 }
 
-/*Color del botón del menú movile*/
-.custom-navbar .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='white' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+/*Contenedor de enlaces*/
+.navbar-links-container {
+  display: flex;
+  gap: .75rem;
+  position: relative;
 }
 
-/*Color del borde del botón*/
-.custom-navbar .navbar-toggler {
-  border-color: white;
+/*Enlaces*/
+.navbar-link {
+  list-style: none;
+  position: relative;
+  font-family: "interTight";
 }
 
-/* Color de enlaces */
-.custom-navbar .nav-link,
-.custom-navbar .nav-link:active,
-.custom-navbar .nav-link:focus,
-.custom-navbar .nav-link:visited {
-  color: white !important;
+/*Hover de enlaces*/
+.navbar-link a:hover {
+  color: var(--lightgreen);
 }
 
-/*Hover de los enlaces*/
-.custom-navbar .nav-link:hover {
-  color: var(--lightgreen) !important; 
-}
-
-/* Hover de los submenú*/
-#servicio-electrico:hover,
-#laboratorio-medidores:hover,
-#biblioteca:hover,
-#ami-mutual:hover,
-#comunicados-institucionales:hover,
-#consejo-administracion:hover,
-#principios-cooperativos:hover,
-#historia:hover,
-#blog:hover,
-#formas-pago:hover,
-#consejos-utiles:hover {
-  background-color: var(--darkgreen);
+/*Reset de enlace*/
+.navbar-link a {
   color: white;
+  text-decoration: none;
+}
+
+/*Estilo de flecha*/
+.arrow {
+  margin-left: .25rem;
+  font-size: .5rem; 
+  color: white; 
+}
+
+/* Hover de la flecha */
+.navbar-link a:hover .arrow {
+  color: #2eed8d;
+}
+
+/*Hover de enlaces de submenu*/
+.navbar-link:hover .submenu {
+  display: block;
+}
+
+/*Submenu*/
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: rgba(255, 255, 255, 0.85); 
+  padding: 0.5rem;
+  border-radius: 0.3125rem;
+  z-index: 1000;
+  min-width: 200px;
+}
+
+/*Enlaces del submenu*/
+.submenu-item {
+  list-style: none;
+  padding: 0.5rem;
+}
+
+/*Reset de enlaces en submenu*/
+.submenu-item a {
+  color: grey;
+  text-decoration: none;
+}
+
+/*Hover de enlaces de submenu*/
+.submenu-item a:hover {
+  color: var(--darkgreen);
+}
+
+/*Botón de menú hamburguesa */
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Drawer */
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 250px;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 1rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+/*Contenido del drawer */
+.drawer-links-container {
+  list-style: none;
+  padding: 0;
+}
+
+/* Logo en el Drawer */
+.drawer-logo {
+  width: 9.375rem;
+  margin: auto;
+  margin-top: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+/*Enlaces de drawer*/
+.drawer-link {
+  margin: 2rem 0;
+  position: relative;
+  font-family: "interTight";
+}
+
+/*Hover de enlaces en drawer*/
+.drawer-link a:hover {
+  color: var(--lightgreen);
+}
+
+/* Hover para la flecha en el drawer */
+.drawer-link a:hover .arrow {
+  color: var(--lightgreen);
+}
+
+/*Reset de enlaces en drawer*/
+.drawer-link a {
+  text-decoration: none;
+  color: white;
+}
+
+/* Submenús dentro del drawer */
+.drawer-link .submenu {
+  display: block;
+  max-height: 0; /* Comienza cerrado */
+  overflow: hidden;
+  padding-left: 1rem;
+  background-color: white;
+  border-radius: 0.3125rem;
+  transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+  opacity: 0;
+}
+
+/* Mostrar submenu con animación */
+.drawer-link.open .submenu {
+  max-height: 500px; /* Ajusta según el contenido */
+  opacity: 1;
+}
+
+/* Enlaces del submenu */
+.drawer-link .submenu-item a {
+  color: grey; 
+}
+
+/* Color de hover para los enlaces de submenú */
+.drawer-link .submenu-item a:hover {
+  color: var(--darkgreen);
+}
+
+/* Mantener el color de hover para enlaces y flechas con submenu abierto en el drawer */
+.drawer-link.open > a,
+.drawer-link.open > a .arrow {
+  color: var(--lightgreen);
+}
+
+.close-drawer {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
 }
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1055px){
-  .navbar-logo{
-    width: 11.875rem;
-  }
-  .custom-navbar .nav-link {
+@media(max-width:1065px){
+  .navbar-link{
     font-size: .875rem;
   }
-}
-
-@media(max-width:991px){
-  .custom-navbar .nav-link {
-    font-size: 1rem;
+  .navbar-logo {
+    width: 11.25rem;
   }
 }
 
-@media(max-width:760px){
-  .navbar-logo{
-    width: 10rem;
+@media (max-width: 899px) {
+  .navbar-container{
+    height: 3.75rem;
+  }
+  .navbar-links-container {
+    display: none;
+  }
+  .navbar-logo {
+    width: 9.375rem;
+  }
+  .hamburger {
+    display: block;
   }
 }
 
-@media(max-width:600px){
-  .navbar-logo{
-    width: 8.75rem;
+@media (max-width: 760px){
+  .navbar-container{
+    padding: 0%;
+    padding-left: 1.5625rem;
+    padding-right: 1.5625rem;
+  }
+}
+
+@media (max-width: 599px){
+  .navbar-container{
+    height: 3.125rem;
+  }
+  .navbar-logo {
+    width: 7.5rem;
   }
 }
