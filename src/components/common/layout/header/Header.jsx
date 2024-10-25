@@ -2,10 +2,10 @@
 import "../header/Header.css";
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
-import ResponsiveAppBar from "../navbarPages/NavbarPages";
 import { Fade } from "react-awesome-reveal";
 import { useEffect, useState } from "react";
-{/*import NavbarPages from "../navbarPages/NavBarPagesTest";*/}
+import NavBarTest from "../../HomeComponents/navBarTest/NavBarTest";
+
 
 // Componente Header:
 const Header = ({ title, logo, isMutual }) => {
@@ -40,9 +40,8 @@ const Header = ({ title, logo, isMutual }) => {
                     <h4 className="header-contactosText">0800-333-0357 / (0223) 495-1411</h4>
                 </div>
             </div>
-            <div className="navbar-container">
-                {/*<NavbarPages/>*/}
-                <ResponsiveAppBar/>
+            <div className="navbarPages-container">
+                <NavBarTest backgroundColor="#12824c"/>
             </div>
             <Fade key={fadeKey} duration={800} triggerOnce={true}>
                 <div className="header-title-container">

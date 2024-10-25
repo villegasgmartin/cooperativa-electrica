@@ -7,37 +7,15 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import videoDesktop from "../../../../assets/images/videohome.mp4";
-import videoMovile from "../../../../assets/images/videohome-vertical2.mp4";
-import { useEffect, useRef } from "react";
+import NavBarTest from "../navBarTest/NavBarTest";
+
 
 // JSX:
 const HomePortada2 = () => {
-    const videoRef = useRef(null);
-
-    const changeVideoSource = () => {
-        if (videoRef.current) {
-            if (window.innerWidth <= 650) {
-                videoRef.current.src = videoMovile; 
-            } else {
-                videoRef.current.src = videoDesktop; 
-            }
-            videoRef.current.load();
-        }
-    };
-
-    useEffect(() => {
-        changeVideoSource();
-
-        window.addEventListener('resize', changeVideoSource);
-
-        return () => {
-            window.removeEventListener('resize', changeVideoSource);
-        };
-    }, []);
 
     return (
         <div className="background-container">
-            <video ref={videoRef} autoPlay muted loop className="background-video"></video>
+            <video src={videoDesktop} autoPlay muted loop className="background-video"></video>
             <section className="homePortada-container">
                 <div className="homePortada-contactosContainer">
                     <a className="homePortada-contactos" target="_blank" rel="noopener noreferrer" href="https://www.google.com/maps/place/Alberti+3600,+B7600FJT+Mar+del+Plata,+Provincia+de+Buenos+Aires/@-38.0016011,-57.5656229,17z/data=!3m1!4b1!4m6!3m5!1s0x9584deae48ea4f6f:0x9ff38a829e4c01ac!8m2!3d-38.0016011!4d-57.563048!16s%2Fg%2F11hbvxnwh9?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D">
@@ -53,7 +31,8 @@ const HomePortada2 = () => {
                         <h4 className="homePortada-contactosText">0800-333-0357 / (0223) 495-1411</h4>
                     </a>
                 </div>
-                <ResponsiveAppBar />
+                <NavBarTest/>
+                {/*<ResponsiveAppBar /> */}
                 <motion.div
                     initial={{ opacity: 0, x: -100 }}
                     animate={{ opacity: 1, x: 0 }}

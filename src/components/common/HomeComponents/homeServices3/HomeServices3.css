@@ -13,7 +13,7 @@
 }
 
 /*Título*/
-.homeServicios-titile{
+.homeServicios-title{
     text-align: center;
     font-family: "archivo";
     color: var(--black);
@@ -25,10 +25,10 @@
     margin-bottom: 1.875rem;
     font-family: "interTight";
     color: grey;
-    width: 62.5rem;
+    width: 56.25rem;
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+    text-align: justify;
     font-size: 1.125rem;
 }
 

@@ -1,3 +1,4 @@
+
 /*Contenedor principal*/
 .background-container {
     position: relative;
@@ -15,7 +16,7 @@
     z-index: 1;
 }
 
-/*Oscuridad para imágen de fondo*/
+/*Oscuridad del video fondo*/
 .homePortada-container {
     position: absolute;
     top: 0;
@@ -146,6 +147,22 @@ gap: .9375rem;
 @media(max-width:480px){
     .homePortada-title{
         font-size: 1.875rem;
+    }
+}
+
+@media (max-width: 450px) {
+    .background-video {
+        display: none;
+    }
+    .homePortada-container {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+    
+    .background-container {
+        background-image: url('../../../../assets/images/background-movile8.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 }
 
