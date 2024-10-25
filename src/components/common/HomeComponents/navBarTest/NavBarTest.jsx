@@ -5,6 +5,7 @@ import logoNavbar from "../../../../assets/images/logo-horizontal.png";
 import logoDrawer from "../../../../assets/images/logo.png";
 import "../navBarTest/navBarTest.css";
 import { motion } from 'framer-motion';
+import { Fade } from 'react-awesome-reveal';
 
 
 //JSX:
@@ -37,7 +38,7 @@ const pages = [
     { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];
 
-const NavBarTest = () => {
+const NavBarTest = ({ backgroundColor }) => {
     const [openSubMenu, setOpenSubMenu] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [openDrawerSubMenu, setOpenDrawerSubMenu] = React.useState(null);
@@ -87,10 +88,12 @@ const NavBarTest = () => {
     }, [drawerOpen]);
 
     return (
-        <section className="navbar-container">
-            <div className="navbar-logo">
-                <img src={logoNavbar} alt="logo cooperativa" width={"100%"} />
-            </div>
+        <section className="navbar-container" style={{backgroundColor}}>
+            <Link to={"/"}>
+                <div className="navbar-logo">
+                    <img src={logoNavbar} alt="logo cooperativa" width={"100%"} />
+                </div>
+            </Link>
             <ul className="navbar-links-container">
                 {pages.map((page) => (
                     <li
@@ -122,15 +125,19 @@ const NavBarTest = () => {
             {drawerOpen && (
                 <motion.div
                     className="drawer"
+                    style={{backgroundColor}}
                     ref={drawerRef}
                     initial={{ x: '100%' }}
                     animate={{ x: 0 }}
                     exit={{ x: '100%' }}
                     transition={{ type: 'tween', duration: 0.1 }}
                 >
-                    <div className="drawer-logo">
-                        <img src={logoDrawer} alt="logo cooperativa" width={"100%"} />
-                    </div>
+                    <Fade>
+                        <div className="drawer-logo">
+                            <img src={logoDrawer} alt="logo cooperativa" width={"100%"} />
+                        </div>
+                    </Fade>
+                    <div className="drawer-divider"></div>
                     <ul className="drawer-links-container">
                         {pages.map((page) => (
                             <li
