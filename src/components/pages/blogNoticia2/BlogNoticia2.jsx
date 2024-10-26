@@ -17,14 +17,13 @@ const BlogNoticia2 = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setTitle('Blog'));
+        dispatch(setTitle('Noticia 2'));{/*Cambio de título*/}
     }, [dispatch]);
 
     return (
         <section className='noticia2-main-container'>
             <div className='noticia2-secondary-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
-                    <h2 className='noticia2-title'>Título principal de la noticia</h2>
                     <div className='noticia2-mainImage-container'><img src={ImageNoticia02} alt="imágen de blog" className='noticia2-mainImage' /></div>
                     <p className='noticia2-mainDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut.
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut. 
@@ -32,7 +31,7 @@ const BlogNoticia2 = () => {
                 </Fade>
             </div>
             <div className='noticia2-container' id='dark-background'> 
-                <Fade triggerOnce={true} duration={800} delay={300}>
+                <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
                     <p className='noticia2-description' id='light-font'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
                     </p>
@@ -40,20 +39,21 @@ const BlogNoticia2 = () => {
                 </Fade>
             </div>
             <div className='noticia2-container'> 
-                <Fade triggerOnce={true} duration={800} delay={300}>
-                    <div className='noticia2-image-container' id='background-position'><img src="https://projectssdn.com/wp-content/uploads/elementor/thumbs/electricidad-residencial-e-industrial-qp5x9bwrw4jy9i0gusv63vzojxuitdyio7dnxpklgg.png" alt="imágen de blog" className='noticia2-image' /></div>
+                <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
+                    <div className='noticia2-image-container blog-background-position'><img src="https://projectssdn.com/wp-content/uploads/elementor/thumbs/electricidad-residencial-e-industrial-qp5x9bwrw4jy9i0gusv63vzojxuitdyio7dnxpklgg.png" alt="imágen de blog" className='noticia2-image' /></div>
                     <p className='noticia2-description'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
                     </p>
                 </Fade>
             </div>
             <div className='noticia2-buttonContainer'>
-                <Fade triggerOnce={true} duration={800} delay={300}>
+                <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
                     <Link to={"/blog"}>
                         <Button sx={{
                             height: "60px",
                             fontFamily: "archivo",
-                            backgroundColor: "#12824c"
+                            backgroundColor: "#12824c",
+                            width: "100%"
                         }} 
                             variant='contained' 
                             size='large'>Volver</Button>

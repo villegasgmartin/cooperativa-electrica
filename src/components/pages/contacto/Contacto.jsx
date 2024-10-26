@@ -35,8 +35,8 @@ const Contacto = () => {
     if (formData.nombre && formData.correo && formData.consulta && formData.mensaje) {
       const destino =
         formData.consulta === "Consulta sobre NAVE"
-          ? "aurelianopuente@hotmail.com"
-          : "aurelianopuente@hotmail.com";
+          ? "nave@cooperativamdp.com.ar"
+          : "comercial@coopelectmdp.com.ar";
 
       Swal.fire({
         title: 'Enviando...',
