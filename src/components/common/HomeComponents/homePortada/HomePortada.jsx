@@ -1,5 +1,4 @@
 // Importaciones:
-import ResponsiveAppBar from "../navbarHome/NavbarHome";
 import "./HomePortada2.css";
 import { Button } from "@mui/material";
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
@@ -7,12 +6,11 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import { Link } from "react-router-dom";
 import { motion } from 'framer-motion';
 import videoDesktop from "../../../../assets/images/videohome.mp4";
-import NavBarTest from "../navBarTest/NavBarTest";
+import NavBar from "../../layout/navBar/NavBar";
 
 
 // JSX:
 const HomePortada2 = () => {
-
     return (
         <div className="background-container">
             <video src={videoDesktop} autoPlay muted loop className="background-video"></video>
@@ -31,8 +29,7 @@ const HomePortada2 = () => {
                         <h4 className="homePortada-contactosText">0800-333-0357 / (0223) 495-1411</h4>
                     </a>
                 </div>
-                <NavBarTest/>
-                {/*<ResponsiveAppBar /> */}
+                <NavBar/>
                 <motion.div
                     initial={{ opacity: 0, x: -100 }}
                     animate={{ opacity: 1, x: 0 }}

@@ -3,7 +3,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import logoNavbar from "../../../../assets/images/logo-horizontal.png";
 import logoDrawer from "../../../../assets/images/logo.png";
-import "../navBarTest/NavBarTest.css";
+import "../navBar/NavBar.css";
 import { motion } from 'framer-motion';
 import { Fade } from 'react-awesome-reveal';
 
@@ -38,7 +38,7 @@ const pages = [
     { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];
 
-const NavBarTest = ({ backgroundColor }) => {
+const NavBar = ({ backgroundColor }) => {
     const [openSubMenu, setOpenSubMenu] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [openDrawerSubMenu, setOpenDrawerSubMenu] = React.useState(null);
@@ -172,4 +172,4 @@ const NavBarTest = ({ backgroundColor }) => {
     );
 };
 
-export default NavBarTest;
+export default NavBar;

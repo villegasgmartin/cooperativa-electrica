@@ -4,7 +4,7 @@ import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import { Fade } from "react-awesome-reveal";
 import { useEffect, useState } from "react";
-import NavBarTest from "../../HomeComponents/navBarTest/NavBarTest";
+import NavBar from "../navBar/NavBar";
 
 
 // Componente Header:
@@ -41,7 +41,7 @@ const Header = ({ title, logo, isMutual }) => {
                 </div>
             </div>
             <div className="navbarPages-container">
-                <NavBarTest backgroundColor="#12824c"/>
+                <NavBar backgroundColor="#12824c"/>
             </div>
             <Fade key={fadeKey} duration={800} triggerOnce={true}>
                 <div className="header-title-container">
