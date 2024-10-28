@@ -1,4 +1,3 @@
-//Importaciones:
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import logoNavbar from "../../../../assets/images/logo-horizontal.png";
@@ -7,8 +6,7 @@ import "../navBar/NavBar.css";
 import { motion } from 'framer-motion';
 import { Fade } from 'react-awesome-reveal';
 
-
-//JSX:
+// Definición de las páginas
 const pages = [
     { name: 'Internet y TV', path: '/nave' },
     {
@@ -58,7 +56,7 @@ const NavBar = ({ backgroundColor }) => {
     };
 
     const toggleDrawerSubMenu = (name) => {
-        // Alterna el estado del submenú
+        // Si el submenú está abierto y se hace clic en el mismo nombre, lo cierra
         setOpenDrawerSubMenu((prev) => (prev === name ? null : name));
     };
 
@@ -67,11 +65,6 @@ const NavBar = ({ backgroundColor }) => {
         if (drawerRef.current && !drawerRef.current.contains(event.target)) {
             setDrawerOpen(false);
             setOpenDrawerSubMenu(null); // Cierra el submenú al hacer clic fuera
-        }
-
-        // Cierra el submenú si se hace clic fuera de él
-        if (submenuRef.current && !submenuRef.current.contains(event.target)) {
-            setOpenDrawerSubMenu(null);
         }
     };
 
@@ -88,7 +81,7 @@ const NavBar = ({ backgroundColor }) => {
     }, [drawerOpen]);
 
     return (
-        <section className="navbar-container" style={{backgroundColor}}>
+        <section className="navbar-container" style={{ backgroundColor }}>
             <Link to={"/"}>
                 <div className="navbar-logo">
                     <img src={logoNavbar} alt="logo cooperativa" width={"100%"} />
@@ -125,7 +118,7 @@ const NavBar = ({ backgroundColor }) => {
             {drawerOpen && (
                 <motion.div
                     className="drawer"
-                    style={{backgroundColor}}
+                    style={{ backgroundColor }}
                     ref={drawerRef}
                     initial={{ x: '100%' }}
                     animate={{ x: 0 }}

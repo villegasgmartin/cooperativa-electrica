@@ -100,6 +100,11 @@
   cursor: pointer;
 }
 
+/*Evito scroll al abrir drawer*/
+.no-scroll {
+  overflow: hidden;
+}
+
 /* Drawer */
 .drawer {
   position: fixed;
