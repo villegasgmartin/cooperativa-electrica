@@ -12,6 +12,7 @@ const HomeServices3 = () => {
   const [showArrowsAndDots, setShowArrowsAndDots] = useState(false);
 
   const serviciosHome = [
+    { servicio: "INTERNET 50 MB", precio: "$12.614" },
     { servicio: "Internet 100 MB", precio: "$16.846" },
     { servicio: "Internet 300 MB", precio: "$19.864" },
     { servicio: "Internet 500 MB", precio: "$24.893" },

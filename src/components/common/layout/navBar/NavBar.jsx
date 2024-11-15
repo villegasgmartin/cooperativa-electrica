@@ -5,6 +5,10 @@ import logoDrawer from "../../../../assets/images/logo.png";
 import "../navBar/NavBar.css";
 import { motion } from 'framer-motion';
 import { Fade } from 'react-awesome-reveal';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 // Definición de las páginas
 const pages = [
@@ -81,7 +85,7 @@ const NavBar = ({ backgroundColor }) => {
     }, [drawerOpen]);
 
     return (
-        <section className="navbar-container" style={{ backgroundColor }}>
+        <section className="navbar-container" >
             <Link to={"/"}>
                 <div className="navbar-logo">
                     <img src={logoNavbar} alt="logo cooperativa" width={"100%"} />
@@ -126,35 +130,50 @@ const NavBar = ({ backgroundColor }) => {
                     transition={{ type: 'tween', duration: 0.1 }}
                 >
                     <Fade>
-                        <div className="drawer-logo">
-                            <img src={logoDrawer} alt="logo cooperativa" width={"100%"} />
-                        </div>
+                        <Link to={"/"}>
+                            <div className="drawer-logo">
+                                <img src={logoDrawer} alt="logo cooperativa" width={"100%"} />
+                            </div>
+                        </Link>
                     </Fade>
                     <div className="drawer-divider"></div>
                     <ul className="drawer-links-container">
                         {pages.map((page) => (
-                            <li
-                                key={page.name}
-                                className={`drawer-link ${openDrawerSubMenu === page.name ? 'open' : ''}`}
-                                onClick={() => toggleDrawerSubMenu(page.name)} // Alterna el submenú
-                            >
-                                {page.external ? (
-                                    <a href={page.path} target="_blank" rel="noopener noreferrer">
-                                        {page.name}{page.submenu && <span className="arrow">▼</span>}
-                                    </a>
+                            <li key={page.name} className="drawer-link">
+                                {page.submenu ? (
+                                    <Accordion sx={{backgroundColor: "transparent", boxShadow: "none",}}>
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "white"}} />} sx={{ 
+                                            color: "white",
+                                            fontFamily: "interTight",
+                                            '&:hover': {color: "#2eed8d"},
+                                            borderRadius: "5px",
+                                            padding: "0"
+                                            }}>
+                                            <span>{page.name}</span>
+                                        </AccordionSummary>
+                                        <AccordionDetails sx={{backgroundColor: "white"}}>
+                                            <ul>
+                                                {page.submenu.map((subPage) => (
+                                                    <li key={subPage.name} style={{listStyle: "none", marginTop: "10px",}}>
+                                                        <Link to={subPage.path} style={{
+                                                            color: "grey",
+                                                        }}>{subPage.name}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </AccordionDetails>
+                                    </Accordion>
                                 ) : (
-                                    <Link to={page.path}>
-                                        {page.name}{page.submenu && <span className="arrow">▼</span>}
-                                    </Link>
-                                )}
-                                {page.submenu && (
-                                    <ul className={`submenu ${openDrawerSubMenu === page.name ? 'open' : ''}`} ref={submenuRef}>
-                                        {page.submenu.map((subPage) => (
-                                            <li key={subPage.name} className="submenu-item">
-                                                <Link to={subPage.path}>{subPage.name}</Link>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    page.external ? (
+                                        <a href={page.path} target="_blank" rel="noopener noreferrer">
+                                            {page.name}
+                                        </a>
+                                    ) : (
+                                        <Link to={page.path}>
+                                            {page.name}
+                                        </Link>
+                                    )
                                 )}
                             </li>
                         ))}

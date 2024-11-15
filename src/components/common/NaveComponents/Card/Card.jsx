@@ -5,31 +5,43 @@ import { Link } from "react-router-dom";
 
 //JSX:
 const Card = ({servicio, precio}) => {
+
+    const [mainText, ...subTextArray] = servicio.split(' ');
+    const subText = subTextArray.join(' ');
+
     return (
         <div className='card'>
             <div className="card-servicio-container">
-                <p className="card-servicio">{servicio}</p>
+                <p className="card-servicio">
+                    <span className="main-text">{mainText} </span> 
+                    <span className="sub-text"> {subText}</span>
+                </p>
             </div>
             <div className="card-info-container">
                 <p className="card-precio-promo">Precio de lista <span className="tachado">$43000</span></p>
-                <p className="card-precio">{precio}</p>
-                <p className="card-precio-text">final por mes</p>
+                <div>
+                    <p className="card-precio">{precio}</p>
+                    <p className="card-precio-text">final por mes*</p>
+                </div>
                 <div className="card-button-container">
                     <Link to={"/formulario"}>
                         <Button
                             variant="contained"
                             sx={{
                                 backgroundColor: "#8048ff",
-                                fontFamily: "archivo",
+                                fontFamily: "interTight",
                                 width: "100%",
                                 height: "100%",
                                 textTransform: "none",
-                                fontSize: "16px"
+                                fontSize: "25px",
+                                letterSpacing: "1px",
+                                borderRadius: "50px",
+                                boxShadow: "4px 4px 10px rgba(0, 0, 0, 0.3)"
                             }}
-                        >¡Lo quiero!</Button>
+                        >¡Lo Quiero!</Button>
                     </Link>
                 </div>
-                <p className="card-promo">46% OFF por 3 meses</p>
+                <p className="card-promo">*46% OFF por 3 meses</p>
             </div>
         </div>
     );

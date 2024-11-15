@@ -1,48 +1,63 @@
 /*Card contenedor principal*/
 .card{
-    height: 23.125rem;
-    width: 21.875rem;
+    height: 23.75rem;
+    width: 22.5rem;
     border-radius: 1.25rem;
-    background-color: var(--black);
+    border-bottom-left-radius:50px;
+    border-bottom-right-radius:50px;
     box-shadow: -2px 3px 5px rgba(0, 0, 0, 0.2), 2px 3px 5px rgba(0, 0, 0, 0.2);
 }
 
 /*Contenedor de servicio*/
 .card-servicio-container{
-    background-color: var(--black);
+    background-color: var(--darkviolet);
     border-top-left-radius: 1.25rem;
     border-top-right-radius: 1.25rem;
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*Nombre del servicio*/
 .card-servicio{
-    color: white;
+    color: var(--white);
+    font-family: "archivo";
     text-align: center;
-    font-family: "interTight";
     font-weight: bold;
-    font-size: 1.5625rem;
-    padding: 1.875rem;
+    font-size: 2.125rem;
+    text-transform: uppercase;
+}
+
+/*Cantidad de megas*/
+.sub-text {
+    font-family: "interTight";
+    color: var(--darkviolet);
+    background-color: var(--newgreen);
+    display: inline-block;
+    padding: 0px 7px 0px 7px;
+    border-radius: .3125rem;
 }
 
 /*Contenedor de precio*/
 .card-info-container {
-    height: 17.5rem;
-    border-top-left-radius: 50% 20px;
-    border-top-right-radius: 50% 20px;
-    border-bottom-left-radius: 1.25rem;
-    border-bottom-right-radius: 1.25rem;
-    background: linear-gradient(to top, #f0ebff 0%, #fcfbff 95%, #ffffff 100%);
+    background: linear-gradient(to top, #e7e7e7 2%, #ffffff 10%);
+    height: 80%;
+    border-bottom-left-radius:50px;
+    border-bottom-right-radius:50px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
 }
 
 /*Precio de lista*/
 .card-precio-promo{
     font-family: "interTight";
-    color: grey;
-    word-spacing: .3125rem
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: #535353;
+    font-size: 23px;
 }
 
 /*Precio tachado*/
@@ -52,42 +67,39 @@
 
 /*Precio*/
 .card-precio{
-    color: var(--violet);
-    font-family: "interTight";
-    font-weight: bold;
-    font-size: 2.8125rem;
+    color: var(--darkviolet);
+    font-family: "archivo";
+    font-size: 3.75rem;
     letter-spacing: .125rem;
-    margin-top: .625rem;
+    line-height: 1
 }
 
 /*Texto del precio*/
 .card-precio-text{
     font-family: "interTight";
-    color: var(--violet);
-    font-size: 1.375rem;
+    color: var(--darkviolet);
+    font-size: 1rem;
+    font-weight: bold;
     letter-spacing: .0625rem;
+    text-align: end;
 }
 
 /*Botón*/
 .card-button-container{
-    width: 15.625rem;
-    height: 3.4375rem;
-    margin-top: .9375rem;
+    width: 210px;
+    height: 55PX;
 }
 
 /*Promo*/
 .card-promo{
     font-family: "interTight";
     font-weight: bold;
-    font-size: .875rem;
+    font-size: 18px;
+    letter-spacing: .0625rem;
     color: var(--darkgreen);
-    background-color: #a8e7c3;
-    padding-left: .625rem;
-    padding-right: .625rem;
-    padding-top: .3125rem;
-    padding-bottom: .3125rem;
-    border-radius: 1.25rem;
-    margin-top: .9375rem;
+    position: relative;
+    padding-bottom: 1px;
+    border-bottom: 2px solid var(--darkgreen);
 }
 
 /*----------------Media Queries----------------*/
@@ -126,13 +138,37 @@
     .card{
         width: 18.75rem;
     }
+    .card-servicio{
+        font-size: 27px;
+    }
+    .card-precio-promo{
+        font-size: 1.125rem;
+    }
+    .card-precio{
+        font-size: 3.4375rem;
+    }
     .card-button-container{
         width: 12.5rem;
+    }
+    .card-promo{
+        font-size: 16px;
     }
 }
 
 @media(max-width:385px){
     .card{
         width: 16.25rem;
+    }
+    .card-servicio{
+        font-size: 24px;
+    }
+    .card-precio-promo{
+        font-size: 1rem;
+    }
+    .card-precio{
+        font-size: 50px;
+    }
+    .card-button-container{
+        width: 11.25rem;
     }
 }

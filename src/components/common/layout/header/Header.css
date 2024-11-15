@@ -1,7 +1,6 @@
 /*Contenedor principal*/
 .header-main-container{
     background-image: 
-    linear-gradient(rgba(22,22, 22, 0.5), rgba(22, 22, 22, 0.5)),
     url("https://www.repsol.com/content/dam/repsol-corporate/es/energia-e-innovacion/energia%20electrica%20cables%20alta%20tension.jpg"); 
     background-size: cover;
     background-position: center 60%;
