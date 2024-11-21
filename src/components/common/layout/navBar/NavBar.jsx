@@ -33,7 +33,7 @@ const pages = [
     {
         name: 'Usuarios', path: '#', submenu: [
             { name: 'Medios de pago', path: '/formas-de-pago' },
-            { name: 'Consejos útiles', path: '/consejos-utiles' },
+            { name: 'Consejos Útiles', path: '/consejos-utiles' },
         ]
     },
     { name: 'Contacto', path: '/contacto' },

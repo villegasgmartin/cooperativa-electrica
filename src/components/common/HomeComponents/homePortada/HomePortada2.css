@@ -1,30 +1,9 @@
-
 /*Contenedor principal*/
-.background-container {
-    position: relative;
+.homePortada-container{
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url("../../../../assets/images/inicio/portada.png");
+    background-position: center;
     height: 100vh;
-}
-
-.background-video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter:brightness(50%);
-    z-index: 1;
-}
-
-/*Oscuridad del video fondo*/
-.homePortada-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.3);
-    z-index: 2;
 }
 
 /*Contenedor de contacto*/
@@ -57,27 +36,50 @@ flex-direction: column;
 align-items: flex-start;
 margin-top: 11.25rem;
 padding-left: 13%;
-gap: .9375rem;
+gap: 1.25rem;
 }
 
 /*Título principal*/
 .homePortada-title{
     color: white;
     font-size: 3.75rem;
-    font-family: "archivo";
+    font-family: "InterTight";
+    letter-spacing: 2px;
+}
+
+/*Resaltado en título*/
+.homePortada-resaltado01{
+    color: var(--newgreen);
+}
+
+/*Título secundario*/
+.homePortada-title02{
+    color: var(--white);
+    font-family: "interTight";
+    font-size: 1.875rem;
+    letter-spacing: .0625rem;
+}
+
+/*Resaltado en segudno título*/
+.homePortada-resaltado02{
+    color: var(--black);
+    background-color: var(--newgreen);
+    border-radius: 1.5625rem;
+    padding: 3px 10px 3px 10px ;
 }
 
 /*Descripción*/
 .homePortada-description{
-    color: white;
+    color: var(--white);
     font-family: "InterTight";
-    width: 50%;
+    width: 40%;
+    letter-spacing: .0625rem;
 }
 
 /*Contenedor del botón*/
 .homePortada-buttonContainer{
     margin-top: 2.1875rem;
-    width: 12.5rem;
+    width: 15.625rem;
     margin-left: 13%;
 }
 
@@ -88,11 +90,37 @@ gap: .9375rem;
     .homePortada-title{
         font-size: 3.125rem;
     }
+    .homePortada-title02{
+        font-size: 25px;
+    }
+}
+
+@media(max-width:1164px){
+    .homePortada-description{
+        width: 65%;
+    }
 }
 
 @media(max-width:1155px){
     .homePortada-title{
         font-size: 2.8125rem;
+    }
+    .homePortada-title02{
+        font-size: 22px;
+    }
+}
+
+@media(max-width:950px){
+    .homePortada-container{
+        background-size: cover;
+    }
+}
+
+@media(max-width:930px){
+    .homePortada-resaltado02{
+        background-color: transparent;
+        color: var(--newgreen);
+        padding: 0;
     }
 }
 
@@ -108,18 +136,29 @@ gap: .9375rem;
     }
 }
 
+@media(max-width:768px){
+    .homePortada-bienvenidaContainer{
+        width: 90%;
+        margin-top: 7.5rem;
+    }
+}
+
+
 @media(max-width:760px){
     .homePortada-contactosContainer{
         flex-direction: column;
         gap: .625rem;
         margin-bottom: .9375rem;
-        margin-top: .9375rem;
+        padding-top: .9375rem;
     }
     .homePortada-contactosText{
         font-size: .8125rem;
     }
     .homePortada-title{
         font-size: 2.1875rem;
+    }
+    .homePortada-title02{
+        font-size: 20px;
     }
     .homePortada-contactosText{
         margin: 0%;
@@ -129,15 +168,21 @@ gap: .9375rem;
     }
 }
 
-@media(max-width:768px){
-    .homePortada-bienvenidaContainer{
-        width: 90%;
-        margin-top: 7.5rem;
-    }
+@media(max-width:700px){
     .homePortada-buttonContainer{
-        width: 60%;
+        width: 90%;
+        margin: auto;
+        margin-top: 3.125rem;
     }
 }
+
+@media (max-width: 677px) {
+    .homePortada-container {
+        background-position: calc(64% - 0px) center;
+    }
+}
+
+
 @media(max-width:577px){
     .homePortada-bienvenidaContainer{
         width: 85%;
@@ -150,26 +195,14 @@ gap: .9375rem;
     }
 }
 
-@media (max-width: 450px) {
-    .background-video {
-        display: none;
-    }
-    .homePortada-container {
-        background-color: rgba(0, 0, 0, 0.6);
-    }
-    
-    .background-container {
-        background-image: url('../../../../assets/images/background-movile8.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-}
-
 @media(max-width:409px){
     .homePortada-title{
         font-size: 1.5625rem;
-    }.homePortada-description{
+    }
+    .homePortada-title02{
+        font-size: 16px;
+    }
+    .homePortada-description{
         font-size: .9375rem;
     }
 }

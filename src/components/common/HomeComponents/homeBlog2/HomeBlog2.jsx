@@ -9,74 +9,74 @@ solo la parte final de las rutas que estan a continuacion por el nombre de las n
 import ImageA from "../../../../assets/images/blog/blog-image-01.webp"
 import ImageB from "../../../../assets/images/blog/blog-image-02.jpeg"
 import ImageC from "../../../../assets/images/blog/blog-image-03.jpg"
-import ImageD from "../../../../assets/images/blog/blog-image-04.jpeg"
 
 
 //JSX:
 const HomeBlog2 = () => {
   return (
-    <section className='HomeBlog-container2'>
-      <Fade triggerOnce={true}  delay={300}>
-        <div className='HomeBlog-textContainer'>
-          <h2 className='HomeBlog-title'>Blog</h2>
-          <p className='HomeBlog-description'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</p>
-        </div>
+    <section className='homeBlog-main-container'>
+      <Fade triggerOnce={true} duration={900} delay={300}>
+          <h2 className='homeBlog-title'>Blog</h2>
       </Fade>
-      <div className='HomeBlog-main-NoticiasContainer'>
-        <div className='HomeBlog-NoticiasContainer'>
-          <Fade cascade={true} duration={800} triggerOnce={true} >
-            <div className='HomeBlog-noticia'>
-              <Link to={"/blog"}>
-                <img className='HomeBlog-img' 
-                    src={ImageA} 
-                    alt="descripción de la imagen" />
-              </Link>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link>
-            </div>
-            <div className='HomeBlog-noticia'>
-              <Link to={"/blog"}>
-                <img className='HomeBlog-img'
-                    src={ImageB} 
-                    alt="descripción de la imagen"
-                    />
-              </Link>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link>
-            </div>
-          </Fade>
-        </div>
-        <div className='HomeBlog-NoticiasContainer'>
+      <Fade triggerOnce={true} duration={900} delay={300} direction='up'>
+        <p className='homeBlog-description'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</p>
+      </Fade>
+      <div className='homeBlog-noticiasContainer'>
           <Fade cascade={true} duration={800} triggerOnce={true}>
-          <div className='HomeBlog-noticia'>
+            <div className='homeBlog-noticia'>
               <Link to={"/blog"}>
-                <img className='HomeBlog-img'
-                    src={ImageC} 
-                    alt="descripción de la imagen" />
+                <div className='homeBlog-img-container'>
+                  <img className='homeBlog-img' 
+                      src={ImageA} 
+                      alt="blog noticia" />
+                </div>
               </Link>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
             </div>
-            <div className='HomeBlog-noticia'>
-              <Link to={"/blog"}>
-                <img className='HomeBlog-img'
-                    src={ImageD} 
-                    alt="descripción de la imagen"/>
-              </Link>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título Noticia</h3></Link>
+            <div className='homeBlog-noticia'>
+              <div className='homeBlog-img-container'>
+                <Link to={"/blog"}>
+                  <img className='homeBlog-img'
+                      src={ImageB} 
+                      alt="blog noticia"
+                      />
+                </Link>
+              </div>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
+            </div>
+            <div className='homeBlog-noticia'>
+              <div className='homeBlog-img-container'>
+                <Link to={"/blog"}>
+                  <img className='homeBlog-img'
+                      src={ImageC} 
+                      alt="blog noticia" />
+                </Link>
+              </div>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
             </div>
           </Fade>
         </div>
-      </div>
-      <div className='HomeBlog-buttonContainer'>
+      <div className='homeBlog-buttonContainer'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <Link to={"/blog"}>
-            <Button sx={{
-                width: "100%", 
-                height: "60px",
-                fontFamily: "archivo",
-                backgroundColor: "#12824c"
+          <Button sx={{ 
+              width: "100%",
+              height: "100%",
+              fontFamily: "interTight",
+              fontSize: "25px",
+              fontWeight: "bold",
+              letterSpacing: "2px",
+              borderRadius: "50px",
+              boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+              textTransform: "none",
+              color:"black",
+              backgroundColor: "#2eed8d",
               }} 
-                variant='contained' 
-                size='large'
-              >Ver más</Button> 
+              variant='contained' 
+              size='large'
+          >
+              Ver más
+          </Button>
           </Link>
         </Fade>
       </div>

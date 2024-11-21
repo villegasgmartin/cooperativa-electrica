@@ -1,8 +1,9 @@
 /*Contenedor Principal*/
 .homeServicios-container{
-    background-color: rgb(245,245,245);
     padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 3.125rem;
+    background: rgb(61,17,109);
+    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
 }
 
 /*Logo*/
@@ -21,24 +22,38 @@
 
 /*Texto*/
 .homeServicios-text{
-    margin-top: 1.25rem;
-    margin-bottom: 1.875rem;
+    font-size: 25px;
     font-family: "interTight";
-    color: grey;
-    width: 56.25rem;
+    text-align: center;
+    color: black;
+    font-weight: bold;
+    letter-spacing: 1px;
+    width: 62.5rem;
     margin-left: auto;
     margin-right: auto;
-    text-align: justify;
-    font-size: 1.125rem;
+    margin-top: 2.1875rem;
+    margin-bottom: 2.1875rem;
+}
+
+/*Contenedor de enlace*/
+.homeServicios-link-container{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    margin-top: -1rem;
 }
 
 /*Enlace a NAVE*/
 .homeServicios-link{
-    text-align: center;
-
+    background-color: var(--black);
     font-family: "interTight";
     font-size: 1.25rem;
-    color: var(--violet);
+    color: var(--white);
+    letter-spacing: .0625rem;
+    padding: 7px 40px 12px 40px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 /*----------------Media Queries----------------*/

@@ -48,8 +48,10 @@ const HomeServices3 = () => {
         <CardCarousel servicios={serviciosHome} showArrowsAndDots={showArrowsAndDots} />
       </Fade>
       <Fade triggerOnce={true} duration={800} delay={700}>
-        <Link to={"/nave"} style={{ textDecorationColor: "#8048ff" }}>
-          <p className='homeServicios-link'>Conocer más</p>
+        <Link to={"/nave"}>
+          <div className='homeServicios-link-container'>
+            <a href="" className='homeServicios-link'>Conoce más</a>
+          </div>
         </Link>
       </Fade>
     </section>

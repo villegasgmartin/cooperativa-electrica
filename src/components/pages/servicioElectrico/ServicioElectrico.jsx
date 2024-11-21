@@ -65,46 +65,47 @@ const ServicioElectrico = () => {
           </div>
         </div>
       )}
-      <div className='servicio-accordion-container'>
-        <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
-            <Accordion sx={{
-              borderRadius: "50px !important" 
-            }}>
-              <AccordionSummary sx={{
-                backgroundColor: "#30e691",
-                borderRadius: "50px"
-              }} expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "50px"}}/>}><span className='servicio-accordion-content'>Nuevo cuadro tarifario para consumos a partir del 01/02/2024</span></AccordionSummary>
-              <AccordionDetails>
-                <div className='servicio-accordion-detailsContainer'>
-                  <p className='servicio-accordion-details'>Con fecha 23/2/24 se publicó en Boletín Oficial la Res. 198/24 del MIySP que traslada los precios mayoristas de la energía aprobados por Res. 07/24 de la Secretaria de Energía de la Nación, publicada el pasado 07/02/24. En primer término, se informa que se mantienen los segmentos tarifarios N1, N2 (equiparable en costos a la tarifa social) y N3.
-                    Para los segmentos residenciales de menores ingresos (N2) y de ingresos medios (N3) de menos de 400 kWh/mes, no se modificaron los precios por lo que permanecen vigentes los valores aplicados hasta la última factura.
-                    Lo mismo sucede con los usuarios de Tarifa Social y Clubes de Barrio. Para el resto de los segmentos, es decir, los usuarios residenciales de mayores ingresos (N1), los de ingresos medios de más de 400 kWh/mes y los NO residenciales, se les aplica el precio de la energía SIN SUBSIDIO.
-                    En el caso de los usuarios T2 y T3 los incrementos promedian el 140%. Reiteramos, tal como lo hicimos en comunicado anterior que estas tarifas son de aplicación a los consumos a partir del 1/2/24 por lo cual se verán reflejadas en la factura del período 02/24.
-                    Consejo de Administración.</p>
-                  <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2024/03/Incrementos-tarifarios-febrero-24-Res.-198-24.pdf" target='_blank'>
-                  <Button sx={{
-                      width: "100%", 
-                      height: "100%",
-                      fontFamily: "interTight",
-                      fontSize: "25px",
-                      fontWeight: "bold",
-                      letterSpacing: "1px",
-                      borderRadius: "50px",
-                      boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
-                      textTransform: "none",
-                      color:"white",
-                      backgroundColor: "#8048ff",
-                      marginBottom: "20px"
-                    }} 
-                      variant='contained' 
-                      size='large'>Leer el documento
-                      </Button>
-                  </a>
-                </div>
-              </AccordionDetails>
-            </Accordion>
-        </Fade>
-        </div>
+      <div className='servicio-first-container'>
+        <div className='servicio-accordion-container'>
+          <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
+              <Accordion sx={{
+                borderRadius: "50px !important" 
+              }}>
+                <AccordionSummary sx={{
+                  backgroundColor: "#30e691",
+                  borderRadius: "50px"
+                }} expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "50px"}}/>}><span className='servicio-accordion-content'>Nuevo cuadro tarifario para consumos a partir del 01/02/2024</span></AccordionSummary>
+                <AccordionDetails>
+                  <div className='servicio-accordion-detailsContainer'>
+                    <p className='servicio-accordion-details'>Con fecha 23/2/24 se publicó en Boletín Oficial la Res. 198/24 del MIySP que traslada los precios mayoristas de la energía aprobados por Res. 07/24 de la Secretaria de Energía de la Nación, publicada el pasado 07/02/24. En primer término, se informa que se mantienen los segmentos tarifarios N1, N2 (equiparable en costos a la tarifa social) y N3.
+                      Para los segmentos residenciales de menores ingresos (N2) y de ingresos medios (N3) de menos de 400 kWh/mes, no se modificaron los precios por lo que permanecen vigentes los valores aplicados hasta la última factura.
+                      Lo mismo sucede con los usuarios de Tarifa Social y Clubes de Barrio. Para el resto de los segmentos, es decir, los usuarios residenciales de mayores ingresos (N1), los de ingresos medios de más de 400 kWh/mes y los NO residenciales, se les aplica el precio de la energía SIN SUBSIDIO.
+                      En el caso de los usuarios T2 y T3 los incrementos promedian el 140%. Reiteramos, tal como lo hicimos en comunicado anterior que estas tarifas son de aplicación a los consumos a partir del 1/2/24 por lo cual se verán reflejadas en la factura del período 02/24.
+                      Consejo de Administración.</p>
+                    <a href="https://www.cooperativamdp.com.ar/wp-content/uploads/2024/03/Incrementos-tarifarios-febrero-24-Res.-198-24.pdf" target='_blank'>
+                    <Button sx={{
+                        width: "100%", 
+                        height: "100%",
+                        fontFamily: "interTight",
+                        fontSize: "25px",
+                        fontWeight: "bold",
+                        letterSpacing: "1px",
+                        borderRadius: "50px",
+                        boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                        textTransform: "none",
+                        color:"white",
+                        backgroundColor: "#8048ff",
+                        marginBottom: "20px"
+                      }} 
+                        variant='contained' 
+                        size='large'>Leer el documento
+                        </Button>
+                    </a>
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+          </Fade>
+          </div>
           <div className='servicio-usuarios' id='servicio-usuarios-gap'>
             <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
               <div className='servicio-usuarios-text'>
@@ -130,6 +131,7 @@ const ServicioElectrico = () => {
               </div>
             </Fade>
           </div>
+      </div>
           <div className='servicio-info-container'>
             <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
               <h2 className='servicio-info-title'>Datos Identificatorios</h2>

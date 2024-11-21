@@ -62,22 +62,17 @@
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1300px){
-    .slick-prev {
-        left: 8px;
-    }
-    
-    .slick-next {
-        right: 18px;
+@media(max-width:1230px){
+    .carousel-container{
+        width: 100%;
     }
 }
 
-@media(max-width:1250px){
+@media(max-width:1170px){
     .carousel-container{
-        width: 68.75rem;
-    }
-    .slick-slide {
-        padding: 0px 10px;
+        width: 100%;
+        padding-left: 350px;
+        
     }
 }
 

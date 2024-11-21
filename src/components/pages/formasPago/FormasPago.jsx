@@ -17,21 +17,31 @@ const FormasPago = () => {
 
   return (
     <section className='pagos-main-container'>
-      <div className='provinciaNet-container'>
-        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-          <div className='provinciaNet-textContainer'>
-            <h3 className='pagos-info-title'>¡Pagá tus impuestos y servicios!</h3>
-            <p className='provinciaNet-text'>Extraé dinero en efectivo con tu tarjeta de débito del Banco Provincia</p>
-            <p className='provinciaNet-text'>Pagá con tarjeta de débito del Banco Provincia</p>
-            <p className='provinciaNet-text'>Horario: de 7:30 a 12:30 hs</p>
-            <p className='provinciaNet-text'>Para más información <strong>entrá en la página web oficial de Provincia NET <a href="https://www.provincianet.com.ar/" target='_blank' className='provinciaNet-link'>www.provincianet.com.ar</a></strong></p>
-          </div>
-          <div className='pagos-info-image03'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/logo-PN-Pagos-VF_.jpg" alt="imágen provincia net" width={"100%"} /></div>
-        </Fade>
+      <div className='pagos-container'>
+        <div className='logos-container'>
+          <img src="" alt="" />
+          <img src="" alt="" />
+          <img src="" alt="" />
+          <img src="" alt="" />
+        </div>
+        <h2>¡Pagá tus impuestos y servicios!</h2>
+        <p><strong>Extraé dinero</strong> en efectivo con tu tarjeta de débito del Banco Provincia</p>
+          <p><strong>Pagá con tarjeta de débito</strong> del Banco Provincia</p>
+        <div>
+          <p>Horario: de 7:30 a 12:30 hs</p>
+          <p> Para más información entrá en la página web oficial de Provincia NET www.provincianet.com.ar</p>
+        </div>
+        <div>
+          <p>ALIAS;</p>
+          <ul>
+            <li>COOP-PROVINCIA </li>
+            <li>COOP-NACION</li>
+          </ul>
       </div>
         <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='pagos-accordion-container'><PagosAcordeon/></div>
         </Fade>
+      </div>
         <div className='pagos-info-container'>
           <div className='pagos-usuarios-container'>
             <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
@@ -43,15 +53,6 @@ const FormasPago = () => {
               </p>
             </Fade>
           </div>
-          <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-            <div className='pagos-logos-container'>
-                <div className='alias-container'>
-                  <p className='alias'>ALIAS: <strong>COOP-PROVINCIA</strong><br/>ó ALIAS: <strong>COOP-NACION</strong></p>
-                </div>
-                <div className='pagos-info-image01'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/apps-pagos.png" width={"100%"} alt="imágen de pagos" /></div>
-                <div className='pagos-info-image02'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2022/12/icono-pago.png" alt="logo de pagos" width={"100%"}/></div>
-              </div>
-          </Fade>
         </div>
     </section>
   );

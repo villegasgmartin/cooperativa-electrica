@@ -16,7 +16,7 @@ const CardCarousel = ({servicios , showArrowsAndDots}) => {
     slidesToScroll: 1,
     responsive: [
     {
-        breakpoint: 1110,
+        breakpoint: 1171,
         settings: {
             slidesToShow: 2,
             slidesToScroll: 1,
