@@ -21,7 +21,6 @@ const Preguntas = () => {
 
     return (
         <section className='preguntas-main-container'>
-            <Fade triggerOnce={true} duration={800} delay={300}><h2 className='preguntas-title'>Servicio Eléctrico</h2></Fade>
             <div className='preguntas-accordion-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <AccordionGroup variant='soft' size='lg'>
@@ -96,16 +95,13 @@ const Preguntas = () => {
                     </AccordionGroup>
                 </Fade>
             </div>
-            <div className='preguntas-logo-text-container'>
-                <Fade triggerOnce={true} duration={800} delay={300}>
+                <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
                     <div className='preguntas-usuarios-text'>
                         <h3 className='preguntas-usuarios-title'>Sres. Usuarios:</h3>
                         <p className='preguntas-usuarios-description'>En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos.</strong>
                         ‼️ Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. <br/>Muchas gracias.</p>
                     </div>
-                    <div className='preguntas-logo-container'><img src="https://www.cooperativamdp.com.ar/wp-content/uploads/2017/04/icon_06.png" alt="logo de preguntas" width={"100%"} /></div>
                 </Fade>
-            </div>
         </section>
     );
 };

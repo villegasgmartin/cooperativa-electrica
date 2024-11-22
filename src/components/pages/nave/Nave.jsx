@@ -16,12 +16,12 @@ const Nave = () => {
   }, [dispatch]);
 
   const serviciosNave = [
-    { servicio: "Internet 50 MB", precio: "$12.614" },
-    { servicio: "Internet 100 MB", precio: "$16.846" },
-    { servicio: "Internet 300 MB", precio: "$19.864" },
-    { servicio: "Internet 500 MB", precio: "$24.893" },
-    { servicio: "Full TV", precio: "$8.570" },
-    { servicio: "Fútbol Premium", precio: "$8.786" },
+    { servicio: "INTERNET 50 MB", precio: "$12.614" },
+    { servicio: "INTERNET 100 MB", precio: "$16.846" },
+    { servicio: "INTERNET 300 MB", precio: "$19.864" },
+    { servicio: "INTERNET 500 MB", precio: "$24.893" },
+    { servicio: "FULL TV", precio: "$8.570" },
+    { servicio: "FÚTBOL PREMIUM", precio: "$8.786" },
 ];
 
 

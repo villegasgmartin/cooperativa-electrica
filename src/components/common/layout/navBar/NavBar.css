@@ -68,15 +68,16 @@
   left: 0;
   background-color: rgba(255, 255, 255, 0.85); 
   padding: 0.5rem;
-  border-radius: 0.3125rem;
+  border-radius: 15px;
   z-index: 1000;
-  min-width: 200px;
+  min-width: 150px;
 }
 
 /*Enlaces del submenu*/
 .submenu-item {
   list-style: none;
   padding: 0.5rem;
+  text-align: center;
 }
 
 /*Reset de enlaces en submenu*/
@@ -98,6 +99,11 @@
   color: white;
   font-size: 24px;
   cursor: pointer;
+}
+
+/*Evito scroll al abrir drawer*/
+.no-scroll {
+  overflow: hidden;
 }
 
 /* Drawer */
@@ -138,7 +144,7 @@
 
 /*Enlaces de drawer*/
 .drawer-link {
-  margin: 2rem 0;
+  margin: 1.25rem 0;
   position: relative;
   font-family: "interTight";
 }

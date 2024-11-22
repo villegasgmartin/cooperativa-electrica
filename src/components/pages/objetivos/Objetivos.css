@@ -1,15 +1,20 @@
 /*Contenedor principal*/
 .objetivos-main-container{
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 /*Titulo objetivos sociales*/
 .objetivos-title{
     font-size: 2.5rem ;
-    font-family: "archivo";
-    color: var(--darkgreen);
+    font-family: "InterTight";
+    color: var(--darkviolet);
     text-align: center;
+    letter-spacing: .0625rem;
+    font-weight: bold;
+    margin-bottom: 3.125rem;
+    margin-left: .625rem;
+    margin-right: .625rem;
 }
 
 /*Contenedor de objetivos e imágen*/
@@ -17,9 +22,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
-    gap: 9.375rem
+    gap: 3.125rem;
+    margin-bottom: 40px;
 }
 
 /*Contenedor de objetivos*/
@@ -31,10 +35,10 @@
 
 /*Objetivo*/
 .objetivo{
-    text-align: justify;
+    text-align: left;
     font-family: "interTight";
-    color: grey;
-    font-size: 1.25rem;
+    color: var(--black);
+    font-size: 22px;
     width: 34.375rem;
 }
 
@@ -42,7 +46,7 @@
 .objetivos-color-title{
     font-family: "archivo";
     font-size: 1.5625rem;
-    background:#8048ff;
+    background: var(--violet);
     color:#fff;
     padding: 2px 15px;
     clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
@@ -50,53 +54,17 @@
 
 /*Contenedor de imágen*/
 .objetivos-image-container{
-    position: relative;
-    width: 37.5rem;
-    height: 31.25rem;
+    width: 28.125rem;
+    height: 28.125rem;
+    overflow: hidden;
+    border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Imágen*/
 .objetivos-image{
-    position: relative;
     width: 100%;
     height: 100%;
-}
-
-/*Fondo Verde*/
-.objetivos-image-container::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #12824C;
-    transform: translate(20px, 20px);
-    transform-origin: top left;
-    pointer-events: none; 
-    background: #12824C;
-}
-
-/*Fondo verde invertido*/
-.objetivos-background-position::before {
-    transform: translate(-25px, 20px);
-}
-
-/*Fondo oscuro*/
-#dark-background{
-    background-color: var(--black)
-}
-
-/*Letras blancas*/
-#light-font{
-    color: white;
-}
-
-/*Contenedor de articulo y logo*/
-.objetivos-logoText-container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
 }
 
 /*Contenedor de articulo*/
@@ -107,197 +75,158 @@
     align-items: center;
     margin-top: 5rem;
     gap: 1.25rem;
+    background-color: var(--grey);
+    padding-top: 2.5rem ;
+    padding-bottom: 1.875rem;
 }
 
 /*Texto final*/
 .objetivos-articulo{
-    font-family: "archivo";
-    color: grey;
+    font-family: "InterTight";
+    font-weight: bold;
+    letter-spacing: .0625rem;
+    color: var(--black);
     font-size: 1.5625rem;
-    width: 31.25rem;
-    text-align: justify;
+    width: 800px;
+    text-align: center;
 }
 
-/*Logo al lado del texto*/
-.objetivos-logo{
-    width: 18.75rem;
+/*Contenedor de botón*/
+.objetivos-button-container{
+    width: 12.5rem;
 }
 
 /*----------------Media Queries----------------*/
 
-@media (max-width: 1450px){
+@media (max-width: 1120px){
     .objetivos-container{
-        gap: 6.25rem;
+        gap: 1.875rem;
     }
     .objetivos-image-container{
-        width: 31.25rem;
+        width: 400px;
         height: 25rem;
     }
 }
 
-@media (max-width: 1325px){
-    .objetivos-container{
-        gap: 4.375rem;
-    }
-    .objetivos-image-container{
-        width: 25rem;
-        height: 18.75rem;
-    }
-    .objetivos-image-container::before{
-        transform: translate(10px, 10px)
-    }
-    .objetivos-background-position::before {
-        transform: translate(-17px, 10px);
-    }
-    .objetivos-color-title{
-        font-size: 1.25rem;
-        padding: 2px 10px;
-    }
-    .objetivo{
-        width: 31.25rem;
-        font-size: 1.125rem;
-    }
-}
-
-@media (max-width: 1130px){
+@media (max-width: 1040px){
     .objetivos-image-container{
         width: 21.875rem;
-        height: 15.625rem;
-    }
-    .objetivo{
-        width: 25rem;
-    }
-    .objetivos-articulo{
-        font-size: 1.25rem;
-        width: 25rem;
-    }
-    .objetivos-logo{
-        width: 12.5rem;
-    }
-}
-
-@media (max-width: 900px){
-    .objetivos-title{
-        font-size: 2.1875rem;
-    }
-    .objetivos-container{
-        gap: 2.5rem;
-    }
-    .objetivos-image-container{
-        width: 18.75rem;
-        height: 13.75rem;
-    }
-    .objetivos-color-title{
-        font-size: 1.125rem;
-        padding: 2px 6px;
-    }
-    .objetivo{
-        font-size: .9375rem;
-        width: 21.875rem;
-    }
-}
-
-@media (max-width: 760px){
-    .objetivos-main-container{
-        margin-top: 4rem;
-        margin-bottom: 4rem;
-    }
-    .objetivos-title{
-        font-size: 1.875rem ;
-        width: 90%;
-        margin: auto;
-    }
-    
-    .objetivos-container{
-        flex-direction: column;
-        padding-top: 3rem;
-    }
-    .objetivos-image-container{
-        width: 25rem;
         height: 21.875rem;
     }
     .objetivos-color-title{
         font-size: 1.25rem;
     }
     .objetivo{
-        width: 80%;
-        margin: auto;
-        font-size: 1.125rem;
-        text-align: center;
+        font-size: 1.25rem;
     }
-    .objetivos-logoText-container{
+}
+
+@media (max-width:970px){
+    .objetivo{
+        width: 400px;
+    }
+    .objetivos-title{
+        font-size: 2.1875rem;
+    }
+    .objetivos-articulo{
+        width: 80%;
+    }
+}
+
+@media (max-width: 830px){
+    .objetivos-title{
+        margin-bottom: 1.875rem;
+    }
+    .objetivos-container{
         flex-direction: column;
     }
-    .objetivos-articulo-container{
-        margin-top: 3rem;
-        gap: 3.125rem;
+    #objetivos-container-direction{
+        flex-direction: column-reverse;
+    }
+    .objetivos-text-container{
+        gap: .9375rem;
+    }
+    .objetivo{
+        font-size: 1.25rem;
+        width: 80%;
+        text-align: center;
+        margin: auto;
+    }
+    .objetivos-image-container{
+        width: 28.125rem;
+        height: 28.125rem;
     }
     .objetivos-articulo{
         font-size: 1.25rem;
-        width: 31.25rem;
-        text-align: center;
     }
 }
 
 @media (max-width: 700px){
-    .objetivos-articulo-container{
+    .objetivos-title{
+        font-size: 1.875rem;
+    }
+    .objetivos-main-container{
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+    .objetivo{
         width: 90%;
-        margin: auto;
+    }
+    .objetivos-articulo-container{
         margin-top: 3rem;
     }
     .objetivos-articulo{
         width: 90%;
     }
     .objetivos-button-container{
-        width: 100%;
+        width: 90%;
     }
 }
 
-@media (max-width: 500px){
+@media (max-width: 550px){
     .objetivos-title{
-        font-size: 1.5625rem;
-        width: 90%;
-        margin: auto;
+        font-size: 1.5625rem
     }
-    .objetivos-image-container{
-        width: 17.5rem;
-        height: 14.375rem;
+    .objetivos-container{
+        gap: .9375rem;
+        margin-bottom: 1.5625rem;
     }
     .objetivos-color-title{
-        font-size: 1.125rem;
-        padding: 2px 5px;
+        font-size: 18px;
+        padding: 2px 10px;
     }
     .objetivo{
-        font-size: 1rem;
+        font-size: 1.125rem;
+    }
+    .objetivos-image-container{
+        width: 25rem;
+        height: 25rem;
+    }
+    .objetivos-articulo-container{
+        padding-top: 1.875rem;
     }
     .objetivos-articulo{
         font-size: 1.125rem;
     }
-    .objetivos-logo{
-        width: 9.375rem;
+}
+
+@media (max-width: 460px){
+    .objetivos-image-container{
+        width: 350px;
+        height: 21.875rem;
     }
 }
 
-@media (max-width: 450px){
-    .objetivos-main-container{
-        margin-top: 3rem;
-        margin-bottom: 3rem;
-    }
-    .objetivos-container{
-        flex-direction: column;
-        padding-top: 2rem;
-        padding-bottom: 3rem;
-    }
-    .objetivos-articulo-container{
-        gap: 32px;
+@media (max-width: 390px){
+    .objetivos-image-container{
+        width: 330px;
+        height: 20.625rem;
     }
 }
 
-@media (max-width: 400px){
-    .objetivos-image-container::before{
-        transform: translate(2px, 2px)
-    }
-    .objetivos-background-position::before {
-        transform: translate(-9px, 2px);
+@media (max-width: 350px){
+    .objetivos-image-container{
+        width: 315px;
+        height: 19.6875rem;
     }
 }

@@ -7,16 +7,16 @@ const CardCarousel = ({servicios , showArrowsAndDots}) => {
     
     // Configuración del carrusel
     const settings = {
-    dots: showArrowsAndDots,
     arrows: showArrowsAndDots, 
     infinite: true,
     speed: 600,
     slidesToShow: 3,
-    autoplay: false,
+    centerMode: true,
+    autoplay: true,
     slidesToScroll: 1,
     responsive: [
     {
-        breakpoint: 1110,
+        breakpoint: 1171,
         settings: {
             slidesToShow: 2,
             slidesToScroll: 1,

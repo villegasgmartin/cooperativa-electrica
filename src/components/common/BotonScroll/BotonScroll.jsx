@@ -22,9 +22,9 @@ function BotonScroll() {
                 position: 'fixed',
                 bottom: '24px',
                 right: '16px',
-                backgroundColor: '#8048ff', 
+                backgroundColor: '#3d116d', 
                 '&:hover': {
-                    backgroundColor: '#2eed8d',
+                    backgroundColor: '#8048ff',
                 },
                 '@media (max-width: 760px)': {
                     display: 'none',

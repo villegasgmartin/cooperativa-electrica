@@ -9,69 +9,70 @@
     margin-right: auto;
 }
 
-/* Espaciado entre cards */
-.slick-slide {
-    padding: 5px 25px;
-}
-
-/* Puntos de navegación */
-.slick-dots li button:before {
-    padding-top: 20px;
-    font-size: 12px;
-    color: #8048ff;
-}
-
-.slick-dots li.slick-active button:before {
-    color: #12824c;
-}
-
 /* Flechas */
 .slick-prev, .slick-next {
     z-index: 10;
-    font-size: 30px;
-    transition: all 0.3s;
 }
 
 /* Colores de flechas */
 .slick-prev:before, .slick-next:before {
-    color: #8048ff;
-    font-size: 30px; 
+    color: var(--newgreen);
+    font-size: 35px; 
 }
 
 /* Distancia entre las flechas y las cards */
 .slick-prev {
-    left: -15px;
+    left: 390px;
 }
 
 .slick-next {
-    right: -5px;
+    right: 413px;
 }
 
 /* Hover de las flechas */
 .slick-prev:hover:before, .slick-next:hover:before {
-    color: #12824c;
-    transform: scale(1.2);
+    color: var(--darkviolet);
     transition: all 0.3s;
 }
 
+/* Estilos para las cards en el carrusel */
+.slick-slide .card {
+    transition: transform 0.5s ease, opacity 1s ease, filter 0.5s ease;
+}
+
+/* Estilos para la card central */
+.slick-center .card {
+    transform: scale(1); 
+    opacity: 1; 
+    filter: grayscale(0);
+}
+
+/* Estilos para las cards a los lados (izquierda y derecha) */
+.slick-slide:not(.slick-center) .card {
+    transform: scale(0.7);
+    opacity: 0.9;
+    filter: grayscale(100%);
+}
+
+/* Desplazamiento de las cards laterales hacia abajo */
+.slick-slide:not(.slick-center) .card {
+    margin-top: 20px; 
+}
+
+
 /*----------------Media Queries----------------*/
 
-@media(max-width:1300px){
-    .slick-prev {
-        left: 8px;
-    }
-    
-    .slick-next {
-        right: 18px;
+@media(max-width:1230px){
+    .carousel-container{
+        width: 100%;
     }
 }
 
-@media(max-width:1250px){
+@media(max-width:1170px){
     .carousel-container{
-        width: 68.75rem;
-    }
-    .slick-slide {
-        padding: 0px 10px;
+        width: 100%;
+        padding-left: 350px;
+        
     }
 }
 
@@ -151,3 +152,4 @@
         width: 16.25rem;
     }
 }
+
