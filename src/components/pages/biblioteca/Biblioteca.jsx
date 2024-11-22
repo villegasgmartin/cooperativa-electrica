@@ -139,14 +139,14 @@ const Biblioteca = () => {
               <img src={Image01} alt="bibilioteca" className='biblioteca-img' />
             </div>
           </Fade>
-      </div>
-      <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
+          <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
         <div className='biblioteca-adress-containerMovile'>
           <p className='biblioteca-adress'>20 De Septiembre 2638 - Mar Del Plata</p>
           <p className='biblioteca-adress'>(0223) 493-5777 (interno 5)</p>
           <p className='biblioteca-adress'>Lunes a Viernes de 7,30 a 13,30 hs.</p>
         </div>
       </Fade>
+      </div>
     </section>
   );
 };

@@ -1,8 +1,9 @@
 /*Contenedor principal*/
 .consejo-container{
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
     overflow: hidden;
+    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
 }
 
 /*Contenedor de textos*/
@@ -11,22 +12,26 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: .625rem;
+    gap: .9375rem;
 }
 
 /*Título principal*/
 .consejo-title{
     font-family: "archivo";
-    color: var(--darkgreen);
+    color: var(--darkviolet);
     font-size: 2.5rem;
+    text-align: center;
+    margin-left: .625rem;
+    margin-right: .625rem;
+    line-height: 40px;
 }
 
 /*Descripción*/
 .consejo-text{
     font-family: "interTight";
-    width: 60%;
+    width: 68.75rem;
     text-align: center;
-    line-height: 1.5rem;
+    font-size: 1.5625rem;
 }
 
 /*Contenedor de acordeones*/
@@ -34,7 +39,7 @@
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1.25rem;
+    margin-top: 1.875rem;
 }
 
 /*Contenido de acordeón*/
@@ -46,42 +51,35 @@
 
 /*----------------Media Queries----------------*/
 
-@media (max-width: 1280px){
+@media (max-width: 1230px){
     .consejo-accordion-container{
-        width: 80%;
+        width: 90%;
     }
-}
-
-@media (max-width: 1165px){
     .consejo-text{
+        font-size: 1.375rem;
         width: 80%;
     }
 }
 
-@media (max-width: 760px){
+@media (max-width: 900px){
+    .consejo-text{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 700px){
     .consejo-container{
-        margin-top: 4rem;
-        margin-bottom: 4rem;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+    .consejo-text-container{
+        gap: .625rem;
     }
     .consejo-title{
-        font-size: 2.1875rem;
+        font-size: 35px;
     }
     .consejo-text{
+        font-size: 18px;
         width: 90%;
-    }
-    .consejo-accordion-container{
-        width: 90%;
-    }
-}
-
-@media (max-width: 520px){
-    .consejo-title{
-        font-size: 1.875rem;
-    }
-}
-
-@media (max-width: 450px){
-    .consejo-title{
-        font-size: 25px;
     }
 }

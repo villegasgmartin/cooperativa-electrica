@@ -20,8 +20,10 @@ function BotonScroll() {
             onClick={scrollToTop}
             sx={{
                 position: 'fixed',
-                bottom: '24px',
-                right: '16px',
+                bottom: '20px',
+                right: '100px',
+                width: "60px",
+                height: "60px",
                 backgroundColor: '#3d116d', 
                 '&:hover': {
                     backgroundColor: '#8048ff',

@@ -201,6 +201,9 @@
 }
 
 @media(max-width:830px){
+    .biblioteca-servicios-container{
+        flex-direction: column;
+    }
     .biblioteca-servicios-text{
         width: 90%;
         margin-left: auto;

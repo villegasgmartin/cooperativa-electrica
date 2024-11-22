@@ -1,16 +1,20 @@
 /*Contenedor principal*/
 .principios-main-container{
-    padding-top: 5rem;
-    background-color: rgb(248, 248, 248);
     overflow: hidden;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 /*Introducción*/
 .principios-intro{
     font-family: "interTight";
     text-align: center;
-    color: grey;
-    font-size: 1.5625rem;
+    color: var(--black);
+    font-size: 1.875rem;
+    width: 62.5rem;
+    margin: auto;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
 }
 
 /*Contenedor de cada principio*/
@@ -19,41 +23,26 @@
     align-items: center;
     justify-content: center;
     gap: 9.375rem;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 
-/*Fondo Verde*/
-.principios-image-container::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #12824C;
-    transform: translate(20px, 20px);
-    transform-origin: top left;
-    pointer-events: none; 
-    background: #12824C;
+/*Corrección de padding al último contenedor*/
+.principios-padding{
+    padding-bottom: 0;
 }
-
-/*Fondo verde invertido*/
-.principios-background-position::before {
-    transform: translate(-25px, 20px);
-}
-
 
 /*Contenedor de imagen*/
 .principios-image-container{
-    position: relative;
-    width: 43.75rem;
-    height: 34.375rem;
+    overflow: hidden;
+    border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+    width: 37.5rem;
+    height: 37.5rem;
 }
 
 /*Imágen*/
 .principios-img{
-    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -62,7 +51,7 @@
 .principios-second-container{
     display: flex;
     flex-direction: column;
-    gap: 3.125rem;
+    gap: 1.875rem;
 }
 
 /*Contenedor de texto*/
@@ -79,21 +68,24 @@
     font-family: "archivo";
     font-size: 2.1875rem;
     color: var(--black);
+    text-align: left;
 }
 
-/*Fondo Violeta*/
+/*Resaltado en títulos*/
 .color-title{
-    background:#8048ff;
-    color:#fff;
+    background:var(--lightgreen);
+    border-radius: 1.5625rem;
+    color: var(--black);
     padding: 2px 15px;
-    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
 }
 
 /*Descripción*/
 .principios-description{
     font-family: "interTight";
-    color: grey;
+    color: var(--black);
     font-size: 1.25rem;
+    letter-spacing: 1px;
+    text-align: left;
 }
 
 /*Fondo oscuro*/
@@ -108,131 +100,157 @@
 
 /*----------------Media Queries----------------*/
 
-@media (max-width: 1550px){
+@media (max-width: 1460px){
     .principios-container{
         gap: 6.25rem;
     }
     .principios-text-container{
         width: 28.125rem;
     }
-    .principios-second-container{
-        gap: 1.5625rem;
-    }
     .principios-title{
-        font-size: 1.5625rem;
-    }
-    .principios-description{
-        font-size: 1.125rem;
+        font-size: 1.875rem;
     }
     .principios-image-container{
         width: 31.25rem;
-        height: 21.875rem;
+        height: 31.25rem;
     }
 }
 
 @media (max-width: 1170px){
     .principios-intro{
-        font-size: 1.25rem;
+        font-size: 1.5625rem;
+        width: 80%;
+        margin-bottom: 10px;
     }
     .principios-container{
         gap: 3.125rem;
     }
     .principios-text-container{
         width: 25rem;
+        gap: .3125rem;
     }
     .principios-title{
-        font-size: 1.25rem;
+        font-size: 1.5625rem;
+    }
+    .principios-description{
+        font-size: 1.125rem;
+    }
+    .principios-image-container{
+        width: 28.125rem;
+        height: 28.125rem;
+    }
+}
+
+@media (max-width: 950px){
+    .principios-intro{
+        font-size: 22px;
+        margin-bottom: 5px;
+    }
+    .principios-second-container{
+        gap: 1.25rem;
+    }
+    .principios-text-container{
+        width: 21.875rem;
+    }
+    .principios-title{
+        font-size: 1.375rem;
     }
     .principios-description{
         font-size: 1rem;
     }
     .principios-image-container{
         width: 25rem;
-        height: 15.625rem;
-    }
-    .principios-image-container::before{
-        transform: translate(10px, 10px) 
-    }
-    .principios-background-position::before {
-        transform: translate(-18px, 10px);
+        height: 25rem;
     }
 }
 
-@media (max-width: 950px){
-    .principios-container{
-        gap: 1.25rem;
-    }
-    .principios-text-container{
-        width: 21.875rem;
-    }
-    .principios-image-container{
-        width: 21.875rem;
-        height: 12.5rem;
-    }
-}
-
-@media (max-width: 760px){
+@media (max-width: 830px){
     .principios-intro{
-        font-size: 1.5625rem;
         width: 90%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .principios-main-container{
-        padding-top: 4rem;
+        font-size: 1.5625rem;
+        margin-bottom: .625rem;
     }
     .principios-container{
         flex-direction: column;
-        gap: 1.875rem
+        gap: .9375rem;
     }
     .principios-text-container{
         width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        margin: auto;
     }
     .principios-title{
-        font-size: 25px;
+        font-size: 1.875rem;
+        text-align: center;
     }
     .principios-description{
         font-size: 1.25rem;
+        text-align: center;
     }
     .principios-image-container{
-        width: 30rem;
-        height: 25rem;
-    } 
+        width: 28.125rem;
+        height: 28.125rem;
+    }
 }
 
-@media (max-width: 650px){
-    .principios-container{
-        padding-top: 4rem;
-    }
+@media (max-width: 700px){
     .principios-intro{
-        font-size: 1.25rem;
+        font-size: 22px;
+    }
+    .principios-main-container{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+    }
+    .principios-container{
+        padding-top: 1.875rem;
+        padding-bottom: 1.875rem;
+    }
+    .principios-padding{
+        padding-bottom: 0;
     }
     .principios-text-container{
         width: 90%;
     }
     .principios-title{
-        font-size: 1.25rem;
+        font-size: 1.5625rem;
     }
     .principios-description{
         font-size: 1.125rem;
     }
-    .principios-image-container{
-        width: 23.75rem;
-        height: 18.75rem;
-    } 
 }
 
-@media (max-width: 450px){
+@media (max-width: 550px){
     .principios-image-container{
-        width: 18.75rem;
-        height: 250px;
+        width: 25rem;
+        height: 25rem;
     }
-    .principios-image-container::before{
-        transform: translate(2px, 2px) 
+}
+
+@media (max-width: 460px){
+    .principios-intro{
+        font-size: 20px;
     }
-    .principios-background-position::before {
-        transform: translate(-9px, 2px);
-    } 
+    .principios-title{
+        font-size: 1.375rem;
+    }
+    .principios-description{
+        font-size: 1rem;
+    }
+    .principios-image-container{
+        width: 21.875rem;
+        height: 21.875rem;
+    }
+}
+
+@media (max-width: 390px){
+    .principios-image-container{
+        width: 330px;
+        height: 20.625rem;
+    }
+}
+
+@media (max-width: 350px){
+    .principios-image-container{
+        width: 315px;
+        height: 19.6875rem;
+    }
 }

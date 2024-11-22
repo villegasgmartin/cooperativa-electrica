@@ -140,13 +140,13 @@
 .comunicados-resaltado{
     font-weight: bold;
     text-transform: uppercase;
-    color: var(--lightgreen);
+    color: var(--white);
 }
 
 /*Enlaces en la info*/
 .comunicados-links{
     text-decoration: none;
-    color: var(--lightgreen);
+    color: var(--white);
     overflow-wrap: break-word;
     word-break: break-word;
 }
@@ -211,8 +211,8 @@
         font-size: 1.125rem;
     }
     .comunicados-image-container{
-        width: 25rem;
-        height: 25rem;
+        width: 28.125rem;
+        height: 28.125rem;
     }
     .comunicados-info-title{
         font-size: 1.5625rem;
@@ -230,8 +230,8 @@
         font-size: 1rem;
     }
     .comunicados-image-container{
-        width: 21.875rem;
-        height: 21.875rem;
+        width: 25rem;
+        height: 25rem;
     }
 }
 

@@ -88,7 +88,7 @@
 /*Links*/
 .servicio-enlace{
     text-decoration: none;
-    color: var(--darkgreen);
+    color: var(--black);
 }
 
 /*Contenedor de imagen*/
@@ -127,6 +127,7 @@
     border-radius: 2.5rem;
     padding: 1.875rem;
     margin-bottom: 2.5rem;
+    letter-spacing: .0625rem;
 }
 
 /*Titulo de informacion*/
@@ -218,20 +219,6 @@
     letter-spacing: .0625rem;
     margin-left: 10px;
     margin-right: .625rem;
-}
-
-/*Texto resaltado*/
-.resaltado{
-    text-transform: uppercase;
-    color: var(--darkgreen);
-    font-weight: bold;
-}
-
-/*Texto resaltado para fondo oscuro*/
-.resaltado2{
-    text-transform: uppercase;
-    color: var(--lightgreen);
-    font-weight: bold;
 }
 
 /*Contenedor de botones*/

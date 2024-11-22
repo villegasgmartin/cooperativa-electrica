@@ -51,6 +51,7 @@ const Home = () => {
             <HomeGuardia2/>
             <HomeBlog2/>
             <Footer/>
+            
         </div>
     )
 }

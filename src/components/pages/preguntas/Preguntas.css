@@ -2,6 +2,7 @@
 .preguntas-main-container{
     padding-top: 5rem;
     padding-bottom: 5rem;
+    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
 }
 
 /*Contenedor de acordeón*/
@@ -35,7 +36,7 @@
 .preguntas-usuarios-title{
     font-family: "InterTight";
     font-size: 1.875rem;
-    color: var(--newgreen);
+    color: var(--white);
     text-align: center;
     letter-spacing: 1px;
 }

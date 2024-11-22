@@ -23,7 +23,6 @@ import BlogNoticia3 from "./components/pages/blogNoticia3/BlogNoticia3.jsx"
 import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
-import BotonFlotante from "./components/common/BotonFlotante/BotonFlotante.jsx"
 import Home from "./components/pages/home/Home.jsx"
 
 //JSX:
@@ -55,7 +54,6 @@ function App() {
           <Route path="/formulario" element={<Form/>}/>
         </Route>
   </Routes>
-  <BotonFlotante/>
   <BotonScroll/>
 </BrowserRouter>
 }
