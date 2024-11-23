@@ -31,7 +31,7 @@
 
 /*Cantidad de megas*/
 .sub-text {
-    font-family: "interTight";
+    font-family: "interTight-medium";
     color: var(--darkviolet);
     background-color: var(--newgreen);
     display: inline-block;
@@ -68,10 +68,10 @@
 /*Precio*/
 .card-precio{
     color: var(--darkviolet);
-    font-family: "archivo";
+    font-family: "archivo-black";
     font-size: 3.75rem;
     letter-spacing: .125rem;
-    line-height: 1
+    line-height: 1;
 }
 
 /*Texto del precio*/

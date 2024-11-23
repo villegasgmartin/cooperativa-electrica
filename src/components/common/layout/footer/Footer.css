@@ -61,12 +61,14 @@
 .footer-info-title{
     color: var(--lightgreen);
     font-family: "interTight";
+    letter-spacing: .0625rem;
 }
 
 /*Info*/
 .footer-info{
     color: white;
     font-family: "InterTight";
+    letter-spacing: .0625rem;
 }
 
 /*----------------Media Queries----------------*/

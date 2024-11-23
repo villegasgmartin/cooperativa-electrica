@@ -49,6 +49,7 @@
     font-family: "archivo";
     font-size: 2.1875rem;
     color: var(--black);
+    text-align: left;
 }
 
 /*Estilo 1 para títulos*/
@@ -70,7 +71,6 @@
     color: grey;
     font-size: 1.25rem;
     text-align: left;
-    padding-left: .9375rem;
 }
 
 /*Sin padding para la lista*/

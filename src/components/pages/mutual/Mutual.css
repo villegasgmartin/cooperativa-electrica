@@ -38,10 +38,11 @@
 
 /*Imágen texto 1*/
 .mutual-text01{
-    font-family: "archivo";
+    font-family: "archivo-black";
     color: white;
     font-size: 3.125rem;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    letter-spacing: .0625rem;
 }
 
 /*Imágen texto 2*/

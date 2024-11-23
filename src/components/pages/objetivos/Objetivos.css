@@ -7,11 +7,10 @@
 /*Titulo objetivos sociales*/
 .objetivos-title{
     font-size: 2.5rem ;
-    font-family: "InterTight";
+    font-family: "InterTight-medium";
     color: var(--darkviolet);
     text-align: center;
     letter-spacing: .0625rem;
-    font-weight: bold;
     margin-bottom: 3.125rem;
     margin-left: .625rem;
     margin-right: .625rem;
@@ -44,7 +43,7 @@
 
 /*Fondo Violeta*/
 .objetivos-color-title{
-    font-family: "archivo";
+    font-family: "archivo-black";
     font-size: 1.5625rem;
     background: var(--violet);
     color:#fff;

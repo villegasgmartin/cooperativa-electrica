@@ -51,7 +51,7 @@
     justify-content: center;
     gap: 3.125rem;
     padding-top: 4rem;
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: linear-gradient(307deg, rgba(196,228,212,1) 0%, rgba(255,255,255,1) 33%);
 }
 
 /*Contenedor de texto*/
@@ -64,7 +64,7 @@
 
 /*Titulo de servicios*/
 .biblioteca-servicios-title{
-    font-family: "archivo";
+    font-family: "archivo-black";
     color: var(--darkviolet);
     font-size: 2.8125rem;
     text-align: center;

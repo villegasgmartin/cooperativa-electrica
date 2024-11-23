@@ -17,7 +17,7 @@
 
 /*Título principal*/
 .consejo-title{
-    font-family: "archivo";
+    font-family: "archivo-black";
     color: var(--darkviolet);
     font-size: 2.5rem;
     text-align: center;
