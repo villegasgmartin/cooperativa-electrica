@@ -1,7 +1,7 @@
 //Importaciones: 
 import CardCarousel from '../../NaveComponents/CardCarousel/CardCarousel'
 import "../homeServices3/HomeServices3.css"
-import LogoNave from "../../../../assets/images/Logo_Nave_Negro.png"
+import LogoNave from "../../../../assets/images/logos/logo-nave-negro.png"
 import { Link } from 'react-router-dom'
 import { Fade } from 'react-awesome-reveal'
 import React, { useState, useEffect } from 'react';

@@ -2,6 +2,8 @@
 .objetivos-main-container{
     padding-top: 5rem;
     padding-bottom: 5rem;
+    background: rgb(61,17,109);
+background: linear-gradient(95deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(255,255,255,1) 50%, rgba(247,254,251,1) 70%, rgba(240,253,247,1) 71%, rgba(48,230,145,1) 100%);
 }
 
 /*Titulo objetivos sociales*/

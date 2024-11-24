@@ -2,7 +2,8 @@
 .preguntas-main-container{
     padding-top: 5rem;
     padding-bottom: 5rem;
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: rgb(61,17,109);
+background: linear-gradient(159deg, rgba(61,17,109,1) 0%, rgba(217,220,221,1) 40%, rgba(221,220,223,1) 50%, rgba(215,212,218,1) 60%, rgba(48,230,145,1) 100%);
 }
 
 /*Contenedor de acordeón*/

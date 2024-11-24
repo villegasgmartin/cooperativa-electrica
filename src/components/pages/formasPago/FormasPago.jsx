@@ -1,7 +1,4 @@
 //Impoprtaciones:
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setTitle } from '../../../store/titleSlice';
 import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
 import "../formasPago/FormasPago.css"
 import { Fade } from 'react-awesome-reveal';
@@ -11,18 +8,39 @@ import Image03 from "../../../assets/images/pagos/pagos-03.png"
 import Image04 from "../../../assets/images/pagos/pagos-04.png"
 import Image05 from "../../../assets/images/pagos/pagos-05.png"
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import Footer from '../../common/layout/footer/Footer';
+import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
+import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
+import NavBar from '../../common/layout/navBar/NavBar';
 
 //JSX:
 const FormasPago = () => {
 
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setTitle('Medios de pago'));
-  }, [dispatch]);
-
   return (
-    <section className='pagos-main-container'>
+    <>
+      <header className="header-pagos-container">
+          <div className="header-contactos-container">
+              <div className="header-contactos">
+                  <LocationOnTwoToneIcon sx={{ color: "white" }} />
+                  <h4 className="header-contactosText">Alberti 3600, Mar del Plata</h4>
+              </div>
+              <div className="header-contactos">
+                  <LocationOnTwoToneIcon sx={{ color: "white" }} />
+                  <h4 className="homePortada-contactosText">20 de Septiembre 2638, Mar del Plata</h4>
+              </div>
+              <div className="header-contactos" id="homePortada-tel">
+                  <LocalPhoneTwoToneIcon sx={{ color: "white" }} />
+                  <h4 className="header-contactosText">0800-333-0357 / (0223) 495-1411</h4>
+              </div>
+          </div>
+          <div className="navbarPages-container">
+              <NavBar backgroundColorMovile="#201c1c" backgroundColor="#201c1c"/>
+          </div>
+          <Fade  triggerOnce={true} duration={800} delay={300}>
+              <h1 className="header-pagos-title">Medios de Pago</h1>
+          </Fade>
+      </header>
+      <section className='pagos-main-container'>
       <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
         <div className='pagos-logos-container'>
           <img src={Image01} alt="BNA+"  className='pagos-logos'/>
@@ -74,6 +92,8 @@ const FormasPago = () => {
             </Fade>
         </div>
     </section>
+    <Footer/>
+    </>
   );
 };
 

@@ -1,3 +1,20 @@
+/*Header*/
+.header-mutual-container{
+    background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+    url("../../../assets//images//headers/header-mutual.png"); 
+    background-size: cover;
+    background-position: top;
+    height: 25.625rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/*Logo en header*/
+.header-logo-container{
+    margin-left: 10%;
+    margin-top: 3.75rem;
+    width: 18.75rem;
+}
+
 /*Contenedor principal*/
 .mutual-main-container{
     margin-top: 5rem;
@@ -156,7 +173,21 @@
     }
 }
 
+@media (max-width: 830px){
+    .header-logo-container{
+        width: 15.625rem;
+    }
+}
+
 @media (max-width: 700px){
+    .header-mutual-container{
+        height: 21.875rem;
+    }
+    .header-logo-container{
+        width: 14.375rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .mutual-main-container{
         margin-top: 4rem;
         margin-bottom: 4rem;
@@ -219,7 +250,16 @@
     }
 }
 
-@media (max-width: 410px){
+@media (max-width: 400px){
+    .header-mutual-container{
+        height: 18.75rem;
+    }
+    .header-logo-container{
+        width: 12.5rem;
+        margin-top: 2.5rem;
+        margin-left: auto;
+        margin-right: auto;
+    }
     .mutual-text01{
         font-size: 1.875rem;
     }

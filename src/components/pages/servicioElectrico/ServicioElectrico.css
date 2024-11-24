@@ -5,7 +5,7 @@
 
 /*Priomer contenedor*/
 .servicio-first-container{
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: linear-gradient(233deg, rgba(61,17,109,1) 0%, rgba(217,220,221,1) 35%, rgba(221,220,223,1) 50%, rgba(215,212,218,1) 75%, rgba(48,230,145,1) 100%);
 }
 
 /*Contenedor de acordeón*/
@@ -144,7 +144,7 @@
 
 /*Contenedor de información*/
 .servicio-info-container{
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: linear-gradient(307deg, rgba(48,230,145,1) 0%, rgba(217,220,221,1) 20%, rgba(221,220,223,1) 50%, rgba(215,212,218,1) 80%, rgba(61,17,109,1) 100%);
 }
 
 /*Contenedor de lista*/

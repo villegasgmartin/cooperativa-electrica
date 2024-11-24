@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import logoNavbar from "../../../../assets/images/logo-horizontal.png";
-import logoDrawer from "../../../../assets/images/logo.png";
+import logoNavbar from "../../../../assets/images/logos/logo-horizontal.png";
+import logoDrawer from "../../../../assets/images/logos/logo.png";
 import "../navBar/NavBar.css";
 import { motion } from 'framer-motion';
 import { Fade } from 'react-awesome-reveal';
@@ -40,7 +40,7 @@ const pages = [
     { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];
 
-const NavBar = ({ backgroundColor }) => {
+const NavBar = ({ backgroundColor, backgroundColorMovile }) => {
     const [openSubMenu, setOpenSubMenu] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [openDrawerSubMenu, setOpenDrawerSubMenu] = React.useState(null);
@@ -85,7 +85,7 @@ const NavBar = ({ backgroundColor }) => {
     }, [drawerOpen]);
 
     return (
-        <section className="navbar-container" >
+        <section className="navbar-container" style={{backgroundColor}}>
             <Link to={"/"}>
                 <div className="navbar-logo">
                     <img src={logoNavbar} alt="logo cooperativa" width={"100%"} />
@@ -122,7 +122,7 @@ const NavBar = ({ backgroundColor }) => {
             {drawerOpen && (
                 <motion.div
                     className="drawer"
-                    style={{ backgroundColor }}
+                    style={{ backgroundColor: backgroundColorMovile }}
                     ref={drawerRef}
                     initial={{ x: '100%' }}
                     animate={{ x: 0 }}

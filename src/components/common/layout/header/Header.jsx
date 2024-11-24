@@ -8,21 +8,21 @@ import NavBar from "../navBar/NavBar";
 
 
 // Componente Header:
-const Header = ({ title, logo, isMutual }) => {
-    const [content, setContent] = useState({ title, logo });
+const Header = ({ title}) => {
+    const [content, setContent] = useState({ title});
     const [isVisible, setIsVisible] = useState(true);
     const [fadeKey, setFadeKey] = useState(0);
 
     useEffect(() => {
-        setIsVisible(false); // Ocultar el contenido actual
+        setIsVisible(false);
         const timer = setTimeout(() => {
-            setContent({ title, logo }); // Cambiar el contenido después del fade
-            setIsVisible(true); // Hacer visible el nuevo contenido
-            setFadeKey((prevKey) => prevKey + 1); // Forzar el re-render
-        }, 100); // Tiempo de espera reducido a 400 ms
+            setContent({ title});
+            setIsVisible(true);
+            setFadeKey((prevKey) => prevKey + 1);
+        }, 100);
 
-        return () => clearTimeout(timer); // Limpiar el temporizador al desmontar
-    }, [title, logo]); // Dependencias para detectar cambios
+        return () => clearTimeout(timer);
+    }, [title]);
 
     return (
         <header className="header-main-container">
@@ -41,20 +41,10 @@ const Header = ({ title, logo, isMutual }) => {
                 </div>
             </div>
             <div className="navbarPages-container">
-                <NavBar backgroundColor="#12824c"/>
+                <NavBar/>
             </div>
             <Fade key={fadeKey} duration={800} triggerOnce={true}>
-                <div className="header-title-container">
-                    {content.logo ? (
-                        <img
-                            src={content.logo}
-                            alt="Logo"
-                            className={isMutual ? "header-logo-mutual" : "header-logo-nave"}
-                        />
-                    ) : (
-                        <h1 className="header-title">{content.title}</h1>
-                    )}
-                </div>
+                <h1 className="header-title">{content.title}</h1>
             </Fade>
         </header>
     );

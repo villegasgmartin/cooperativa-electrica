@@ -1,3 +1,22 @@
+/*Header*/
+.header-pagos-container{
+    background:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.4)), 
+    url("../../../assets//images//headers/header-pagos.png"); 
+    background-size: cover;
+    background-position: center 100%;
+    height: 25.625rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/*Título en header*/
+.header-pagos-title{
+    color: white;
+    font-family: "archivo";
+    font-size: 4.375rem;
+    margin-left: 10%;
+    margin-top: 6.25rem;
+}
+
 /*Contenedor principal*/
 .pagos-main-container{
     overflow: hidden;
@@ -24,7 +43,8 @@
 .pagos-container{
     padding-top: 35px;
     padding-bottom: 50px;
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: rgb(61,17,109);
+background: linear-gradient(30deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(243,245,247,1) 70%, rgba(48,230,145,1) 100%);
 }
 
 /*Título*/
@@ -173,6 +193,9 @@
 }
 
 @media (max-width: 830px){
+    .header-pagos-title{
+        font-size: 3.75rem;
+    }
     .pagos-logos{
         width: 130px;
     }
@@ -193,6 +216,15 @@
 }
 
 @media (max-width: 700px){
+    .header-pagos-container{
+        height: 21.875rem;
+    }
+    .header-pagos-title{
+        margin-top: 50px;
+        width: 80%;
+        font-size: 3.125rem;
+        text-align: center;
+    }
     .pagos-logos-container{
         padding-bottom: 1.875rem;
         gap: 15px;
@@ -229,5 +261,14 @@
     .pagos-usuarios-container{
         gap: 1.25rem;
         margin-top: 1.875rem;
+    }
+}
+
+@media (max-width: 400px){
+    .header-pagos-container{
+        height: 300px;
+    }
+    .header-pagos-title{
+        font-size: 2.8125rem;
     }
 }
