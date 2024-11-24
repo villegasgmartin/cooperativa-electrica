@@ -106,109 +106,111 @@ const Contacto = () => {
                 </div>
             </Fade>
         </div>
-        <form onSubmit={handleSubmit} className='contacto-form-container'>
-          <h2 className='contacto-form-title'>¿En qué podemos ayudarte?</h2>
-          <TextField
-            label="Nombre"
-            name="nombre"
-            variant="outlined"
-            required
-            fullWidth
-            margin="normal"
-            value={formData.nombre}
-            onChange={handleChange}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: "15px",
-                '&.Mui-focused fieldset': {
-                  borderColor: '#12824c',
-                },
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#12824c',
-              }
-            }}
-          />
-          <TextField
-            label="Correo electrónico"
-            name="correo"
-            type="email"
-            variant="outlined"
-            required
-            fullWidth
-            margin="normal"
-            value={formData.correo}
-            onChange={handleChange}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: "15px",
-                '&.Mui-focused fieldset': {
-                  borderColor: '#12824c',
-                },
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#12824c',
-              }
-            }}
-          />
-
-          <FormControl fullWidth margin="normal">
-            <Select
-              name="consulta"
-              value={formData.consulta}
-              onChange={handleChange}
+          <Fade triggerOnce={true} duration={800} delay={300}>
+            <form onSubmit={handleSubmit} className='contacto-form-container'>
+            <h2 className='contacto-form-title'>¿En qué podemos ayudarte?</h2>
+            <TextField
+              label="Nombre"
+              name="nombre"
+              variant="outlined"
               required
-              variant='outlined'
-              sx={{ borderRadius: "15px" }}
-            >
-              <MenuItem value="Consulta sobre NAVE">Consulta sobre NAVE</MenuItem>
-              <MenuItem value="Consulta sobre Electricidad">Consulta sobre Electricidad</MenuItem>
-            </Select>
-          </FormControl>
-
-          <TextField
-            label="Mensaje"
-            name="mensaje"
-            multiline
-            rows={8}
-            variant="outlined"
-            required
-            fullWidth
-            margin="normal"
-            value={formData.mensaje}
-            onChange={handleChange}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                borderRadius: "15px",
-                '&.Mui-focused fieldset': {
-                  borderColor: '#12824c',
-                },
-              },
-              '& .MuiInputLabel-root.Mui-focused': {
-                color: '#12824c',
-              }
-            }}
-          />
-          <div className='contactos-button-container'>
-            <Button
+              fullWidth
+              margin="normal"
+              value={formData.nombre}
+              onChange={handleChange}
               sx={{
-                width: "100%",
-                height: "100%",
-                fontFamily: "interTight",
-                fontSize: "25px",
-                textTransform: "none",
-                borderRadius: "25px",
-                backgroundColor: "#8048ff",
-                marginTop: "20px"
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "15px",
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#12824c',
+                  },
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#12824c',
+                }
               }}
-              variant='contained'
-              size='large'
-              type='submit'
-            >
-              Enviar
-            </Button>
-          </div>
-        </form>
+            />
+            <TextField
+              label="Correo electrónico"
+              name="correo"
+              type="email"
+              variant="outlined"
+              required
+              fullWidth
+              margin="normal"
+              value={formData.correo}
+              onChange={handleChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "15px",
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#12824c',
+                  },
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#12824c',
+                }
+              }}
+            />
+
+            <FormControl fullWidth margin="normal">
+              <Select
+                name="consulta"
+                value={formData.consulta}
+                onChange={handleChange}
+                required
+                variant='outlined'
+                sx={{ borderRadius: "15px" }}
+              >
+                <MenuItem value="Consulta sobre NAVE">Consulta sobre NAVE</MenuItem>
+                <MenuItem value="Consulta sobre Electricidad">Consulta sobre Electricidad</MenuItem>
+              </Select>
+            </FormControl>
+
+            <TextField
+              label="Mensaje"
+              name="mensaje"
+              multiline
+              rows={8}
+              variant="outlined"
+              required
+              fullWidth
+              margin="normal"
+              value={formData.mensaje}
+              onChange={handleChange}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: "15px",
+                  '&.Mui-focused fieldset': {
+                    borderColor: '#12824c',
+                  },
+                },
+                '& .MuiInputLabel-root.Mui-focused': {
+                  color: '#12824c',
+                }
+              }}
+            />
+            <div className='contactos-button-container'>
+              <Button
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  fontFamily: "interTight",
+                  fontSize: "25px",
+                  textTransform: "none",
+                  borderRadius: "25px",
+                  backgroundColor: "#8048ff",
+                  marginTop: "20px"
+                }}
+                variant='contained'
+                size='large'
+                type='submit'
+              >
+                Enviar
+              </Button>
+            </div>
+          </form>
+          </Fade>
         </div>
       <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
       <div className='contacto-info-container'>

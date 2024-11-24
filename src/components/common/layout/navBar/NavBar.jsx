@@ -141,21 +141,22 @@ const NavBar = ({ backgroundColor, backgroundColorMovile }) => {
                         {pages.map((page) => (
                             <li key={page.name} className="drawer-link">
                                 {page.submenu ? (
-                                    <Accordion sx={{backgroundColor: "transparent", boxShadow: "none",}}>
+                                    <Accordion sx={{backgroundColor: "transparent", boxShadow: "none"}}>
                                         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "white"}} />} sx={{ 
                                             color: "white",
                                             fontFamily: "interTight",
                                             '&:hover': {color: "#2eed8d"},
+                                            '&.Mui-expanded': { color: "#2eed8d" },
                                             borderRadius: "5px",
-                                            padding: "0"
                                             }}>
                                             <span>{page.name}</span>
                                         </AccordionSummary>
-                                        <AccordionDetails sx={{backgroundColor: "white"}}>
+                                        <AccordionDetails sx={{backgroundColor: "white",borderRadius: "15px", textAlign: "center", width: "190px", marginLeft: "15px",}}>
                                             <ul>
                                                 {page.submenu.map((subPage) => (
                                                     <li key={subPage.name} style={{listStyle: "none", marginTop: "10px",}}>
-                                                        <Link to={subPage.path} style={{
+                                                        <Link to={subPage.path}
+                                                        style={{
                                                             color: "grey",
                                                         }}>{subPage.name}
                                                         </Link>

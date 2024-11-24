@@ -6,7 +6,7 @@ import "./HomeBlog2.css"
 
 /*---------Imágenes del Blog: para cambiarlas, colocar las nuevas imágenes en la carpeta "blog", dentro de "images" y luego modificar
 solo la parte final de las rutas que estan a continuacion por el nombre de las nuevas imágenes--------- */
-import ImageA from "../../../../assets/images/blog/blog-image-01.webp"
+import ImageA from "../../../../assets/images/blog/blog-image-01.jpg"
 import ImageB from "../../../../assets/images/blog/blog-image-02.jpeg"
 import ImageC from "../../../../assets/images/blog/blog-image-03.jpg"
 
@@ -23,7 +23,7 @@ const HomeBlog2 = () => {
       </Fade>
       <div className='homeBlog-noticiasContainer'>
           <Fade cascade={true} duration={800} triggerOnce={true}>
-            <div className='homeBlog-noticia'>
+            <div className='homeBlog-noticia noticia-01'>
               <Link to={"/blog"}>
                 <div className='homeBlog-img-container'>
                   <img className='homeBlog-img' 
@@ -33,7 +33,7 @@ const HomeBlog2 = () => {
               </Link>
               <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
             </div>
-            <div className='homeBlog-noticia'>
+            <div className='homeBlog-noticia noticia-02'>
               <div className='homeBlog-img-container'>
                 <Link to={"/blog"}>
                   <img className='homeBlog-img'
@@ -44,7 +44,7 @@ const HomeBlog2 = () => {
               </div>
               <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
             </div>
-            <div className='homeBlog-noticia'>
+            <div className='homeBlog-noticia noticia-03'>
               <div className='homeBlog-img-container'>
                 <Link to={"/blog"}>
                   <img className='homeBlog-img'

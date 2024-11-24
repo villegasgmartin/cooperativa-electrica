@@ -8,7 +8,7 @@ import "../blogNoticia1/BlogNoticia1.css"
 import { Fade } from 'react-awesome-reveal';
 
 /*Para cambiar la imágen principal en esta sección: colocar la ruta que corresponde aqui debajo*/
-import ImageNoticia01 from "../../../assets/images/blog/blog-image-01.webp"
+import ImageNoticia01 from "../../../assets/images/blog/blog-image-01.jpg"
 
 
 //JSX:
@@ -46,20 +46,30 @@ const BlogNoticia1 = () => {
                     </p>
                 </Fade>
             </div>
-            <div className='noticia1-buttonContainer'>
-                <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-                    <Link to={"/blog"}>
-                        <Button sx={{
-                            height: "60px",
-                            fontFamily: "archivo",
-                            backgroundColor: "#12824c",
-                            width: "100%"
-                        }} 
-                            variant='contained' 
-                            size='large'>Volver</Button>
-                    </Link>
-                </Fade>
-            </div>
+            <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+                <div className='noticia1-buttonContainer'>
+                    <div className='noticia1-button'>
+                            <Link to={"/blog"}>
+                                <Button sx={{
+                                    width: "180px",
+                                    marginTop: "20px", 
+                                    fontFamily: "interTight",
+                                    fontSize: "25px",
+                                    fontWeight: "bold",
+                                    letterSpacing: "1px",
+                                    borderRadius: "50px",
+                                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                                    textTransform: "none",
+                                    color:"#161616",
+                                    backgroundColor: "#30e691",
+                                    marginBottom: "20px"
+                                }} 
+                                    variant='contained' 
+                                    size='large'>Volver</Button>
+                            </Link>
+                    </div>
+                </div>
+            </Fade>
         </section>
     )
 }

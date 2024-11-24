@@ -44,6 +44,7 @@ const HomeServices3 = () => {
           <p className='homeServicios-text'>Descubre nuestras increíbles opciones de Internet y televisión diseñadas para satisfacer todas tus necesidades de entretenimiento y conectividad.</p>
         </Fade>
       </Fade>
+      {/*
       <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
         <CardCarousel servicios={serviciosHome} showArrowsAndDots={showArrowsAndDots} />
       </Fade>
@@ -54,6 +55,7 @@ const HomeServices3 = () => {
           </div>
         </Link>
       </Fade>
+      */}
     </section>
   );
 }
