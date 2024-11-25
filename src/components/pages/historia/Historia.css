@@ -47,6 +47,7 @@
 
 /*Impagen*/
 .historia-image{
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -248,7 +249,7 @@
         padding: 1.5625rem;
     }
     .historia-text{
-        font-size: 1rem;
+        font-size: 1.125rem;
     }
     .historia-image-container{
         width: 21.875rem;
