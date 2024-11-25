@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setTitle } from '../../../store/titleSlice';
 import { enviarFormularioMutual } from '../../../store/mutualSlice';
 import { Button, TextField, Typography } from '@mui/material';
 import "../mutual/Mutual.css";
@@ -21,10 +20,6 @@ const Mutual = () => {
     correo: '',
     mensaje: '',
   });
-
-  useEffect(() => {
-    dispatch(setTitle(''));
-  }, [dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });

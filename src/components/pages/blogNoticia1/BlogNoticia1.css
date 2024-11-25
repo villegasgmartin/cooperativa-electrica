@@ -26,6 +26,7 @@
 
 /*Imágen principal*/
 .noticia1-mainImage{
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -35,7 +36,7 @@
     font-family: "interTight";
     color: var(--black);
     font-size: 1.5625rem;
-    width: 70%;
+    width: 75rem;
     text-align: justify;
     margin-left: auto;
     margin-right: auto;
@@ -64,6 +65,7 @@
 
 /*Imágees extra*/
 .noticia1-image{
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -72,7 +74,7 @@
 .noticia1-description{
     font-family: "interTight";
     color: var(--black);
-    text-align: justify;
+    text-align: left;
     font-size: 1.25rem;
     width: 37.5rem;
 }
@@ -88,12 +90,112 @@
 
 /*Botón*/
 .noticia1-button{
-    width: 12.5rem;
+    width: 15.625rem;
 }
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1460px){
-
+@media(max-width:1280px){
+    .noticia1-mainImage-container{
+        width: 31.25rem;
+        height: 31.25rem;
+    }
+    .noticia1-mainDescription{
+        font-size: 1.375rem;
+        width: 80%;
+    }
+    .noticia1-container{
+        gap: 50px;
+    }
+    .noticia1-image-container{
+        width: 25rem;
+        height: 400px;
+    }
+    .noticia1-description{
+        font-size: 1.125rem;
+        width: 28.125rem;
+    }
 }
 
+@media(max-width:990px){
+    .noticia1-container{
+        gap: 30px;
+    }
+    .noticia1-image-container{
+        width: 21.875rem;
+        height: 21.875rem;
+    }
+    .noticia1-description{
+        font-size: 1.125rem;
+        width: 25rem;
+    }
+}
+
+@media(max-width:830px){
+    .noticia1-container{
+        flex-direction: column;
+        gap: 30px;
+    }
+    .noticia1-image-container{
+        width: 25rem;
+        height: 25rem;
+    }
+    .noticia1-description{
+        font-size: 1.25rem;
+        width: 80%;
+        margin: auto;
+    }
+}
+
+@media(max-width:700px){
+    .noticia1-main-container{
+        padding-bottom: 4rem;
+    }
+    .noticia1-secondary-container{
+        padding-top: 4rem;
+    }
+    .noticia1-mainImage-container{
+        width: 28.125rem;
+        height: 28.125rem;
+    }
+    .noticia1-mainDescription{
+        width: 90%;
+    }
+    .noticia1-description{
+        width: 90%;
+    }
+    .noticia1-button{
+        width: 90%;
+    }
+}
+
+@media(max-width:500px){
+    .noticia1-mainImage-container{
+        width: 25rem;
+        height: 25rem;
+    }
+    .noticia1-image-container{
+        width: 21.875rem;
+        height: 21.875rem;
+    }
+    .noticia1-description{
+        text-align: center;
+    }
+}
+
+@media(max-width:430px){
+    .noticia1-secondary-container{
+        gap: .9375rem;
+    }
+    .noticia1-mainImage-container{
+        width: 20rem;
+        height: 320px;
+    }
+    .noticia1-container{
+        gap: .9375rem;
+    }
+    .noticia1-image-container{
+        width: 16.875rem;
+        height: 16.875rem;
+    }
+}

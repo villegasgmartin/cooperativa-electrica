@@ -1,7 +1,4 @@
 //Impoprtaciones:
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { setTitle } from '../../../store/titleSlice';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
@@ -17,12 +14,6 @@ import NavBar from '../../common/layout/navBar/NavBar';
 
 //JSX:
 const Biblioteca = () => {
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setTitle('Biblioteca Ingeniero Julio Rateriy'));
-  }, [dispatch]);
 
   return (
     <>

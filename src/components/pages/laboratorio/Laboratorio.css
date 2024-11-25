@@ -11,8 +11,8 @@
     align-items: center;
     justify-content: center;
     gap: 3.125rem;
-    padding-top: 1.875rem;
-    padding-bottom: 1.875rem;
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
 }
 
 /*Corrección de padding para primer contenedor*/
@@ -58,7 +58,7 @@
 }
 
 /*Fondo oscuro*/
-#dark-background{
+#dark-background-lab{
     background-color: var(--black)
 }
 
@@ -149,6 +149,13 @@
     .laboratorio-main-container{
         padding-top: 4rem;
         padding-bottom: 4rem;
+    }
+    .laboratorio-info-container{
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+    .laboratorio-containerPadding{
+        padding-top: 0;
     }
     .laboratorio-text-container{
         width: 90%;

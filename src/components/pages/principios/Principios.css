@@ -23,8 +23,8 @@
     align-items: center;
     justify-content: center;
     gap: 9.375rem;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 60px;
+    padding-bottom: 3.75rem;
 }
 
 /*Corrección de padding al último contenedor*/
@@ -201,8 +201,8 @@
         margin-bottom: 4rem;
     }
     .principios-container{
-        padding-top: 1.875rem;
-        padding-bottom: 1.875rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
     }
     .principios-padding{
         padding-bottom: 0;

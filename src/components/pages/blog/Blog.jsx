@@ -27,12 +27,12 @@ const Blog = () => {
       <Fade triggerOnce={true} duration={800} delay={300} direction='left'><h2 className='blog-intro'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</h2></Fade>
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-          <div>
+          <div className='blog-subcontainer'>
             <Link to={"/blog-1"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/blog-1"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 1</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
           </div>
-          <div>
+          <div className='blog-subcontainer'>
             <Link to={"/blog-2"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/blog-2"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 2</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
@@ -41,12 +41,12 @@ const Blog = () => {
       </div>
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-          <div>
+          <div className='blog-subcontainer'>
             <Link to={"/blog-3"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/blog-3"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 3</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
           </div>
-          <div>
+          <div className='blog-subcontainer'>
             <Link to={"/blog-4"}><div className='blog-image-container'><img src={blogImage04} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/blog-4"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 4</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>

@@ -45,142 +45,163 @@ const NavBar = ({ backgroundColor, backgroundColorMovile }) => {
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [openDrawerSubMenu, setOpenDrawerSubMenu] = React.useState(null);
     const drawerRef = React.useRef(null);
-    const submenuRef = React.useRef(null);
 
-    const handleMouseEnter = (name) => {
-        setOpenSubMenu(name);
-    };
+    // Maneja el estado de hover para los submenús
+    const handleMouseEnter = (name) => setOpenSubMenu(name);
+    const handleMouseLeave = () => setOpenSubMenu(null);
 
-    const handleMouseLeave = () => {
-        setOpenSubMenu(null);
-    };
+    // Alterna el estado del Drawer
+    const toggleDrawer = () => setDrawerOpen(!drawerOpen);
 
-    const toggleDrawer = () => {
-        setDrawerOpen(!drawerOpen);
-    };
-
-    const toggleDrawerSubMenu = (name) => {
-        // Si el submenú está abierto y se hace clic en el mismo nombre, lo cierra
-        setOpenDrawerSubMenu((prev) => (prev === name ? null : name));
-    };
-
+    // Maneja el clic fuera del Drawer para cerrarlo
     const handleClickOutside = (event) => {
-        // Cierra el Drawer si se hace clic fuera de él
         if (drawerRef.current && !drawerRef.current.contains(event.target)) {
             setDrawerOpen(false);
-            setOpenDrawerSubMenu(null); // Cierra el submenú al hacer clic fuera
+            setOpenDrawerSubMenu(null);
         }
     };
 
+    // Maneja la apertura/cierre de submenús en el Drawer
+    const toggleDrawerSubMenu = (name) => {
+        setOpenDrawerSubMenu(prev => (prev === name ? null : name));
+    };
+
+    // Añadir o eliminar el event listener para clic fuera del Drawer
     React.useEffect(() => {
         if (drawerOpen) {
             document.addEventListener('mousedown', handleClickOutside);
         } else {
             document.removeEventListener('mousedown', handleClickOutside);
         }
-
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [drawerOpen]);
 
+    // Renderiza el menú dentro del Drawer
+    const renderDrawerMenu = () => (
+        <motion.div
+            className="drawer"
+            style={{ backgroundColor: backgroundColorMovile }}
+            ref={drawerRef}
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'tween', duration: 0.1 }}
+        >
+            <Fade>
+                <Link to={"/"}>
+                    <div className="drawer-logo">
+                        <img src={logoDrawer} alt="logo cooperativa" width={"100%"} />
+                    </div>
+                </Link>
+            </Fade>
+            <div className="drawer-divider"></div>
+
+
+            {/* Acordeones (submenús) */}
+            <div className="drawer-accordions-container">
+                {pages.filter(page => page.submenu).map((page) => (
+                    <Accordion key={page.name} sx={{ backgroundColor: "transparent", boxShadow: "none",  }}>
+                        <AccordionSummary
+                            expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
+                            sx={{
+                                color: "white",
+                                fontFamily: "interTight-medium",
+                                fontSize: "18px",
+                                '&:hover': { color: "#2eed8d" },
+                                '&.Mui-expanded': { color: "#2eed8d" },
+                                borderRadius: "5px",
+                            }}
+                        >
+                            <span>{page.name}</span>
+                        </AccordionSummary>
+                        <AccordionDetails sx={{
+                            backgroundColor: "white",
+                            textDecoration: "none",
+                            color: "black",
+                            borderRadius: "15px",
+                            textAlign: "center",
+                            width: "190px",
+                            marginLeft: "15px",
+                        }}>
+                            <ul>
+                                {page.submenu.map((subPage) => (
+                                    <li key={subPage.name} style={{ listStyle: "none", marginTop: "10px", textDecoration: "none" }}>
+                                        <Link to={subPage.path} style={{ color: "black", textDecoration: "none", fontFamily: "interTight", fontSize: "18px" }}>
+                                            {subPage.name}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </AccordionDetails>
+                    </Accordion>
+                ))}
+            </div>
+             {/* Enlaces simples (sin acordeón) */}
+                <ul className="drawer-links-container">
+                {pages.filter(page => !page.submenu).map((page) => (
+                    <li key={page.name} className="drawer-link">
+                        {page.external ? (
+                            <a href={page.path} target="_blank" rel="noopener noreferrer">
+                                {page.name}
+                            </a>
+                        ) : (
+                            <Link to={page.path}>
+                                {page.name}
+                            </Link>
+                        )}
+                    </li>
+                ))}
+            </ul>
+        </motion.div>
+    );
+
+    // Renderiza el menú de navegación en pantalla grande
+    const renderNavBarMenu = () => (
+        <ul className="navbar-links-container">
+            {pages.map((page) => (
+                <li
+                    key={page.name}
+                    className="navbar-link"
+                    onMouseEnter={() => page.submenu && handleMouseEnter(page.name)}
+                    onMouseLeave={handleMouseLeave}
+                >
+                    {page.external ? (
+                        <a href={page.path} target="_blank" rel="noopener noreferrer">
+                            {page.name}{page.submenu && <span className="arrow">▼</span>}
+                        </a>
+                    ) : (
+                        <Link to={page.path}>
+                            {page.name}{page.submenu && <span className="arrow">▼</span>}
+                        </Link>
+                    )}
+                    {page.submenu && openSubMenu === page.name && (
+                        <ul className="submenu">
+                            {page.submenu.map((subPage) => (
+                                <li key={subPage.name} className="submenu-item">
+                                    <Link to={subPage.path}>{subPage.name}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </li>
+            ))}
+        </ul>
+    );
+
     return (
-        <section className="navbar-container" style={{backgroundColor}}>
+        <section className="navbar-container" style={{ backgroundColor }}>
             <Link to={"/"}>
                 <div className="navbar-logo">
                     <img src={logoNavbar} alt="logo cooperativa" width={"100%"} />
                 </div>
             </Link>
-            <ul className="navbar-links-container">
-                {pages.map((page) => (
-                    <li
-                        key={page.name}
-                        className="navbar-link"
-                        onMouseEnter={() => page.submenu && handleMouseEnter(page.name)}
-                        onMouseLeave={handleMouseLeave}
-                    >
-                        {page.external ? (
-                            <a href={page.path} target="_blank" rel="noopener noreferrer">{page.name}{page.submenu && <span className="arrow">▼</span>}</a>
-                        ) : (
-                            <Link to={page.path}>{page.name}{page.submenu && <span className="arrow">▼</span>}</Link>
-                        )}
-                        {page.submenu && openSubMenu === page.name && (
-                            <ul className="submenu">
-                                {page.submenu.map((subPage) => (
-                                    <li key={subPage.name} className="submenu-item">
-                                        <Link to={subPage.path}>{subPage.name}</Link>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </li>
-                ))}
-            </ul>
+            {renderNavBarMenu()}
             <button className="hamburger" onClick={toggleDrawer}>
                 ☰
             </button>
-            {drawerOpen && (
-                <motion.div
-                    className="drawer"
-                    style={{ backgroundColor: backgroundColorMovile }}
-                    ref={drawerRef}
-                    initial={{ x: '100%' }}
-                    animate={{ x: 0 }}
-                    exit={{ x: '100%' }}
-                    transition={{ type: 'tween', duration: 0.1 }}
-                >
-                    <Fade>
-                        <Link to={"/"}>
-                            <div className="drawer-logo">
-                                <img src={logoDrawer} alt="logo cooperativa" width={"100%"} />
-                            </div>
-                        </Link>
-                    </Fade>
-                    <div className="drawer-divider"></div>
-                    <ul className="drawer-links-container">
-                        {pages.map((page) => (
-                            <li key={page.name} className="drawer-link">
-                                {page.submenu ? (
-                                    <Accordion sx={{backgroundColor: "transparent", boxShadow: "none"}}>
-                                        <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "white"}} />} sx={{ 
-                                            color: "white",
-                                            fontFamily: "interTight",
-                                            '&:hover': {color: "#2eed8d"},
-                                            '&.Mui-expanded': { color: "#2eed8d" },
-                                            borderRadius: "5px",
-                                            }}>
-                                            <span>{page.name}</span>
-                                        </AccordionSummary>
-                                        <AccordionDetails sx={{backgroundColor: "white",borderRadius: "15px", textAlign: "center", width: "190px", marginLeft: "15px",}}>
-                                            <ul>
-                                                {page.submenu.map((subPage) => (
-                                                    <li key={subPage.name} style={{listStyle: "none", marginTop: "10px",}}>
-                                                        <Link to={subPage.path}
-                                                        style={{
-                                                            color: "grey",
-                                                        }}>{subPage.name}
-                                                        </Link>
-                                                    </li>
-                                                ))}
-                                            </ul>
-                                        </AccordionDetails>
-                                    </Accordion>
-                                ) : (
-                                    page.external ? (
-                                        <a href={page.path} target="_blank" rel="noopener noreferrer">
-                                            {page.name}
-                                        </a>
-                                    ) : (
-                                        <Link to={page.path}>
-                                            {page.name}
-                                        </Link>
-                                    )
-                                )}
-                            </li>
-                        ))}
-                    </ul>
-                </motion.div>
-            )}
+            {drawerOpen && renderDrawerMenu()}
         </section>
     );
 };

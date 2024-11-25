@@ -51,7 +51,7 @@ const BlogNoticia1 = () => {
                     <div className='noticia1-button'>
                             <Link to={"/blog"}>
                                 <Button sx={{
-                                    width: "180px",
+                                    width: "100%",
                                     marginTop: "20px", 
                                     fontFamily: "interTight",
                                     fontSize: "25px",

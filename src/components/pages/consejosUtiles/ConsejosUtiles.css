@@ -11,8 +11,8 @@
     justify-content: center;
     align-items: center;
     gap: 9.375rem;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
 }
 
 /*Corrección de padding al primer contenedor*/
@@ -67,6 +67,7 @@
 
 /*Imágen*/
 .consejos-image{
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
@@ -190,8 +191,8 @@
         padding-bottom: 4rem;
     }
     .consejos-container{
-        padding-top: 1.875rem;
-        padding-bottom: 1.875rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
     }
     .consejos-padding{
         padding-top: 0px;

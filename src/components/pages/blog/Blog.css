@@ -1,11 +1,11 @@
-/*Contenedor principal*/
+/* Contenedor principal */
 .blog-main-container{
     padding-top: 5rem;
     padding-bottom: 5rem;
     background: linear-gradient(95deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(255,255,255,1) 50%, rgba(247,254,251,1) 70%, rgba(240,253,247,1) 71%, rgba(48,230,145,1) 100%);
 }
 
-/*Introducción*/
+/* Introducción */
 .blog-intro{
     font-family: "interTight";
     color: var(--black);
@@ -16,152 +16,127 @@
     text-align: center;
 }
 
-/*Contenedor secundario*/
+/* Contenedor secundario */
 .blog-container{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 5rem;
+    flex-wrap: wrap;
+    gap: 2rem;
 }
 
-/*Contenedor de imágenes*/
+/*Sub-contenedor*/
+.blog-subcontainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Contenedor de imágenes */
 .blog-image-container{
     overflow: hidden;
     border-radius: 2.5rem;
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
     width: 28.125rem;
     height: 28.125rem;
-    transition: color 0.3s ease, transform 0.3s ease
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/*Hover para imágen*/
+/* Hover para imagen */
 .blog-image-container:hover{
     transform: scale(1.03);
 }
 
-/*Imágen*/
+/* Imagen */
 .blog-image{
+    object-fit: cover;
     width: 100%;
     height: 100%;
 }
 
-/*Titulo de noticia*/
+/* Titulo de noticia */
 .blog-title{
     font-family: "archivo";
     font-size: 1.875rem;
     color: var(--black);
     text-align: center;
     margin-top: 15px;
-    transition: color 0.3s ease, transform 0.3s ease
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
-/*Hover para titulo*/
+/* Hover para título */
 .blog-title:hover{
     color: var(--newgreen);
     transform: scale(1.2);
 }
 
-/*Descripcion de noticia*/
+/* Descripción de noticia */
 .blog-description{
     font-family: "interTight";
     color: black;
     font-size: 1.25rem;
     width: 31.25rem;
-    text-align: left;
+    text-align: center;
 }
 
 /*----------------Media Queries----------------*/
 
-@media(max-width:1260px){
+@media (max-width: 1250px){
     .blog-intro{
-        font-size: 1.375rem;
         width: 80%;
-    }
-    .blog-container{
-        gap: 3.125rem;
-    }
-}
-
-@media(max-width:950px){
-    .blog-intro{
-        font-size: 1.125rem;
-        width: 80%;
-    }
-    .blog-image-container{
-        width: 21.875rem;
-        height: 12.5rem;
-    }
-    .blog-title{
-        font-size: 1.25rem;
-    }
-    .blog-description{
-        font-size: 1rem;
-        width: 21.875rem;
-    }
-}
-
-@media(max-width:760px){
-    .blog-main-container{
-        margin-top: 4rem;
-        margin-bottom: 4rem;
     }
     .blog-container{
         flex-direction: column;
-        margin-top: 3rem;
-        gap: 3rem;
+        align-items: center;
+        justify-content: center;
+        gap: 80px;
+    }
+    .blog-description{
+        text-align: center;
+        width: 80%;
+        margin: auto;
+    }
+}
+
+@media (max-width: 700px){
+    .blog-main-container{
+        padding-top: 4rem;
+        padding-bottom: 4rem;
     }
     .blog-intro{
-        font-size: 1.25rem;
-        width: 80%;
-        text-align: center;
-    }
-    .blog-image-container{
-        width: 28.125rem;
-        height: 18.75rem;
-    }
-    .blog-title{
+        width: 90%;
         font-size: 1.375rem;
     }
     .blog-description{
-        font-size: 1.125rem;
-        width: 28.125rem;
-        text-align: center;
-    }
-}
-
-@media(max-width:550px){
-    .blog-intro{
-        font-size: 1.125rem;
         width: 90%;
+        font-size: 1.125rem;
     }
     .blog-container{
-        margin-top: 3rem;
+        margin-top: 2.5rem;
     }
+    .blog-container{
+        gap: 40px;
+    }
+}
+
+@media (max-width: 550px){
     .blog-image-container{
         width: 25rem;
-        height: 15.625rem;
-        margin: auto;
-    }
-    .blog-title{
-        font-size: 1.25rem;
-    }
-    .blog-description{
-        font-size: 1rem;
-        width: 90%;
-        margin: auto;
+        height: 25rem;
     }
 }
 
-@media(max-width:450px){
+@media (max-width: 450px){
     .blog-image-container{
         width: 21.875rem;
-        height: 13.75rem;
+        height: 21.875rem;
     }
 }
 
-@media(max-width:380px){
+@media (max-width: 380px){
     .blog-image-container{
         width: 18.75rem;
-        height: 12.5rem;
+        height: 18.75rem;
     }
 }

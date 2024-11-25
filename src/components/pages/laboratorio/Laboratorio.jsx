@@ -32,7 +32,7 @@ const Laboratorio = () => {
           </div>
         </Fade>
       </div>
-      <div className='laboratorio-info-container' id='dark-background'>
+      <div className='laboratorio-info-container' id='dark-background-lab'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='laboratorio-text-container'>
             <h2 className='laboratorio-title' id='light-font'><span className='laboratorio-titleStyle02'>Antecedentes:</span> El Marco Eléctrico Regulatorio en la Provincia de Buenos Aires. Motivos conducentes a la creación del laboratorio.</h2>
@@ -57,7 +57,7 @@ const Laboratorio = () => {
           </div>
         </Fade>
       </div>
-      <div className='laboratorio-info-container' id='dark-background'>
+      <div className='laboratorio-info-container' id='dark-background-lab'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='laboratorio-text-container'>
           <h2 className='laboratorio-title' id='light-font'>Importancia del servicio técnico a prestar. <span className='laboratorio-titleStyle02'>Equipamiento</span></h2>

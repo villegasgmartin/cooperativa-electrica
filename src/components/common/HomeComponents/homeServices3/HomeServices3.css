@@ -70,6 +70,12 @@
     }
 }
 
+@media(max-width:1100px){
+    .homeServicios-text{
+        margin-bottom: 20PX;
+    }
+}
+
 @media(max-width:700px){
     .homeServicios-container{
         padding-top: 4rem;
@@ -84,5 +90,17 @@
         font-size: 1.25rem;
         width: 90%;
         margin-top: 1.5625rem;
+        margin-bottom: 5px;
+    }
+    .homeServicios-link{
+        font-size: 18px;
+        padding: 7px 30px 12px 30px;
+    }
+}
+
+@media(max-width:450px){
+    .homeServicios-link{
+        font-size: 16px;
+        padding: 5px 20px 10px 20px;
     }
 }

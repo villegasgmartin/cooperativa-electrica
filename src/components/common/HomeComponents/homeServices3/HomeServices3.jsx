@@ -4,7 +4,7 @@ import "../homeServices3/HomeServices3.css"
 import LogoNave from "../../../../assets/images/logos/logo-nave-negro.png"
 import { Link } from 'react-router-dom'
 import { Fade } from 'react-awesome-reveal'
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 //JSX:
 const HomeServices3 = () => {
@@ -18,21 +18,6 @@ const HomeServices3 = () => {
     { servicio: "Internet 500 MB", precio: "$24.893" },
   ];
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth < 1111) {
-        setShowArrowsAndDots(true); 
-      } else {
-        setShowArrowsAndDots(false); 
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
   return (
     <section className='homeServicios-container'>
       <Fade triggerOnce={true} duration={800} delay={300}>
@@ -44,9 +29,8 @@ const HomeServices3 = () => {
           <p className='homeServicios-text'>Descubre nuestras increíbles opciones de Internet y televisión diseñadas para satisfacer todas tus necesidades de entretenimiento y conectividad.</p>
         </Fade>
       </Fade>
-      {/*
       <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-        <CardCarousel servicios={serviciosHome} showArrowsAndDots={showArrowsAndDots} />
+        <CardCarousel servicios={serviciosHome} />
       </Fade>
       <Fade triggerOnce={true} duration={800} delay={700}>
         <Link to={"/nave"}>
@@ -55,7 +39,6 @@ const HomeServices3 = () => {
           </div>
         </Link>
       </Fade>
-      */}
     </section>
   );
 }
