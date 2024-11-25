@@ -2,8 +2,7 @@
 .homeServicios-container{
     padding-top: 5rem;
     padding-bottom: 3.125rem;
-    background: rgb(61,17,109);
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: linear-gradient(90deg, rgba(61,17,109,1) 0%, rgba(221,220,223,1) 35%, rgba(228,228,228,1) 50%, rgba(224,228,226,1) 64%, rgba(48,230,145,1) 100%);
 }
 
 /*Logo*/
@@ -16,17 +15,16 @@
 /*Título*/
 .homeServicios-title{
     text-align: center;
-    font-family: "archivo";
+    font-family: "archivo-black";
     color: var(--black);
 }
 
 /*Texto*/
 .homeServicios-text{
     font-size: 25px;
-    font-family: "interTight";
+    font-family: "interTight-medium";
     text-align: center;
     color: black;
-    font-weight: bold;
     letter-spacing: 1px;
     width: 62.5rem;
     margin-left: auto;
@@ -60,62 +58,49 @@
 
 @media(max-width:1250px){
     .homeSeervicios-logo{
-        width: 11.25rem;
+        width: 180px;
     }
-}
-
-@media(max-width:1110px){
-    .homeServicios-link{
-        margin-top: 3.75rem;
+    .homeServicios-title{
+        font-size: 1.25rem;
+        line-height: 10px;
     }
     .homeServicios-text{
+        font-size: 1.375rem;
         width: 80%;
     }
 }
 
-@media(max-width:950px){
-    .homeSeervicios-logo{
-        width: 10rem;
-    }
-    .homeServicios-titile{
-        font-size: 1.25rem;
-    }
-}
-
-@media(max-width:850px){
-    .homeServicios-link{
-        font-size: 1rem;
+@media(max-width:1100px){
+    .homeServicios-text{
+        margin-bottom: 20PX;
     }
 }
 
 @media(max-width:700px){
-    .homeSeervicios-logo{
-        width: 8.75rem;
-    }
-    .homeServicios-titile{
-        font-size: 1.25rem;
-    }
-}
-
-@media(max-width:650px){
     .homeServicios-container{
         padding-top: 4rem;
-        padding-bottom: 4rem;
     }
-    
-}
-
-@media(max-width:600px){
+    .homeSeervicios-logo{
+        width: 150px;
+    }
+    .homeServicios-title{
+        font-size: 1.125rem;
+    }
     .homeServicios-text{
+        font-size: 1.25rem;
         width: 90%;
+        margin-top: 1.5625rem;
+        margin-bottom: 5px;
+    }
+    .homeServicios-link{
+        font-size: 18px;
+        padding: 7px 30px 12px 30px;
     }
 }
 
-@media(max-width:500px){
+@media(max-width:450px){
     .homeServicios-link{
-        margin-top: 2.8125rem;
-    }
-    .homeServicios-text{
-        margin-bottom: .625rem;
+        font-size: 16px;
+        padding: 5px 20px 10px 20px;
     }
 }

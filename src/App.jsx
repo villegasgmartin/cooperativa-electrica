@@ -23,41 +23,44 @@ import BlogNoticia3 from "./components/pages/blogNoticia3/BlogNoticia3.jsx"
 import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
-import BotonFlotante from "./components/common/BotonFlotante/BotonFlotante.jsx"
 import Home from "./components/pages/home/Home.jsx"
 
 //JSX:
 function App() {
-  return  <BrowserRouter>
-    <ScrollToTop/>
-    <Routes>
-        <Route path="/" element={<Home/>} />
-        <Route element={<Layout/>} >
-          <Route path="/comunicados-institucionales" element={<Comunicados/>}/>
-          <Route path="/consejo-de-administracion" element={<Consejo/>}/>
-          <Route path="/principios-cooperativos" element={<Principios/>}/>
-          <Route path="/historia" element={<Historia/>}/>
-          <Route path="/servicio-electrico" element={<ServicioElectrico/>}/>
-          <Route path="/laboratorio-de-medidores" element={<Laboratorio/>}/>
-          <Route path="/biblioteca" element={<Biblioteca/>}/>
-          <Route path="/AMImutual" element={<Mutual/>}/>
-          <Route path="/objetivos-sociales" element={<Objetivos/>}/>
-          <Route path="/formas-de-pago" element={<FormasPago/>}/>
-          <Route path="/consejos-utiles" element={<ConsejosUtiles/>}/>
-          <Route path="preguntas-frecuentes" element={<Preguntas/>}/>
-          <Route path="/nave" element={<Nave/>} />
-          <Route path="/contacto" element={<Contacto/>}/>
-          <Route path="/blog" element={<Blog/>}/>
-          <Route path="/blog-1" element={<BlogNoticia1/>}/>
-          <Route path="/blog-2" element={<BlogNoticia2/>}/>
-          <Route path="/blog-3" element={<BlogNoticia3/>}/>
-          <Route path="/blog-4" element={<BlogNoticia4/>}/>
-          <Route path="/formulario" element={<Form/>}/>
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+
+        <Route path="/" element={<Home />} />
+
+        <Route element={<Layout />}>
+          <Route path="/comunicados-institucionales" element={<Comunicados />} />
+          <Route path="/consejo-de-administracion" element={<Consejo />} />
+          <Route path="/principios-cooperativos" element={<Principios />} />
+          <Route path="/historia" element={<Historia />} />
+          <Route path="/servicio-electrico" element={<ServicioElectrico />} />
+          <Route path="/laboratorio-de-medidores" element={<Laboratorio />} />
+          <Route path="/objetivos-sociales" element={<Objetivos />} />
+          <Route path="/consejos-utiles" element={<ConsejosUtiles />} />
+          <Route path="/preguntas-frecuentes" element={<Preguntas />} />
+          <Route path="/contacto" element={<Contacto />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog-1" element={<BlogNoticia1 />} />
+          <Route path="/blog-2" element={<BlogNoticia2 />} />
+          <Route path="/blog-3" element={<BlogNoticia3 />} />
+          <Route path="/blog-4" element={<BlogNoticia4 />} />
         </Route>
-  </Routes>
-  <BotonFlotante/>
-  <BotonScroll/>
-</BrowserRouter>
+        
+        <Route path="/biblioteca" element={<Biblioteca />} />
+        <Route path="/AMImutual" element={<Mutual />} />
+        <Route path="/formas-de-pago" element={<FormasPago />} />
+        <Route path="/nave" element={<Nave />} />
+        <Route path="/formulario" element={<Form />} />
+      </Routes>
+      <BotonScroll />
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

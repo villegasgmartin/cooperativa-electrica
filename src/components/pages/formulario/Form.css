@@ -1,7 +1,8 @@
 /* Contenedor principal */
 .form-main-container {
-    margin-top: 5rem;
-    margin-bottom: 5rem;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background: linear-gradient(90deg, rgba(61,17,109,1) 0%, rgba(221,220,223,1) 35%, rgba(228,228,228,1) 50%, rgba(224,228,226,1) 64%, rgba(48,230,145,1) 100%);
 }
 
 /* Contenedor de textos */
@@ -16,18 +17,22 @@
 
 /* Primer texto del formulario */
 .form-text01 {
-    font-family: "archivo";
-    color: var(--violet);
-    font-size: 2.1875rem;
+    font-family: "interTight-medium";
+    color: var(--darkviolet);
+    font-size: 2.8125rem;
+    margin-left: .625rem;
+    margin-right: .625rem;
+    text-align: center;
 }
 
 /* Segundo texto del formulario */
 .form-text02 {
     font-family: "interTight";
-    color: grey;
+    color: black;
     font-size: 1.5625rem;
     text-align: center;
     width: 50rem;
+    letter-spacing: 1px;
 }
 
 /* Contenedor del formulario */
@@ -43,11 +48,8 @@
 
 /*Contenedor del botón*/
 .form-button-container{
-    display: flex;
-    align-items: center;
-    width: 9.375rem;
+    width: 12.5rem;
     margin: auto;
-    justify-content: center;
     margin-top: 1.875rem;
 }
 
@@ -55,46 +57,42 @@
 
 @media (max-width: 1024px){
     .form-text02 {
-        width: 40rem;
+        width: 80%;
+        margin: auto;
     }
     .form-container {
-        max-width: 40rem; 
+        max-width: 80%; 
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 700px) {
     .form-main-container{
-        margin-top: 4rem;
-        margin-bottom: 4rem;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+        background: linear-gradient(30deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(243,245,247,1) 70%, rgba(48,230,145,1) 100%);
     }
     .form-text01 {
-        font-size: 1.875rem;
+        font-size: 2.5rem;
+    }
+    .form-text02 {
+        font-size: 1.375rem;
+        width: 90%;
+    }
+    .form-container {
+        max-width: 90%;
+    }
+    .form-button-container{
+        width: 100%;
+        margin: auto;
+        margin-top: 1.875rem;
+    }
+}
+
+@media (max-width: 500px){
+    .form-text01 {
+        font-size: 2.1875rem;
     }
     .form-text02 {
         font-size: 1.25rem;
-        width: 30rem;
-    }
-    .form-container {
-        max-width: 80%;
-    }
-}
-
-@media (max-width: 700px){
-    .form-button-container{
-        width: 100%;
-    }
-}
-
-@media (max-width: 480px) {
-    .form-main-container{
-        margin-top: 3rem;
-        margin-bottom: 3rem;
-    }
-    .form-text01 {
-        font-size: 1.5rem;
-    }
-    .form-text02 {
-        font-size: 1rem;
-        width: 100%;
     }
 }

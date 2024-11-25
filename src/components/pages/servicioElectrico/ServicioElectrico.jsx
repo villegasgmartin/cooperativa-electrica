@@ -110,15 +110,15 @@ const ServicioElectrico = () => {
             <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'>Sres. Usuarios:</h3>
-                <p className='servicio-usuarios-description'>Por <strong>Res. Oceba N° 167/18</strong>, la <span className='resaltado'>falta de pago</span> de cualquier concepto ajeno al precio de la energía consumida por el usuario y los cargos que correspondan de acuerdo al primer párrafo del presente artículo, no podrán constituir causal de incumplimiento habilitante para la interrupción o desconexión del suministro a dicho usuario (Art. 78 de la Ley 11769).</p>
+                <p className='servicio-usuarios-description'>Por <strong>Res. Oceba N° 167/18</strong>, la falta de pago de cualquier concepto ajeno al precio de la energía consumida por el usuario y los cargos que correspondan de acuerdo al primer párrafo del presente artículo, no podrán constituir causal de incumplimiento habilitante para la interrupción o desconexión del suministro a dicho usuario (Art. 78 de la Ley 11769).</p>
               </div>
               <div className='servicio-image-container'><img src={Image01} alt="imágen de aviso" className='servicio-image01'/></div>
             </Fade>
           </div>
           <div>
             <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
-            <p className='servicio-corte'>En caso de <span className='resaltado2'>corte de servicio por falta de pago</span>, si abonan el valor de la reconexión por transferencia o depósito, <span className='resaltado2'>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos‼️.</span>
-            Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. Muchas gracias.</p>
+            <p className='servicio-corte'>En caso de corte de servicio por falta de pago, si abonan el valor de la reconexión por transferencia o depósito, dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos.
+            <strong> Recuerde enviar el comprobante de pago por mail indicando el N° de asociado</strong>, como indican las instrucciones. Muchas gracias.</p>
             </Fade>
           </div>
           <div className='servicio-usuarios'>
@@ -126,8 +126,8 @@ const ServicioElectrico = () => {
             <div className='servicio-image-container'><img src={Image02} alt="imágen de aviso" className='servicio-image02'/></div>
               <div className='servicio-usuarios-text'>
                 <h3 className='servicio-usuarios-title'>Usuarios Residenciales y Tarifa Social:</h3>
-                <p className='servicio-usuarios-description'>A los efectos de <span className='resaltado'>mantener los subsidios</span>, los usuarios deben realizar la presentación de la Declaración Jurada a través de la página web <strong><a className='servicio-enlace' href="https://www.argentina.gob.ar/subsidios">www.argentina.gob.ar/subsidios.</a></strong> En caso de no presentarla, estarán en condiciones de perder dicho beneficio.
-                  Usted puede consultar por su inclusión en la Tarifa Social en la página web del Organismo de Control de Energía Eléctrica de la Pcia de Buenos Aires: <strong><a className='servicio-enlace' href="https://oceba.gba.gov.ar/tarifa_social/pordni">oceba.gba.gov.ar/tarifa_social/pordni</a></strong></p>
+                <p className='servicio-usuarios-description'>A los efectos de mantener los subsidios, los usuarios deben realizar la presentación de la Declaración Jurada a través de la página web <a className='servicio-enlace' href="https://www.argentina.gob.ar/subsidios">www.argentina.gob.ar/subsidios.</a> En caso de no presentarla, estarán en condiciones de perder dicho beneficio.
+                  Usted puede consultar por su inclusión en la Tarifa Social en la página web del Organismo de Control de Energía Eléctrica de la Pcia de Buenos Aires: <a className='servicio-enlace' href="https://oceba.gba.gov.ar/tarifa_social/pordni">oceba.gba.gov.ar/tarifa_social/pordni</a></p>
               </div>
             </Fade>
           </div>

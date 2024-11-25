@@ -1,6 +1,6 @@
 //Importaciones:
 import { Link } from "react-router-dom"
-import FooterLogo from "../../../../assets/images/logo.png"
+import FooterLogo from "../../../../assets/images/logos/logo.png"
 import "../footer/Footer.css"
 
 //JSX:

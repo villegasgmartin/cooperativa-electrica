@@ -1,20 +1,29 @@
 /*Contendor Principal*/
 .historia-container{
-    margin-top: 5rem;
-    margin-bottom: 5rem;
     overflow: hidden;
 }
 
-/*Frase*/
+/*Contenedor de introducción*/
+.historia-intro-container{
+    background-color: var(--grey);
+    padding-top: 5rem;
+    padding-bottom: 4rem;
+}
+
+/*Intro*/
 .historia-intro{
+    text-align: center;
     color: white;
     background-color: var(--darkgreen);
     font-size: 1.875rem;
     font-family: "interTight";
+    font-weight: bold;
     padding: 2.5rem;
-    width: 70%;
+    width: 75rem;
+    letter-spacing: 1px;
     margin: auto;
-    border-radius: 1.25rem;
+    border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 /*Contenedor de bio*/
@@ -23,40 +32,21 @@
     align-items: center;
     justify-content: center;
     gap: 9.375rem;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
 }
 
 /*Contenedor de imágen*/
 .historia-image-container{
-    position: relative;
-    width: 31.25rem;
-    height: 31.25rem;
-}
-
-/*Fondo Verde*/
-.historia-image-container::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #12824C;
-    transform: translate(20px, 20px);
-    transform-origin: top left;
-    pointer-events: none; 
-    background: #12824C;
-}
-
-/*Fondo verde invertido*/
-.historia-background-position::before {
-    transform: translate(-28px, 20px);
+    overflow: hidden;
+    border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+    width: 37.5rem;
+    height: 37.5rem;
 }
 
 /*Impagen*/
 .historia-image{
-    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -64,10 +54,10 @@
 /*Texto al lado de imágen*/
 .historia-text{
     font-family: "interTight";
-    color: grey;
-    font-size: 1.25rem;
+    color: var(--black);
+    font-size: 1.5625rem;
     width: 37.5rem;
-    text-align: justify;
+    text-align: left;
 }
 
 /*Fondo oscuro*/
@@ -82,227 +72,204 @@
 
 /*Titulo*/
 .historia-title{
-    padding-top: 40px;
     font-family: "archivo";
     color: var(--darkgreen);
-    text-align: center;
     font-size: 2.5rem;
+    text-align: center;
+    margin-left: .625rem;
+    margin-right: .625rem;
+    line-height: 40px;
+    padding-bottom: 1.875rem;
 }
 
-/*Cotenedor de acordeón*/
+/*Contenedor de acordeón y título*/
+.historia{
+    padding-top: 3.125rem;
+    padding-bottom: 80px;
+    background: linear-gradient(95deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(255,255,255,1) 50%, rgba(247,254,251,1) 70%, rgba(240,253,247,1) 71%, rgba(48,230,145,1) 100%);
+}
+
+/*Acordeón*/
 .historia-accordion-container{
     max-width: 50rem ;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 1.25rem;
-    padding-bottom: 5rem;
 }
 
-/*Valores contenedor principal*/
+/*Contenedor de Valores*/
 .valores-container{
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    padding-top: 5rem;
 }
 
-/*Valores contenedor de texto*/
-.valores-text-container{
-    width: 50rem;
-    display: flex;
-    flex-direction: column;
-    gap: .625rem;
-    padding: 2.5rem;
-    border: .1875rem solid var(--darkgreen);
-}
-
-/*Valores texto*/
-.valores-text{
-    font-family: "Archivo";
-    font-size: 1.5625rem;
-    color: var(--darkgreen);
-}
-
-/*Lista de valores*/
-.valores-list{
+/*Valores*/
+.valores{
+    text-align: center;
+    color: white;
+    background-color: var(--darkgreen);
+    font-size: 1.875rem;
     font-family: "interTight";
-    font-size: 1.375rem;
-    color: var(--black);
-}
-
-/*Imágenes del al pié*/
-.valores-image-container{
-    width: 15.625rem;
+    font-weight: bold;
+    padding: 2.5rem;
+    width: 1200px;
+    letter-spacing: 1px;
+    margin: auto;
+    border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
 }
 
 /*----------------Media Queries----------------*/
 
 @media (max-width: 1460px){
     .historia-intro{
-        font-size: 1.5625rem;
+        width: 80%;
     }
     .historia-bio-container{
         gap: 6.25rem;
     }
     .historia-text{
-        width: 31.25rem;
+        width: 28.125rem;
     }
     .historia-image-container{
-        width: 25rem;
-        height: 25rem;
+        width: 31.25rem;
+        height: 31.25rem;
     }
-    .valores-text-container{
-        width: 37.5rem;
-    }
-    .valores-image-container{
-        width: 12.5rem;
+    .valores{
+        width: 80%;
     }
 }
 
 @media (max-width: 1170px){
     .historia-intro{
-        font-size: 1.375rem;
-    }
-    .historia-bio-container{
-        gap: 4.375rem;
-    }
-    .historia-text{
-        width: 25rem;
-        font-size: 1.125rem;
-    }
-    .historia-image-container{
-        width: 18.75rem;
-        height: 18.75rem;
-    }
-    .historia-image-container::before{
-        transform: translate(10px, 10px)
-    }
-    .historia-background-position::before {
-        transform: translate(-18px, 10px);
-    }
-    .historia-accordion-container{
-        padding-bottom: 4rem;
-    }
-    .valores-text-container{
-        width: 21.875rem;
-    }
-    .valores-image-container{
-        width: 11.25rem;
-    }
-}
-
-@media (max-width: 950px){  
-    .historia-intro{
-        width: 80%;
-        font-size: 1.375rem;
+        font-size: 1.5625rem;
     }
     .historia-bio-container{
         gap: 3.125rem;
     }
     .historia-text{
-        width: 21.875rem;
-        font-size: 1rem;
+        width: 25rem;
+        font-size: 1.25rem;
     }
     .historia-image-container{
-        width: 18.75rem;
-        height: 18.75rem;
+        width: 25rem;
+        height: 25rem;
     }
-    .historia-accordion-container{
-        width: 80%;
-        padding-bottom: 2rem;
+    .valores{
+        font-size: 25px;
     }
 }
 
-@media (max-width: 760px){
+@media (max-width: 950px){
+    .historia-intro{
+        font-size: 22px;
+    }
+    .historia-text{
+        width: 350px;
+        font-size: 1.125rem;
+    }
+    .historia-image-container{
+        width: 21.875rem;
+        height: 21.875rem;
+    }
+    .historia-accordion-container{
+        max-width: 90%;
+    }
+    .valores{
+        font-size: 22px;
+    }
+}
+
+@media (max-width: 830px){
     .historia-intro{
         width: 90%;
-        font-size: 1.25rem;
-        text-align: center;
-    }
-    .historia-container{
-        margin-top: 4rem;
-        margin-bottom: 4rem;
     }
     .historia-bio-container{
         flex-direction: column;
-        padding-top: 4rem;
-        padding-bottom: 4rem;
-        gap: 1.875rem;
+        gap: .9375rem;
     }
     .historia-text{
         width: 80%;
         margin: auto;
-        font-size: 1.125rem;
         text-align: center;
+        font-size: 1.25rem;
     }
     .historia-image-container{
         width: 28.125rem;
         height: 28.125rem;
     }
+    .valores{
+        width: 90%;
+    }
+}
+
+@media (max-width: 700px){
+    .historia-intro-container{
+        padding-top: 4rem;
+        padding-bottom: 3rem;
+    }
+    .historia-intro{
+        font-size: 20px;
+        padding: 1.875rem;
+    }
+    .historia-bio-container{
+        padding-top: 1.875rem;
+        padding-bottom: 1.875rem;
+    }
+    .historia-text{
+        width: 90%;
+    }
+    .historia{
+        padding-bottom: 4rem;
+    }
     .historia-title{
         font-size: 2.1875rem;
     }
     .valores-container{
-        flex-direction: column;
-        gap: 1.875rem;
+        padding-top: 3rem;
     }
-    .valores-text-container{
-        width: 80%;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .valores-image-container{
-        width: 200px;
-    }
-}
-
-@media (max-width: 600px){
-    .valores-text{
-        font-size: 1.375rem;
-    }
-    .valores-list{
+    .valores{
+        padding: 1.875rem;
         font-size: 1.25rem;
-    }
-    .valores-image-container{
-        width: 9.375rem;
     }
 }
 
 @media (max-width: 550px){
+    .historia-image-container{
+        width: 25rem;
+        height: 25rem;
+    }
+}
+
+@media (max-width: 460px){
+    .historia-intro-container{
+        padding-bottom:  2.1875rem;
+    }
     .historia-intro{
-        font-size: 1.125rem;
+        font-size: 18px;
         padding: 1.5625rem;
     }
-    .historia-bio-container{
-        padding-top: 3rem;
-    }
     .historia-text{
-        width: 90%;
-        margin: auto;
         font-size: 1rem;
     }
     .historia-image-container{
         width: 21.875rem;
         height: 21.875rem;
     }
-    .historia-title{
-        font-size: 1.875rem;
-        width: 90%;
-        margin: auto;
+    .valores{
+        font-size: 1.125rem;
+        padding: 25px;
     }
-    .historia-image-container::before{
-        transform: translate(2px, 2px) 
-    }
-    .historia-background-position::before {
-        transform: translate(-9px, 2px);
-    } 
 }
 
-@media (max-width: 400px){
+@media (max-width: 390px){
     .historia-image-container{
-        width: 17.5rem;
-        height: 17.5rem;
+        width: 330px;
+        height: 20.625rem;
     }
-    .historia-title{
-        font-size: 1.5625rem;
+}
+
+@media (max-width: 350px){
+    .historia-image-container{
+        width: 315px;
+        height: 19.6875rem;
     }
 }

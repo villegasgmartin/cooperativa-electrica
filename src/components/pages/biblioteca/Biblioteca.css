@@ -1,3 +1,28 @@
+/*Header*/
+.header-biblioteca-container{
+    background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)), 
+    url("../../../assets/images/headers/header-biblioteca.jpg"); 
+    background-size: cover;
+    background-position: center 85%;
+    height: 25.625rem;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/*Título en header*/
+.header-biblioteca-title{
+    color: white;
+    font-family: "archivo";
+    font-size: 4.375rem;
+    margin-left: 10%;
+    margin-top: 6.25rem;
+    margin-right: 12.5rem;
+}
+
+/*Resaltado para titulo en header*/
+.header-biblioteca-resaltado{
+    color: var(--newgreen);
+}
+
 /*Contenedor principal*/
 .biblioteca-main-container{
     overflow: hidden;
@@ -51,7 +76,7 @@
     justify-content: center;
     gap: 3.125rem;
     padding-top: 4rem;
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: linear-gradient(307deg, rgba(196,228,212,1) 0%, rgba(255,255,255,1) 33%);
 }
 
 /*Contenedor de texto*/
@@ -64,7 +89,7 @@
 
 /*Titulo de servicios*/
 .biblioteca-servicios-title{
-    font-family: "archivo";
+    font-family: "archivo-black";
     color: var(--darkviolet);
     font-size: 2.8125rem;
     text-align: center;
@@ -169,6 +194,9 @@
 }
 
 @media(max-width:1020px){
+    .header-biblioteca-title{
+        font-size: 60px;
+    }
     .biblioteca-accordion-content{
         font-size: 20px;
     }
@@ -200,7 +228,11 @@
     }
 }
 
+
 @media(max-width:830px){
+    .biblioteca-servicios-container{
+        flex-direction: column;
+    }
     .biblioteca-servicios-text{
         width: 90%;
         margin-left: auto;
@@ -226,7 +258,28 @@
     }
 }
 
+@media(max-width:808px){
+    .header-biblioteca-title{
+        font-size: 55px;
+    }
+}
+
+@media(max-width:759px){
+    .header-biblioteca-title{
+        font-size: 50px;
+    }
+}
+
 @media(max-width:700px){
+    .header-biblioteca-container{
+        height: 21.875rem;
+    }
+    .header-biblioteca-title{
+        margin-top: 45px;
+        width: 80%;
+        font-size: 2.8125rem;
+        text-align: center;
+    }
     .bibliotea-accordion-container{
         padding-top: 4rem;
     }

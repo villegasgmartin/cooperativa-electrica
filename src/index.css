@@ -20,10 +20,30 @@
 /*Fonts*/
 @font-face{
   font-family: "Archivo";
+  src: url(../src/assets/fonts/Archivo-Regular.ttf);
+}
+
+@font-face{
+  font-family: "Archivo-semi-bold";
+  src: url(../src/assets/fonts/Archivo-SemiBold.ttf);
+}
+
+@font-face{
+  font-family: "Archivo-black";
   src: url(../src/assets/fonts/ArchivoBlack-Regular.ttf);
 }
 
 @font-face{
   font-family: "InterTight";
   src: url(../src/assets/fonts/InterTight-Regular.ttf);
+}
+
+@font-face{
+  font-family: "InterTight-medium";
+  src: url(../src/assets/fonts/InterTight-Medium.ttf);
+}
+
+@font-face{
+  font-family: "InterTight-semi-bold";
+  src: url(../src/assets/fonts/InterTight-SemiBold.ttf);
 }

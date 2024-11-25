@@ -71,7 +71,7 @@ const Consejo = () => {
             </AccordionDetails>
         </Accordion>
         </AccordionGroup>
-        <AccordionGroup variant='soft' size='lg'>
+        <AccordionGroup variant='soft' size='lg' sx={{marginTop: "5px"}}>
           <Accordion>
             <AccordionSummary>ÓRGANO DE FISCALIZACIÓN</AccordionSummary>
               <AccordionDetails>
@@ -82,7 +82,7 @@ const Consejo = () => {
               </AccordionDetails>
           </Accordion>
         </AccordionGroup>
-        <AccordionGroup variant='soft' size='lg'>
+        <AccordionGroup variant='soft' size='lg' sx={{marginTop: "5px"}}>
           <Accordion>
             <AccordionSummary>AUDITORÍA</AccordionSummary>
               <AccordionDetails>
@@ -90,7 +90,7 @@ const Consejo = () => {
               </AccordionDetails>
           </Accordion>
         </AccordionGroup>
-        <AccordionGroup variant='soft' size='lg'>
+        <AccordionGroup variant='soft' size='lg' sx={{marginTop: "5px"}}>
           <Accordion>
             <AccordionSummary>MESA DIRECTIVA</AccordionSummary>
               <AccordionDetails>

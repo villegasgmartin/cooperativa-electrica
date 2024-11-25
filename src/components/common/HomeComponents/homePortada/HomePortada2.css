@@ -27,6 +27,7 @@
     font-family: "InterTight";
     margin-top: .9375rem;
     margin-bottom: .9375rem;
+    letter-spacing: .0625rem;
 }
 
 /*Contenedor de textos*/
@@ -43,7 +44,7 @@ gap: 1.25rem;
 .homePortada-title{
     color: white;
     font-size: 3.75rem;
-    font-family: "InterTight";
+    font-family: "InterTight-medium";
     letter-spacing: 2px;
 }
 

@@ -1,7 +1,8 @@
 /*Contenedor principal*/
 .consejos-main-container{
-    margin-bottom: 5rem;
     overflow: hidden;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
 }
 
 /*Contenedor de consejos e imágen*/
@@ -10,27 +11,41 @@
     justify-content: center;
     align-items: center;
     gap: 9.375rem;
-    padding-top: 80px;
-    padding-bottom: 5rem;
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
+}
+
+/*Corrección de padding al primer contenedor*/
+.consejos-padding{
+    padding-top: 0;
 }
 
 /*Contenedor de texto*/
 .consejos-text-container{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     width: 34.375rem;
     gap: .625rem;
 }
 
-/*Número de consejo*/
-.consejos-number{
-    font-family: "archivo";
-    font-size: 2.1875rem;
-    background:#8048ff;
-    color:#fff;
+/*Estilo para título 01*/
+.consejos-title-01{
+    background:var(--lightgreen);
+    border-radius: 1.5625rem;
+    color: var(--black);
     padding: 2px 15px;
-    clip-path: polygon(0 0, 95% 0, 100% 100%, 5% 100%);
+    font-family: "interTight";
+    font-size: 2.5rem;
+    letter-spacing: 1px;
+}
+
+/*Estilo para título 02*/
+.consejos-title-02{
+    color: var(--lightgreen);
+    font-family: "interTight";
+    font-size: 2.5rem;
+    letter-spacing: 1px;
 }
 
 /*Consejo*/
@@ -38,41 +53,23 @@
     font-family: "interTight";
     color: var(--black);
     font-size: 1.5625rem;
-    text-align: center;
+    text-align: left;
 }
 
 /*Contenedor de imágen*/
 .consejos-image-container{
-    position: relative;
+    overflow: hidden;
+    border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
     width: 37.5rem;
     height: 37.5rem;
 }
 
 /*Imágen*/
 .consejos-image{
-    position: relative;
+    object-fit: cover;
     width: 100%;
     height: 100%;
-}
-
-/*Fondo Verde*/
-.consejos-image-container::before{
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border: 4px solid #12824C;
-    transform: translate(20px, 20px);
-    transform-origin: top left;
-    pointer-events: none; 
-    background: #12824C;
-}
-
-/*Fondo verde invertido*/
-.consejos-background-position::before {
-    transform: translate(-28px, 20px);
 }
 
 /*Fondo oscuro*/
@@ -85,19 +82,17 @@
     color: white;
 }
 
-/*Contenedor del logo*/
-.consejos-logo-container{
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: .625rem;
-    margin-top: 4rem;
-    width: 9.375rem;
-    border-top: .1875rem solid var(--darkgreen);
-}
-
 /*Contenedor del botón*/
 .consejos-button-container{
-    width: 18.75rem;
+    background-color: var(--grey);
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+}
+
+/*Botón*/
+.consejos-button{
+    width: 21.875rem;
+    height: 4.375rem;
     margin-left: auto;
     margin-right: auto;
 }
@@ -111,10 +106,16 @@
     .consejos-text-container{
         width: 28.125rem;
     }
+    .consejos-title-01{
+        font-size: 35px;
+    }
+    .consejos-title-02{
+        font-size: 2.1875rem;
+    }
     .consejos-image-container{
         width: 31.25rem;
-        height: 31.25rem
-    } 
+        height: 31.25rem;
+    }
 }
 
 @media (max-width: 1170px){
@@ -122,121 +123,125 @@
         gap: 3.125rem;
     }
     .consejos-text-container{
-        width: 400px;
+        width: 25rem;
     }
-    .consejos-number{
-        font-size: 1.875rem;
+    .consejos-title-01{
+        font-size: 30px;
+    }
+    .consejos-title-02{
+        font-size: 30px;
     }
     .consejos-text{
-        font-size: 1.25rem;
+        font-size: 1.375rem;
     }
     .consejos-image-container{
-        width: 25rem;
-        height: 25rem
-    } 
+        width: 28.125rem;
+        height: 28.125rem;
+    }
 }
 
 @media (max-width: 950px){
     .consejos-text-container{
         width: 21.875rem;
     }
-    .consejos-number{
-        font-size: 1.5625rem;
+    .consejos-title-01{
+        font-size: 25px;
+    }
+    .consejos-title-02{
+        font-size: 25px;
     }
     .consejos-text{
-        font-size: 1.0625rem;
+        font-size: 1.125rem;
     }
     .consejos-image-container{
-        width: 18.75rem;
-        height: 18.75rem
-    }
-    .consejos-image-container::before{
-        transform: translate(10px, 10px)
-    }
-    .consejos-background-position::before {
-        transform: translate(-20px, 10px);
+        width: 25rem;
+        height: 25rem;
     }
 }
 
-@media (max-width: 760px){
-    .consejos-main-container{
-        margin-bottom: 4rem;
-    }
+@media (max-width: 830px){
     .consejos-container{
         flex-direction: column;
-        gap: 1.875rem;
+        gap: .9375rem;
     }
     .consejos-text-container{
         width: 80%;
         margin: auto;
+        align-items: center;
     }
-    .consejos-number{
-        font-size: 1.875rem;
+    .consejos-title-01{
+        font-size: 30px;
+    }
+    .consejos-title-02{
+        font-size: 30px;
     }
     .consejos-text{
-        font-size: 1.5625rem;
+        font-size: 1.25rem;
+        text-align: center;
     }
     .consejos-image-container{
-        width: 25rem;
-        height: 400px
+        width: 28.125rem;
+        height: 28.125rem;
     }
 }
 
 @media (max-width: 700px){
-    .consejos-button-container{
-        width: 90%;
-        margin-top: 1.875rem;
-    }
-}
-
-@media (max-width: 650px){
-    .consejos-container{
+    .consejos-main-container{
         padding-top: 4rem;
+        padding-bottom: 4rem;
     }
-}
-
-@media (max-width: 550px){
+    .consejos-container{
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
+    }
+    .consejos-padding{
+        padding-top: 0px;
+    }
     .consejos-text-container{
         width: 90%;
     }
-    .consejos-number{
-        font-size: 1.5625rem;
+    .consejos-button-container{
+        padding-top: 1.875rem;
+        padding-bottom: 1.875rem;
+    }
+    .consejos-button{
+        width: 90%;
+    }
+}   
+
+@media (max-width: 550px){
+    .consejos-title-01{
+        font-size: 25px;
+    }
+    .consejos-title-02{
+        font-size: 25px;
     }
     .consejos-text{
-        font-size: 1.25rem;
+        font-size: 18px;
     }
     .consejos-image-container{
-        width: 18.75rem;
-        height: 18.75rem
-    }
-    .consejos-logo-container{
-        width: 7.5rem;
-        margin-top: 2rem;
+        width: 25rem;
+        height: 25rem;
     }
 }
 
-@media (max-width: 450px){
-    .consejos-number{
-        font-size: 1.375rem;
-    }
-    .consejos-text{
-        font-size: 1.0625rem;
-    }
+@media (max-width: 460px){
     .consejos-image-container{
-        width: 15.625rem;
-        height: 15.625rem
+        width: 21.875rem;
+        height: 21.875rem;
     }
-    .consejos-logo-container{
-        width: 6.25rem;
-        margin-top: 1rem;
+}
+
+@media (max-width: 390px){
+    .consejos-image-container{
+        width: 330px;
+        height: 20.625rem;
     }
-    .consejos-boton-container{
-        margin-top: 0%;
-    }
-    .consejos-image-container::before{
-        transform: translate(2px, 2px)
-    }
-    .consejos-background-position::before {
-        transform: translate(-9px, 2px);
+}
+
+@media (max-width: 350px){
+    .consejos-image-container{
+        width: 315px;
+        height: 19.6875rem;
     }
 }

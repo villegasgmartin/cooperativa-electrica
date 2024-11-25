@@ -10,8 +10,8 @@
     align-items: center;
     justify-content: center;
     gap: 9.375rem;
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 3.75rem;
+    padding-bottom: 3.75rem;
 }
 
 /*Corrección de padding primer contenedor*/
@@ -49,6 +49,7 @@
     font-family: "archivo";
     font-size: 2.1875rem;
     color: var(--black);
+    text-align: left;
 }
 
 /*Estilo 1 para títulos*/
@@ -70,7 +71,6 @@
     color: grey;
     font-size: 1.25rem;
     text-align: left;
-    padding-left: .9375rem;
 }
 
 /*Sin padding para la lista*/
@@ -96,7 +96,8 @@
 
 /*Contenedor de información final*/
 .comunicados-info-container{
-    background: linear-gradient(307deg, rgba(61,17,109,1) 0%, rgba(228,228,228,1) 20%, rgba(228,228,228,1) 33%, rgba(228,228,228,1) 52%, rgba(228,228,228,1) 80%, rgba(46,237,141,1) 100%);
+    background: rgb(61,17,109);
+background: linear-gradient(95deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(255,255,255,1) 50%, rgba(247,254,251,1) 70%, rgba(240,253,247,1) 71%, rgba(48,230,145,1) 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -140,13 +141,13 @@
 .comunicados-resaltado{
     font-weight: bold;
     text-transform: uppercase;
-    color: var(--lightgreen);
+    color: var(--white);
 }
 
 /*Enlaces en la info*/
 .comunicados-links{
     text-decoration: none;
-    color: var(--lightgreen);
+    color: var(--white);
     overflow-wrap: break-word;
     word-break: break-word;
 }
@@ -211,8 +212,8 @@
         font-size: 1.125rem;
     }
     .comunicados-image-container{
-        width: 25rem;
-        height: 25rem;
+        width: 28.125rem;
+        height: 28.125rem;
     }
     .comunicados-info-title{
         font-size: 1.5625rem;
@@ -230,8 +231,8 @@
         font-size: 1rem;
     }
     .comunicados-image-container{
-        width: 21.875rem;
-        height: 21.875rem;
+        width: 25rem;
+        height: 25rem;
     }
 }
 
@@ -264,8 +265,8 @@
         margin-top: 4rem;
     }
     .comunicado-container{
-        padding-top: 1.875rem;
-        padding-bottom: 1.875rem;
+        padding-top: 2.5rem;
+        padding-bottom: 2.5rem;
     }
     .padding-top{
         padding-top: 0;
@@ -289,13 +290,6 @@
 }
 
 @media (max-width: 550px){
-    .comunicado-container{
-        padding-top: 1.25rem;
-        padding-bottom: 1.25rem;
-    }
-    .padding-top{
-        padding-top: 0;
-    }
     .comunicados-text-containter{
         gap: .625rem;
     }

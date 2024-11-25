@@ -98,8 +98,8 @@ const Preguntas = () => {
                 <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
                     <div className='preguntas-usuarios-text'>
                         <h3 className='preguntas-usuarios-title'>Sres. Usuarios:</h3>
-                        <p className='preguntas-usuarios-description'>En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos.</strong>
-                        ‼️ Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. <br/>Muchas gracias.</p>
+                        <p className='preguntas-usuarios-description'>En caso de <strong>corte de servicio por falta de pago</strong>, si abonan el valor de la reconexión por transferencia o depósito, <strong>dicha reconexión de servicio se hará efectiva una vez que se acredite el pago en nuestros bancos. </strong>
+                        Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. <br/>Muchas gracias.</p>
                     </div>
                 </Fade>
         </section>

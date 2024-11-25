@@ -4,11 +4,19 @@
     margin-bottom: 5rem;
 }
 
+/*Contenedor de mensdajes y form*/
+.contacto-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+}
+
 /*Contenedor de mensajes*/
 .contacto-mensaje-container{
     display: flex;
-    justify-content: space-evenly;
-    margin-bottom: 3.125rem;
+    flex-direction: column;
+    gap: 2.5rem;
 }
 
 /*Contenedor de mensake guardia eléctrica*/
@@ -17,11 +25,12 @@
     flex-direction: column;
     align-items: center;
     padding: 1.875rem;
-    width: 37.5rem;
+    width: 450px;
     margin-left: auto;
     margin-right: auto;
     background-color: var(--darkgreen);
     border-radius: 1.25rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Contenedor de mensake NAVE*/
@@ -31,12 +40,13 @@
     align-items: center;
     justify-content: center;
     padding: 1.875rem;
-    width: 37.5rem;
+    width: 28.125rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--violet);
+    background-color: var(--darkviolet);
     border-radius: 1.25rem;
     height: 11.875rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Numero de contacto*/
@@ -57,14 +67,24 @@
 
 /*Contenedor de formulario*/
 .contacto-form-container{
-    margin-left: auto;
-    margin-right: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 56.25rem;
+    width: 50rem;
     margin-top: 1.875rem;
+}
+
+/*Indicación de formulario*/
+.contacto-form-title{
+    font-family: "archivo";
+    color: var(--darkviolet);
+    font-size: 35px;
+}
+
+/*Botón de enviar*/
+.contactos-button-container{
+    width: 11.25rem;
 }
 
 /*Contenedor de info*/
@@ -72,6 +92,9 @@
     display: flex;
     justify-content: space-evenly;
     margin-top: 5rem;
+    background-color: var(--grey);
+    padding-top: 40px;
+    padding-bottom: 2.5rem
 }
 
 /*Información*/
@@ -79,44 +102,49 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 1.25rem;
-    border-top: .1875rem solid var(--darkgreen);
-    border-bottom: .1875rem solid var(--darkgreen);
+    gap: .625rem;
 }
 
 /*Titulo de infos*/
 .contacto-info-title{
     color: var(--darkgreen);
     font-family: "archivo";
-    font-size: 1.875rem;
+    font-size: 2.1875rem;
+}
+
+/*Color para NAVE*/
+.contacto-color{
+    color: var(--darkviolet);
 }
 
 /*Texto de infos*/
 .contacto-info-text{
-    font-size: 1.25rem;
+    font-size: 1.375rem;
     font-family: "interTight";
-    text-align: center;
+    text-align: left;
+    letter-spacing: .0625rem;
 }
 
 /*Alineacion de info*/
 .contacto-info-align{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: .3125rem;
+    gap: .625rem;
 }
 
 /*Iconos de nave*/
 .contacto-icons{
     display: flex;
+    justify-content: center;
     gap: 5rem;
 }
 
-/* Estilos personalizados para SweetAlert */
+/* Estilos personalizados para SweetAlert al "enviar"*/
 .swal2-title {
     font-family: 'Archivo';
     color: var(--black);
     }
+
 .swal2-content {
     font-family: 'interTight';
     color: var(--black);
@@ -131,47 +159,41 @@
     border-radius: 20px;
 }
 
-
 /*----------------Media Queries----------------*/
 
-@media (max-width: 1250px){
-    .contacto-mensaje-container{
-        flex-direction: column;
-        gap: 30px;
+@media (max-width: 1350px){
+    .contacto-form-container{
+        width: 600px;
     }
-}   
-
-@media (max-width: 1100px){
     .contacto-info-container{
         flex-direction: column;
-        gap: 3.125rem;
-        align-items: center;
-        margin-top: 3.75rem;
+        gap: 30px;
+        background-color: transparent;
+        padding: 0;
     }
-}
+    .contacto-info{
+        background-color: var(--grey);
+        padding-top: 30px;
+        padding-bottom: 1.875rem;
+    }
+} 
 
-@media (max-width: 970px){
+@media (max-width: 1170px){
+    .contacto-container{
+        flex-direction: column-reverse;
+    }
     .contacto-form-container{
+        margin-top: 0;
         width: 80%;
     }
+    .contacto-mensaje-container{
+        flex-direction: row;
+    }
 }
 
-@media (max-width: 760px){
-    .contacto-main-container{
-        margin-top: 4rem;
-        margin-bottom: 4rem;
-    }
-    .contacto-number{
-        font-size: 1.4375rem;
-    }
-    .contacto-mensaje{
-        font-size: 1.25rem;
-    }
-    .contacto-info-title{
-        font-size: 1.5625rem;
-    }
-    .swal2-popup-custom {
-        transform: scale(0.8); 
+@media (max-width: 1000px){
+    .contacto-mensaje-container{
+        flex-direction: column;
     }
     .contacto-mensaje-electrica{
         width: 80%;
@@ -182,24 +204,46 @@
 }
 
 @media (max-width: 700px){
-    .contactos-button-container{
-        width: 100%;
+    .contacto-main-container{
+        margin-top: 4rem;
+        margin-bottom: 4rem;
     }
-}
-
-@media (max-width: 600px){
     .contacto-form-container{
         width: 90%;
     }
-    .contacto-info-container{
-        width: 90%;
-        margin: auto;
-        margin-top: 2.5rem;
+    .contactos-button-container{
+        width: 100%;
     }
     .contacto-mensaje-electrica{
         width: 90%;
     }
     .contacto-mensaje-nave{
         width: 90%;
+    }
+    .contacto-info-text{
+        width: 90%;
+        margin: auto;
+    }
+    .contacto-info-container{
+        margin-top: 50px;
+        
+    }
+}
+
+@media (max-width: 550px){
+    .contacto-form-title{
+        font-size: 1.875rem;
+    }
+    .contacto-info-title{
+        font-size: 1.875rem;
+    }
+    .contacto-info-text{
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 340px){
+    .contacto-info-text{
+        font-size: 18px;
     }
 }

@@ -56,7 +56,7 @@ const Comunicados = () => {
         <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
           <div className='comunicados-image-container'><img src={image04} className='comunicados-image' alt="foto del comunicado" /></div>
           <div className='comunicados-text-containter'>
-            <h2 className='comunicados-title' id='light-font'>A partir de Noviembre de 2023, tenemos un nuevo Gerente Técnico y Comercial de nuestra Cooperativa, el Ing. <span className='color-title02'>Manuel Pérez</span> .⁣</h2>
+            <h2 className='comunicados-title' id='light-font'>A partir de Noviembre de 2023, tenemos un nuevo Gerente Técnico y Comercial de nuestra Cooperativa, el Ing. <span className='color-title02'>Manuel Pérez</span>.⁣</h2>
             <p className='comunicados-description' id='light-font'>Firma el contrato con nuestro Presidente Juan Carlos Dentis y nuestros empleados le dan una cálida bienvenida.⁣</p>
           </div>
         </Fade>
