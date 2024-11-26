@@ -10,6 +10,7 @@ import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png"
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Form = () => {
@@ -51,6 +52,9 @@ const Form = () => {
 
     return (
         <>
+            <Helmet>
+                <title>NAVE Internet</title>
+            </Helmet>
             <header className="header-nave-container">
                 <div className="header-contactos-container">
                 <div className="header-contactos">

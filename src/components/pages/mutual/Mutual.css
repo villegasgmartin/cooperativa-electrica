@@ -153,7 +153,7 @@
         width: 80%;
     }
     .mutual-image-container{
-        transform: scale(1);
+        transform: scale(1.1);
     }
     .mutual-container{
         flex-direction: column-reverse;
@@ -206,9 +206,6 @@
     .mutual-button{
         width: 100%;
     }    
-    .mutual-image-container{
-        transform: scale(0.9);
-    }
     .mutual-enlace{
         padding-top: 2.1875rem;
         padding-bottom: 1.875rem;

@@ -8,6 +8,7 @@ import image02 from "../../../assets/images/comunicados/comunicados02.jpeg"
 import image03 from "../../../assets/images/comunicados/comunicados03.jpeg"
 import image04 from "../../../assets/images/comunicados/comunicados04.jpeg"
 import { Fade } from "react-awesome-reveal";
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Comunicados = () => {
@@ -20,6 +21,9 @@ const Comunicados = () => {
 
   return (
     <section className='comunicadosPage-container'>
+      <Helmet>
+        <title>Comunicados Institucionales</title>
+      </Helmet>
       <div className='comunicado-container padding-top'> 
         <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='comunicados-text-containter'>

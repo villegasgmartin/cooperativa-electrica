@@ -11,6 +11,7 @@ import Image02 from "../../../assets/images/consejos/consejo-02.jpg"
 import Image03 from "../../../assets/images/consejos/consejo-03.jpg"
 import Image04 from "../../../assets/images/consejos/consejo-04.jpg"
 import Image05 from "../../../assets/images/consejos/consejo-05.jpg"
+import {Helmet} from "react-helmet"
 
 //JSX:
 const ConsejosUtiles = () => {
@@ -23,6 +24,9 @@ const ConsejosUtiles = () => {
 
   return (
     <section className='consejos-main-container'>
+      <Helmet>
+        <title>Consejos Útiles</title>
+      </Helmet>
       <div className='consejos-container consejos-padding'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='consejos-text-container'>

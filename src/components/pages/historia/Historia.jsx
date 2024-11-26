@@ -7,6 +7,7 @@ import HistoriaAcordeon from '../../common/HistoriaComponents/historiaAcordeon/H
 import { Fade } from 'react-awesome-reveal';
 import Image01 from "../../../assets/images/historia/historia-01.jpg"
 import Image02 from "../../../assets/images/historia/historia-02.jpg"
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Historia = () => {
@@ -19,6 +20,9 @@ const Historia = () => {
 
   return (
     <section className='historia-container'>
+      <Helmet>
+        <title>Historia</title>
+      </Helmet>
       <Fade triggerOnce={true} duration={1000} delay={300}>
         <div className='historia-intro-container'>
           <p className='historia-intro'>“Hoy nuestra entidad es la Cooperativa más antigua de Mar del Plata en actividad, sin distinción de especialidades. Es importante destacar que 17 calles o lugares públicos de la ciudad llevan el nombre de directivos o fundadores de la Cooperativa y 7 de ellos fueron elegidos, por el voto popular, intendentes del Partido de General Pueyrredon”.</p>

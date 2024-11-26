@@ -5,8 +5,8 @@
     flex-wrap: wrap;
     justify-content: space-evenly;
     align-items: center;
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: 4rem;
+    padding-bottom: 4rem;
 }
 
 /*Contenedor del logo*/
@@ -17,6 +17,49 @@
 /*Logo*/
 .footer-logo{
     width: 100%;
+}
+
+/*Contenedor de enlaces y copyright*/
+.footer-copy-links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    margin-top: 4.375rem;
+}
+
+/*Copyright*/
+.copyright{
+    color: white;
+    font-family: "interTight";
+    text-align: center;
+    width: 280px;
+    letter-spacing: 1px;
+    margin: auto;
+}
+
+/*Copyright en movile*/
+.copy-movile{
+    display: none;
+}
+
+/*Enlace de copyright*/
+.copyright-link{
+    color: var(--lightgreen);
+    text-decoration: none;
+    font-family: "interTight-medium";
+    transition:  color 0.3s ease;
+    margin-top: .3125rem;
+}
+
+/*Hover*/
+.copyright-link:hover{
+    color: #57d89f;
+    background-color: #230a33;
+    padding: 1px 15px 5px 15px;
+    border-radius: .9375rem;
+    border: 0.5px inset #57d89f;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Contenedor de links*/
@@ -40,7 +83,7 @@
     color: white;
     font-size: .9375rem;
     font-family: "InterTight";
-    transition: color 0.3s ease, transform 0.3s ease
+    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 /*Hover de los links*/
@@ -97,6 +140,15 @@
         padding-top: 4rem;
         padding-bottom: 4rem;
         gap: 3.125rem;
+    }
+    .footer-copy-links{
+        margin-top: 0;
+    }
+    .copyright{
+        display: none;
+    }
+    .copy-movile{
+        display: block;
     }
     .footer-logo-container{
         width: 15.625rem;

@@ -12,6 +12,7 @@ import Image03 from "../../../assets/images/objetivos/objetivos-03.avif"
 import Image04 from "../../../assets/images/objetivos/objetivos-04.jpg"
 import Image05 from "../../../assets/images/objetivos/objetivos-05.avif"
 import Image06 from "../../../assets/images/objetivos/objetivos-06.jpg"
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Objetivos = () => {
@@ -24,6 +25,9 @@ const Objetivos = () => {
 
     return (
         <section className='objetivos-main-container'>
+            <Helmet>
+                <title>Objetivos Sociales</title>
+            </Helmet>
             <Fade triggerOnce={true} duration={800} delay={300} direction='up'><h2 className='objetivos-title'>La Cooperativa tendrá por objetivo:</h2></Fade>
             <div className='objetivos-container'>
                 <Fade triggerOnce={true} duration={800} delay={300} direction='right'>

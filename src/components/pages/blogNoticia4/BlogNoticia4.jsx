@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import "../blogNoticia4/BlogNoticia4.css"
 import { Fade } from 'react-awesome-reveal';
+import {Helmet} from "react-helmet"
 
 /*Para cambiar la imágen principal en esta sección: colocar la ruta que corresponde aqui debajo*/
 import ImageNoticia04 from "../../../assets/images/blog/blog-image-04.jpeg"
@@ -22,6 +23,9 @@ const BlogNoticia4 = () => {
 
     return (
         <section className='noticia4-main-container'>
+            <Helmet>
+                <title>Blog</title>
+            </Helmet>
             <div className='noticia4-secondary-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <div className='noticia4-mainImage-container'><img src={ImageNoticia04} alt="imágen de blog" className='noticia4-mainImage' /></div>

@@ -43,7 +43,6 @@
 .pagos-container{
     padding-top: 35px;
     padding-bottom: 50px;
-    background: rgb(61,17,109);
     background: linear-gradient(30deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(243,245,247,1) 70%, rgba(48,230,145,1) 100%);
 }
 
@@ -83,6 +82,7 @@
     margin: auto;
     text-align: center;
     margin-top: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Contenedor de alias*/

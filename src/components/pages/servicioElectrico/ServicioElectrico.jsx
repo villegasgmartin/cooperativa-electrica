@@ -13,6 +13,7 @@ import Image01 from "../../../assets/images/servicio-electrico/servicio-electric
 import Image02 from "../../../assets/images/servicio-electrico/servicio-electrico-02.jpg"
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import {Helmet} from "react-helmet"
 
 //JSX:
 const ServicioElectrico = () => {
@@ -37,6 +38,9 @@ const ServicioElectrico = () => {
 
   return (
     <section className='servicio-main-container'>
+      <Helmet>
+        <title>Servicio Eléctrico</title>
+      </Helmet>
       {isModalOpen && (
         <div className='guardia-modal-overlay'>
           <div className='guardia-modal-content'>
