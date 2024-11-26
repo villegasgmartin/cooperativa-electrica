@@ -1,3 +1,4 @@
+//Importaciones:
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
@@ -9,7 +10,10 @@ import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png"
+import {Helmet} from "react-helmet"
 
+
+//JSX:
 const Nave = () => {
   const dispatch = useDispatch();
 
@@ -39,6 +43,9 @@ const Nave = () => {
 
   return (
     <>
+      <Helmet>
+        <title>NAVE Internet</title>
+      </Helmet>
       <header className="header-nave-container">
         <div className="header-contactos-container">
           <div className="header-contactos">
@@ -67,6 +74,7 @@ const Nave = () => {
           </div>
         </Fade>
       </header>
+      <section className='nave-main-container'>
       <Fade triggerOnce={true} duration={800} delay={300}>
         <div className="nave-buttons-container">
             <button className='nave-button-01' onClick={() => filtrarServicios("todos")}>Todos</button>
@@ -74,7 +82,6 @@ const Nave = () => {
             <button className='nave-button-03' onClick={() => filtrarServicios("tv")}>TV</button>
         </div>
       </Fade>
-      <section className='nave-main-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <CardCarousel servicios={serviciosFiltrados} />
         </Fade>

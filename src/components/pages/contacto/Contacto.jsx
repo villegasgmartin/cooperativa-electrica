@@ -9,6 +9,7 @@ import "../contacto/Contacto.css";
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Fade } from 'react-awesome-reveal';
+import {Helmet} from "react-helmet"
 
 // JSX:
 const Contacto = () => {
@@ -89,6 +90,9 @@ const Contacto = () => {
 
   return (
     <section className='contacto-main-container'>
+      <Helmet>
+        <title>Contacto</title>
+      </Helmet>
         <div className='contacto-container'> 
           <div className='contacto-mensaje-container'> 
             <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
@@ -122,11 +126,11 @@ const Contacto = () => {
                 '& .MuiOutlinedInput-root': {
                   borderRadius: "15px",
                   '&.Mui-focused fieldset': {
-                    borderColor: '#12824c',
+                    borderColor: '#3d116d',
                   },
                 },
                 '& .MuiInputLabel-root.Mui-focused': {
-                  color: '#12824c',
+                  color: '#3d116d',
                 }
               }}
             />
@@ -144,11 +148,11 @@ const Contacto = () => {
                 '& .MuiOutlinedInput-root': {
                   borderRadius: "15px",
                   '&.Mui-focused fieldset': {
-                    borderColor: '#12824c',
+                    borderColor: '#3d116d',
                   },
                 },
                 '& .MuiInputLabel-root.Mui-focused': {
-                  color: '#12824c',
+                  color: '#3d116d',
                 }
               }}
             />
@@ -160,7 +164,7 @@ const Contacto = () => {
                 onChange={handleChange}
                 required
                 variant='outlined'
-                sx={{ borderRadius: "15px" }}
+                sx={{ borderRadius: "15px"}}
               >
                 <MenuItem value="Consulta sobre NAVE">Consulta sobre NAVE</MenuItem>
                 <MenuItem value="Consulta sobre Electricidad">Consulta sobre Electricidad</MenuItem>
@@ -182,11 +186,11 @@ const Contacto = () => {
                 '& .MuiOutlinedInput-root': {
                   borderRadius: "15px",
                   '&.Mui-focused fieldset': {
-                    borderColor: '#12824c',
+                    borderColor: '#3d116d',
                   },
                 },
                 '& .MuiInputLabel-root.Mui-focused': {
-                  color: '#12824c',
+                  color: '#3d116d',
                 }
               }}
             />

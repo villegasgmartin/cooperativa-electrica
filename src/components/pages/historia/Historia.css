@@ -171,6 +171,9 @@
         width: 21.875rem;
         height: 21.875rem;
     }
+    .historia{
+        background: linear-gradient(30deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(243,245,247,1) 70%, rgba(48,230,145,1) 100%);
+    }
     .historia-accordion-container{
         max-width: 90%;
     }
@@ -223,6 +226,7 @@
     }
     .historia-title{
         font-size: 2.1875rem;
+        color: var(--darkviolet);
     }
     .valores-container{
         padding-top: 3rem;

@@ -7,6 +7,7 @@ import { Fade } from "react-awesome-reveal";
 import Image01 from "../../../assets/images/principios/principios-01.jpg"
 import Image02 from "../../../assets/images/principios/principios-02.jpg"
 import Image03 from "../../../assets/images/principios/principios-03.jpg"
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Principios = () => {
@@ -19,6 +20,9 @@ const Principios = () => {
 
   return (
     <section className='principios-main-container'>
+      <Helmet>
+        <title>Principios Cooperativos</title>
+      </Helmet>
       <Fade  triggerOnce={true} duration={800} delay={300}>
         <p className='principios-intro'>Los principios cooperativos son las <strong>directrices</strong> mediante las que las cooperativas ponen en práctica sus <strong>valores</strong>.</p>
       </Fade>

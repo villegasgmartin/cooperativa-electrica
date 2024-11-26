@@ -5,19 +5,25 @@ import "../footer/Footer.css"
 
 //JSX:
 const Footer = () => {
+
+    const currentYear = new Date().getFullYear();
+
     return (
         <footer className="footer-container">
             <div className="footer-logo-container">
                 <img className="footer-logo" src={FooterLogo} alt="" />
             </div>
-            <div className="footer-links-container">
-                <div className="footer-border"></div>
-                <Link className="footer-links" to="/">Home</Link>
-                <Link className="footer-links" to="/nave">Servicios</Link>
-                <Link className="footer-links" to="/blog">Blog</Link>
-                <Link className="footer-links" to="/servicio-electrico">Servicio Eléctrico</Link>
-                <Link className="footer-links" to="/contacto">Contacto</Link>
-                <div className="footer-border"></div>
+            <div className="footer-copy-links">
+                <div className="footer-links-container">
+                    <div className="footer-border"></div>
+                    <Link className="footer-links" to="/">Home</Link>
+                    <Link className="footer-links" to="/nave">Servicios</Link>
+                    <Link className="footer-links" to="/blog">Blog</Link>
+                    <Link className="footer-links" to="/servicio-electrico">Servicio Eléctrico</Link>
+                    <Link className="footer-links" to="/contacto">Contacto</Link>
+                    <div className="footer-border"></div>
+                </div>
+                <p className="copyright">Copyright (c)<span>{currentYear}</span> Desarrollado por <a className="copyright-link" href="https://duwohdevelopers.com/" target="_blank">Duwoh Developers</a></p>
             </div>
             <div className="footer-info-container">
                 <div>
@@ -43,6 +49,7 @@ const Footer = () => {
                     <a href="tel:2235351358" style={{textDecoration: "none"}}><p className="footer-info">223 535-1358</p></a>
                 </div>
             </div>
+            <p className="copyright copy-movile">Copyright (c)<span>{currentYear}</span> Desarrollado por <a className="copyright-link" href="https://duwohdevelopers.com/" target="_blank">Duwoh Developers</a></p>
         </footer>
     )
 }

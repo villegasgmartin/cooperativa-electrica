@@ -8,6 +8,7 @@ import LabImage02 from "../../../assets/images/laboratorio/laboratorio02.jpg"
 import LabImage03 from "../../../assets/images/laboratorio/laboratorio03.jpg"
 import LabImage04 from "../../../assets/images/laboratorio/laboratorio04.jpg"
 import { Fade } from 'react-awesome-reveal';
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Laboratorio = () => {
@@ -20,6 +21,9 @@ const Laboratorio = () => {
 
   return (
     <section className='laboratorio-main-container'>
+      <Helmet>
+        <title>Laboratorio de medidores</title>
+      </Helmet>
       <div className='laboratorio-info-container laboratorio-containerPadding' id='laboratorio-container-direction'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='laboratorio-image-container'><img src={LabImage01} alt="imágen de laboratorio de medidores" className='laboratorio-image'/></div>

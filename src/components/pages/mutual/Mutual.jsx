@@ -1,3 +1,4 @@
+//Importaciones:
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { enviarFormularioMutual } from '../../../store/mutualSlice';
@@ -10,7 +11,9 @@ import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoMutual from "../../../assets/images/logos/logo-mutual.png"
+import {Helmet} from "react-helmet"
 
+//JSX:
 const Mutual = () => {
   const dispatch = useDispatch();
   const { loading, success, error } = useSelector((state) => state.mutual);
@@ -74,6 +77,9 @@ const Mutual = () => {
 
   return (
     <>
+    <Helmet>
+      <title>AMI Mutual</title>
+    </Helmet>
     <header className="header-mutual-container">
           <div className="header-contactos-container">
               <div className="header-contactos">

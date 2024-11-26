@@ -198,12 +198,12 @@ gap: 1.25rem;
 
 @media(max-width:409px){
     .homePortada-title{
-        font-size: 1.5625rem;
+        font-size: 1.875rem;
     }
     .homePortada-title02{
-        font-size: 16px;
+        font-size: 20px;
     }
     .homePortada-description{
-        font-size: .9375rem;
+        font-size: 16px;
     }
 }

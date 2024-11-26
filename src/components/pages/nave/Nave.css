@@ -197,12 +197,30 @@
 
 @media(max-width:700px){
     .nave-main-container{
-        padding-top: 4rem;
+        padding-top: 0;
         padding-bottom: 4rem;
+    }
+    .header-nave{
+        padding-bottom: 1.5625rem
+    }
+    .header-nave-logo{
+        min-width: unset;
+        width: 8.125rem;
+    }
+    .header-nave-title{
+        font-size: 2.5rem;
     }
     .header-nave-text{
         width: 90%;
         font-size: 1.375rem;
+    }
+    .nave-buttons-container {
+        position: static;
+        display: flex;
+        justify-content: center;
+        transform: none;
+        margin-bottom: 2.5rem;
+        padding-top: .9375rem;
     }
     .nave-button-01{
         font-size: 20px;
@@ -218,15 +236,15 @@
     }
 }
 
-@media(max-width:500px){
+@media(max-width:550px){
     .header-nave-logo{
-        min-width: 9.375rem;
+        width: 7.5rem;
     }
     .header-nave-title{
         font-size: 1.875rem;
     }
-    .nave-buttons-container{
-        top: 60%;
+    .header-nave-text{
+        font-size: 1.25rem;
     }
     .nave-button-01{
         font-size: 18px;
@@ -239,17 +257,5 @@
     .nave-button-03{
         font-size: 18px;
         width: 6.25rem;
-    }
-}
-
-@media(max-width:418px){
-    .nave-buttons-container{
-        top: 63%;
-    }
-}
-
-@media(max-width:346px){
-    .nave-buttons-container{
-        top: 65%;
     }
 }

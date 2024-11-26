@@ -5,6 +5,7 @@ import { setTitle } from '../../../store/titleSlice';
 import "../blog/Blog.css"
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
+import {Helmet} from "react-helmet"
 
 /*---------Imágenes del Blog: para cambiarlas, colocar las nuevas imágenes en la carpeta "blog", dentro de "images" y luego modificar
 solo la parte final de las rutas que estan a continuacion por el nombre de las nuevas imágenes--------- */
@@ -24,6 +25,9 @@ const Blog = () => {
 
   return (
     <section className='blog-main-container'>
+      <Helmet>
+        <title>Blog</title>
+      </Helmet>
       <Fade triggerOnce={true} duration={800} delay={300} direction='left'><h2 className='blog-intro'>Bienvenidos al blog de nuestra cooperativa, un espacio donde compartimos información relevante sobre nuestros servicios de electricidad e internet, novedades tecnológicas, consejos para el uso eficiente de la energía, y mucho más.</h2></Fade>
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>

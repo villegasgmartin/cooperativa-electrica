@@ -8,6 +8,7 @@ import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import "../consejo/Consejo.css"
 import { Fade } from 'react-awesome-reveal';
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Consejo = () => {
@@ -20,6 +21,9 @@ const Consejo = () => {
 
   return (
     <section className='consejo-container'>
+      <Helmet>
+        <title>Consejo de Administración</title>
+      </Helmet>
       <Fade triggerOnce={true} duration={1000} delay={300} direction='left'>
         <div className='consejo-text-container'>
           <h2 className='consejo-title'>Órgano de Conducción</h2>

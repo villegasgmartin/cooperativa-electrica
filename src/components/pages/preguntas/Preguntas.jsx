@@ -9,6 +9,7 @@ import AccordionSummary from '@mui/joy/AccordionSummary';
 import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
 import "../preguntas/Preguntas.css"
 import { Fade } from 'react-awesome-reveal';
+import {Helmet} from "react-helmet"
 
 //JSX:
 const Preguntas = () => {
@@ -21,6 +22,9 @@ const Preguntas = () => {
 
     return (
         <section className='preguntas-main-container'>
+            <Helmet>
+                <title>Preguntas Frecuentes</title>
+            </Helmet>
             <div className='preguntas-accordion-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <AccordionGroup variant='soft' size='lg'>
