@@ -31,6 +31,7 @@ background: linear-gradient(159deg, rgba(61,17,109,1) 0%, rgba(217,220,221,1) 40
     background-color: var(--darkviolet);
     border-radius: 3.125rem;
     margin-top: 4rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Título de mensaje*/

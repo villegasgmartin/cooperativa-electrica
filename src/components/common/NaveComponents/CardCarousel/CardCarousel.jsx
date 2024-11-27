@@ -11,6 +11,9 @@ import "../CardCarousel/CardCarousel.css";
 
 //JSX:
 const CardCarousel = ({ servicios}) => {
+
+    const duplicatedServicios = [...servicios, ...servicios];
+
     return (
         <Swiper
         modules={[Navigation, Pagination, Autoplay]}
@@ -31,11 +34,16 @@ const CardCarousel = ({ servicios}) => {
             1101: { slidesPerView: 3 },
         }}
         >
-        {servicios.map((servicio, index) => (
-            <SwiperSlide key={index}>
-            <Card servicio={servicio.servicio} precio={servicio.precio} />
-            </SwiperSlide>
-        ))}
+            {duplicatedServicios.map((servicio, index) => (
+                <SwiperSlide key={index}>
+                    <Card 
+                        servicio={servicio.servicio} 
+                        precio={servicio.precio} 
+                        precioLista={servicio.precioLista} 
+                        descuento={servicio.descuento} 
+                    />
+                </SwiperSlide>
+            ))}
         </Swiper>
     );
 };
