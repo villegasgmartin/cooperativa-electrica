@@ -224,14 +224,16 @@ const Form = () => {
                         <Button
                         sx={{
                             width: "100%",
-                            height: "70px",
-                            backgroundColor: "#2eed8d",
-                            fontFamily: "archivo",
-                            textTransform: "none",
-                            fontSize: "30px",
+                            fontFamily: "interTight",
+                            fontSize: "25px",
+                            fontWeight: "bold",
+                            letterSpacing: "1px",
                             borderRadius: "50px",
-                            color: "black",
-                            boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)"
+                            boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                            textTransform: "none",
+                            color:"#161616",
+                            backgroundColor: "#30e691",
+                            marginBottom: "20px"
                         }}
                         variant="contained"
                         size="large"

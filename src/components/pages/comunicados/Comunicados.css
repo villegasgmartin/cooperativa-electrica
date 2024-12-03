@@ -117,6 +117,7 @@ background: linear-gradient(95deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%
     padding: 1.875rem;
     background-color: var(--darkgreen);
     border-radius: 2.5rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Titulo de la info*/

@@ -20,7 +20,6 @@
 /*Contenedor principal*/
 .pagos-main-container{
     overflow: hidden;
-    margin-bottom: 5rem;
     margin-top: 5rem;
 }
 
@@ -125,6 +124,8 @@
     width: 600px;
     height: 20.625rem;
     gap: 1.875rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
+    margin-bottom: 5rem;
 }
 
 /*Fondo para el sefundo contenedor*/
@@ -207,6 +208,7 @@
         align-items: center;
         justify-content: center;
         gap: 1.875rem;
+        margin-bottom: 5rem;
     }
     .pagos-usuarios{
         width: 90%;
@@ -228,10 +230,6 @@
     .pagos-logos-container{
         padding-bottom: 1.875rem;
         gap: 15px;
-    }
-    .pagos-main-container{
-        margin-bottom: 4rem;
-        margin-top: 4rem;
     }
     .pagos-logos{
         width: 125px;
@@ -261,6 +259,7 @@
     .pagos-usuarios-container{
         gap: 1.25rem;
         margin-top: 1.875rem;
+        margin-bottom: 4rem;
     }
 }
 

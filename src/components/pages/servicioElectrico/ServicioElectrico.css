@@ -129,6 +129,7 @@
     padding: 1.875rem;
     margin-bottom: 2.5rem;
     letter-spacing: .0625rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Titulo de informacion*/
@@ -364,7 +365,6 @@ to {
     .servicio-usuarios-description{
         width: 80%;
         margin: auto;
-        text-align: justify;
     }
     .servicio-image-container{
         width: 28.125rem;
@@ -454,8 +454,8 @@ to {
     }
     .servicio-usuarios-title{
         margin-left: 0;
-        text-align: center;
-        margin-left: 10px;
+        text-align: left;
+        margin-left: 20px;
         margin-right: 10px;
     }
     .servicio-image-container{
@@ -470,8 +470,9 @@ to {
         width: 90%;
     }
     .servicio-info-title2{
-        font-size: 1.5625rem;
+        font-size: 30px;
         margin-bottom: .625rem;
+        line-height: 35px;
     }
     .servicio-info-description{
         margin-bottom: .9375rem;
