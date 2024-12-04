@@ -3,7 +3,6 @@ import { styled } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'; // Asegúrate de importar el ícono
 
-
 //JSX:
 const StyledFab = styled(Fab)(({ theme }) => ({
     position: 'fixed',
@@ -13,9 +12,9 @@ const StyledFab = styled(Fab)(({ theme }) => ({
     height: 60,
     backgroundColor: '#12824c',
     color: 'white',
-        '&:hover': {
-            backgroundColor: '#2eed8d',
-        },
+    '&:hover': {
+        backgroundColor: '#2eed8d',
+    },
     '@media (max-width: 760px)': {
         right: 16,
     },
@@ -24,12 +23,15 @@ const StyledFab = styled(Fab)(({ theme }) => ({
 // Componente funcional del botón
 const BotonWhatsapp = () => {
     const handleClick = () => {
-        window.open('https://wa.me/2235376973', '_blank');
+        const phoneNumber = '2235376973';
+        const message = encodeURIComponent('Hola! Quería averiguar sobre NAVE INTERNET');
+        const url = `https://wa.me/${phoneNumber}?text=${message}`;
+        window.open(url, '_blank');
     };
 
     return (
         <StyledFab aria-label="whatsapp" onClick={handleClick}>
-        <WhatsAppIcon />
+            <WhatsAppIcon />
         </StyledFab>
     );
 };
