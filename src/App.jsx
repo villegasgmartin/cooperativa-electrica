@@ -24,6 +24,7 @@ import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
 import Home from "./components/pages/home/Home.jsx"
+import BotonWhatsapp from "./components/common/BotonWhatsapp/BotonWhatsapp.jsx"
 
 //JSX:
 function App() {
@@ -58,6 +59,7 @@ function App() {
         <Route path="/nave" element={<Nave />} />
         <Route path="/formulario" element={<Form />} />
       </Routes>
+      <BotonWhatsapp/>
       <BotonScroll />
     </BrowserRouter>
   );

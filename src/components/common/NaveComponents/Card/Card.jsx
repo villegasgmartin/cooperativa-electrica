@@ -4,7 +4,7 @@ import "../Card/Card.css";
 import { Link } from "react-router-dom";
 
 //JSX:
-const Card = ({servicio, precio, precioLista, descuento}) => {
+const Card = ({servicio, precio, /*precioLista,*/ descuento}) => {
 
     const [mainText, ...subTextArray] = servicio.split(' ');
     const subText = subTextArray.join(' ');
@@ -18,7 +18,7 @@ const Card = ({servicio, precio, precioLista, descuento}) => {
                 </p>
             </div>
             <div className="card-info-container">
-                <p className="card-precio-promo">Precio de lista <span className="tachado">{precioLista}</span></p>
+                {/* <p className="card-precio-promo">Precio de lista <span className="tachado">{precioLista}</span></p>*/}
                 <div>
                     <p className="card-precio">{precio}</p>
                     <p className="card-precio-text">final por mes*</p>

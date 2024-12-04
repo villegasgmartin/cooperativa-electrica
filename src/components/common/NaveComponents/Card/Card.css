@@ -69,9 +69,10 @@
 .card-precio{
     color: var(--darkviolet);
     font-family: "archivo-black";
-    font-size: 3.75rem;
+    font-size: 4.0625rem;
     letter-spacing: .125rem;
     line-height: 1;
+    margin-top: 15px;
 }
 
 /*Texto del precio*/
@@ -116,7 +117,7 @@
         font-size: 1.25rem;
     }
     .card-precio{
-        font-size: 3.4375rem;
+        font-size: 60px;
     }
     .card-button-container{
         width: 11.875rem;
