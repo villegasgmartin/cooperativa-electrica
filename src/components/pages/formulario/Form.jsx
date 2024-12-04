@@ -198,7 +198,6 @@ const Form = () => {
                         onChange={handleInternetChange}
                         sx={{ backgroundColor: "#edeaff",borderRadius:"25px",}}
                         >
-                        <MenuItem value="50 megas">50 megas</MenuItem>
                         <MenuItem value="100 megas">100 megas</MenuItem>
                         <MenuItem value="300 megas">300 megas</MenuItem>
                         <MenuItem value="500 megas">500 megas</MenuItem>
