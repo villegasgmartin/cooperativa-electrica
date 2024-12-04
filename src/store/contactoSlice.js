@@ -11,7 +11,6 @@ export const enviarFormulario = createAsyncThunk(
         nombre: formData.nombre,
         correo: formData.correo,
         mensaje: formData.mensaje,
-        destino: 'aurelianopuente@hotmail.com'
         });
         return response.data;
     } catch (error) {
