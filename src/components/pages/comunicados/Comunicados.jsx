@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../comunicados/Comunicados.css"
-import image01 from "../../../assets/images/comunicados/comunicados01.jpeg"
+import image01 from "../../../assets/images/comunicados/comunicados01.jpg"
 import image02 from "../../../assets/images/comunicados/comunicados02.jpeg"
-import image03 from "../../../assets/images/comunicados/comunicados03.jpeg"
-import image04 from "../../../assets/images/comunicados/comunicados04.jpeg"
+import image03 from "../../../assets/images/comunicados/comunicados03.jpg"
+import image04 from "../../../assets/images/comunicados/comunicados04.jpg"
 import { Fade } from "react-awesome-reveal";
 import {Helmet} from "react-helmet"
 
@@ -35,7 +35,7 @@ const Comunicados = () => {
       </div>
       <div className='comunicado-container' id='dark-background'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
-          <div className='comunicados-image-container'><img src={image03} className='comunicados-image' alt="foto del comunicado" /></div>
+          <div className='comunicados-image-container'><img src={image02} className='comunicados-image' alt="foto del comunicado" /></div>
           <div className='comunicados-text-containter'>
             <h2 className='comunicados-title' id='light-font'>Encuentro de cierre de año en el <span className='color-title02'>Espacio 75 – ClubTri</span> .</h2>
             <ul>
@@ -53,7 +53,7 @@ const Comunicados = () => {
             <h2 className='comunicados-title'>El 6 de diciembre estuvimos en Azul participando de la 45° ASAMBLEA GENERAL ORDINARIA de <span className='color-title01'>FEDECOBA</span></h2>
             <p className='comunicados-description'>En esta oportunidad, se celebró el 45° ANIVERSARIO de la entidad federativa y se inauguró el CENTRO INTEGRAL COOPERATIVO (CIC)</p>
           </div>
-          <div className='comunicados-image-container'><img src={image02} className='comunicados-image' alt="foto del comunicado" /></div>
+          <div className='comunicados-image-container'><img src={image03} className='comunicados-image' alt="foto del comunicado" /></div>
         </Fade>
       </div>
       <div className='comunicado-container' id='dark-background'>

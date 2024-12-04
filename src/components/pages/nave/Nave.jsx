@@ -22,11 +22,11 @@ const Nave = () => {
   }, [dispatch]);
 
   const serviciosNave = [
-    { servicio: "INTERNET 100 MB", precio: "$11.113", precioLista: "$18.1333", descuento: "$7.020 OFF por 12 meses", categoria: "internet" },
-    { servicio: "INTERNET 300 MB", precio: "$12.222", precioLista: "$21.381", descuento: "$9.159 OFF por 12 meses", categoria: "internet" },
-    { servicio: "INTERNET 500 MB", precio: "$15.405", precioLista: "$26.795", descuento: "$11.390 OFF por 12 meses", categoria: "internet" },
-    { servicio: "FULL TV", precio: "9.313", precioLista: "hola", descuento: "100% Entretenimiento", categoria: "tv" },
-    { servicio: "FUTBOL PREMIUM", precio: "$9.549", precioLista: "hola2", descuento: "Experiencia Premium", categoria: "tv" },
+    { servicio: "INTERNET 100 MB", precio: "$11.113",/* precioLista: "$18.1333",*/ descuento: "$7.020 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 300 MB", precio: "$12.222", /*precioLista: "$21.381",*/ descuento: "$9.159 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 500 MB", precio: "$15.405", /*precioLista: "$26.795",*/ descuento: "$11.390 OFF por 12 meses", categoria: "internet" },
+    { servicio: "FULL TV", precio: "9.313", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv" },
+    { servicio: "FUTBOL PREMIUM", precio: "$9.549", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv" },
   ];
 
   const [serviciosFiltrados, setServiciosFiltrados] = useState(serviciosNave);
