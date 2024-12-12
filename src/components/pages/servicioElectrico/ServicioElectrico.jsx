@@ -135,7 +135,7 @@ const ServicioElectrico = () => {
                 marginBottom: "20px"
               }} 
                 variant='contained' 
-                size='large'>Tarifario Área Atlántica
+                size='large'>Tarifas Área Atlántica
             </Button>
           </a>
         </div>
