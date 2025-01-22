@@ -38,7 +38,7 @@ const Consejo = () => {
             <AccordionDetails>
               <ul>
                 <li className='consejo-accordion-content'><strong>Presidente:</strong> Ing. Juan Carlos Dentis</li>
-                <li className='consejo-accordion-content'><strong>Vicepresidente 1°</strong> Francisco Corazza</li>
+                <li className='consejo-accordion-content'><strong>Vicepresidente 1°</strong> Gustavo Casciotti</li>
                 <li className='consejo-accordion-content'><strong>Vicepresidente 2°:</strong> Jorge R. Levin</li>
                 <li className='consejo-accordion-content'><strong>Secretaria:</strong> Sra. Elsa Miori</li>
                 <li className='consejo-accordion-content'><strong>Prosecretario:</strong> Paulo G. Ares</li>
@@ -68,6 +68,7 @@ const Consejo = () => {
                         <li className='consejo-accordion-content'>Liliana D'Elia</li>
                         <li className='consejo-accordion-content'>Horacio Gonzales</li>
                         <li className='consejo-accordion-content'>Pablo F Stefani Frontini</li>
+                        <li className='consejo-accordion-content'>Ernesto Argüeso</li>
                       </ul>
                     </AccordionDetails>
                 </Accordion>
