@@ -204,31 +204,28 @@ const Form = () => {
                         </Select>
                     </FormControl>
                     <FormControl fullWidth>
-                    <InputLabel id="tv-plan-label">Plan que solicita de TV</InputLabel>
-                    <Select
+                        <InputLabel id="tv-plan-label">Plan que solicita de TV</InputLabel>
+                        <Select
                         labelId="tv-plan-label"
                         id="tv-plan-select"
                         value={tvPlan}
                         label="Plan que solicita de TV"
                         onChange={handleTvChange}
-                        sx={{ backgroundColor: "#edeaff", borderRadius: "25px" }}
-                        disabled={internetPlan === ''} // Opcional: deshabilitar si no hay plan de internet seleccionado
-                    >
-                        {internetPlan === "Ninguna" || internetPlan === '' ? (
-                            <>
-                                <MenuItem value="Full TV">Full TV</MenuItem>
-                                {/* <MenuItem value="Fútbol Premium">Fútbol Premium</MenuItem> */}
-                                <MenuItem value="Ninguna">Ninguna</MenuItem>
-                            </>
-                        ) : (
-                            <>
-                                <MenuItem value="Park TV adicional $5999">Park TV adicional $5999</MenuItem>
-                                <MenuItem value="Ninguna">Ninguna</MenuItem>
-                            </>
-                        )}
-                    </Select>
-                </FormControl>
+                        sx={{backgroundColor: "#edeaff",borderRadius:"25px",}}
+                        >
+                            {internetPlan !== "Ninguna"
+                                ? [
+                                    <MenuItem key="park-tv" value="Park Tv adicional $5999">Park Tv adicional $5999</MenuItem>,
+                                    <MenuItem key="ninguna" value="Ninguna">Ninguna</MenuItem>,
+                                ]
+                                : [
+                                    <MenuItem key="full-tv" value="TV full + pack fútbol + Max gratis"> TV full + pack fútbol + Max gratis</MenuItem>,
+                                    <MenuItem key="ninguna" value="Ninguna">Ninguna</MenuItem>,
+                                ]}
 
+                        
+                        </Select>
+                    </FormControl>
                     <div className='form-button-container'>
                         <Button
                         sx={{

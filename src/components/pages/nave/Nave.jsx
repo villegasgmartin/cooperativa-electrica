@@ -27,13 +27,22 @@ const Nave = () => {
     { servicio: "INTERNET 100 MB", precio: "$11.113",/* precioLista: "$18.1333",*/ descuento: "$7.020 OFF por 12 meses", categoria: "internet" },
     { servicio: "INTERNET 300 MB", precio: "$12.222", /*precioLista: "$21.381",*/ descuento: "$9.159 OFF por 12 meses", categoria: "internet" },
     { servicio: "INTERNET 500 MB", precio: "$15.405", /*precioLista: "$26.795",*/ descuento: "$11.390 OFF por 12 meses", categoria: "internet" },
-    { servicio: "PACK TV", precio: "9.999", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv", descripcion:(
+    { servicio: "PACK TV", precio: "9.999", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv", descripcion: (
       <>
-        Tv Full + Futbol + Max 
-        <br />
-        <img src={logoMax} alt="Logo Max" style={{ width: '70px', margin: 'auto', display:'block', paddingTop:'15px' }} />
+        Tv Full + Futbol + 
+        <img 
+          src={logoMax} 
+          alt="Logo Max" 
+          style={{ 
+            width: '40px', 
+            verticalAlign: 'middle', 
+            marginLeft: '5px' 
+          }} 
+        />
+        GRATIS
       </>
-    ) 
+    )
+     
   },
     { servicio: "PACK TV Nave", precio: "$5.999", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por Tener Internet Nave`},
   ];
