@@ -28,20 +28,31 @@ const Mutual = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
 
-    Swal.fire({
-      title: 'Enviando...',
-      text: 'Tu consulta está siendo enviada.',
-      showConfirmButton: false,
-      didOpen: () => {
-        Swal.showLoading();
-      }
-    });
+  //   Swal.fire({
+  //     title: 'Enviando...',
+  //     text: 'Tu consulta está siendo enviada.',
+  //     showConfirmButton: false,
+  //     didOpen: () => {
+  //       Swal.showLoading();
+  //     }
+  //   });
 
-    dispatch(enviarFormularioMutual(formData));
-  };
+  //   dispatch(enviarFormularioMutual(formData));
+  // };
+
+  const handleSubmit = (event) => {
+    
+    event.preventDefault();
+    
+    let message = `Hola, mi nombre es ${formData.nombre}\n Mi correo es: ${formData.correo}\n  y quisiera consultar por ${formData.mensaje}`;
+    const phoneNumber = "2235941363";
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
+};
 
   useEffect(() => {
     if (success) {
@@ -104,10 +115,9 @@ const Mutual = () => {
       </header>
       <section className='mutual-main-container'>
         <Fade triggerOnce={true} duration={900} delay={300}>
-          <p className='mutual-text'>
-          Si <strong>sos asociado y no tenes deuda en la facturación</strong> de electricidad, 
-          completa el formulario y <strong>consultá sobre tu carnet con beneficios</strong>.
-          </p>
+          {/* <p className='mutual-text'>
+          Hace tu consulta sobre los beneficios de AMI
+          </p> */}
         </Fade>
         <div className='mutual-container'>
           <Fade triggerOnce={true} duration={800} delay={300}>
@@ -116,7 +126,7 @@ const Mutual = () => {
               <p className='mutual-text02'>para tu<span className='mutual-text03'>familia</span></p>
             </div>
             <form className='mutual-form-container' onSubmit={handleSubmit}>
-              <p className='mutual-form'>Completa el formulario</p>
+              <p className='mutual-form'>Hace tu consulta sobre los beneficios de AMI</p>
               <TextField
                 label="Nombre y Apellido"
                 variant="outlined"
