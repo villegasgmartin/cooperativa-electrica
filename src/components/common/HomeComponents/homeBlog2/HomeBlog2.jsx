@@ -24,35 +24,35 @@ const HomeBlog2 = () => {
       <div className='homeBlog-noticiasContainer'>
           <Fade cascade={true} duration={800} triggerOnce={true}>
             <div className='homeBlog-noticia noticia-01'>
-              <Link to={"/blog"}>
+              <Link to={"/como-ahorrar-energia"}>
                 <div className='homeBlog-img-container'>
                   <img className='homeBlog-img' 
                       src={ImageA} 
                       alt="blog noticia" />
                 </div>
               </Link>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Cómo Ahorrar Energía</h3></Link>
             </div>
             <div className='homeBlog-noticia noticia-02'>
               <div className='homeBlog-img-container'>
-                <Link to={"/blog"}>
+                <Link to={"/energias-renovables"}>
                   <img className='homeBlog-img'
                       src={ImageB} 
                       alt="blog noticia"
                       />
                 </Link>
               </div>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Energías Renovables </h3></Link>
             </div>
             <div className='homeBlog-noticia noticia-03'>
               <div className='homeBlog-img-container'>
-                <Link to={"/blog"}>
+                <Link to={"/las-claves-de-la-velocidad-de-internet"}>
                   <img className='homeBlog-img'
                       src={ImageC} 
                       alt="blog noticia" />
                 </Link>
               </div>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Título</h3></Link>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Velocidad de Internet</h3></Link>
             </div>
           </Fade>
         </div>
