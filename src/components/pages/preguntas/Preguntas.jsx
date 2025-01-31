@@ -10,6 +10,7 @@ import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
 import "../preguntas/Preguntas.css"
 import { Fade } from 'react-awesome-reveal';
 import {Helmet} from "react-helmet"
+import { Link } from 'react-router-dom';
 
 //JSX:
 const Preguntas = () => {
@@ -95,6 +96,85 @@ const Preguntas = () => {
                         <Accordion>
                             <AccordionSummary><p><span>17- </span>PRESENTACIÓN DE RECLAMOS POR ARTEFACTOS DAÑADOS</p></AccordionSummary>
                             <AccordionDetails><p>El plazo para la presentación de reclamos ante la prestadora del Servicio Público de Electricidad por daños producidos a artefactos o instalaciones derivadas de fallas en la calidad del suministro, será de tres (3) días hábiles, contados a partir de la fecha en que se produjo el hecho que ocasionó el daño. Sólo serán atendidos si obran en nuestros archivos planos de la instalación eléctrica de su domicilio firmado por personal habilitado, donde las protecciones estén de acuerdo con las exigidas por la Ley Marco Regulatorio. Puede consultar las bases de dicho marco en <a href="https://oceba.gba.gov.ar/nueva_web/#" className='preguntas-accordion-link' target='_blank'>https://oceba.gba.gov.ar/nueva_web/#</a></p></AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary><p><span>18- </span>¿CUÁLES SON LOS REQUISITOS PARA DAR DE ALTA UN SUMINISTRO?</p></AccordionSummary>
+                            <AccordionDetails><p>El suministro puede ser solicitado por personas humanas o jurídicas, agrupaciones de colaboración y uniones transitorias de empresas, que acrediten la posesión o tenencia legal del inmueble o instalación para el cual se solicita el suministro y mientras dure su derecho de uso.</p>
+                            <p>Para conectar el servicio en tu hogar o comercio, necesitas tener la siguiente información y documentación:</p>
+                            <ul className='FormasPago-accordion-content'>
+                                <li>DNI y para sociedades estatuto o contrato social y poder correspondiente.</li>
+                                <li>Documento que avale la tenencia o posesión del inmueble (ESCRITURA / CONTRATO DE ALQUILER  / BOLETO COMPRA VENTA SELLADO).</li>
+                                <li>Censo de cargas realizado por un matriculado en caso que necesites conectar un suministro trifásico.</li>
+                            </ul>
+                                <Accordion>
+                                    <AccordionSummary><p>Para suministros comerciales</p></AccordionSummary>
+                                    <AccordionDetails>
+                                        <ul className='FormasPago-accordion-content'>
+                                            <li>Habilitación Municipal o constancia de iniciación de trámite de habilitación.</li>
+                                            <li>Constancia de CUIT e Inscripción de Ingresos Brutos (en su caso, documentación que acredite exenciones impositivas).</li>
+                                            <li>Permiso Municipal o constancia de trámite de permiso (comercial, eventos y ferias).</li>
+                                            <li>Para solicitar un suministro eléctrico para eventos y ferias en vía pública sacar un turno a través de <a href="https://oficinavirtual-coopmdp.micoop.com.ar/v2/login" target='_blank' className='FormasPago-accordion-link'>Oficina Virtual</a> con 7/ 10 días hábiles de anticipación a la realización del evento. Es necesario que al momento de la atención, tengas disponible la siguiente información y documentación:
+                                            </li>
+                                        </ul>
+                                        <ol className='FormasPago-accordion-content'>
+                                            <li>Fecha de inicio y finalización del evento.</li>
+                                            <li>Horas diarias de utilización del servicio.</li>
+                                            <li>Tipo de conexión (monofásica o trifásica, acompañar censo de carga con la descripción de los artefactos a alimentar y potencia simultánea (kW) estimada a consumir).</li>
+                                        </ol>
+                                    </AccordionDetails>
+                                </Accordion>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary><p><span>19- </span>¿CUÁLES SON LOS REQUISITOS PARA REALIZAR UN CAMBIO DE TITULARIDAD?</p></AccordionSummary>
+                            <AccordionDetails>
+                                <p>Si queres realizar el cambio de titularidad del servicio, necesitas tener la siguiente información y documentación:</p>
+                                <ul className='FormasPago-accordion-content'>
+                                    <li>Número de cuenta del suministro.</li>
+                                    <li>DNI y para sociedades estatuto o contrato social y poder correspondiente.</li>
+                                    <li>Documento que avale la tenencia o posesión del inmueble. (ESCRITURA / CONTRATO DE ALQUILER  / BOLETO COMPRA VENTA SELLADO).</li>
+                                    <li>Censo de cargas realizado por un matriculado en caso que necesites conectar un suministro trifásico.</li>
+                                </ul>
+                                <Accordion>
+                                    <AccordionSummary><p>Para suministros comerciales</p></AccordionSummary>
+                                    <AccordionDetails>
+                                        <ul className='FormasPago-accordion-content'>
+                                            <li>Habilitación Municipal o constancia de iniciación de trámite de habilitación.</li>
+                                            <li>Constancia de CUIT e Inscripción de Ingresos Brutos (en su caso, documentación que acredite exenciones impositivas).</li>
+                                        </ul>
+                                        <p>Si el suministro no tiene medidor colocado, deberás realizar el trámite de <Link  className='FormasPago-accordion-link'>Conexión de servicio</Link></p>
+                                    </AccordionDetails>
+                                </Accordion>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary><p><span>20- </span>¿CUÁLES SON LOS REQUISITOS PARA REALIZAR LA REINSTALACIÓN DEL SUMINISTRO?</p></AccordionSummary>
+                            <AccordionDetails>
+                                <p>Si queres poner la titularidad de un suministro que se encuentra dado de baja, sin medidor instalado, necesitas tener la siguiente información y documentación:</p>
+                                <ul className='FormasPago-accordion-content'>
+                                    <li>Número de cuenta del suministro (se encuentra en la factura).</li>
+                                    <li>DNI y para sociedades estatuto o contrato social y poder correspondiente.</li>
+                                    <li>Documento que avale la tenencia o posesión del inmueble. (ESCRITURA / CONTRATO DE ALQUILER  / BOLETO COMPRA VENTA SELLADO).</li>
+                                    <li>Censo de cargas realizado por un matriculado en caso que necesites conectar un suministro trifásico.</li>
+                                </ul>
+                                <Accordion>
+                                    <AccordionSummary><p>Para suministros comerciales</p></AccordionSummary>
+                                    <AccordionDetails>
+                                        <ul className='FormasPago-accordion-content'>
+                                            <li>Habilitación Municipal o constancia de iniciación de trámite de habilitación.</li>
+                                            <li>Constancia de CUIT e Inscripción de Ingresos Brutos (en su caso, documentación que acredite exenciones impositivas).</li>
+                                        </ul>
+                                    </AccordionDetails>
+                                </Accordion>
+                            </AccordionDetails>
+                        </Accordion>
+                        <Accordion>
+                            <AccordionSummary><p><span>21- </span>¿CUÁLES SON LOS REQUISITOS PARA DAR DE BAJA UN SUMINISTRO?</p></AccordionSummary>
+                            <AccordionDetails><p>Si sos  titular del servicio podés realizar la baja y el retiro del medidor, en cualquier momento de la prestación del servicio. *</p>
+                            <p>No debés tener saldos pendientes de pago, y deberás abonar con la baja del servicio, una factura final con los consumos que realizaste desde tu última lectura a la fecha de la baja.</p>
+                            <p>En caso de haber realizado al inicio de tu servicio el pago del depósito de garantía, el mismo se reintegrará en tu última factura. De existir un crédito a tu favor, te solicitaremos la información necesaria para el reintegro del mismo en el momento de la atención del turno.</p>
+                            <p>* En caso de que el trámite sea gestionado por un tercero, deberá presentar el poder o autorización correspondiente y su DNI.</p>
+                            </AccordionDetails>
                         </Accordion>
                     </AccordionGroup>
                 </Fade>

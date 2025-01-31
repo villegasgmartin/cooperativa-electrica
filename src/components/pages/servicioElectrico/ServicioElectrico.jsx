@@ -17,6 +17,9 @@ import ServicioConexion from '../../common/ServicioComponents/ServicioConexion/S
 import ServicioTitularidad from '../../common/ServicioComponents/ServicioTitularidad/ServicioTitularidad';
 import ServicioReconexion from '../../common/ServicioComponents/ServicioReconexion/ServicioReconexion';
 import ServicioBaja from '../../common/ServicioComponents/ServicioBaja/ServicioBaja';
+import ServicioReclamos from '../../common/ServicioComponents/ServicioReclamos/ServicioReclamos';
+import ServicioFacturas from '../../common/ServicioComponents/ServicioFacturas/ServicioFacturas';
+import ServicioInfo from '../../common/ServicioComponents/ServicioInfo/ServicioInfo';
 
 //JSX:
 const ServicioElectrico = () => {
@@ -74,14 +77,18 @@ const ServicioElectrico = () => {
                 </button>
               </div>
               <div className='servicio-button-container'>
-                <button className='servicio-button' onClick={() => setSelectedButton("contacto")}>
-                  <LaptopChromebookIcon sx={{fontSize: "50px"}}/>
-                  <p className='servicio-button-text'>Canales de contacto</p>
-                </button>
-                <button className='servicio-button' onClick={() => setSelectedButton("pago")}>
-                  <CreditCardIcon sx={{fontSize: "50px"}}/>
-                  <p className='servicio-button-text'>Medios de pago</p>
-                </button>
+                <Link to={"/contacto"}>
+                  <button className='servicio-button'>
+                    <LaptopChromebookIcon sx={{fontSize: "50px"}}/>
+                    <p className='servicio-button-text'>Canales de contacto</p>
+                  </button>
+                </Link>
+                <Link to={"/formas-de-pago"} >
+                  <button className='servicio-button'>
+                    <CreditCardIcon sx={{fontSize: "50px"}}/>
+                    <p className='servicio-button-text'>Medios de pago</p>
+                  </button>
+                </Link>
                 <button className='servicio-button' onClick={() => setSelectedButton("servicio")}>
                   <ControlPointIcon sx={{fontSize: "50px"}}/>
                   <p className='servicio-button-text'>Más sobre tu servicio</p>
@@ -90,13 +97,15 @@ const ServicioElectrico = () => {
             </div>
           ) : (
            // Mostrar el componente correspondiente según el botón seleccionado
-              <div className='info-container'>
+              <div>
                 {selectedButton === 'conexion' && <ServicioConexion />}
                 {selectedButton === 'titularidad' && <ServicioTitularidad />}
                 {selectedButton === 'reconexion' && <ServicioReconexion />}
                 {selectedButton === 'baja' && <ServicioBaja />}
-                {/* Agrega más condiciones aquí para otros botones */}
-              <button className='volver-button' onClick={() => setSelectedButton(null)}>Volver</button>
+                {selectedButton === 'reclamos' && <ServicioReclamos />}
+                {selectedButton === 'factura' && <ServicioFacturas />}
+                {selectedButton === 'servicio' && <ServicioInfo />}
+              <button className='servicio-back-button' onClick={() => setSelectedButton(null)}>Volver</button>
             </div>
           )}
         </div>

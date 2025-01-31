@@ -1,8 +1,9 @@
-// Importaciones necesarias
+// Importaciones:
 import { Link, useLocation } from "react-router-dom";
 import FooterLogo from "../../../../assets/images/logos/logo.png";
 import "../footer/Footer.css";
 
+//JSX:
 const Footer = () => {
     const currentYear = new Date().getFullYear();
     const location = useLocation();
