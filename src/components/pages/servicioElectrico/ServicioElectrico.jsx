@@ -20,6 +20,8 @@ import ServicioBaja from '../../common/ServicioComponents/ServicioBaja/ServicioB
 import ServicioReclamos from '../../common/ServicioComponents/ServicioReclamos/ServicioReclamos';
 import ServicioFacturas from '../../common/ServicioComponents/ServicioFacturas/ServicioFacturas';
 import ServicioInfo from '../../common/ServicioComponents/ServicioInfo/ServicioInfo';
+import ServicioEdificios from '../../common/ServicioComponents/ServicioEdificios/ServicioEdificios';
+import ServicioUsuarios from '../../common/ServicioComponents/ServicioUsuarios/ServicioUsuarios';
 
 //JSX:
 const ServicioElectrico = () => {
@@ -40,6 +42,8 @@ const ServicioElectrico = () => {
             <li><a href="https://oceba.gba.gov.ar/nueva_web/s.php?i=17" target='_blank'>Cuadro Tarifario</a></li>
             <li><a href="https://www.oceba.gba.gov.ar/nueva_web/s.php?i=12" target='_blank'>Reglamento</a></li>
             <li><Link to={"/preguntas-frecuentes"}>Preguntas Frecuentes</Link></li>
+            <li onClick={() => setSelectedButton("edificios")}>Edificios</li>
+            <li onClick={() => setSelectedButton("usuarios")}>Medianos y grandes usuarios</li>
           </ul>
         </div>
 
@@ -105,6 +109,8 @@ const ServicioElectrico = () => {
                 {selectedButton === 'reclamos' && <ServicioReclamos />}
                 {selectedButton === 'factura' && <ServicioFacturas />}
                 {selectedButton === 'servicio' && <ServicioInfo />}
+                {selectedButton === 'edificios' && <ServicioEdificios />}
+                {selectedButton === 'usuarios' && <ServicioUsuarios />}
               <button className='servicio-back-button' onClick={() => setSelectedButton(null)}>Volver</button>
             </div>
           )}

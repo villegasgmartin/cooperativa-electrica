@@ -9,7 +9,6 @@
     padding-bottom: 5rem;
     display: flex;
     justify-content: space-evenly;
-    height: 50rem;
 }
 
 /*Contenedor de botones*/
@@ -36,9 +35,4 @@
 .servicio-button-text{
     font-family: "archivo";
     font-size: 1.125rem
-}
-
-/*Botón para volver*/
-.servicio-back-button{
-    margin-top: 300px;
 }
