@@ -1,6 +1,7 @@
 /*Contenedor principal*/
 .servicio-main-container{
     overflow: hidden;
+    background: linear-gradient(30deg, rgba(61,17,109,1) 0%, rgba(247,245,249,1) 30%, rgba(243,245,247,1) 70%, rgba(48,230,145,1) 100%);
 }
 
 /*Contenedor de lista y botones*/
@@ -8,7 +9,42 @@
     padding-top: 5rem;
     padding-bottom: 5rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+    gap: 350px;
+    margin-right: 6.25rem;
+}
+
+/*Contenedor de enlaces a la izquierda*/
+.servicio-list-container{
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--darkviolet);
+    padding: 20px 30px 20px 30px;
+    border-radius: .625rem;
+    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
+}
+
+/*Enlaces a la izquierda*/
+.servicio-list{
+    text-decoration: none;
+    font-family: "archivo";
+    font-size: 20px;
+    cursor: pointer;
+    color: white;
+    transition: transform 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+/*Hover de los enlaces*/
+.servicio-list:hover {
+    color: var(--lightgreen);
+    transform: scale(0.97);
+}
+
+.servicio-list:active {
+    opacity: 0.8;
+    transform: scale(0.94);
 }
 
 /*Contenedor de botones*/
@@ -24,15 +60,36 @@
 .servicio-button{
     all: unset;
     cursor: pointer;
-    border: 1px inset grey;
+    border: 2px solid black;
+    background-color: var(--lightgreen);
+    color: black;
     border-radius: 25px;
     height: 9.375rem;
     width: 11.875rem;
-    padding-left: .9375rem
+    padding-left: .9375rem;
+    transition: transform 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+/*Hover de botones*/
+.servicio-button:hover {
+    background-color: var(--violet); 
+    color: white; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+    transform: scale(1.05);
+}
+
+.servicio-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 /*Texto de botón*/
 .servicio-button-text{
     font-family: "archivo";
-    font-size: 1.125rem
+    font-size: 1.125rem;
+}
+
+/*Botón para volver*/
+.servicio-back-button{
+    width: 6.25rem;
 }
