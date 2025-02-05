@@ -12,7 +12,7 @@ import LaptopChromebookIcon from '@mui/icons-material/LaptopChromebook';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import { Link } from 'react-router-dom';
-import {Helmet} from "react-helmet"
+import { Helmet } from "react-helmet"
 import "../servicioElectrico/ServicioElectrico.css";
 import ServicioConexion from '../../common/ServicioComponents/ServicioConexion/ServicioConexion'
 import ServicioTitularidad from '../../common/ServicioComponents/ServicioTitularidad/ServicioTitularidad';
@@ -23,13 +23,38 @@ import ServicioFacturas from '../../common/ServicioComponents/ServicioFacturas/S
 import ServicioInfo from '../../common/ServicioComponents/ServicioInfo/ServicioInfo';
 import ServicioEdificios from '../../common/ServicioComponents/ServicioEdificios/ServicioEdificios';
 import ServicioUsuarios from '../../common/ServicioComponents/ServicioUsuarios/ServicioUsuarios';
-import { Button} from '@mui/material';
 import { Fade } from "react-awesome-reveal";
+import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
 //JSX:
 const ServicioElectrico = () => {
   const dispatch = useDispatch();
   const [selectedButton, setSelectedButton] = useState(null);
+
+  const menuItemsInitial = [
+    { name: "Oficina Virtual", link: "https://oficinavirtual-coopmdp.micoop.com.ar/v2/login" },
+    { name: "Cuadro Tarifario", link: "https://oceba.gba.gov.ar/nueva_web/s.php?i=17" },
+    { name: "Reglamento", link: "https://www.oceba.gba.gov.ar/nueva_web/s.php?i=12" },
+    { name: "Preguntas Frecuentes", to: "/preguntas-frecuentes" },
+    { name: "Edificios", onClick: () => setSelectedButton("edificios") },
+    { name: "Medianos y grandes usuarios", onClick: () => setSelectedButton("usuarios") }
+  ];
+
+  const menuItemsExpanded = [
+    { name: "Conexión de servicio", onClick: () => setSelectedButton("conexion") },
+    { name: "Cambio de titularidad", onClick: () => setSelectedButton("titularidad") },
+    { name: "Reconexión", onClick: () => setSelectedButton("reconexion") },
+    { name: "Dar de baja el servicio", onClick: () => setSelectedButton("baja") },
+    { name: "Reclamos", onClick: () => setSelectedButton("reclamos") },
+    { name: "Factura", onClick: () => setSelectedButton("factura") },
+    { name: "Canales de contacto", to: "/contacto" },
+    { name: "Medios de pago", to: "/formas-de-pago" },
+    { name: "Más sobre tu servicio", onClick: () => setSelectedButton("servicio") }
+  ];
 
   useEffect(() => {
     dispatch(setTitle('Servicio Eléctrico'));
@@ -41,110 +66,140 @@ const ServicioElectrico = () => {
         <title>Servicio Eléctrico</title>
       </Helmet>
       <div className='servicio-container'>
-      <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
-        <div>
-          <ul className='servicio-list-container'>
-            <li className='servicio-list'><a href="https://oficinavirtual-coopmdp.micoop.com.ar/v2/login" target='_blank' className='servicio-list'>Oficina Virtual</a></li>
-            <li className='servicio-list'><a href="https://oceba.gba.gov.ar/nueva_web/s.php?i=17" target='_blank' className='servicio-list'>Cuadro Tarifario</a></li>
-            <li className='servicio-list'><a href="https://www.oceba.gba.gov.ar/nueva_web/s.php?i=12" target='_blank' className='servicio-list'>Reglamento</a></li>
-            <li className='servicio-list'><Link to={"/preguntas-frecuentes"} className='servicio-list'>Preguntas Frecuentes</Link></li>
-            <li onClick={() => setSelectedButton("edificios")} className='servicio-list'>Edificios</li>
-            <li onClick={() => setSelectedButton("usuarios")} className='servicio-list'>Medianos y grandes usuarios</li>
-          </ul>
-        </div>
-      </Fade>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left' className='servicio-list-desktop'>
+          <div>
+            <ul className='servicio-list-container'>
+              {/* Mostrar los primeros 6 enlaces */}
+              {menuItemsInitial.map((item, index) => (
+                <li key={index} className='servicio-list'><ArrowRightIcon/>
+                  {item.link ? (
+                    <a href={item.link} target='_blank' className='servicio-list'>{item.name}</a>
+                  ) : item.to ? (
+                    <Link to={item.to} className='servicio-list'>{item.name}</Link>
+                  ) : (
+                    <span onClick={item.onClick} className='servicio-list'>{item.name}</span>
+                  )}
+                </li>
+              ))}
+              {/* Mostrar opciones adicionales si se ha seleccionado un botón */}
+              {selectedButton !== null &&
+                menuItemsExpanded.map((item, index) => (
+                  <li key={index} className='servicio-list'><ArrowRightIcon/>
+                    {item.link ? (
+                      <a href={item.link} target='_blank' className='servicio-list'>{item.name}</a>
+                    ) : item.to ? (
+                      <Link to={item.to} className='servicio-list'>{item.name}</Link>
+                    ) : (
+                      <span onClick={item.onClick} className='servicio-list'>{item.name}</span>
+                    )}
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </Fade>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='left' className='servicio-list-mobile'>
+          <Accordion sx={{borderRadius: "20px !important"}}>
+              <AccordionSummary sx={{backgroundColor: "#3d116d",
+                borderRadius: "20px" 
+              }}  expandIcon={<ExpandMoreIcon sx={{color: "white", fontSize: "35px"}}/>}><span className='servicio-accordion-title'>Menú de trámites</span></AccordionSummary>
+              <AccordionDetails>
+                <div>
+                  <ul className='servicio-list-container'>
+                    {/* Mostrar los primeros 6 enlaces */}
+                    {menuItemsInitial.map((item, index) => (
+                      <li key={index} className='servicio-list'><ArrowRightIcon/>
+                        {item.link ? (
+                          <a href={item.link} target='_blank' className='servicio-list'>{item.name}</a>
+                        ) : item.to ? (
+                          <Link to={item.to} className='servicio-list'>{item.name}</Link>
+                        ) : (
+                          <span onClick={item.onClick} className='servicio-list'>{item.name}</span>
+                        )}
+                      </li>
+                    ))}
+                    {/* Mostrar opciones adicionales si se ha seleccionado un botón */}
+                    {selectedButton !== null &&
+                      menuItemsExpanded.map((item, index) => (
+                        <li key={index} className='servicio-list'><ArrowRightIcon/>
+                          {item.link ? (
+                            <a href={item.link} target='_blank' className='servicio-list'>{item.name}</a>
+                          ) : item.to ? (
+                            <Link to={item.to} className='servicio-list'>{item.name}</Link>
+                          ) : (
+                            <span onClick={item.onClick} className='servicio-list'>{item.name}</span>
+                          )}
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </AccordionDetails>
+          </Accordion>
+        </Fade>
         {/* Contenido dinámico */}
-      <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-        <div className='servicio-content'>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
+          <div className='servicio-content'>
             {selectedButton === null ? (
-              // Mostrar botones si no hay selección
-              <div>
-                <div className='servicio-button-container'>
+              <div className='servicio-button-container'>
+                {/* Mostrar los botones */}
                   <button className='servicio-button' onClick={() => setSelectedButton("conexion")}>
-                    <PowerIcon sx={{fontSize: "50px"}}/>
+                    <PowerIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Conexión de servicio</p>
                   </button>
                   <button className='servicio-button' onClick={() => setSelectedButton("titularidad")}>
-                    <PeopleAltIcon sx={{fontSize: "50px"}}/>
+                    <PeopleAltIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Cambio de titularidad</p>
                   </button>
                   <button className='servicio-button' onClick={() => setSelectedButton("reconexion")}>
-                    <BatteryChargingFullIcon sx={{fontSize: "50px"}}/>
+                    <BatteryChargingFullIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Reconexión</p>
                   </button>
-                </div>
-                <div className='servicio-button-container'>
                   <button className='servicio-button' onClick={() => setSelectedButton("baja")}>
-                    <ArrowCircleDownIcon sx={{fontSize: "50px"}}/>
+                    <ArrowCircleDownIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Dar de baja el servicio</p>
                   </button>
                   <button className='servicio-button' onClick={() => setSelectedButton("reclamos")}>
-                    <SupportAgentIcon sx={{fontSize: "50px"}}/>
+                    <SupportAgentIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Reclamos</p>
                   </button>
                   <button className='servicio-button' onClick={() => setSelectedButton("factura")}>
-                    <ReceiptIcon sx={{fontSize: "50px"}}/>
+                    <ReceiptIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Factura</p>
                   </button>
-                </div>
-                <div className='servicio-button-container'>
                   <Link to={"/contacto"} style={{textDecoration: "none"}}>
                     <button className='servicio-button'>
-                      <LaptopChromebookIcon sx={{fontSize: "50px"}}/>
+                      <LaptopChromebookIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                       <p className='servicio-button-text'>Canales de contacto</p>
                     </button>
                   </Link>
                   <Link to={"/formas-de-pago"} style={{textDecoration: "none"}} >
                     <button className='servicio-button'>
-                      <CreditCardIcon sx={{fontSize: "50px"}}/>
+                      <CreditCardIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                       <p className='servicio-button-text'>Medios de pago</p>
                     </button>
                   </Link>
                   <button className='servicio-button' onClick={() => setSelectedButton("servicio")}>
-                    <ControlPointIcon sx={{fontSize: "50px"}}/>
+                    <ControlPointIcon sx={{fontSize: "50px"}} className='servicio-button-icon'/>
                     <p className='servicio-button-text'>Más sobre tu servicio</p>
                   </button>
-                </div>
               </div>
             ) : (
-            // Mostrar el componente correspondiente según el botón seleccionado
-                <div>
-                  {selectedButton === 'conexion' && <ServicioConexion />}
-                  {selectedButton === 'titularidad' && <ServicioTitularidad />}
-                  {selectedButton === 'reconexion' && <ServicioReconexion />}
-                  {selectedButton === 'baja' && <ServicioBaja />}
-                  {selectedButton === 'reclamos' && <ServicioReclamos />}
-                  {selectedButton === 'factura' && <ServicioFacturas />}
-                  {selectedButton === 'servicio' && <ServicioInfo />}
-                  {selectedButton === 'edificios' && <ServicioEdificios />}
-                  {selectedButton === 'usuarios' && <ServicioUsuarios />}
-
-                  <Fade triggerOnce={true} duration={800} delay={100}>
-                    <div className='servicio-back-button'>
-                      <Button onClick={() => setSelectedButton(null)} sx={{ 
-                            width: "100%",
-                            height: "50px",
-                            fontFamily: "interTight",
-                            marginTop: "20px",
-                            fontSize: "20px",
-                            letterSpacing: "1px",
-                            borderRadius: "50px",
-                            boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
-                            textTransform: "none",
-                            color:"white",
-                            backgroundColor: "#8048ff",
-                          }} 
-                          variant='contained' 
-                          size='large'
-                        >
-                          Volver
-                        </Button>
-                    </div>
-                  </Fade>
+              // Mostrar el componente correspondiente según el botón seleccionado
+              <div>
+                {selectedButton === 'conexion' && <ServicioConexion />}
+                {selectedButton === 'titularidad' && <ServicioTitularidad />}
+                {selectedButton === 'reconexion' && <ServicioReconexion />}
+                {selectedButton === 'baja' && <ServicioBaja />}
+                {selectedButton === 'reclamos' && <ServicioReclamos />}
+                {selectedButton === 'factura' && <ServicioFacturas />}
+                {selectedButton === 'servicio' && <ServicioInfo />}
+                {selectedButton === 'edificios' && <ServicioEdificios />}
+                {selectedButton === 'usuarios' && <ServicioUsuarios />}
               </div>
             )}
           </div>
-      </Fade>
+        </Fade>
       </div>
     </section>
   );

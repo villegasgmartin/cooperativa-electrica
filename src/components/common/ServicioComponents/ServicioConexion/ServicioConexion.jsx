@@ -1,6 +1,6 @@
 // Importaciones:
 import { Link } from 'react-router-dom';
-import "../ServicioConexion/ServicioConexion.css"
+import "../../../pages/servicioElectrico/ServicioElectrico.css"
 import { Fade } from 'react-awesome-reveal';
 
 // JSX:

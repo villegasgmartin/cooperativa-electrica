@@ -1,6 +1,6 @@
 //Importaciones:
 import { Fade } from "react-awesome-reveal"
-import "../ServicioFacturas/ServicioFacturas.css"
+import "../../../pages/servicioElectrico/ServicioElectrico.css"
 
 //JSX:
 const ServicioFacturas = () => {
