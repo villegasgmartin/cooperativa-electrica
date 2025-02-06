@@ -44,7 +44,8 @@ const ServicioElectrico = () => {
     { name: "Reglamento", link: "https://www.oceba.gba.gov.ar/nueva_web/s.php?i=12" },
     { name: "Preguntas Frecuentes", to: "/preguntas-frecuentes" },
     { name: "Edificios", onClick: () => setSelectedButton("edificios") },
-    { name: "Medianos y grandes usuarios", onClick: () => setSelectedButton("usuarios") }
+    { name: "Medianos y grandes usuarios", onClick: () => setSelectedButton("usuarios") },
+    { name: "Objetivos Sociales", to: "/objetivos-sociales" },
   ];
 
   const menuItemsExpanded = [
@@ -212,6 +213,7 @@ const ServicioElectrico = () => {
           </div>
         </Fade>
       </div>
+      {/*  
       <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
           <div className='servicio-objetivos'>
             <Link to={"/objetivos-sociales"}>
@@ -233,6 +235,7 @@ const ServicioElectrico = () => {
             </Link>
             </div>
           </Fade>
+          */}
       <BotonWhatsapp/>
     </section>
   );

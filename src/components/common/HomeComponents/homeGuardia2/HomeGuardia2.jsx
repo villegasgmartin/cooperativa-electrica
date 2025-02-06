@@ -41,7 +41,7 @@ const HomeGuardia2 = () => {
                                     variant='contained' 
                                     size='large'
                                 >
-                                    Conocé su historia
+                                    Conocé Más
                                 </Button>
                             </Link>
                         </div>
