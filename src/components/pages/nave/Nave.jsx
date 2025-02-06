@@ -11,8 +11,8 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png"
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import logoMax from "../../../assets/images/logos/logo-max.jpg"
-
 
 
 //JSX:
@@ -102,6 +102,7 @@ const Nave = () => {
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <CardCarousel servicios={serviciosFiltrados} />
         </Fade>
+        <BotonWhatsapp/>
       </section>
       <Footer />
     </>

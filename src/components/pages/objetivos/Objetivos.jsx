@@ -13,6 +13,7 @@ import Image04 from "../../../assets/images/objetivos/objetivos-04.jpg"
 import Image05 from "../../../assets/images/objetivos/objetivos-05.avif"
 import Image06 from "../../../assets/images/objetivos/objetivos-06.jpg"
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Objetivos = () => {
@@ -100,6 +101,7 @@ const Objetivos = () => {
                         </div>
                     </div>
                 </Fade>
+                <BotonWhatsapp/>
         </section>
     );
 };

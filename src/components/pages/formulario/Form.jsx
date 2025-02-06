@@ -10,6 +10,7 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png"
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Form = () => {
@@ -250,6 +251,7 @@ const Form = () => {
                     </form>
                 </Fade>
             </div>
+            <BotonWhatsapp/>
             </section>
             <Footer/>
         </>

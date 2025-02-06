@@ -8,6 +8,7 @@ import Image01 from "../../../assets/images/principios/principios-01.jpg"
 import Image02 from "../../../assets/images/principios/principios-02.jpg"
 import Image03 from "../../../assets/images/principios/principios-03.jpg"
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Principios = () => {
@@ -81,6 +82,7 @@ const Principios = () => {
           </div>
         </Fade>
       </div>
+      <BotonWhatsapp/>
     </section>
   );
 };

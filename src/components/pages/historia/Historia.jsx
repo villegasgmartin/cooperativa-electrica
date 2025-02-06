@@ -8,6 +8,7 @@ import { Fade } from 'react-awesome-reveal';
 import Image01 from "../../../assets/images/historia/historia-01.jpg"
 import Image02 from "../../../assets/images/historia/historia-02.jpg"
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Historia = () => {
@@ -51,6 +52,7 @@ const Historia = () => {
         </Fade>
       </div>
       </div>
+      <BotonWhatsapp/>
     </section>
   );
 };
