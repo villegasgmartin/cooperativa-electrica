@@ -1,5 +1,5 @@
-//Impoprtaciones:
-import { useEffect,  useState } from 'react';
+// Importaciones:
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import AccordionGroup from '@mui/joy/AccordionGroup';
@@ -7,37 +7,54 @@ import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
 import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
-import "../preguntas/Preguntas.css"
+import "../preguntas/Preguntas.css";
 import { Fade } from 'react-awesome-reveal';
-import {Helmet} from "react-helmet"
+import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
+
 
 //JSX:
 const Preguntas = () => {
-
     const dispatch = useDispatch();
-    const [expanded, setExpanded] = useState(false);
+    const [expanded, setExpanded] = useState(null);
 
     useEffect(() => {
-    dispatch(setTitle('Preguntas Frecuentes'));
+        dispatch(setTitle('Preguntas Frecuentes'));
     }, [dispatch]);
 
-    useEffect(() => {
-
-        // Obtener el fragmento de la URL
+    // Función para manejar cambios en el hash de la URL
+    const handleHashChange = () => {
         const pregunta = window.location.hash;
-    
-        // Verificar a que pregunta scrollear y abrir el respectivo acordeón
-        if (['#pregunta-18', '#pregunta-19', '#pregunta-20', '#pregunta-21', '#pregunta-23', '#pregunta-31' ].includes(pregunta)) {
+
+        if (['#pregunta-18', '#pregunta-19', '#pregunta-20', '#pregunta-21', '#pregunta-23', '#pregunta-31'].includes(pregunta)) {
             const preguntaId = pregunta.replace('#', '');
             setExpanded(preguntaId);
-    
-            const element = document.getElementById(preguntaId);
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
+
+            setTimeout(() => {
+                const element = document.getElementById(preguntaId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            }, 300);
         }
+    };
+
+    // Ejecutar al cargar la página y cuando cambia el hash
+    useEffect(() => {
+        handleHashChange(); // Verificar el hash al cargar la página
+        window.addEventListener('hashchange', handleHashChange);
+
+        return () => {
+            window.removeEventListener('hashchange', handleHashChange);
+        };
     }, []);
+
+    // Función para manejar clics en los acordeones
+    const handleAccordionChange = (panel) => {
+        setExpanded((prev) => (prev === panel ? null : panel));
+    };
+
 
     return (
         <section className='preguntas-main-container'>
@@ -115,7 +132,9 @@ const Preguntas = () => {
                             <AccordionSummary><p><span>17- </span>PRESENTACIÓN DE RECLAMOS POR ARTEFACTOS DAÑADOS</p></AccordionSummary>
                             <AccordionDetails><p>El plazo para la presentación de reclamos ante la prestadora del Servicio Público de Electricidad por daños producidos a artefactos o instalaciones derivadas de fallas en la calidad del suministro, será de tres (3) días hábiles, contados a partir de la fecha en que se produjo el hecho que ocasionó el daño. Sólo serán atendidos si obran en nuestros archivos planos de la instalación eléctrica de su domicilio firmado por personal habilitado, donde las protecciones estén de acuerdo con las exigidas por la Ley Marco Regulatorio. Puede consultar las bases de dicho marco en <a href="https://oceba.gba.gov.ar/nueva_web/#" className='preguntas-accordion-link' target='_blank'>https://oceba.gba.gov.ar/nueva_web/#</a></p></AccordionDetails>
                         </Accordion>
-                        <Accordion id="pregunta-18"  expanded={expanded === 'pregunta-18'}>
+                        <Accordion  id="pregunta-18" 
+                                    expanded={expanded === 'pregunta-18'} 
+                                    onChange={() => handleAccordionChange('pregunta-18')}>
                             <AccordionSummary><p><span>18- </span>¿CUÁLES SON LOS REQUISITOS PARA DAR DE ALTA UN SUMINISTRO?</p></AccordionSummary>
                             <AccordionDetails><p>El suministro puede ser solicitado por personas humanas o jurídicas, agrupaciones de colaboración y uniones transitorias de empresas, que acrediten la posesión o tenencia legal del inmueble o instalación para el cual se solicita el suministro y mientras dure su derecho de uso.</p>
                             <p>Para conectar el servicio en tu hogar o comercio, necesitas tener la siguiente información y documentación:</p>
@@ -143,7 +162,10 @@ const Preguntas = () => {
                                 </Accordion>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion id="pregunta-19"  expanded={expanded === 'pregunta-19'}>
+                        <Accordion
+                            id="pregunta-19" 
+                            expanded={expanded === 'pregunta-19'} 
+                            onChange={() => handleAccordionChange('pregunta-19')}>
                             <AccordionSummary><p><span>19- </span>¿CUÁLES SON LOS REQUISITOS PARA REALIZAR UN CAMBIO DE TITULARIDAD?</p></AccordionSummary>
                             <AccordionDetails>
                                 <p>Si queres realizar el cambio de titularidad del servicio, necesitas tener la siguiente información y documentación:</p>
@@ -160,12 +182,16 @@ const Preguntas = () => {
                                             <li>Habilitación Municipal o constancia de iniciación de trámite de habilitación.</li>
                                             <li>Constancia de CUIT e Inscripción de Ingresos Brutos (en su caso, documentación que acredite exenciones impositivas).</li>
                                         </ul>
-                                        <p>Si el suministro no tiene medidor colocado, deberás realizar el trámite de <Link  className='FormasPago-accordion-link'>Conexión de servicio</Link></p>
+                                        <p>Si el suministro no tiene medidor colocado, deberás realizar el trámite de <Link to={"/servicio-electrico?selected=conexion"} className='FormasPago-accordion-link'>Conexión de servicio</Link></p>
                                     </AccordionDetails>
                                 </Accordion>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion id="pregunta-20"  expanded={expanded === 'pregunta-20'}>
+                        <Accordion
+                            id="pregunta-20" 
+                            expanded={expanded === 'pregunta-20'} 
+                            onChange={() => handleAccordionChange('pregunta-20')}
+                        >
                             <AccordionSummary><p><span>20- </span>¿CUÁLES SON LOS REQUISITOS PARA REALIZAR LA REINSTALACIÓN DEL SUMINISTRO?</p></AccordionSummary>
                             <AccordionDetails>
                                 <p>Si queres poner la titularidad de un suministro que se encuentra dado de baja, sin medidor instalado, necesitas tener la siguiente información y documentación:</p>
@@ -186,7 +212,11 @@ const Preguntas = () => {
                                 </Accordion>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion id="pregunta-21"  expanded={expanded === 'pregunta-21'}>
+                        <Accordion
+                            id="pregunta-21" 
+                            expanded={expanded === 'pregunta-21'} 
+                            onChange={() => handleAccordionChange('pregunta-21')}
+                        >
                             <AccordionSummary><p><span>21- </span>¿CUÁLES SON LOS REQUISITOS PARA DAR DE BAJA UN SUMINISTRO?</p></AccordionSummary>
                             <AccordionDetails><p>Si sos  titular del servicio podés realizar la baja y el retiro del medidor, en cualquier momento de la prestación del servicio. *</p>
                             <p>No debés tener saldos pendientes de pago, y deberás abonar con la baja del servicio, una factura final con los consumos que realizaste desde tu última lectura a la fecha de la baja.</p>
@@ -209,7 +239,11 @@ const Preguntas = () => {
                             <p>Recordá que podes mencionar tu número de cuenta  sin necesidad de presentarte con tu factura. Dichas entidades están habilitadas para el cobro de facturas vigentes o vencidas, con aviso de deuda o suspensión, o el servicio suspendido.</p>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion id="pregunta-23"  expanded={expanded === 'pregunta-23'}>
+                        <Accordion
+                            id="pregunta-23" 
+                            expanded={expanded === 'pregunta-23'} 
+                            onChange={() => handleAccordionChange('pregunta-23')}
+                        >
                             <AccordionSummary><p><span>23- </span>¿QUÉ ES LA SEGMENTACIÓN ENERGÉTICA?</p></AccordionSummary>
                             <AccordionDetails>
                                 <p>Es una iniciativa que lanzó el gobierno (DNU 332/22) para ordenar los subsidios eléctricos en base a los aspectos socioeconómicos de cada hogar, creando el Registro de Acceso a los Subsidios de Energía ( RASE ) para identificar a los usuarios que lo necesiten.</p>
@@ -297,7 +331,11 @@ const Preguntas = () => {
                                 <p>La conexión ilegal representa un grave peligro de muerte, no solo para el que la realiza, sino también para su familia y vecinos. Además, es un delito penado por la ley. Una conexión ilegal afecta la calidad de servicio de quién está vinculado a la COOPERATIVA legalmente produciendo variaciones de tensión. Denunciar a quién comete una conexión ilegal estará protegiendo su vida, a su familia y a sus bienes. Por favor, comuníquese con nuestra Sede Administrativa al teléfono (0223) 495-1411/ 493-5777.</p>
                             </AccordionDetails>
                         </Accordion>
-                        <Accordion id="pregunta-31"  expanded={expanded === 'pregunta-31'}>
+                        <Accordion
+                            id="pregunta-31" 
+                            expanded={expanded === 'pregunta-31'} 
+                            onChange={() => handleAccordionChange('pregunta-31')}
+                        >
                             <AccordionSummary><p><span>31- </span>ELECTRODEPENDIENTES</p></AccordionSummary>
                             <AccordionDetails>
                                 <p>Contamos con un servicio diferencial para acompañar a las personas electrodependientes por cuestiones de salud. Para solicitarlo primero es necesario que te inscribas en el Registro de Electrodependientes por Cuestiones de Salud (RECS) del Ministerio de Salud de la Nación.</p>
@@ -357,6 +395,7 @@ const Preguntas = () => {
                         Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. <br/>Muchas gracias.</p>
                     </div>
                 </Fade>
+                <BotonWhatsapp/>
         </section>
     );
 };

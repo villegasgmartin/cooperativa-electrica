@@ -9,6 +9,7 @@ import LabImage03 from "../../../assets/images/laboratorio/laboratorio03.jpg"
 import LabImage04 from "../../../assets/images/laboratorio/laboratorio04.jpg"
 import { Fade } from 'react-awesome-reveal';
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Laboratorio = () => {
@@ -80,6 +81,7 @@ const Laboratorio = () => {
             <p className='laboratorio-final-description'>Nuestra Institución ha sido constituida bajo el marco y desarrollo de actividades relacionadas al quehacer operativo y de gestión vinculadas a una actividad específica, dentro del sector de prestación del servicio de distribución eléctrica.</p>
           </div>
         </Fade>
+        <BotonWhatsapp/>
     </section>
   );
 };

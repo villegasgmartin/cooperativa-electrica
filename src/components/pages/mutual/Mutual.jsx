@@ -12,6 +12,7 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoMutual from "../../../assets/images/logos/logo-mutual.png"
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Mutual = () => {
@@ -238,6 +239,7 @@ const Mutual = () => {
             </div>
           </div>
         </Fade>
+        <BotonWhatsapp/>
       </section>
       <Footer/>
     </>

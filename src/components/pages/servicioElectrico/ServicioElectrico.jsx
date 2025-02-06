@@ -29,6 +29,9 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { useLocation } from 'react-router-dom';
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
+import { Button } from '@mui/material';
 
 //JSX:
 const ServicioElectrico = () => {
@@ -59,6 +62,14 @@ const ServicioElectrico = () => {
   useEffect(() => {
     dispatch(setTitle('Servicio Eléctrico'));
   }, [dispatch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const selectedParam = params.get('selected');
+    if (selectedParam) {
+      setSelectedButton(selectedParam);
+    }
+  }, [location.search]);
 
   return (
     <section className='servicio-main-container'>
@@ -201,6 +212,28 @@ const ServicioElectrico = () => {
           </div>
         </Fade>
       </div>
+      <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
+          <div className='servicio-objetivos'>
+            <Link to={"/objetivos-sociales"}>
+              <Button sx={{
+                width: "100%", 
+                height: "45px",
+                fontFamily: "interTight",
+                fontSize: "22px",
+                fontWeight: "bold",
+                letterSpacing: "1px",
+                borderRadius: "50px",
+                boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                textTransform: "none",
+                color:"#161616",
+                backgroundColor: "#30e691"
+              }} 
+                variant='contained' 
+                size='large'>Objetivos Sociales</Button>
+            </Link>
+            </div>
+          </Fade>
+      <BotonWhatsapp/>
     </section>
   );
 };

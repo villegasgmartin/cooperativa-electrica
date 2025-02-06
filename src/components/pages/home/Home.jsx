@@ -7,6 +7,7 @@ import Footer from "../../common/layout/footer/Footer";
 /*import ModalHome from "../../../assets/images/home-alert.jpeg"*/
 /*import { useState, useEffect } from "react"*/
 import "../home/Home.css"
+import BotonWhatsapp from "../../common/BotonWhatsapp/BotonWhatsapp";
 
 //JSX:
 const Home = () => {
@@ -51,7 +52,7 @@ const Home = () => {
             <HomeGuardia2/>
             <HomeBlog2/>
             <Footer/>
-            
+            <BotonWhatsapp/>
         </div>
     )
 }

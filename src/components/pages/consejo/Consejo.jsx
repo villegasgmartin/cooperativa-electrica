@@ -9,6 +9,7 @@ import AccordionSummary from '@mui/joy/AccordionSummary';
 import "../consejo/Consejo.css"
 import { Fade } from 'react-awesome-reveal';
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Consejo = () => {
@@ -107,6 +108,7 @@ const Consejo = () => {
         </AccordionGroup>
         </div>
       </Fade>
+      <BotonWhatsapp/>
     </section>
   );
 };

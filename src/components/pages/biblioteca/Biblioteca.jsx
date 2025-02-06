@@ -12,6 +12,7 @@ import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import {Helmet} from "react-helmet"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Biblioteca = () => {
@@ -169,6 +170,7 @@ const Biblioteca = () => {
           </div>
         </Fade>
         </div>
+        <BotonWhatsapp/>
       </section>
       <Footer/>
     </>

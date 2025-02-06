@@ -10,6 +10,7 @@ import {Helmet} from "react-helmet"
 
 /*Para cambiar la imágen principal en esta sección: colocar la ruta que corresponde aqui debajo*/
 import ImageNoticia02 from "../../../assets/images/blog/blog-image-02.jpeg"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 
 //JSX:
@@ -74,6 +75,7 @@ const BlogNoticia2 = () => {
                     </div>
                 </div>
             </Fade>
+            <BotonWhatsapp/>
         </section>
     )
 }

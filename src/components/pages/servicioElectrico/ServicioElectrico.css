@@ -7,7 +7,7 @@
 /*Contenedor de lista y botones*/
 .servicio-container{
     padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-bottom: 4rem;
     display: flex;
     justify-content: space-evenly;
 }
@@ -104,6 +104,13 @@
 .servicio-button-text{
     font-family: "archivo";
     font-size: 1.125rem;
+}
+
+/*Botpon de Objetivos Sociales*/
+.servicio-objetivos{
+    padding-bottom: 5rem;
+    width: 250px;
+    margin: auto;
 }
 
 /*----Estilos de componentes dinámicos---*/
@@ -286,7 +293,7 @@
 @media (max-width: 700px){
     .servicio-container{
         padding-top: 4rem;
-        padding-bottom: 4rem;
+        padding-bottom: 3rem;
     }
     .servicio-button-container {
         grid-template-columns: repeat(2, 1fr);
@@ -298,6 +305,9 @@
     }
     .servicioComponents-container{
         width: 90%;
+    }
+    .servicio-objetivos{
+        padding-bottom: 4rem;
     }
 }
 
@@ -325,6 +335,9 @@
     }
     .servicio-description2{
         font-size: 1rem;
+    }
+    .servicio-objetivos{
+        width: 90%;
     }
 }
 

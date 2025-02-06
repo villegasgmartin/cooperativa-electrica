@@ -13,6 +13,7 @@ import blogImage01 from "../../../assets/images/blog/blog-image-01.jpg"
 import blogImage02 from "../../../assets/images/blog/blog-image-02.jpeg"
 import blogImage03 from "../../../assets/images/blog/blog-image-03.jpg"
 import blogImage04 from "../../../assets/images/blog/blog-image-04.jpeg"
+import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Blog = () => {
@@ -57,6 +58,7 @@ const Blog = () => {
           </div>
         </Fade>
       </div>
+      <BotonWhatsapp/>
     </section>
   );
 };

@@ -59,7 +59,6 @@ function App() {
         <Route path="/nave" element={<Nave />} />
         <Route path="/formulario" element={<Form />} />
       </Routes>
-      <BotonWhatsapp/>
       <BotonScroll />
     </BrowserRouter>
   );
