@@ -214,9 +214,17 @@ const Form = () => {
                         onChange={handleTvChange}
                         sx={{backgroundColor: "#edeaff",borderRadius:"25px",}}
                         >
-                        <MenuItem value="Full TV">Full TV</MenuItem>
-                        <MenuItem value="Fútbol Premium">Fútbol Premium</MenuItem>
-                        <MenuItem value="Ninguna">Ninguna</MenuItem>
+                            {internetPlan !== "Ninguna"
+                                ? [
+                                    <MenuItem key="park-tv" value="Park Tv adicional $5999">Park Tv adicional $5999</MenuItem>,
+                                    <MenuItem key="ninguna" value="Ninguna">Ninguna</MenuItem>,
+                                ]
+                                : [
+                                    <MenuItem key="full-tv" value="TV full + pack fútbol + Max gratis"> TV full + pack fútbol + Max gratis</MenuItem>,
+                                    <MenuItem key="ninguna" value="Ninguna">Ninguna</MenuItem>,
+                                ]}
+
+                        
                         </Select>
                     </FormControl>
                     <div className='form-button-container'>

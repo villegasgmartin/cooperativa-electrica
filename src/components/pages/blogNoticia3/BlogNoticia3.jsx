@@ -19,26 +19,23 @@ const BlogNoticia3 = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setTitle('Noticia 3')); {/*Cambio de título*/}
+        dispatch(setTitle('Por Qué la Velocidad de Internet Es Clave para tu Hogar y Negocio')); {/*Cambio de título*/}
     }, [dispatch]);
 
     return (
         <section className='noticia3-main-container'>
             <Helmet>
-                <title>Blog</title>
+                <title>Por Qué la Velocidad de Internet Es Clave para tu Hogar y Negocio</title>
             </Helmet>
             <div className='noticia3-secondary-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <div className='noticia3-mainImage-container'><img src={ImageNoticia03} alt="imágen de blog" className='noticia3-mainImage' /></div>
-                    <p className='noticia3-mainDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut. 
-                    </p>
+                    <p className='noticia3-mainDescription'>En un mundo cada vez más conectado, la velocidad de internet se ha convertido en un factor esencial para las actividades diarias, tanto en el hogar como en los negocios. Desde videollamadas hasta streaming en alta definición y comercio electrónico, contar con una conexión rápida y estable asegura que todo funcione sin interrupciones. </p>
                 </Fade>
             </div>
             <div className='noticia3-container' id='dark-background'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-                    <p className='noticia3-description' id='light-font'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
+                    <p className='noticia3-description' id='light-font'>Nuestra cooperativa eléctrica en Mar del Plata ofrece planes de internet diseñados para garantizar la mejor experiencia de navegación. Con velocidades que se adaptan a tus necesidades, puedes disfrutar de descargas rápidas, conexiones simultáneas en múltiples dispositivos y una experiencia en línea sin interrupciones, ideal para hogares y oficinas.
                     </p>
                     <div className='noticia3-image-container'><img src="https://www.performance-construccion.com/wp-content/uploads/2016/09/electricista_cancun-800x430.png" alt="imágen de blog" className='noticia3-image' /></div>
                 </Fade>
@@ -46,8 +43,7 @@ const BlogNoticia3 = () => {
             <div className='noticia3-container'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
                     <div className='noticia3-image-container blog-background-position'><img src="https://projectssdn.com/wp-content/uploads/elementor/thumbs/electricidad-residencial-e-industrial-qp5x9bwrw4jy9i0gusv63vzojxuitdyio7dnxpklgg.png" alt="imágen de blog" className='noticia3-image' /></div>
-                    <p className='noticia3-description'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
+                    <p className='noticia3-description'>No dejes que una conexión lenta te detenga. Elige un plan de internet que te brinde velocidad, estabilidad y soporte local confiable. Transformamos tu conexión en una herramienta para trabajar, aprender y entretenerte de manera eficiente.
                     </p>
                 </Fade>
             </div>

@@ -19,26 +19,24 @@ const BlogNoticia2 = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setTitle('Noticia 2'));{/*Cambio de título*/}
+        dispatch(setTitle('Energías Renovables en Mar del Plata'));{/*Cambio de título*/}
     }, [dispatch]);
 
     return (
         <section className='noticia2-main-container'>
             <Helmet>
-                <title>Blog</title>
+                <title>Energías Renovables en Mar del Plata | Cooperativa Electrica Mar del Plata</title>
             </Helmet>
             <div className='noticia2-secondary-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <div className='noticia2-mainImage-container'><img src={ImageNoticia02} alt="imágen de blog" className='noticia2-mainImage' /></div>
-                    <p className='noticia2-mainDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut. 
+                    <p className='noticia2-mainDescription'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica. Gracias a su ubicación geográfica y clima, cada vez más hogares y empresas están optando por instalar paneles solares o explorar el uso de pequeños aerogeneradores. Estas soluciones no solo reducen las facturas de luz, sino que también disminuyen la huella de carbono.
                     </p>
                 </Fade>
             </div>
             <div className='noticia2-container' id='dark-background'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-                    <p className='noticia2-description' id='light-font'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
+                    <p className='noticia2-description' id='light-font'>Proyectos locales están promoviendo la transición hacia energías limpias, ofreciendo beneficios tanto para la economía local como para el medio ambiente. Además, programas gubernamentales brindan incentivos para la instalación de equipos de energía renovable. Informarte sobre estas oportunidades puede ser el primer paso para transformar tu hogar o negocio en un espacio más sustentable.
                     </p>
                     <div className='noticia2-image-container'><img src="https://www.performance-construccion.com/wp-content/uploads/2016/09/electricista_cancun-800x430.png" alt="imágen de blog" className='noticia2-image' /></div>
                 </Fade>
@@ -46,8 +44,7 @@ const BlogNoticia2 = () => {
             <div className='noticia2-container'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
                     <div className='noticia2-image-container blog-background-position'><img src="https://projectssdn.com/wp-content/uploads/elementor/thumbs/electricidad-residencial-e-industrial-qp5x9bwrw4jy9i0gusv63vzojxuitdyio7dnxpklgg.png" alt="imágen de blog" className='noticia2-image' /></div>
-                    <p className='noticia2-description'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
+                    <p className='noticia2-description'>Si estás interesado en contribuir al cuidado del planeta, considera implementar estas tecnologías. Adoptar la energía renovable es una inversión que no solo mejora la calidad del aire y el entorno, sino que también asegura un futuro energético más seguro y sostenible.
                     </p>
                 </Fade>
             </div>

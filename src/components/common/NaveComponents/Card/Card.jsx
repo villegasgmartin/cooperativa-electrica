@@ -4,7 +4,7 @@ import "../Card/Card.css";
 import { Link } from "react-router-dom";
 
 //JSX:
-const Card = ({servicio, precio, /*precioLista,*/ descuento}) => {
+const Card = ({servicio, precio, /*precioLista,*/ descuento, descripcion, logo}) => {
 
     const [mainText, ...subTextArray] = servicio.split(' ');
     const subText = subTextArray.join(' ');
@@ -42,6 +42,7 @@ const Card = ({servicio, precio, /*precioLista,*/ descuento}) => {
                     </Link>
                 </div>
                 <p className="card-promo">{descuento}</p>
+                <p className="descripcion-tv">{descripcion}</p>
             </div>
         </div>
     );

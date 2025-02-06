@@ -33,29 +33,29 @@ const Blog = () => {
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div className='blog-subcontainer'>
-            <Link to={"/blog-1"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/blog-1"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 1</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
+            <Link to={"/como-ahorrar-energia"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/como-ahorrar-energia"} style={{textDecoration: "none"}}><h3 className='blog-title'>Cómo Ahorrar Energía en el Hogar</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>Ahorrar energía no solo beneficia tu bolsillo, sino también al medio ambiente.</p>
           </div>
           <div className='blog-subcontainer'>
-            <Link to={"/blog-2"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/blog-2"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 2</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
+            <Link to={"/energias-renovables"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/energias-renovables"} style={{textDecoration: "none"}}><h3 className='blog-title'>Energías Renovables</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica.</p>
           </div>
         </Fade>
       </div>
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div className='blog-subcontainer'>
-            <Link to={"/blog-3"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/blog-3"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 3</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
+            <Link to={"/las-claves-de-la-velocidad-de-internet"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/las-claves-de-la-velocidad-de-internet"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>En un mundo cada vez más conectado, la velocidad de internet se ha convertido en un factor esencial para las actividades diarias.</p>
           </div>
-          <div className='blog-subcontainer'>
+          {/* <div className='blog-subcontainer'>
             <Link to={"/blog-4"}><div className='blog-image-container'><img src={blogImage04} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/blog-4"} style={{textDecoration: "none"}}><h3 className='blog-title'>Título 4</h3></Link>{/*Cambio de título*/}
+            <Link to={"/blog-4"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>
             <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
-          </div>
+          </div> */}
         </Fade>
       </div>
       <BotonWhatsapp/>

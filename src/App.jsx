@@ -47,10 +47,10 @@ function App() {
           <Route path="/preguntas-frecuentes" element={<Preguntas />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog-1" element={<BlogNoticia1 />} />
-          <Route path="/blog-2" element={<BlogNoticia2 />} />
-          <Route path="/blog-3" element={<BlogNoticia3 />} />
-          <Route path="/blog-4" element={<BlogNoticia4 />} />
+          <Route path="/como-ahorrar-energia" element={<BlogNoticia1 />} />
+          <Route path="/energias-renovables" element={<BlogNoticia2 />} />
+          <Route path="/las-claves-de-la-velocidad-de-internet" element={<BlogNoticia3 />} />
+          {/* <Route path="/blog-4" element={<BlogNoticia4 />} /> */}
         </Route>
         
         <Route path="/biblioteca" element={<Biblioteca />} />

@@ -19,26 +19,23 @@ const BlogNoticia1 = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setTitle('Noticia 1')); {/*Cambio de título*/}
+        dispatch(setTitle('Cómo Ahorrar Energía en el Hogar')); {/*Cambio de título*/}
     }, [dispatch]);
 
     return (
         <section className='noticia1-main-container'>
             <Helmet>
-                <title>Blog</title>
+                <title>Cómo Ahorrar Energía en el Hogar | Cooperativa Electrica Mar del Plata</title>
             </Helmet>
             <div className='noticia1-secondary-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
                     <div className='noticia1-mainImage-container'><img src={ImageNoticia01} alt="imágen de blog" className='noticia1-mainImage' /></div>
-                    <p className='noticia1-mainDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut. 
-                    </p>
+                    <p className='noticia1-mainDescription'>Ahorrar energía no solo beneficia tu bolsillo, sino también al medio ambiente. En Mar del Plata, el clima puede llevar a un uso intensivo de aires acondicionados en verano y calefactores en invierno. Una forma sencilla de reducir el consumo es cambiar a bombillas LED, que consumen hasta un 80% menos que las tradicionales. Además, recuerda sellar puertas y ventanas para mantener la temperatura interior sin esfuerzos extra de los equipos eléctricos.</p>
                 </Fade>
             </div>
             <div className='noticia1-container' id='dark-background'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-                    <p className='noticia1-description' id='light-font'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
+                    <p className='noticia1-description' id='light-font'>Otro consejo práctico es desconectar electrodomésticos cuando no estén en uso, ya que muchos siguen consumiendo energía en modo de espera. Optimiza el uso de la lavadora y el lavavajillas, utilizándolos con cargas completas y en programas de bajo consumo. Adopta hábitos simples como apagar las luces al salir de una habitación y aprovecha la luz natural siempre que sea posible.
                     </p>
                     <div className='noticia1-image-container'><img src="https://www.performance-construccion.com/wp-content/uploads/2016/09/electricista_cancun-800x430.png" alt="imágen de blog" className='noticia1-image' /></div>
                 </Fade>
@@ -46,9 +43,11 @@ const BlogNoticia1 = () => {
             <div className='noticia1-container'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
                     <div className='noticia1-image-container blog-background-position'><img src="https://projectssdn.com/wp-content/uploads/elementor/thumbs/electricidad-residencial-e-industrial-qp5x9bwrw4jy9i0gusv63vzojxuitdyio7dnxpklgg.png" alt="imágen de blog" className='noticia1-image' /></div>
-                    <p className='noticia1-description'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    </p>
+                    
+                    <p className='noticia1-description'>Reducir tu consumo eléctrico no solo te ayudará a ahorrar, sino que contribuirá a un Mar del Plata más sustentable. Implementa estos cambios y notarás la diferencia en tus facturas y en el impacto ambiental.</p>
+                   
+                    
+                   
                 </Fade>
             </div>
             <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
