@@ -151,6 +151,14 @@
     font-size: 1.375rem;
 }
 
+/*Tercera variante de Subtitulos y preguntas*/
+.servicio-subtitles3{
+    font-family: "archivo";
+    color: var(--darkviolet);
+    font-size: 20px;
+}
+
+
 /*Descripciones*/
 .servicio-description{
     font-family: "interTight";
@@ -245,6 +253,9 @@
     }
     .servicio-subtitles2{
         font-size: 1.25rem;
+    }
+    .servicio-subtitles3{
+        font-size: 1.125rem;
     }
 }  
 

@@ -69,7 +69,7 @@ const ServicioInfo = () => {
                         <p>s muy importante que te registres, en caso de no hacerlo serás asignado al Nivel 1 de Altos Ingresos, aplicando la quita del subsidio.</p>
                         <p>¿Cómo hacerlo?</p>
                         <p style={{marginBottom: "10px"}}>Si aún no te registraste podés hacerlo en <a href="https://www.argentina.gob.ar/subsidios" target="_blank"  className='servicio-link2'>www.argentina.gob.ar/subsidios</a>.</p>
-                        <Link to="/preguntas-frecuentes#pregunta-23" className='servicio-info'>Más información</Link>
+                        <Link to="/preguntas-frecuentes#pregunta-6" className='servicio-info'>Más información</Link>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
@@ -78,7 +78,7 @@ const ServicioInfo = () => {
                         <p>Son electrodependientes aquellas personas que por razones de vida o salud requieran de un suministro eléctrico constante para poder alimentar el equipamiento médico.</p>
                         <p>¿Cómo puedo inscribirme en el RECS?</p>
                         <p style={{marginBottom: "10px"}}>Inscribite en: <a href="https://www.argentina.gob.ar/servicio/inscribirme-en-el-registro-de-electrodependientes-por-cuestiones-de-salud" target="_blank" className='servicio-link2'>https://www.argentina.gob.ar/servicio/inscribirme-en-el-registro-de-electrodependientes-por-cuestiones-de-salud</a>.</p>
-                        <Link to="/preguntas-frecuentes#pregunta-31" className='servicio-info'>Más información</Link>
+                        <Link to="/preguntas-frecuentes#pregunta-14" className='servicio-info'>Más información</Link>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>

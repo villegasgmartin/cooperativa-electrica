@@ -18,7 +18,7 @@ const ServicioUsuarios = () => {
                 </div>
                 <div>
                 <ul className='servicio-description'  style={{paddingLeft: "25px"}}>
-                    <li><strong>Tarifa T2 - Medianas Demandas:</strong> Cuando la potencia solicitada se encuentra entre los 10KW y los 49.</li>
+                    <li><strong>Tarifa T2 - Medianas Demandas:</strong> Cuando la potencia solicitada se encuentra entre los 10KW y los 49KW.</li>
                     <li><strong>Tarifa T3 - Grandes Demandas:</strong> Cuando la potencia solicitada supera los 49KW.</li>
                 </ul>
                 </div>
@@ -41,7 +41,7 @@ const ServicioUsuarios = () => {
                         <p className='servicio-description'>Para realizar el trámite deberás presentar la siguiente documentación:</p>
                         <ul className='servicio-description'  style={{paddingLeft: "25px"}}> 
                             <li>Solicitud de Suministro en la tarifa que corresponda, firmada al dorso e indicando potencia contratada en cada banda horaria.</li>
-                            <li>Condiciones Generales de la tarifa que corresponda,T1, T2 o T3 (<a href="https://oceba.gba.gov.ar/nueva_web/s.php?i=16" target="_blank"  className='servicio-link2'>Categprías Tarifarias</a>).</li>
+                            <li>Condiciones Generales de la tarifa que corresponda,T1, T2 o T3 (<a href="https://oceba.gba.gov.ar/nueva_web/s.php?i=16" target="_blank"  className='servicio-link2'>Categorías Tarifarias</a>).</li>
                             <li>Censo de carga firmado por técnico o ingeniero matriculado.</li>
                             <li>Comprobante de ocupación, posesión o tenencia legal del inmueble (contrato de locación sellado, escritura, etc.).</li>
                             <li>Contrato Social, en caso de ser persona jurídica.</li>

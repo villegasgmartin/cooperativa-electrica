@@ -20,7 +20,7 @@ const ServicioTitularidad = () => {
             <h3 className='servicio-subtitles'>¿Qué más tenés que saber?</h3>
             <p className='servicio-description'>Para realizar tu trámite, tenés que tener en cuenta el destino de tu servicio eléctrico, acreditar tu identidad con DNI, presentar documentación de posesión  y proporcionar detalles de tu vivienda, comercio u otros fines.</p>
           </div>
-          <Link to="/preguntas-frecuentes#pregunta-19" className='servicio-info'>Más información</Link>
+          <Link to="/preguntas-frecuentes#pregunta-2" className='servicio-info'>Más información</Link>
         </div>
     </Fade>
   )
