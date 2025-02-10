@@ -103,6 +103,15 @@
     border-bottom: 2px solid var(--darkgreen);
 }
 
+/*Descripción al final de la card*/
+.card-description{
+    font-family: "interTight";
+    color: var(--darkviolet);
+    font-weight: bold;
+    letter-spacing: .0625rem;
+    font-size: 1rem;
+}
+
 /*----------------Media Queries----------------*/
 
 @media(max-width: 700px){
@@ -125,6 +134,10 @@
     .card-promo{
         font-size: 1rem;
     }
+    .card-description{
+        font-size: .9375rem;
+        letter-spacing: normal;
+    }
 }
 
 @media(max-width: 450px){
@@ -143,5 +156,8 @@
     }
     .card-promo{
         font-size: 15px;
+    }
+    .card-description{
+        font-size: .875rem;
     }
 }

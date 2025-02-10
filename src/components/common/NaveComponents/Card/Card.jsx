@@ -42,7 +42,7 @@ const Card = ({servicio, precio, /*precioLista,*/ descuento, descripcion, logo})
                     </Link>
                 </div>
                 <p className="card-promo">{descuento}</p>
-                <p className="descripcion-tv">{descripcion}</p>
+                <p className="card-description">{descripcion}</p>
             </div>
         </div>
     );

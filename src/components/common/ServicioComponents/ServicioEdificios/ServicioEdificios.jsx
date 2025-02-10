@@ -30,10 +30,8 @@ const ServicioEdificios = () => {
                     <AccordionDetails>
                         <p className='servicio-description2'>Las solicitudes podrán ser iniciadas por el propietario del inmueble, desarrollador  y/o matriculado apoderado o cualquier  tercero con las facultades legales suficientes.</p>
                         <p className='servicio-description2'>Administradores / Apoderados deberán presentar copia simple y certificada del poder otorgado.</p>
-                    </AccordionDetails>
-                </Accordion>
-                <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Necesitarás tener la siguiente documentación:</h3></AccordionSummary>
+                        <Accordion>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Necesitarás tener la siguiente documentación:</h3></AccordionSummary>
                     <AccordionDetails>
                         <ol style={{paddingLeft: "25px"}}>
                             <li className='servicio-description2'>Acreditación de la posesión del inmueble (Escritura).</li>
@@ -44,7 +42,7 @@ const ServicioEdificios = () => {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Además te pediremos que nos informes:</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Además te pediremos que nos informes:</h3></AccordionSummary>
                     <AccordionDetails>
                         <ul style={{paddingLeft: "25px"}}>
                             <li className='servicio-description2'>Datos de contacto del desarrollador (Nombre, Apellido, Domicilio Legal, Teléfono de contacto/celular y mail).</li>
@@ -60,7 +58,7 @@ const ServicioEdificios = () => {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>De tu proyecto:</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>De tu proyecto:</h3></AccordionSummary>
                     <AccordionDetails>
                         <ul className='servicio-description2' style={{paddingLeft: "25px"}}>
                             <li>En caso de requerir un medidor trifásico para la obra, presentar un censo de cargas firmado por el Desarrollador o persona debidamente autorizada y profesional matriculado interviniente.</li>
@@ -70,33 +68,35 @@ const ServicioEdificios = () => {
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Cargos a abonar por el desarrollador</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Cargos a abonar por el desarrollador</h3></AccordionSummary>
                     <AccordionDetails>
                         <p className='servicio-description2'>Los EDIFICIOS que estuvieran conformados por diez (10) o más Unidades Funcionales, abonarán el cargo por Contribución por Obra Reembolsable (COR), según lo establecido en el Reglamento de Suministro y Conexión, ARTICULO 14. RÉGIMEN DE EXTENSIÓN Y AMPLIACIÓN DE REDES.</p>
                         <p className='servicio-description2'>Sin perjuicio de lo mencionado, es importante destacar que, aquellos EDIFICIOS que hayan iniciado las obras con anterioridad al 2 de febrero del 2019, o acrediten permiso de obra emitido por la municipalidad o solicitud de suministro de obra con anterioridad a la fecha mencionada, deberán abonar el Cargo por Habilitación de Suministros Conjuntos (CSC), en función de lo dispuesto en el Decreto Provincial N° 3543/06 y la Resolución OCEBA N° 328/12, y de acuerdo a los valores establecido en el Cuadro Tarifario Res. MIySP N° 1297/18.</p>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Inicio de la factibilidad,  Suministro de obra y espacios para cámaras (centros de transformación)</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Inicio de la factibilidad,  Suministro de obra y espacios para cámaras (centros de transformación)</h3></AccordionSummary>
                     <AccordionDetails>
                         <p className='servicio-description2'>Cuando la potencia requerida para la alimentación del edificio supere la capacidad de las redes existentes y según lo establecido en el Reglamento de Suministro y Conexión y <a href="https://www.oceba.gba.gov.ar/nueva_web/s.php?i=12" target="_blank" className='servicio-link2'>Reglamento para Acometidas T1 Múltiples</a>, la Cooperativa podrá requerir y el desarrollador/propietario deberá ceder en forma gratuita el espacio de un recinto destinado a la instalación de un centro de transformación. Para lo cual el desarrollador/propietario deberá destinar un recinto de dimensiones acordes a la capacidad de transformación a instalar, según lo especificado por la DISTRIBUIDORA en cada oportunidad.</p>
                         <p className='servicio-description2'>Asimismo, de acuerdo a lo establecido en el <a href="https://www.oceba.gba.gov.ar/nueva_web/s.php?i=12" target="_blank" className='servicio-link2'>Reglamento para Acometidas T1 Múltiples</a>, será requisito primordial el Libre Acceso a la toma primaria, medición y tablero primario. Se entiende por Libre Acceso, a la posibilidad de acceder directamente a las instalaciones desde la vía pública, las 24 hs., sin recurrir a terceros.</p>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Inspecciones durante el desarrollo de la obra</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Inspecciones durante el desarrollo de la obra</h3></AccordionSummary>
                     <AccordionDetails><p className='servicio-description2'>La distribuidora inspeccionará la toma primaria instalada, buzón o caja toma, caños de acometida y de reserva, sección de cable de acuerdo a la potencia declarada, gabinete para el medidor totalizador, gabinete de medición múltiple, el cual deberá identificar las unidades funcionales que alimenta cada habitáculo, según lo establece el reglamento de acometidas múltiples.</p></AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Aviso de Finalización de Obra</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Aviso de Finalización de Obra</h3></AccordionSummary>
                     <AccordionDetails>
                     <p className='servicio-description2'>Es conveniente que el titular del suministro o su representante debidamente autorizado, comunique a la Distribuidora, con una antelación no menor a 90 días, la fecha definitiva de finalización de la obra. Es importante que previo a ese plazo el tablero de medidores se encuentre inspeccionado y habilitado. Esta comunicación es fundamental para que la Distribuidora arbitre los medios necesarios para otorgar el suministro definitivo en el plazo estipulado.</p>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles2'>Otorgamiento de Suministro de Servicios Generales y suministros individuales</h3></AccordionSummary>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon sx={{color: "#3d116d", fontSize: "35px"}}/>}><h3 className='servicio-subtitles3'>Otorgamiento de Suministro de Servicios Generales y suministros individuales</h3></AccordionSummary>
                     <AccordionDetails>
                         <p className='servicio-description2'>Habiendo finalizado las obras necesarias, la Distribuidora se comunicará con el Desarrollador o representante debidamente autorizado para informar que están habilitados para solicitar la baja del medidor de obra y la solicitud del medidor de Servicios Generales y suministros individuales siempre y cuando así lo requieran.</p>
+                    </AccordionDetails>
+                </Accordion>
                     </AccordionDetails>
                 </Accordion>
                 <Accordion>

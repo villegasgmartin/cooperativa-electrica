@@ -34,17 +34,17 @@ const Nave = () => {
           src={logoMax} 
           alt="Logo Max" 
           style={{ 
-            width: '40px', 
+            width: '45px', 
             verticalAlign: 'middle', 
-            marginLeft: '5px' 
+            marginLeft: '5px',
+            marginRight: "5px" 
           }} 
         />
-        GRATIS
+      GRATIS
       </>
     )
-     
   },
-    { servicio: "PACK TV Nave", precio: "$5.999", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por Tener Internet Nave`},
+    { servicio: "PACK TV Nave", precio: "$5.999", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por tener Internet Nave`},
   ];
 
   const [serviciosFiltrados, setServiciosFiltrados] = useState(serviciosNave);
