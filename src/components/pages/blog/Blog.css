@@ -31,6 +31,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: 500px;
 }
 
 /* Contenedor de imágenes */
@@ -44,9 +45,7 @@
 }
 
 /* Hover para imagen */
-.blog-image-container:hover{
-    transform: scale(1.03);
-}
+
 
 /* Imagen */
 .blog-image{
@@ -68,7 +67,6 @@
 /* Hover para título */
 .blog-title:hover{
     color: var(--newgreen);
-    transform: scale(1.2);
 }
 
 /* Descripción de noticia */

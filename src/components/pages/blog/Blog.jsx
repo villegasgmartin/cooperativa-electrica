@@ -51,11 +51,22 @@ const Blog = () => {
             <Link to={"/las-claves-de-la-velocidad-de-internet"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>En un mundo cada vez más conectado, la velocidad de internet se ha convertido en un factor esencial para las actividades diarias.</p>
           </div>
-          {/* <div className='blog-subcontainer'>
-            <Link to={"/blog-4"}><div className='blog-image-container'><img src={blogImage04} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/blog-4"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>
-            <p className='blog-description'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta a sed architecto tenetur excepturi possimus magnam quam porro repellendus ratione. Ex culpa odio porro, id sit aliquam tempore aspernatur iure.</p>
-          </div> */}
+          <div className='blog-subcontainer'>
+            <Link to={"/el-consejo-de-administracion-recibe-diputado-provincial"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741429570/cooperativa/El_Consejo_de_Administracio%CC%81n_recibio%CC%81_a_Diputado_Provincial_-_foto_3_kupkpm.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/el-consejo-de-administracion-recibe-diputado-provincial"} style={{textDecoration: "none"}}><h3 className='blog-title'>El Consejo de Administración recibió a Diputado Provincial</h3></Link>
+            <p className='blog-description'>El  Consejo de Administración de la Cooperativa Eléctrica MdP se reunió con el Diputado provincial Gustavo Pulti y la Concejala María Eva Ayala.
+            </p>
+          </div>
+        </Fade>
+      </div>
+      <div className='blog-container'>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+          <div className='blog-subcontainer'>
+        
+            <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741432842/cooperativa/Encuentro_Productivo_Bonaerense-1_ix5tsb.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"} style={{textDecoration: "none"}}><h3 className='blog-title'> Cooperativa Eléctrica en Encuentro Productivo Bonaerense</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>La Cooperativa Eléctrica MdP se sumó al Encuentro Productivo de Gral Pueyrredon  organizado por la Provincia de Buenos Aires  el pasado sábado 22.</p>
+          </div>
         </Fade>
       </div>
       <BotonWhatsapp/>

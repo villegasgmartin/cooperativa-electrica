@@ -35,7 +35,7 @@
 .noticia4-mainDescription{
     font-family: "interTight";
     color: var(--black);
-    font-size: 1.5625rem;
+    font-size: 1.25rem;
     width: 75rem;
     text-align: justify;
     margin-left: auto;
@@ -198,4 +198,10 @@
         width: 16.875rem;
         height: 16.875rem;
     }
+}
+
+.noticia4-container,
+.noticia4-buttonContainer {
+    position: relative; /* Asegura que no sean absolutos o fixed */
+    z-index: 1; /* Valor bajo para que el popup quede arriba */
 }

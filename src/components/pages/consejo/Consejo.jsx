@@ -53,7 +53,7 @@ const Consejo = () => {
                       <ul>
                         <li className='consejo-accordion-content'>Juan J. Cuda</li>
                         <li className='consejo-accordion-content'>Andrés Salvia</li>
-                        <li className='consejo-accordion-content'>Gustavo Casciotti</li>
+                        <li className='consejo-accordion-content'>Francisco Corazza</li>
                         <li className='consejo-accordion-content'>Carlos Macri</li>
                         <li className='consejo-accordion-content'>Maria Julia Frontini</li>
                       </ul>

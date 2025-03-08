@@ -21,6 +21,7 @@ import BlogNoticia1 from "./components/pages/blogNoticia1/BlogNoticia1.jsx"
 import BlogNoticia2 from "./components/pages/blogNoticia2/BlogNoticia2.jsx"
 import BlogNoticia3 from "./components/pages/blogNoticia3/BlogNoticia3.jsx"
 import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
+import BlogNoticia5 from "./components/pages/blogNoticia5/BlogNoticia5.jsx"
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
 import Home from "./components/pages/home/Home.jsx"
@@ -50,7 +51,8 @@ function App() {
           <Route path="/como-ahorrar-energia" element={<BlogNoticia1 />} />
           <Route path="/energias-renovables" element={<BlogNoticia2 />} />
           <Route path="/las-claves-de-la-velocidad-de-internet" element={<BlogNoticia3 />} />
-          {/* <Route path="/blog-4" element={<BlogNoticia4 />} /> */}
+          <Route path="/el-consejo-de-administracion-recibe-diputado-provincial" element={<BlogNoticia4 />} />
+          <Route path="/cooperativa-electrica-en-encuentro-productivo-bonaerense" element={<BlogNoticia5 />} />
         </Route>
         
         <Route path="/biblioteca" element={<Biblioteca />} />

@@ -19,38 +19,39 @@ const BlogNoticia4 = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(setTitle('Noticia 4')); {/*Cambio de título*/}
+        dispatch(setTitle('El Consejo de Administración recibió a Diputado Provincial')); {/*Cambio de título*/}
     }, [dispatch]);
 
     return (
         <section className='noticia4-main-container'>
             <Helmet>
-                <title>Blog</title>
+                <title>El Consejo de Administración recibió a Diputado Provincial</title>
             </Helmet>
             <div className='noticia4-secondary-container'>
                 <Fade triggerOnce={true} duration={800} delay={300}>
-                    <div className='noticia4-mainImage-container'><img src={ImageNoticia04} alt="imágen de blog" className='noticia4-mainImage' /></div>
-                    <p className='noticia4-mainDescription'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut.
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem odit optio porro libero soluta consectetur at perferendis pariatur sunt laboriosam nihil quae itaque, id vero explicabo possimus repellendus quos ut. 
+                    <div className='noticia4-mainImage-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741429570/cooperativa/El_Consejo_de_Administracio%CC%81n_recibio%CC%81_a_Diputado_Provincial-_foto2_xf9fg8.jpg" alt="imágen de blog" className='noticia4-mainImage' /></div>
+                    <p className='noticia4-mainDescription'>El  Consejo de Administración de la Cooperativa Eléctrica MdP se reunió con el Diputado provincial Gustavo Pulti y la Concejala María Eva Ayala.
+                    Se compartieron los rasgos más salientes de la rica historia de la entidad cooperativa más antigua de la ciudad, su génesis, desafíos y proyectos de desarrollo.
+                   
                     </p>
                 </Fade>
             </div>
             <div className='noticia4-container' id='dark-background'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-                    <p className='noticia4-description' id='light-font'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
-                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
+                    <p className='noticia4-description' id='light-font'> Se precisaron problemáticas estructurales vinculadas con la prestación del servicio eléctrico y se definieron caminos de diálogo para construir soluciones posibles.
+                    La Entidad, señera del cooperativismo marplatense y adherida a FEDECOBA, valora y agradece su  presencia que da cuenta de su compromiso, vocación de trabajo y aporte para colaborar con la consolidación de la economía social. 
                     </p>
-                    <div className='noticia1-image-container'><img src="https://www.performance-construccion.com/wp-content/uploads/2016/09/electricista_cancun-800x430.png" alt="imágen de blog" className='noticia4-image' /></div>
+                    <div className='noticia1-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741429569/cooperativa/El_consejo_de_administracion_uf2tn6.jpg" alt="imágen de blog" className='noticia4-image' /></div>
                 </Fade>
             </div>
-            <div className='noticia4-container'> 
+            {/* <div className='noticia4-container'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
                     <div className='noticia4-image-container blog-background-position'><img src="https://projectssdn.com/wp-content/uploads/elementor/thumbs/electricidad-residencial-e-industrial-qp5x9bwrw4jy9i0gusv63vzojxuitdyio7dnxpklgg.png" alt="imágen de blog" className='noticia4-image' /></div>
                     <p className='noticia4-description'>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
                     Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aperiam nostrum minus modi sapiente quia molestias. Nihil sequi mollitia maxime culpa autem inventore aperiam itaque architecto similique, ex omnis? Officia, nulla.
                     </p>
                 </Fade>
-            </div>
+            </div> */}
             <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
                 <div className='noticia4-buttonContainer'>
                     <div className='noticia4-button'>
