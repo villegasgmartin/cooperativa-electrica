@@ -73,8 +73,8 @@ const Blognoticia5 = () => {
             </div>
             <div className='noticia5-container' id='dark-background'> 
                 <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
-                    <p className='noticia5-description' id='light-font'> Se precisaron problemáticas estructurales vinculadas con la prestación del servicio eléctrico y se definieron caminos de diálogo para construir soluciones posibles.
-                    La Entidad, señera del cooperativismo marplatense y adherida a FEDECOBA, valora y agradece su  presencia que da cuenta de su compromiso, vocación de trabajo y aporte para colaborar con la consolidación de la economía social. 
+                    <p className='noticia5-description' id='light-font'> Especialmente invitado por el Sr. Gobernador participó nuestro Presidente, Ing. Juan Carlos Dentis, quien expuso sobre las particularidades de la prestación del servicio eléctrico en n/ciudad y planteó inquietudes y dificultades, propiciando la generación de canales de diálogo para el abordaje de la situación.
+                    Desde nuestra entidad celebramos el encuentro, que tuvo una amplia participación de los sectores de la producción y del trabajo responsables de la matriz productiva y comercial local.
                     </p>
                     <div className='noticia1-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741432842/cooperativa/Encuentro_Productivo_Bonaerense-2_v8mjz5.jpg" alt="imágen de blog" className='noticia5-image' /></div>
                 </Fade>
