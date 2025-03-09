@@ -24,25 +24,25 @@ const HomeBlog2 = () => {
       <div className='homeBlog-noticiasContainer'>
           <Fade cascade={true} duration={800} triggerOnce={true}>
             <div className='homeBlog-noticia noticia-01'>
-              <Link to={"/como-ahorrar-energia"}>
+              <Link to={"/el-consejo-de-administracion-recibe-diputado-provincial"}>
                 <div className='homeBlog-img-container'>
                   <img className='homeBlog-img' 
-                      src={ImageA} 
+                      src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741429570/cooperativa/El_Consejo_de_Administracio%CC%81n_recibio%CC%81_a_Diputado_Provincial_-_foto_3_kupkpm.jpg" 
                       alt="blog noticia" />
                 </div>
               </Link>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Cómo Ahorrar Energía</h3></Link>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>El Consejo de Administración recibió a Diputado Provincial</h3></Link>
             </div>
             <div className='homeBlog-noticia noticia-02'>
               <div className='homeBlog-img-container'>
-                <Link to={"/energias-renovables"}>
+                <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"}>
                   <img className='homeBlog-img'
-                      src={ImageB} 
+                      src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741432842/cooperativa/Encuentro_Productivo_Bonaerense-1_ix5tsb.jpg"
                       alt="blog noticia"
                       />
                 </Link>
               </div>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Energías Renovables </h3></Link>
+              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Cooperativa Eléctrica en Encuentro Productivo Bonaerense </h3></Link>
             </div>
             <div className='homeBlog-noticia noticia-03'>
               <div className='homeBlog-img-container'>
