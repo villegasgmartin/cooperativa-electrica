@@ -25,6 +25,9 @@ const BlogNoticia4 = () => {
     return (
         <section className='noticia4-main-container'>
             <Helmet>
+            <html lang="es" />
+            <meta charSet="UTF-8" />
+            <meta name="language" content="es" />
                 <title>El Consejo de Administración recibió a Diputado Provincial</title>
             </Helmet>
             <div className='noticia4-secondary-container'>

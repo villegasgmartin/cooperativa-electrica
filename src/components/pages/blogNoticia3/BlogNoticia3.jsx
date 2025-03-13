@@ -25,6 +25,9 @@ const BlogNoticia3 = () => {
     return (
         <section className='noticia3-main-container'>
             <Helmet>
+            <html lang="es" />
+            <meta charSet="UTF-8" />
+            <meta name="language" content="es" />
                 <title>Por Qué la Velocidad de Internet Es Clave para tu Hogar y Negocio</title>
             </Helmet>
             <div className='noticia3-secondary-container'>

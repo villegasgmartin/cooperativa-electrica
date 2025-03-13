@@ -28,6 +28,9 @@ const Blognoticia5 = () => {
     return (
         <section className='noticia5-main-container'>
             <Helmet>
+            <html lang="es" />
+            <meta charSet="UTF-8" />
+            <meta name="language" content="es" />
                 <title>Cooperativa Eléctrica en Encuentro Productivo Bonaerense</title>
             </Helmet>
             <div className='noticia5-secondary-container'>
