@@ -20,7 +20,7 @@
 .blog-container{
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     margin-top: 5rem;
     flex-wrap: wrap;
     gap: 2rem;

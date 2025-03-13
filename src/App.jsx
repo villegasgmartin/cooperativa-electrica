@@ -22,6 +22,8 @@ import BlogNoticia2 from "./components/pages/blogNoticia2/BlogNoticia2.jsx"
 import BlogNoticia3 from "./components/pages/blogNoticia3/BlogNoticia3.jsx"
 import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx"
 import BlogNoticia5 from "./components/pages/blogNoticia5/BlogNoticia5.jsx"
+import BlogNoticia6 from "./components/pages/blogNoticia6/BlogNoticia6.jsx"
+
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
 import Home from "./components/pages/home/Home.jsx"
@@ -53,6 +55,8 @@ function App() {
           <Route path="/las-claves-de-la-velocidad-de-internet" element={<BlogNoticia3 />} />
           <Route path="/el-consejo-de-administracion-recibe-diputado-provincial" element={<BlogNoticia4 />} />
           <Route path="/cooperativa-electrica-en-encuentro-productivo-bonaerense" element={<BlogNoticia5 />} />
+          <Route path="/dia-de-la-mujer" element={<BlogNoticia6 />} />
+
         </Route>
         
         <Route path="/biblioteca" element={<Biblioteca />} />

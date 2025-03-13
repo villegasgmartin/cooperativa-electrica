@@ -46,13 +46,14 @@ const HomeBlog2 = () => {
             </div>
             <div className='homeBlog-noticia noticia-03'>
               <div className='homeBlog-img-container'>
-                <Link to={"/las-claves-de-la-velocidad-de-internet"}>
+                <Link to={"/dia-de-la-mujer"}>
                   <img className='homeBlog-img'
-                      src={ImageC} 
+                      src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741895862/cooperativa/Dia_de_la_mujer_-_header_z6mwgy.jpg" 
                       alt="blog noticia" />
                 </Link>
               </div>
-              <Link className='link-blog' to={"/blog"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>Velocidad de Internet</h3></Link>
+              <Link className='link-blog' to={"/dia-de-la-mujer"} style={{textDecoration: "none"}}><h3 className='HomeBlog-noticiaTitle'>8 de marzo, Día Internacional de la Mujer Trabajadora
+              </h3></Link>
             </div>
           </Fade>
         </div>

@@ -51,9 +51,9 @@ const Blog = () => {
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div className='blog-subcontainer'>
-            <Link to={"/las-claves-de-la-velocidad-de-internet"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/las-claves-de-la-velocidad-de-internet"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>En un mundo cada vez más conectado, la velocidad de internet se ha convertido en un factor esencial para las actividades diarias.</p>
+            <Link to={"/dia-de-la-mujer"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741895862/cooperativa/Dia_de_la_mujer_-_header_z6mwgy.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/dia-de-la-mujer"} style={{textDecoration: "none"}}><h3 className='blog-title'>8 de marzo, Día Internacional de la Mujer Trabajadora</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>La Cooperativa Eléctrica de MdP, conmemora el día Internacional de la Mujer trabajadora y se suma  a los actos y reivindicaciones  para celebrar sus logros en la lucha por la igualdad,  el  reconocimiento y sus  derechos en los ámbitos social, político y laboral.</p>
           </div>
           <div className='blog-subcontainer'>
             <Link to={"/como-ahorrar-energia"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
@@ -68,6 +68,11 @@ const Blog = () => {
             <Link to={"/energias-renovables"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/energias-renovables"} style={{textDecoration: "none"}}><h3 className='blog-title'>Energías Renovables</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica.</p>
+          </div>
+          <div className='blog-subcontainer'>
+            <Link to={"/las-claves-de-la-velocidad-de-internet"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/las-claves-de-la-velocidad-de-internet"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>En un mundo cada vez más conectado, la velocidad de internet se ha convertido en un factor esencial para las actividades diarias.</p>
           </div>
         </Fade>
       </div>
