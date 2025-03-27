@@ -20,6 +20,7 @@ const pages = [
             { name: 'Laboratorio de medidores', path: '/laboratorio-de-medidores' },
             { name: 'Biblioteca', path: '/biblioteca' },
             { name: 'AMI Mutual', path: '/AMImutual' },
+            { name: 'Vittal', path: '/vittal' },
         ]
     },
     {

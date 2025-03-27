@@ -28,6 +28,8 @@ import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx"
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx"
 import Home from "./components/pages/home/Home.jsx"
 import BotonWhatsapp from "./components/common/BotonWhatsapp/BotonWhatsapp.jsx"
+import { Virtual } from "swiper/modules"
+import Vital from "./components/pages/vital/Vital.jsx"
 
 //JSX:
 function App() {
@@ -61,6 +63,7 @@ function App() {
         
         <Route path="/biblioteca" element={<Biblioteca />} />
         <Route path="/AMImutual" element={<Mutual />} />
+        <Route path="/vittal" element={<Vital />} />
         <Route path="/formas-de-pago" element={<FormasPago />} />
         <Route path="/nave" element={<Nave />} />
         <Route path="/formulario" element={<Form />} />

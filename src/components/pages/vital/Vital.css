@@ -1,7 +1,7 @@
 /*Header*/
 .header-mutual-container{
     background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-    url("../../../assets//images//headers/header-mutual.png"); 
+    url("../../../assets//images//headers/header-vittal.jpg"); 
     background-size: cover;
     background-position: top;
     height: 25.625rem;
@@ -63,11 +63,11 @@
 }
 
 /*Imágen texto 2*/
-.mutual-text02{
+.vittal-text02{
     color: white;
     font-family: "archivo";
     font-weight: lighter;
-    font-size: 3.125rem;
+    font-size: 1.125rem;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
 }
 
