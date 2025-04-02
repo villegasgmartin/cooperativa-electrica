@@ -140,7 +140,7 @@ const Form = () => {
     // }
 
     const getCoordinates = async (address) => {
-        const apiKey = "AIzaSyCCzveaOkoBNKYRpimGKITKrx9MfRNlYhU"; // Reemplázalo con tu clave real
+        const apiKey = process.env.REACT_APP_GOOGLE_MAPS; // Reemplázalo con tu clave real
         const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
     
         try {
