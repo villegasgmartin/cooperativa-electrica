@@ -24,7 +24,7 @@ const Card = ({servicio, precio, /*precioLista,*/ descuento, descripcion, logo})
                     <p className="card-precio-text">final por mes*</p>
                 </div>
                 <div className="card-button-container">
-                    <Link to={"/formulario"}>
+                    <Link to={`/formulario?internet=${subText}`}>
                         <Button
                             variant="contained"
                             sx={{
