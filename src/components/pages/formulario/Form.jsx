@@ -71,12 +71,7 @@ const Form = () => {
         }, [name, dni, direccion, email, tvPlan, internetPlanURL]);
         
 
-    useEffect(() => {
-        const script = document.createElement("script");
-        script.src = "https://assets.calendly.com/assets/external/widget.js";
-        script.async = true;
-        document.body.appendChild(script);
-      }, []);
+
     
       useEffect(() => {
         // Obtener los parámetros de la URL
@@ -107,27 +102,7 @@ const Form = () => {
   }, []);
 
 
-  const openCalendlyPopup = () => {
-    window.Calendly.initPopupWidget({
-        url: "https://calendly.com/villegasgmartin/fisrt-meeting",
-    });
-};
 
-// Agregar el event listener cuando el componente se monta
-useEffect(() => {
-    const handleCalendlyEvent = (e) => {
-        if (e.data.event === "calendly.event_scheduled") {
-            console.log("Evento de Calendly detectado");
-            handleSubmit(); // Llama a la función después de agendar
-        }
-    };
-
-    window.addEventListener("message", handleCalendlyEvent);
-
-    return () => {
-        window.removeEventListener("message", handleCalendlyEvent);
-    };
-}, []);
 
 
 
@@ -494,14 +469,13 @@ useEffect(() => {
                     <div>
                         {isFormComplete? (
                             <>
-                                  {/* <PopupWidget
+                                  <PopupWidget
                                     url="https://calendly.com/villegasgmartin/fisrt-meeting?preview_source=et_card&month=2025-02"
                                     rootElement={document.getElementById("root")}
                                     text="Enviar"
                                     textColor="#ffffff"
                                     color="#3D116D"
-                                /> */}
-                                {openCalendlyPopup()}
+                                />
                             </>
                         ): ""}
               
