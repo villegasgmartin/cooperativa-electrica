@@ -40,8 +40,8 @@ const CardCarousel = ({ servicios}) => {
                         servicio={servicio.servicio} 
                         precio={servicio.precio} 
                         /*precioLista={servicio.precioLista}*/
-                        descuento={servicio.descuento}
-                        descripcion={servicio.descripcion}
+                        // descuento={servicio.descuento}
+                        // descripcion={servicio.descripcion}
                     />
                 </SwiperSlide>
             ))}
