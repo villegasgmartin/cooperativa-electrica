@@ -252,7 +252,7 @@ const Contacto = () => {
               <p className='contacto-info-text'><strong>Horarios de atención: </strong>Lunes a Viernes de 8 a 15 hs.</p>
               <p className='contacto-info-text'><strong>Facturación NAVE: </strong>nave-adm@cooperativamdp.com.ar</p>
               <div className='contacto-icons'>
-                <a href="https://www.facebook.com/naveinternetoficial" target='_blank' rel='noopener noreferrer'>
+                <a href="https://www.facebook.com/people/Cooperativa-Eléctrica-MDP-Nave-Internet/61565189905138/?mibextid=wwXIfr&rdid=Ci1CpuLrZfMzq4Qk&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F1BdQEzvr5v%2F%3Fmibextid%3DwwXIfr" target='_blank' rel='noopener noreferrer'>
                   <FacebookIcon
                     sx={{
                       color: "#3d116d",
