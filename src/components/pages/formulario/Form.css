@@ -53,6 +53,23 @@
     margin-top: 1.875rem;
 }
 
+/*Calendario y selector de horario*/
+.form-calendar{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1.25rem;
+    gap: .9375rem;
+}
+
+/*Texto del calendario*/
+.form-calendar-text{
+    font-family: "interTight";
+    color: var(--darkviolet);
+    font-size: 1.25rem;
+}
+
 /*----------------Media Queries----------------*/
 
 @media (max-width: 1024px){

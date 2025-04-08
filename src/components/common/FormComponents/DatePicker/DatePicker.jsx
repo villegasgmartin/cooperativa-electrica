@@ -1,69 +1,97 @@
-import React, { useState } from 'react';
-import { DayPicker } from 'react-day-picker';
-import 'react-day-picker/dist/style.css';
-import { FormControl, InputLabel, MenuItem, Select, Button } from '@mui/material';
+// Importaciones:
+import * as React from 'react';
+import { useState } from 'react';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
+import 'dayjs/locale/es';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
-const horariosDisponibles = [
-  '08:00 - 10:00',
-  '10:00 - 12:00',
-  '12:00 - 14:00',
-  '14:00 - 16:00',
-];
+// JSX:
+dayjs.locale({
+    name: 'es-custom',
+    months: [
+        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+    ],
+    monthsShort: [
+        'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+    ],
+    weekdays: dayjs.Ls['es'].weekdays,
+    weekdaysShort: dayjs.Ls['es'].weekdaysShort,
+    weekdaysMin: dayjs.Ls['es'].weekdaysMin,
+    formats: dayjs.Ls['es'].formats,
+    ordinal: dayjs.Ls['es'].ordinal,
+    weekStart: dayjs.Ls['es'].weekStart,
+    }, null, true);
 
-const DatePicker = ({ onFechaConfirmada }) => {
-  const [fechaSeleccionada, setFechaSeleccionada] = useState();
-  const [franjaHoraria, setFranjaHoraria] = useState('');
+dayjs.locale('es-custom');
 
-  const handleFranjaChange = (event) => {
-    setFranjaHoraria(event.target.value);
-  };
+export default function BasicDatePicker() {
+    const [fechaSeleccionada, setFechaSeleccionada] = useState(null);
+    const [horarioSeleccionado, setHorarioSeleccionado] = useState('');
 
-  const handleSubmit = () => {
-    if (fechaSeleccionada && franjaHoraria && onFechaConfirmada) {
-      onFechaConfirmada(fechaSeleccionada, franjaHoraria);
-    }
-  };
+    const estilos = {
+        '& .MuiInputBase-root': {
+        color: '#3d116d',
+        },
+        '& .MuiOutlinedInput-root': {
+        '& fieldset': {
+            borderColor: '#3d116d',
+        },
+        '&:hover fieldset': {
+            borderColor: '#3d116d',
+        },
+        '&.Mui-focused fieldset': {
+            borderColor: '#3d116d',
+        },
+        },
+        '& .MuiInputLabel-root': {
+        color: '#3d116d',
+        },
+        '& .Mui-focused': {
+        color: '#3d116d',
+        },
+        '& .MuiSvgIcon-root': {
+        color: '#3d116d',
+        },
+    };
 
-  return (
-    <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Seleccioná una fecha</h2>
+    return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DemoContainer components={['DatePicker']}>
+            <DatePicker
+            label="Fecha de instalación"
+            value={fechaSeleccionada}
+            onChange={(newValue) => setFechaSeleccionada(newValue)}
+            sx={estilos}
+            />
+        </DemoContainer>
 
-      <DayPicker
-        mode="single"
-        selected={fechaSeleccionada}
-        onSelect={setFechaSeleccionada}
-        fromDate={new Date()} // Bloquea días anteriores
-      />
-
-      {fechaSeleccionada && (
-        <div className="mt-4">
-          <FormControl fullWidth>
-            <InputLabel id="franja-label">Franja horaria</InputLabel>
+        {fechaSeleccionada && (
+            <FormControl fullWidth sx={{ mt: 2, ...estilos,
+                width: 260,
+                margin: '0 auto',
+                mt: 2,
+                }}>
+            <InputLabel id="horario-label">Horario de instalacióm</InputLabel>
             <Select
-              labelId="franja-label"
-              value={franjaHoraria}
-              label="Franja horaria"
-              onChange={handleFranjaChange}
+                labelId="horario-label"
+                value={horarioSeleccionado}
+                label="Franja horaria"
+                onChange={(e) => setHorarioSeleccionado(e.target.value)}
             >
-              {horariosDisponibles.map((franja) => (
-                <MenuItem key={franja} value={franja}>
-                  {franja}
-                </MenuItem>
-              ))}
+            <MenuItem value="8 a 10">8:00 a 10:00</MenuItem>
+            <MenuItem value="10 a 12">10:00 a 12:00</MenuItem>
+            <MenuItem value="12 a 14">12:00 a 14:00</MenuItem>
+            <MenuItem value="14 a 16">14:00 a 16:00</MenuItem>
+
             </Select>
-          </FormControl>
-        </div>
-      )}
-
-      {fechaSeleccionada && franjaHoraria && (
-        <div className="mt-6">
-          <Button variant="contained" color="primary" onClick={handleSubmit}>
-            Enviar solicitud
-          </Button>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default DatePicker;
+        </FormControl>
+        )}
+    </LocalizationProvider>
+    );
+}

@@ -16,7 +16,9 @@ import {Helmet} from "react-helmet"
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import { PopupWidget } from "react-calendly";
 import { isPointInPolygon } from "geolib";
-import DatePicker from '../../common/FormComponents/DatePicker/DatePicker';
+import BasicDatePicker from '../../common/FormComponents/DatePicker/DatePicker';
+
+
 //JSX:
 const Form = () => {
     const dispatch = useDispatch();
@@ -451,13 +453,6 @@ const Form = () => {
                        >
                            <MenuItem value="Fuera de Zona" selected>Fuera de Zona</MenuItem>
                        </Select>
-                       <DatePicker
-                       onFechaConfirmada={(fecha, franja) => {
-                        console.log('Fecha:', fecha);
-                        console.log('Franja:', franja);
-                        // Acá podés guardar los datos o hacer lo que necesites
-                      }}
-                       />
                        </FormControl>
                        </>
                     )}
@@ -484,6 +479,10 @@ const Form = () => {
 
                         
                         </Select>
+                        <div className='form-calendar'>
+                            <p className='form-calendar-text'>Elegí fecha y horario para coordinar la instalación del servicio.</p>
+                            <BasicDatePicker/>
+                        </div>
                     </FormControl>
                     
                     <div className='form-button-container'>
