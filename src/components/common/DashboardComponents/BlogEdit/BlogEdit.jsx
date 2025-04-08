@@ -39,13 +39,13 @@ function TabPanel(props) {
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', mt: 4 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{fontFamily: "interTight"}}>
             Blogs
         </Typography>
 
         <Tabs value={value} onChange={handleChange} aria-label="tabs de blogs">
-            <Tab label="Crear publicación" />
-            <Tab label="Gestión de publicaciones" />
+            <Tab label="Crear Publicación" sx={{textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px"}}/>
+            <Tab label="Gestión de Publicaciones" sx={{textTransform: "none", fontFamily: "interTight", fontSize: "17px"}}/>
         </Tabs>
 
         <TabPanel value={value} index={0}>

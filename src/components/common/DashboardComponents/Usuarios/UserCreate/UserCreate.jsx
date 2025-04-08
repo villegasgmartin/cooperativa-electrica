@@ -6,7 +6,7 @@ import { Box, TextField, FormControl, InputLabel, Select, MenuItem, Switch, Form
 export default function UserCreate() {
   return (
     <Box sx={{ width: "90%", margin: "auto", padding: 3 }}>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h5" gutterBottom sx={{fontFamily: "InterTight"}}>
         Crear Usuario
       </Typography>
 
@@ -34,7 +34,7 @@ export default function UserCreate() {
 
         {/* Sección de Accesos (ahora en columna) */}
         <Box sx={{ flex: 1, minWidth: 300 }}>
-          <Typography variant="h6">Accesos</Typography>
+          <Typography variant="h6" sx={{fontFamily: "InterTight"}}>Accesos</Typography>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginTop: 1 }}>
             <FormControlLabel control={<Switch />} label="Reservas" />
             <FormControlLabel control={<Switch />} label="Blog" />
@@ -45,7 +45,15 @@ export default function UserCreate() {
 
       {/* Botón Crear Perfil */}
       <Box sx={{ textAlign: "center", marginTop: 3 }}>
-        <Button variant="contained" color="primary" size="large">
+        <Button variant="contained" color="primary" size="large"
+        sx={{
+          textTransform: 'capitalize',
+          borderRadius: '50px',        
+          px: 4,
+          fontFamily: "InterTight",
+          fontSize: "17px",
+        }}
+        >
           Crear Perfil
         </Button>
       </Box>

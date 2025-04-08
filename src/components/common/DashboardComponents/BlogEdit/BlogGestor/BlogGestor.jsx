@@ -89,7 +89,7 @@ const dummyBlogs = [
 
     return (
         <Box sx={{ padding: 2 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom sx={{fontFamily: "InterTight"}}>
             Gestión de Publicaciones
         </Typography>
 

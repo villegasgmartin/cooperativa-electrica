@@ -1,5 +1,3 @@
-// src/components/UserTable/UserTable.jsx
-
 import * as React from 'react';
 import {
   Box,
@@ -12,6 +10,7 @@ import {
   TableRow,
   Paper,
   IconButton,
+  useTheme,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -51,21 +50,73 @@ const employees = [
 ];
 
 export default function UserTable() {
+  const theme = useTheme();
+  const isLight = theme.palette.mode === 'light';
+
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: 3 }}>
-      <Typography variant="h5" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{ fontFamily: 'InterTight' }}>
         Listado de empleados
       </Typography>
 
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
-            <TableRow>
-              <TableCell>Nombre completo</TableCell>
-              <TableCell>Teléfono</TableCell>
-              <TableCell>Correo Electrónico</TableCell>
-              <TableCell>Función</TableCell>
-              <TableCell>Gestión</TableCell>
+            <TableRow
+              sx={{
+                backgroundColor: isLight ? '#30E691' : 'inherit',
+              }}
+            >
+              <TableCell
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  color: isLight ? '#fff' : 'primary.main',
+                  py: 2,
+                }}
+              >
+                Nombre completo
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  color: isLight ? '#fff' : 'primary.main',
+                  py: 2,
+                }}
+              >
+                Teléfono
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  color: isLight ? '#fff' : 'primary.main',
+                  py: 2,
+                }}
+              >
+                Correo Electrónico
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  color: isLight ? '#fff' : 'primary.main',
+                  py: 2,
+                }}
+              >
+                Función
+              </TableCell>
+              <TableCell
+                sx={{
+                  fontWeight: 'bold',
+                  fontSize: '1rem',
+                  color: isLight ? '#fff' : 'primary.main',
+                  py: 2,
+                }}
+              >
+                Gestión
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

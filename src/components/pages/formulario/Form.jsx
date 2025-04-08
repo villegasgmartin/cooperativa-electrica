@@ -16,6 +16,7 @@ import {Helmet} from "react-helmet"
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import { PopupWidget } from "react-calendly";
 import { isPointInPolygon } from "geolib";
+import DatePicker from '../../common/FormComponents/DatePicker/DatePicker';
 //JSX:
 const Form = () => {
     const dispatch = useDispatch();
@@ -349,16 +350,29 @@ const Form = () => {
                     /> */}
 
                   <div className='direccion-div'>
-                  <input
-                        ref={inputRef}
-                        type="text"
-                        value={direccion}
-                        name='direccion'
-                        id='address-input'
-                        onChange={(e) => setDireccion(e.target.value)}
-                        placeholder="Ingresa tu dirección"
-                        className='direccion-input'
-                    />
+                  <TextField
+                    inputRef={inputRef}
+                    label="Dirección"
+                    variant="outlined"
+                    fullWidth
+                    required
+                    value={direccion}
+                    onChange={(e) => setDireccion(e.target.value)}
+                    sx={{
+                        backgroundColor: "#edeaff",
+                        borderRadius: "25px",
+                        '& .MuiOutlinedInput-root': {
+                        borderRadius: "25px",
+                        '&.Mui-focused fieldset': {
+                            borderColor: '#8048ff',
+                        },
+                        },
+                        '& .MuiInputLabel-root.Mui-focused': {
+                        color: '#8048ff',
+                        }
+                    }}
+/>
+
                     <button onClick={handleConsulta}>Consultar Zona</button>
                     {zona && <p> {zona}</p>}
                     </div>
@@ -437,6 +451,13 @@ const Form = () => {
                        >
                            <MenuItem value="Fuera de Zona" selected>Fuera de Zona</MenuItem>
                        </Select>
+                       <DatePicker
+                       onFechaConfirmada={(fecha, franja) => {
+                        console.log('Fecha:', fecha);
+                        console.log('Franja:', franja);
+                        // Acá podés guardar los datos o hacer lo que necesites
+                      }}
+                       />
                        </FormControl>
                        </>
                     )}
@@ -453,7 +474,7 @@ const Form = () => {
                         >
                             {internetPlan !== "Ninguna"
                                 ? [
-                                    <MenuItem key="park-tv" value="Park Tv adicional $5999">Park Tv adicional $5999</MenuItem>,
+                                    <MenuItem key="pack-tv" value="Pack Tv adicional $5999">Pack Tv adicional $5999</MenuItem>,
                                     <MenuItem key="ninguna" value="Ninguna">Ninguna</MenuItem>,
                                 ]
                                 : [

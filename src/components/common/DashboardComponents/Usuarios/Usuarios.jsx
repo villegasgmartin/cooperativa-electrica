@@ -14,20 +14,20 @@ export default function Usuarios() {
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', marginTop: 3 }}>
-        <Typography variant="h4" gutterBottom>
+        <Typography variant="h4" gutterBottom sx={{fontFamily: "InterTight"}}>
             Usuarios
         </Typography>
 
         {/* Pestañas */}
         <Tabs value={tabIndex} onChange={handleChange}>
-            <Tab label="Crear Usuario" />
-            <Tab label="Listado de Usuarios" />
+            <Tab label="Crear Usuario" sx={{textTransform: "none", fontFamily: "interTight", fontSize: "17px"}} />
+            <Tab label="Listado de Usuarios" sx={{textTransform: "none", fontFamily: "interTight", fontSize: "17px"}}/>
         </Tabs>
 
         {/* Contenido de las pestañas */}
         <Box sx={{ marginTop: 2 }}>
-            {tabIndex === 0 && <UserCreate/>}   {/* Mostrar formulario de creación */}
-            {tabIndex === 1 && <UserTable />}    {/* Mostrar tabla de usuarios */}
+            {tabIndex === 0 && <UserCreate/>} 
+            {tabIndex === 1 && <UserTable />} 
         </Box>
         </Box>
     );

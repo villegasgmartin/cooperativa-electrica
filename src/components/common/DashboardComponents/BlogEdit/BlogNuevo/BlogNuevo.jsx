@@ -14,7 +14,7 @@ export default function BlogNuevo() {
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', mt: 3 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h5" gutterBottom sx={{fontFamily: "interTight"}}>
             Nueva Publicación
         </Typography>
 
@@ -41,7 +41,13 @@ export default function BlogNuevo() {
         <Button
             variant="contained"
             component="label"
-            sx={{ mb: 2 }}
+            sx={{ mb: 2,
+                textTransform: 'capitalize',
+                borderRadius: '50px',        
+                px: 4,
+                fontFamily: "InterTight",
+                fontSize: "17px",
+                }}
         >
             Cargar Imágenes
             <input

@@ -25,6 +25,7 @@ import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx";
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx";
 import Home from "./components/pages/home/Home.jsx";
 import Dashboard from "./components/pages/dashboard/Dashboard.jsx";
+import Login from "./components/pages/login/Login.jsx";
 
 // Componente separado para manejar rutas y lógica
 function AppContent() {
@@ -35,6 +36,7 @@ function AppContent() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route element={<Layout />}>
           <Route path="/comunicados-institucionales" element={<Comunicados />} />
@@ -61,7 +63,7 @@ function AppContent() {
         <Route path="/formulario" element={<Form />} />
       </Routes>
 
-      {location.pathname !== "/dashboard" && <BotonScroll />}
+      {location.pathname !== "/dashboard" && location.pathname !== "/login" && <BotonScroll />}
     </>
   );
 }

@@ -20,6 +20,8 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTheme } from '@mui/material/styles';
+
 
 // Datos de ejemplo
 function createData(service, dateTime, month) {
@@ -99,9 +101,13 @@ Row.propTypes = {
 
 // Componente principal
 export default function Reservas() {
+
+  const theme = useTheme();
+  const isLight = theme.palette.mode === 'light';
+
   return (
     <Box sx={{ width: "80%", margin: "auto", marginTop: "30px" }}>
-      <Typography variant="h4" gutterBottom>
+      <Typography variant="h4" gutterBottom sx={{fontFamily: "InterTight"}}>
         Reservas
       </Typography>
 
@@ -122,23 +128,75 @@ export default function Reservas() {
           size="small"
           sx={{ width: '250px' }}
         />
-        <Button variant="contained" color="primary">
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
+            textTransform: 'capitalize',
+            borderRadius: '50px',        
+            px: 4,
+            fontFamily: "InterTight",
+            fontSize: "16px",
+          }}
+        >
           Mes actual
         </Button>
+
       </Box>
 
       {/* Tabla de reservas */}
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell>Servicio</TableCell>
-              <TableCell>Fecha y Hora</TableCell>
-              <TableCell>Mes</TableCell>
-              <TableCell>Gestión</TableCell>
-            </TableRow>
-          </TableHead>
+        <TableHead>
+          <TableRow
+            sx={{
+              backgroundColor: isLight ? '#30E691' : 'inherit',
+            }}
+          >
+            <TableCell />
+            <TableCell
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                py: 2,
+              }}
+            >
+              Servicio
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                py: 2,
+              }}
+            >
+              Fecha y Hora
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                py: 2,
+              }}
+            >
+              Mes
+            </TableCell>
+            <TableCell
+              sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                py: 2,
+              }}
+            >
+              Gestión
+            </TableCell>
+          </TableRow>
+        </TableHead>
+
           <TableBody>
             {rows.map((row, index) => (
               <Row key={index} row={row} />
