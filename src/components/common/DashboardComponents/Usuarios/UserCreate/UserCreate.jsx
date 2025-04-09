@@ -26,8 +26,7 @@ export default function UserCreate() {
               label="Perfil"
             >
               <MenuItem value="admin">Administrador</MenuItem>
-              <MenuItem value="editor">Editor</MenuItem>
-              <MenuItem value="viewer">Visualizador</MenuItem>
+              <MenuItem value="editor">Usuario</MenuItem>
             </Select>
           </FormControl>
         </Box>

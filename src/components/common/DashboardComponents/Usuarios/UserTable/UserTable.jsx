@@ -1,3 +1,4 @@
+//Importaciones:
 import * as React from 'react';
 import {
   Box,
@@ -15,6 +16,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+//JSX:
 // Datos de ejemplo
 const employees = [
   {
