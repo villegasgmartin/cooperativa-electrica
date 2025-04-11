@@ -18,6 +18,7 @@ export default function UserCreate() {
           <TextField fullWidth label="Nombre y Apellido" margin="normal" />
           <TextField fullWidth label="Correo Electrónico" margin="normal" />
           <TextField fullWidth label="Contraseña" type="password" margin="normal" />
+          <TextField fullWidth label="Teléfono" margin="normal" />
           
           <FormControl fullWidth margin="normal">
             <InputLabel id="perfil-label">Perfil</InputLabel>
@@ -37,7 +38,8 @@ export default function UserCreate() {
           <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginTop: 1 }}>
             <FormControlLabel control={<Switch />} label="Reservas" />
             <FormControlLabel control={<Switch />} label="Blog" />
-            <FormControlLabel control={<Switch />} label="Crear Usuarios" />
+            <FormControlLabel control={<Switch />} label="Usuarios" />
+            <FormControlLabel control={<Switch />} label="Área Técnica" />
           </Box>
         </Box>
       </Box>
