@@ -1,5 +1,8 @@
 // Importaciones:
 import React from 'react';
+import { useState } from 'react';
+import { login } from '../../../../redux/actions';
+import { useDispatch } from 'react-redux';
 import {
     Box,
     Button,
@@ -13,6 +16,42 @@ import "../login/Login.css";
 
 // JSX:
 export default function Login() {
+
+    const dispatch = useDispatch()
+    const [input, setInput] = useState({
+            correo: '',
+            password: ''
+          
+    });
+    const handleChange = (e) => {
+        setInput({
+            ...input,
+            [e.target.name]: e.target.value
+        });
+    };
+    const handleSubmit = () => {
+		// Regular expression para validación de el email
+		const emailRegex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+
+		// Chequeo de errores
+
+		if (input.correo.trim() === '') {
+			alert('Por favor ingrese su email');
+			return;
+		} else if (!emailRegex.test(input.correo)) {
+			alert('Email no válido');
+			return;
+		} else if (input.password.trim() === '') {
+			alert('Ingrese una contraseña');
+			return;
+		}
+
+		
+			dispatch(login(input));	
+	};
+
+
+
     return (
         <>
         <Helmet>
@@ -85,6 +124,9 @@ export default function Login() {
                     },
                     },
                 }}
+                name="correo"
+				onChange={handleChange}
+                value={input.correo}
                 />
 
             <TextField
@@ -109,7 +151,11 @@ export default function Login() {
                     borderColor: '#2eed8d',
                 },
                 },
+               
             }}
+            name="password"
+            value={input.password}
+            onChange={handleChange}
             />
 
 
@@ -138,6 +184,7 @@ export default function Login() {
                     backgroundColor: '#2ed483'
                 }
                 }}
+                onClick={handleSubmit}
             >
                 Ingresar
             </Button>
