@@ -1,3 +1,4 @@
+//Importaciones:
 import * as React from 'react';
 import {
   Box,
@@ -15,6 +16,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
+//JSX:
 // Datos de ejemplo
 const employees = [
   {
@@ -55,7 +57,7 @@ export default function UserTable() {
 
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: 3 }}>
-      <Typography variant="h4" gutterBottom sx={{ fontFamily: 'InterTight' }}>
+      <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
         Listado de empleados
       </Typography>
 
