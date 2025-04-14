@@ -30,6 +30,7 @@ import Home from "./components/pages/home/Home.jsx"
 import BotonWhatsapp from "./components/common/BotonWhatsapp/BotonWhatsapp.jsx"
 import { Virtual } from "swiper/modules"
 import Vital from "./components/pages/vital/Vital.jsx"
+import Oculta from "./components/pages/oculta/Oculta.jsx"
 
 //JSX:
 function App() {
@@ -58,6 +59,7 @@ function App() {
           <Route path="/el-consejo-de-administracion-recibe-diputado-provincial" element={<BlogNoticia4 />} />
           <Route path="/cooperativa-electrica-en-encuentro-productivo-bonaerense" element={<BlogNoticia5 />} />
           <Route path="/dia-de-la-mujer" element={<BlogNoticia6 />} />
+          
 
         </Route>
         
@@ -67,6 +69,8 @@ function App() {
         <Route path="/formas-de-pago" element={<FormasPago />} />
         <Route path="/nave" element={<Nave />} />
         <Route path="/formulario" element={<Form />} />
+        <Route path="/promo-asociado-nave" element={<Oculta />} />
+
       </Routes>
       <BotonScroll />
     </BrowserRouter>

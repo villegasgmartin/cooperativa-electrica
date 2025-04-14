@@ -1,0 +1,47 @@
+/*Header*/
+.header-container{
+    background: #000;
+    background-size: cover;
+    background-position: top;
+    height: auto;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/*Logo en header*/
+.header-logo-container{
+    margin-left: 10%;
+    margin-top: 3.75rem;
+    width: 18.75rem;
+}
+
+.publicidad-buttonContainer{
+    display: flex;
+    justify-content: center;
+}
+.image-container-mobile{
+    display: none;
+}
+@media only screen and (max-width:768px){
+    .image-container{
+        display: none;
+    }
+    .image-container-mobile{
+        display:block;
+        width: 100vw;
+        height: auto;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

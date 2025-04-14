@@ -24,6 +24,10 @@ const Vital = () => {
     nombre: '',
     correo: '',
     mensaje: '',
+    dni:'',
+    telefono: '',
+    direccion: '',
+    numeroAsociado: ''
   });
 
   const handleChange = (e) => {
@@ -204,6 +208,94 @@ const Vital = () => {
                 margin="normal"
                 name="nombre"
                 value={formData.nombre}
+                onChange={handleChange}
+                required
+                sx={{
+                  backgroundColor: "white",
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: "15px",
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#3d116d',
+                    },
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#3d116d',
+                  },
+                }}
+              />
+                   <TextField
+                label="DNI"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="dni"
+                value={formData.dni}
+                onChange={handleChange}
+                required
+                sx={{
+                  backgroundColor: "white",
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: "15px",
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#3d116d',
+                    },
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#3d116d',
+                  },
+                }}
+              />
+                     <TextField
+                label="Telefono"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="telefono"
+                value={formData.telefono}
+                onChange={handleChange}
+                required
+                sx={{
+                  backgroundColor: "white",
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: "15px",
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#3d116d',
+                    },
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#3d116d',
+                  },
+                }}
+              />
+                     <TextField
+                label="Direccion"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="direccion"
+                value={formData.direccion}
+                onChange={handleChange}
+                required
+                sx={{
+                  backgroundColor: "white",
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: "15px",
+                    '&.Mui-focused fieldset': {
+                      borderColor: '#3d116d',
+                    },
+                  },
+                  '& .MuiInputLabel-root.Mui-focused': {
+                    color: '#3d116d',
+                  },
+                }}
+              />
+                     <TextField
+                label="Numero de Asociado"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                name="numeroAsociado"
+                value={formData.numeroAsociado}
                 onChange={handleChange}
                 required
                 sx={{
