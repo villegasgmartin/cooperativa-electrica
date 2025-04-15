@@ -125,15 +125,18 @@ const Oculta = () => {
       </div>
 
       <div className="descuento-botones">
-        <a href="/formulario" className="boton-oferta">
+        <a href="/formulario?internet=600MB" className="boton-oferta">
           <div className="boton-mb">600<span className="unidad">MB</span></div>
           <div className="boton-precio">— $13.865 —</div>
         </a>
 
-        <a href="/formulario" className="boton-oferta">
+        <a href="/formulario?internet=1000MB" className="boton-oferta">
           <div className="boton-mb">1.000<span className="unidad">MB</span></div>
           <div className="boton-precio">— $16.200 —</div>
         </a>
+      </div>
+      <div className="descuento-titulo2">
+        Selecciona tu paquete ideal
       </div>
     </div>
       <Footer/>

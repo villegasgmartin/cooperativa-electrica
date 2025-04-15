@@ -1,5 +1,5 @@
 //Importaciones:
-import { useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import "../formulario/Form.css"
@@ -22,6 +22,8 @@ const Form = () => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
+    const [internetPlanURL, setInternetPlanURL] = useState('');
+
 
     const handleInternetChange = (event) => {
         setInternetPlan(event.target.value);
@@ -49,6 +51,16 @@ const Form = () => {
 
         window.open(whatsappUrl, '_blank');
     };
+
+    useEffect(() => {
+        // Obtener los parámetros de la URL
+        const params = new URLSearchParams(window.location.search);
+        const plan = params.get('internet'); // Obtener el valor del parámetro 'internet'
+        console.log(plan);
+        if (plan) {
+            setInternetPlanURL(plan); // Establecer el valor en el estado si existe en la URL
+        }
+      }, []);
 
     return (
         <>
@@ -193,14 +205,14 @@ const Form = () => {
                         variant='outlined'
                         labelId="internet-plan-label"
                         id="internet-plan-select"
-                        value={internetPlan}
+                        value={internetPlanURL}
                         label="Plan que solicita de internet"
                         onChange={handleInternetChange}
                         sx={{ backgroundColor: "#edeaff",borderRadius:"25px",}}
                         >
-                        <MenuItem value="100 megas">100 megas</MenuItem>
-                        <MenuItem value="300 megas">300 megas</MenuItem>
-                        <MenuItem value="500 megas">500 megas</MenuItem>
+                       
+                        <MenuItem value="600MB">600 megas</MenuItem>
+                        <MenuItem value="1000MB">1000 megas</MenuItem>
                         <MenuItem value="Ninguna">Ninguna</MenuItem>
                         </Select>
                     </FormControl>
