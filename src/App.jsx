@@ -31,6 +31,9 @@ import BotonWhatsapp from "./components/common/BotonWhatsapp/BotonWhatsapp.jsx"
 import { Virtual } from "swiper/modules"
 import Vital from "./components/pages/vital/Vital.jsx"
 import Oculta from "./components/pages/oculta/Oculta.jsx"
+import Blognoticia9 from "./components/pages/blogNoticia9/BlogNoticia9.jsx"
+import Blognoticia7 from "./components/pages/blogNoticia7/BlogNoticia7.jsx"
+import Blognoticia8 from "./components/pages/blogNoticia8/BlogNoticia8.jsx"
 
 //JSX:
 function App() {
@@ -59,6 +62,9 @@ function App() {
           <Route path="/el-consejo-de-administracion-recibe-diputado-provincial" element={<BlogNoticia4 />} />
           <Route path="/cooperativa-electrica-en-encuentro-productivo-bonaerense" element={<BlogNoticia5 />} />
           <Route path="/dia-de-la-mujer" element={<BlogNoticia6 />} />
+          <Route path="/8m-reflexiones-cooperativas-con-perspectiva-de-genero" element={<Blognoticia8 />} />
+          <Route path="/cooperativa-electrica-en-clinica-fiscalizate" element={<Blognoticia7 />} />
+          <Route path="/nueva-modalidad-pago-facturas-qr" element={<Blognoticia9 />} />
           
 
         </Route>

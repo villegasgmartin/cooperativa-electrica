@@ -33,6 +33,39 @@ const Blog = () => {
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
         <div className='blog-subcontainer'>
+            <Link to={"/cooperativa-electrica-en-clinica-fiscalizate"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1744800329/cooperativa/La_Cooperativa_Ele%CC%81ctrica_en_la_cli%CC%81nica_FISCALIZATE_-2_ma6cst.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/cooperativa-electrica-en-clinica-fiscalizate"} style={{textDecoration: "none"}}><h3 className='blog-title'>La Cooperativa Eléctrica en la clínica FISCALIZATE</h3></Link>
+            <p className='blog-description'>La Cooperativa Eléctrica de MdP participó de la clinica de cumplimiento participativo en el marco del programa  FISCALIZATE.
+            </p>
+          </div>
+          <div className='blog-subcontainer'>
+        
+            <Link to={"/8m-reflexiones-cooperativas-con-perspectiva-de-genero"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1744800644/cooperativa/genero_trabajo_8M_wc4bkx.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/8m-reflexiones-cooperativas-con-perspectiva-de-genero"} style={{textDecoration: "none"}}><h3 className='blog-title'> 8M: reflexiones cooperativas con perspectiva de género</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>Organizada por el Consejo de Administración, se desarrolló la charla "Género, Trabajo y Cooperativismo " en el marco del  8M.</p>
+          </div>
+         
+         
+        </Fade>
+      </div>
+      <div className='blog-container'>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+        <div className='blog-subcontainer'>
+            <Link to={"/nueva-modalidad-pago-facturas-qr"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1744800811/cooperativa/coop_MDQ_blog_punnyt.png" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/nueva-modalidad-pago-facturas-qr"} style={{textDecoration: "none"}}><h3 className='blog-title'>Nueva modalidad de pago de las facturas con QR</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>La Cooperativa Eléctrica de Mar del Plata ha incorporado una nueva modalidad de pago en las facturas del servicio eléctrico e Internet.</p>
+          </div>
+        <div className='blog-subcontainer'>
+            <Link to={"/energias-renovables"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/energias-renovables"} style={{textDecoration: "none"}}><h3 className='blog-title'>Energías Renovables</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica.</p>
+          </div>
+       
+        </Fade>
+      </div>
+      <div className='blog-container'>
+        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+        <div className='blog-subcontainer'>
             <Link to={"/el-consejo-de-administracion-recibe-diputado-provincial"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741429570/cooperativa/El_Consejo_de_Administracio%CC%81n_recibio%CC%81_a_Diputado_Provincial_-_foto_3_kupkpm.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/el-consejo-de-administracion-recibe-diputado-provincial"} style={{textDecoration: "none"}}><h3 className='blog-title'>El Consejo de Administración recibió a Diputado Provincial</h3></Link>
             <p className='blog-description'>El  Consejo de Administración de la Cooperativa Eléctrica MdP se reunió con el Diputado provincial Gustavo Pulti y la Concejala María Eva Ayala.
@@ -64,11 +97,6 @@ const Blog = () => {
       </div>
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-        <div className='blog-subcontainer'>
-            <Link to={"/energias-renovables"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/energias-renovables"} style={{textDecoration: "none"}}><h3 className='blog-title'>Energías Renovables</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica.</p>
-          </div>
           <div className='blog-subcontainer'>
             <Link to={"/las-claves-de-la-velocidad-de-internet"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/las-claves-de-la-velocidad-de-internet"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>{/*Cambio de título*/}
