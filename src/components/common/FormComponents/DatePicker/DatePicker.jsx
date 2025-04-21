@@ -77,18 +77,17 @@ export default function BasicDatePicker() {
                 margin: '0 auto',
                 mt: 2,
                 }}>
-            <InputLabel id="horario-label">Horario de instalacióm</InputLabel>
+            <InputLabel id="horario-label">Horario de instalación</InputLabel>
             <Select
                 labelId="horario-label"
                 value={horarioSeleccionado}
-                label="Franja horaria"
+                label="Horario de instalación"
                 onChange={(e) => setHorarioSeleccionado(e.target.value)}
             >
-            <MenuItem value="8 a 10">8:00 a 10:00</MenuItem>
-            <MenuItem value="10 a 12">10:00 a 12:00</MenuItem>
-            <MenuItem value="12 a 14">12:00 a 14:00</MenuItem>
-            <MenuItem value="14 a 16">14:00 a 16:00</MenuItem>
-
+                <MenuItem value="8 a 10">8:00 a 10:00</MenuItem>
+                <MenuItem value="10 a 12">10:00 a 12:00</MenuItem>
+                <MenuItem value="12 a 14">12:00 a 14:00</MenuItem>
+                <MenuItem value="14 a 16">14:00 a 16:00</MenuItem>
             </Select>
         </FormControl>
         )}

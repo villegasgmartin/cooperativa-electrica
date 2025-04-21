@@ -18,14 +18,13 @@ import Form from "./components/pages/formulario/Form.jsx";
 import Preguntas from "./components/pages/preguntas/Preguntas.jsx";
 import Objetivos from "./components/pages/objetivos/Objetivos.jsx";
 import BlogNoticia1 from "./components/pages/blogNoticia1/BlogNoticia1.jsx";
-import BlogNoticia2 from "./components/pages/blogNoticia2/BlogNoticia2.jsx";
-import BlogNoticia3 from "./components/pages/blogNoticia3/BlogNoticia3.jsx";
-import BlogNoticia4 from "./components/pages/blogNoticia4/BlogNoticia4.jsx";
 import ScrollToTop from "./components/common/ScrollToTop/ScrollToTop.jsx";
 import BotonScroll from "./components/common/BotonScroll/BotonScroll.jsx";
 import Home from "./components/pages/home/Home.jsx";
 import Dashboard from "./components/pages/dashboard/Dashboard.jsx";
 import Login from "./components/pages/login/Login.jsx";
+import NewPassword from "./components/pages/newPassword/NewPassword.jsx";
+
 
 // Componente separado para manejar rutas y lógica
 function AppContent() {
@@ -37,6 +36,7 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/actualizar-clave" element={<NewPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route element={<Layout />}>
           <Route path="/comunicados-institucionales" element={<Comunicados />} />
@@ -50,10 +50,7 @@ function AppContent() {
           <Route path="/preguntas-frecuentes" element={<Preguntas />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/como-ahorrar-energia" element={<BlogNoticia1 />} />
-          <Route path="/energias-renovables" element={<BlogNoticia2 />} />
-          <Route path="/las-claves-de-la-velocidad-de-internet" element={<BlogNoticia3 />} />
-          {/* <Route path="/blog-4" element={<BlogNoticia4 />} /> */}
+          <Route path="/blog/:id/:titulo" element={<BlogNoticia1 />} />
         </Route>
 
         <Route path="/biblioteca" element={<Biblioteca />} />
@@ -63,7 +60,7 @@ function AppContent() {
         <Route path="/formulario" element={<Form />} />
       </Routes>
 
-      {location.pathname !== "/dashboard" && location.pathname !== "/login" && <BotonScroll />}
+      {location.pathname !== "/dashboard" && location.pathname !== "/login" && location.pathname !== "/actualizar-clave" && <BotonScroll />}
     </>
   );
 }

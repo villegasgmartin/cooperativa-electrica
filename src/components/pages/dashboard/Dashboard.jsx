@@ -8,9 +8,9 @@ import { useDemoRouter } from '@toolpad/core/internal';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BookIcon from '@mui/icons-material/Book';
 import PeopleIcon from '@mui/icons-material/People';
-import BuildIcon from '@mui/icons-material/Build'; // Ícono para Área Técnica
-import { Helmet } from "react-helmet";
-import logo from "../../../assets/images/logos/logo-dashboard.png";
+import BuildIcon from '@mui/icons-material/Build';
+import { Helmet } from 'react-helmet';
+import logo from '../../../assets/images/logos/logo-dashboard.png';
 
 // Componentes de secciones:
 import DashboardHome from '../../common/DashboardComponents/DashBoardHome/DashBoardHome';
@@ -18,13 +18,14 @@ import Reservas from '../../common/DashboardComponents/Reservas/Reservas';
 import Usuarios from '../../common/DashboardComponents/Usuarios/Usuarios';
 import BlogEdit from '../../common/DashboardComponents/BlogEdit/BlogEdit';
 import AreaTecnica from '../../common/DashboardComponents/AreaTecnica/AreaTecnica';
+import Logout from '../../common/DashboardComponents/Logout/Logout';
 
 // Navegación:
 const NAVIGATION = [
   { segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> },
   { segment: 'blogs', title: 'Blogs', icon: <BookIcon /> },
   { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
-  { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> }, // Nueva sección
+  { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
 ];
 
 // Tema:
@@ -54,7 +55,7 @@ const demoTheme = createTheme({
     values: {
       xs: 0,
       sm: 600,
-      md: 600,
+      md: 900,
       lg: 1200,
       xl: 1536,
     },
@@ -63,23 +64,18 @@ const demoTheme = createTheme({
 
 // Componente de contenido:
 function DemoPageContent({ pathname }) {
-  if (pathname === '/reservas') {
-    return <Reservas />;
+  switch (pathname) {
+    case '/reservas':
+      return <Reservas />;
+    case '/usuarios':
+      return <Usuarios />;
+    case '/blogs':
+      return <BlogEdit />;
+    case '/area-tecnica':
+      return <AreaTecnica />;
+    default:
+      return <DashboardHome />;
   }
-
-  if (pathname === '/usuarios') {
-    return <Usuarios />;
-  }
-
-  if (pathname === '/blogs') {
-    return <BlogEdit />;
-  }
-
-  if (pathname === '/area-tecnica') {
-    return <AreaTecnica />;
-  }
-
-  return <DashboardHome />;
 }
 
 DemoPageContent.propTypes = {
@@ -120,7 +116,10 @@ function Dashboard(props) {
         theme={demoTheme}
         window={demoWindow}
       >
-        <DashboardLayout>
+        <DashboardLayout slots={{
+          toolbarAccount: () => null,
+          sidebarFooter: Logout
+        }}>
           <DemoPageContent pathname={router.pathname} />
         </DashboardLayout>
       </AppProvider>

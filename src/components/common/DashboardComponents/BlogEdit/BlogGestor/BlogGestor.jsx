@@ -1,204 +1,191 @@
 //Importaciones:
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box,
     Typography,
-    Paper,
-    IconButton,
-    Dialog,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    TextField,
     Button,
-    ImageList,
-    ImageListItem,
-    ImageListItemBar,
-    DialogContentText
+    IconButton,
+    Modal,
+    TextField,
+    Card,
+    CardContent,
+    CardActions,
+    Grid,
 } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import axios from 'axios';
 
 //JSX:
-const dummyBlogs = [
-    {
-        id: 1,
-        titulo: 'Primera publicación',
-        texto: 'Este es el contenido de la primera publicación.',
-        fecha: '2025-04-01',
-        imagenes: [
-        'https://via.placeholder.com/150',
-        'https://via.placeholder.com/200',
-        ],
-    },
-    {
-        id: 2,
-        titulo: 'Segunda publicación',
-        texto: 'Contenido interesante sobre el segundo blog.',
-        fecha: '2025-04-02',
-        imagenes: ['https://via.placeholder.com/180'],
-    },
-    ];
+const styleModal = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    borderRadius: '12px',
+    boxShadow: 24,
+    p: 4,
+};
 
-    export default function BlogGestor() {
-    const [blogs, setBlogs] = useState(dummyBlogs);
-    const [editDialogOpen, setEditDialogOpen] = useState(false);
-    const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-    const [selectedBlog, setSelectedBlog] = useState(null);
+export default function BlogGestor() {
+    const [blogs, setBlogs] = useState([]);
+    const [modalEliminar, setModalEliminar] = useState(false);
+    const [modalEditar, setModalEditar] = useState(false);
+    const [blogSeleccionado, setBlogSeleccionado] = useState(null);
+    const [tituloEditado, setTituloEditado] = useState('');
+    const [descripcionEditada, setDescripcionEditada] = useState('');
 
-    const handleEditOpen = (blog) => {
-        setSelectedBlog({ ...blog });
-        setEditDialogOpen(true);
+    const obtenerBlogs = async () => {
+        try {
+        const response = await axios.get('http://localhost:8000/api/blog/blogs', {
+            headers: {
+            'x-token': localStorage.getItem('token'),
+            },
+        });
+        setBlogs(response.data.blogs);
+        } catch (error) {
+        console.error('Error al obtener blogs:', error);
+        }
     };
 
-    const handleEditClose = () => {
-        setEditDialogOpen(false);
-        setSelectedBlog(null);
+    useEffect(() => {
+        obtenerBlogs();
+    }, []);
+
+    const handleEliminar = async () => {
+        try {
+        await axios.delete(`http://localhost:8000/api/blog/borrar-blog?id=${blogSeleccionado._id}`, {
+            headers: {
+            'x-token': localStorage.getItem('token'),
+            },
+        });
+        setModalEliminar(false);
+        obtenerBlogs();
+        } catch (error) {
+        console.error('Error al eliminar el blog:', error);
+        }
     };
 
-    const handleDeleteOpen = (blog) => {
-        setSelectedBlog(blog);
-        setDeleteDialogOpen(true);
+    const handleEditar = async () => {
+        try {
+        await axios.put(
+            `http://localhost:8000/api/blog/actualizar-blog?id=${blogSeleccionado._id}`,
+            {
+            titulo: tituloEditado,
+            descripcion: descripcionEditada,
+            },
+            {
+            headers: {
+                'x-token': localStorage.getItem('token'),
+            },
+            }
+        );
+        setModalEditar(false);
+        obtenerBlogs();
+        } catch (error) {
+        console.error('Error al editar el blog:', error);
+        }
     };
 
-    const handleDeleteConfirm = () => {
-        setBlogs(blogs.filter((b) => b.id !== selectedBlog.id));
-        setDeleteDialogOpen(false);
-        setSelectedBlog(null);
+    const abrirModalEliminar = (blog) => {
+        setBlogSeleccionado(blog);
+        setModalEliminar(true);
     };
 
-    const handleDeleteClose = () => {
-        setDeleteDialogOpen(false);
-        setSelectedBlog(null);
-    };
-
-    const handleImageDelete = (imgUrl) => {
-        setSelectedBlog((prev) => ({
-        ...prev,
-        imagenes: prev.imagenes.filter((img) => img !== imgUrl),
-        }));
-    };
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setSelectedBlog((prev) => ({
-        ...prev,
-        [name]: value,
-        }));
+    const abrirModalEditar = (blog) => {
+        setBlogSeleccionado(blog);
+        setTituloEditado(blog.titulo);
+        setDescripcionEditada(blog.descripcion);
+        setModalEditar(true);
     };
 
     return (
-        <Box sx={{ padding: 2 }}>
-        <Typography variant="h5" gutterBottom sx={{fontFamily: "InterTight"}}>
-            Gestión de Publicaciones
+        <Box sx={{ mt: 3,  marginBottom: 4 }}>
+        <Typography variant="h6" sx={{ fontFamily: 'interTight', mb: 2 }}>
+            Lista de Publicaciones
         </Typography>
 
-        <Box
-            sx={{
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-            gap: 2,
-            }}
-        >
+        <Grid container spacing={2}>
             {blogs.map((blog) => (
-            <Paper key={blog.id} sx={{ padding: 2 }}>
-                <Typography variant="h6">{blog.titulo}</Typography>
-                <Typography variant="body2" color="textSecondary">
-                {blog.fecha}
-                </Typography>
-                <Box sx={{ mt: 1, display: 'flex', justifyContent: 'flex-end' }}>
-                <IconButton
-                    color="primary"
-                    onClick={() => handleEditOpen(blog)}
-                >
+            <Grid item xs={12} md={6} key={blog._id}>
+                <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
+                <CardContent>
+                    <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
+                    {blog.titulo}
+                    </Typography>
+                    <Typography variant="body2">{blog.descripcion}</Typography>
+                </CardContent>
+                <CardActions sx={{ justifyContent: 'flex-end' }}>
+                    <IconButton color="primary" onClick={() => abrirModalEditar(blog)}>
                     <EditIcon />
-                </IconButton>
-                <IconButton
-                    color="secondary"
-                    onClick={() => handleDeleteOpen(blog)}
-                >
+                    </IconButton>
+                    <IconButton color="error" onClick={() => abrirModalEliminar(blog)}>
                     <DeleteIcon />
-                </IconButton>
-                </Box>
-            </Paper>
+                    </IconButton>
+                </CardActions>
+                </Card>
+            </Grid>
             ))}
-        </Box>
+        </Grid>
 
-        {/* Diálogo de edición */}
-        <Dialog open={editDialogOpen} onClose={handleEditClose} maxWidth="md" fullWidth>
-            <DialogTitle>Editar Publicación</DialogTitle>
-            <DialogContent>
+        {/* Modal Eliminar */}
+        <Modal
+            open={modalEliminar}
+            onClose={() => setModalEliminar(false)}
+            aria-labelledby="modal-eliminar"
+        >
+            <Box sx={styleModal}>
+            <Typography id="modal-eliminar" variant="h6" sx={{ mb: 2 }}>
+                ¿Estás seguro de que deseas eliminar este blog?
+            </Typography>
+            <Button variant="contained" color="error" onClick={handleEliminar} sx={{ mr: 1 }}>
+                Eliminar
+            </Button>
+            <Button variant="outlined" onClick={() => setModalEliminar(false)}>
+                Cancelar
+            </Button>
+            </Box>
+        </Modal>
+
+        {/* Modal Editar */}
+        <Modal
+            open={modalEditar}
+            onClose={() => setModalEditar(false)}
+            aria-labelledby="modal-editar"
+        >
+            <Box sx={styleModal}>
+            <Typography id="modal-editar" variant="h6" sx={{ mb: 2 }}>
+                Editar Publicación
+            </Typography>
+
             <TextField
                 label="Título"
-                name="titulo"
                 fullWidth
-                margin="normal"
-                value={selectedBlog?.titulo || ''}
-                onChange={handleInputChange}
+                value={tituloEditado}
+                onChange={(e) => setTituloEditado(e.target.value)}
+                sx={{ mb: 2 }}
             />
+
             <TextField
-                label="Texto"
-                name="texto"
+                label="Descripción"
                 fullWidth
                 multiline
                 rows={4}
-                margin="normal"
-                value={selectedBlog?.texto || ''}
-                onChange={handleInputChange}
+                value={descripcionEditada}
+                onChange={(e) => setDescripcionEditada(e.target.value)}
+                sx={{ mb: 2 }}
             />
 
-            <Typography variant="subtitle1" sx={{ mt: 2 }}>
-                Imágenes
-            </Typography>
-            <ImageList cols={3} rowHeight={140}>
-                {selectedBlog?.imagenes?.map((img, idx) => (
-                <ImageListItem key={idx}>
-                    <img src={img} alt={`img-${idx}`} loading="lazy" />
-                    <ImageListItemBar
-                    actionIcon={
-                        <IconButton
-                        sx={{ color: 'white' }}
-                        onClick={() => handleImageDelete(img)}
-                        >
-                        <DeleteIcon />
-                        </IconButton>
-                    }
-                    />
-                </ImageListItem>
-                ))}
-            </ImageList>
-            </DialogContent>
-            <DialogActions>
-            <Button onClick={handleEditClose}>Cancelar</Button>
-            <Button variant="contained" color="primary" onClick={handleEditClose}>
-                Guardar cambios
+            <Button variant="contained" color="primary" onClick={handleEditar} sx={{ mr: 1 }}>
+                Guardar Cambios
             </Button>
-            </DialogActions>
-        </Dialog>
-
-        {/* Diálogo de confirmación de eliminación */}
-        <Dialog
-            open={deleteDialogOpen}
-            onClose={handleDeleteClose}
-        >
-            <DialogTitle>¿Estás seguro?</DialogTitle>
-            <DialogContent>
-            <DialogContentText>
-                ¿Seguro que querés eliminar la publicación "{selectedBlog?.titulo}"?
-                Esta acción no se puede deshacer.
-            </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-            <Button onClick={handleDeleteClose}>Cancelar</Button>
-            <Button
-                onClick={handleDeleteConfirm}
-                color="secondary"
-                variant="contained"
-            >
-                Eliminar
+            <Button variant="outlined" onClick={() => setModalEditar(false)}>
+                Cancelar
             </Button>
-            </DialogActions>
-        </Dialog>
+            </Box>
+        </Modal>
         </Box>
     );
 }
