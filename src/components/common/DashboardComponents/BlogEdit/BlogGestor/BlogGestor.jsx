@@ -103,7 +103,7 @@ export default function BlogGestor() {
 
     return (
         <Box sx={{ mt: 3,  marginBottom: 4 }}>
-        <Typography variant="h6" sx={{ fontFamily: 'interTight', mb: 2 }}>
+        <Typography variant="h5" sx={{ fontFamily: 'interTight', mb: 2 }}>
             Lista de Publicaciones
         </Typography>
 

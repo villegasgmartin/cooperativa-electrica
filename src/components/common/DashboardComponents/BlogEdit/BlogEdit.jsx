@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import BlogNuevo from './BlogNuevo/BlogNuevo';
 import BlogGestor from './BlogGestor/BlogGestor';
+import { Link } from 'react-router-dom';
 
 //JSX:
 function TabPanel(props) {
@@ -39,9 +40,26 @@ function TabPanel(props) {
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', mt: 4 }}>
-        <Typography variant="h4" gutterBottom sx={{fontFamily: "interTight"}}>
-            Blogs
-        </Typography>
+                <Typography 
+                    variant="h4" 
+                    gutterBottom 
+                    sx={{ 
+                        fontFamily: "interTight", 
+                        cursor: 'pointer', 
+                        transition: 'all 0.3s ease', 
+                        textDecoration: 'none', 
+                        color: 'inherit',
+                        '&:hover': {
+                            color: 'primary.main', 
+                            transform: 'scale(1.1)', 
+                        }
+                    }}
+                    component={Link} 
+                    to="/blog" 
+                    target="_blank" 
+                >
+                    Blogs
+                </Typography>
 
         <Tabs value={value} onChange={handleChange} aria-label="tabs de blogs">
             <Tab label="Crear Publicación" sx={{textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px"}}/>

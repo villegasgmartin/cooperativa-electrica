@@ -120,13 +120,7 @@
 
 @media(max-width:830px){
     .homeBlog-noticiasContainer{
-        gap: 0;
-    }
-    .noticia-02{
-        display: none;
-    }
-    .noticia-03{
-        display: none;
+        gap: 1.5625rem;
     }
     .homeBlog-img-container{
         height: 25rem;
