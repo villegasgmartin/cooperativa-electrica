@@ -50,10 +50,9 @@ export default function PagosAcordeon() {
               <li>Seleccione el rubro: Luz, Agua, Gas</li>
               <li>Seleccione el ente: Coop Electricidad MDP</li>
               <li>Ingrese su código de pagos.</li>
+              <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_energia_yef0tt.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_NAVE_qclwju.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
             </ul>
-¿Dónde encontrarlo?
-1.Para Servicio Eléctrico: [click aquí]
-2.Para NAVE Internet: [click aquí]
+
 Importante: No debe contar con facturas vencidas para adherirse a esta modalidad.</p>
         </AccordionDetails>
       </Accordion>
