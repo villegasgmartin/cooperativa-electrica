@@ -40,7 +40,7 @@ export default function PagosAcordeon() {
           <p>&quot;Puede abonar sus facturas de servicio eléctrico y NAVE Internet con tarjetas de débito y crédito (en 1 pago) en la Caja 1 de la Sede de Alberti 3600. El Servicio NAVE Internet puede abonarse con tarjeta de débito o crédito en las oficinas comerciales de calle 20 de septiembre 2638.</p>
         </AccordionDetails>
       </Accordion>
-      <Accordion>
+      {/* <Accordion>
         <AccordionSummary>Link Pagos</AccordionSummary>
         <AccordionDetails>
         <p className='FormasPago-accordion-content'>También puede abonar la factura de servicio eléctrico y de Internet, ingresando al Home Banking de su Banco</p>
@@ -52,8 +52,8 @@ export default function PagosAcordeon() {
         </ol>
         <strong className='FormasPago-accordion-content'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
         </AccordionDetails>
-      </Accordion>
-      <Accordion>
+      </Accordion> */}
+      {/* <Accordion>
         <AccordionSummary>En caso de abonar con Cheque</AccordionSummary>
         <AccordionDetails>
           <ul>
@@ -62,8 +62,8 @@ export default function PagosAcordeon() {
             <li className='FormasPago-accordion-content'>Los cheques deberán ser del titular del suministro y extendido a la orden de COOPERATIVA DE PROVISIÓN DE ELECTRICIDAD, SERVICIOS PÚBLICOS, VIVIENDA Y CRÉDITO DE MAR DEL PLATA LIMITADA – NO A LA ORDEN.</li>
           </ul>
         </AccordionDetails>
-      </Accordion>
-      <Accordion>
+      </Accordion> */}
+      {/* <Accordion>
         <AccordionSummary>En caso de abonar con Interdepósito, transferencia bancaria</AccordionSummary>
         <AccordionDetails>
           <ul>
@@ -84,7 +84,7 @@ export default function PagosAcordeon() {
             <li className='FormasPago-accordion-content'>CUENTA CORRIENTE N° 10412/2</li>
           </ul>
         </AccordionDetails>
-      </Accordion>
+      </Accordion> */}
     </AccordionGroup>
   );
 }

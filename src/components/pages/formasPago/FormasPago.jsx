@@ -68,18 +68,18 @@ const FormasPago = () => {
           <Fade triggerOnce={true} duration={800} delay={300}>
             <p className='pagos-text-02'>Horario: de 7:30 a 12:30 hs<br/>Para más información entrá en la página web oficial de Provincia NET www.provincianet.com.ar</p>
             <div className='pagos-alias-container'>
-              <p className='pagos-text-03'>ALIAS:</p>
+              {/* <p className='pagos-text-03'>ALIAS:</p>
               <ul>
                 <li className='pagos-text-03'>COOP-PROVINCIA </li>
                 <li className='pagos-text-03'>COOP-NACION</li>
-              </ul>
+              </ul> */}
             </div>
           </Fade>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div className='pagos-accordion-container'><PagosAcordeon/></div>
         </Fade>
       </div>
-        <div className='pagos-usuarios-container'>
+        {/* <div className='pagos-usuarios-container'>
             <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
               <div className='pagos-usuarios'>
                 <p className='pagos-info-title'>Sres. Usuarios</p>
@@ -95,7 +95,7 @@ const FormasPago = () => {
                 </p>
               </div>
             </Fade>
-        </div>
+        </div> */}
         <BotonWhatsapp/>
     </section>
     <Footer/>
