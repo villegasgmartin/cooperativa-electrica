@@ -9,10 +9,24 @@ import "../FormasPagoComponents/PagosAcordeon.css"
 export default function PagosAcordeon() {
   return (
     <AccordionGroup variant='soft' size='lg'>
-      <Accordion>
-        <AccordionSummary>En Efectivo</AccordionSummary>
+          <Accordion>
+        <AccordionSummary>Pago con QR desde la Factura</AccordionSummary>
         <AccordionDetails>
-          <p className='FormasPago-accordion-content'>Puede realizar el pago de sus facturas de Servicio Eléctrico o de Nave Internet en la Sede de nuestra Cooperativa, Alberti 3600 (esquina 20 de Septiembre), Mar del Plata. De lunes a viernes de 7:30 a 12:30 hs.</p>
+          <p className='FormasPago-accordion-content'>Escaneando el código QR impreso en su factura, podrá abonar de forma rápida y segura utilizando cualquier billetera virtual o aplicación bancaria con fondos disponibles.</p>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Botón de Pago en Oficina Virtual</AccordionSummary>
+        <AccordionDetails>
+          <p className='FormasPago-accordion-content'>Regístrese en nuestra Oficina Virtual y abone sus facturas desde la sección -Mis Facturas-, mediante tarjeta de débito o crédito, a través del siguiente enlace:
+          <a href="oficinavirtual-coopmdp.micoop.com.ar" target='_blank'>oficinavirtual-coopmdp.micoop.com.ar</a>oficinavirtual-coopmdp.micoop.com.ar</p>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Pago en Efectivo en Sede Central</AccordionSummary>
+        <AccordionDetails>
+          <p className='FormasPago-accordion-content'>Puede abonar personalmente en nuestra sede ubicada en Alberti 3600 (esquina 20 de Septiembre), Mar del Plata.
+          <strong>Horario de atención:</strong> lunes a viernes, de 7:30 a 12:30 hs.</p>
         </AccordionDetails>
       </Accordion>
       <Accordion>
@@ -26,6 +40,21 @@ export default function PagosAcordeon() {
             <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_energia_yef0tt.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_NAVE_qclwju.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
           </ol>
           <strong className='FormasPago-accordion-content FormasPago-accordion-link'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary>Home Banking</AccordionSummary>
+        <AccordionDetails>
+          <p className='FormasPago-accordion-content'>A través de su plataforma de home banking:
+            <ul>
+              <li>Seleccione el rubro: Luz, Agua, Gas</li>
+              <li>Seleccione el ente: Coop Electricidad MDP</li>
+              <li>Ingrese su código de pagos.</li>
+            </ul>
+¿Dónde encontrarlo?
+1.Para Servicio Eléctrico: [click aquí]
+2.Para NAVE Internet: [click aquí]
+Importante: No debe contar con facturas vencidas para adherirse a esta modalidad.</p>
         </AccordionDetails>
       </Accordion>
       <Accordion>
