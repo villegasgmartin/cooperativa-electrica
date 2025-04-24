@@ -1,4 +1,4 @@
-//Importaciones:
+// Importaciones:
 import * as React from 'react';
 import {
     Box,
@@ -20,29 +20,30 @@ import {
     Button,
     TextField,
 } from '@mui/material';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import dayjs from 'dayjs';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
 
-//JSX:
+// JSX:
 export default function Registros() {
     const [registros, setRegistros] = React.useState([]);
-    const [openEliminar, setOpenEliminar] = React.useState(false); // Modal eliminar
-    const [registroEliminar, setRegistroEliminar] = React.useState(null); // Registro a eliminar
-    const [openEditar, setOpenEditar] = React.useState(false); // Modal editar
-    const [descripcionEditada, setDescripcionEditada] = React.useState(''); // Descripción editada
-    const [registroEditar, setRegistroEditar] = React.useState(null); // Registro a editar
+    const [openEliminar, setOpenEliminar] = React.useState(false);
+    const [registroEliminar, setRegistroEliminar] = React.useState(null);
+    const [openEditar, setOpenEditar] = React.useState(false);
+    const [descripcionEditada, setDescripcionEditada] = React.useState('');
+    const [fechaEditada, setFechaEditada] = React.useState(null);
+    const [registroEditar, setRegistroEditar] = React.useState(null);
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
 
-    // Función para cargar los registros desde la API
     const cargarRegistros = async () => {
         try {
             const token = localStorage.getItem('token');
-            const headers = {
-                'x-token': token,
-            };
-
+            const headers = { 'x-token': token };
             const response = await axios.get('http://localhost:8000/api/tecnica/tecnicas', { headers });
             setRegistros(response.data.tecnica);
         } catch (error) {
@@ -50,26 +51,21 @@ export default function Registros() {
         }
     };
 
-    // Cargar los registros al montar el componente
     React.useEffect(() => {
         cargarRegistros();
     }, []);
 
-    // Función para eliminar un registro
     const handleEliminar = async () => {
         try {
             const token = localStorage.getItem('token');
-            const headers = {
-                'x-token': token,
-            };
-
+            const headers = { 'x-token': token };
             const response = await axios.delete(
                 `http://localhost:8000/api/tecnica/borrar-tecnica?id=${registroEliminar._id}`,
                 { headers }
             );
 
             if (response.status === 200) {
-                setRegistros(registros.filter((registro) => registro._id !== registroEliminar._id));
+                setRegistros(registros.filter((r) => r._id !== registroEliminar._id));
                 setOpenEliminar(false);
             }
         } catch (error) {
@@ -77,24 +73,25 @@ export default function Registros() {
         }
     };
 
-    // Función para editar un registro
     const handleEditar = async () => {
         try {
             const token = localStorage.getItem('token');
-            const headers = {
-                'x-token': token,
-            };
-
+            const headers = { 'x-token': token };
             const response = await axios.put(
                 `http://localhost:8000/api/tecnica/actualizar-tecnica?id=${registroEditar._id}`,
-                { descripcion: descripcionEditada },
+                {
+                    descripcion: descripcionEditada,
+                    fecha: fechaEditada.toISOString(),
+                },
                 { headers }
             );
 
             if (response.status === 200) {
                 setRegistros(
                     registros.map((registro) =>
-                        registro._id === registroEditar._id ? { ...registro, descripcion: descripcionEditada } : registro
+                        registro._id === registroEditar._id
+                            ? { ...registro, descripcion: descripcionEditada, fecha: fechaEditada.toISOString() }
+                            : registro
                     )
                 );
                 setOpenEditar(false);
@@ -104,7 +101,6 @@ export default function Registros() {
         }
     };
 
-    // Función para formatear la fecha
     const formatFecha = (fecha) => {
         const date = new Date(fecha);
         return date.toLocaleDateString('es-ES', {
@@ -168,8 +164,9 @@ export default function Registros() {
                                             aria-label="editar"
                                             onClick={() => {
                                                 setRegistroEditar(registro);
-                                                setDescripcionEditada(registro.descripcion); 
-                                                setOpenEditar(true); 
+                                                setDescripcionEditada(registro.descripcion);
+                                                setFechaEditada(dayjs(registro.fecha));
+                                                setOpenEditar(true);
                                             }}
                                         >
                                             <EditIcon />
@@ -179,7 +176,7 @@ export default function Registros() {
                                             aria-label="eliminar"
                                             onClick={() => {
                                                 setRegistroEliminar(registro);
-                                                setOpenEliminar(true); 
+                                                setOpenEliminar(true);
                                             }}
                                         >
                                             <DeleteIcon />
@@ -210,27 +207,36 @@ export default function Registros() {
 
             {/* Modal de edición */}
             <Dialog open={openEditar} onClose={() => setOpenEditar(false)}>
-                <DialogTitle>Editar Descripción</DialogTitle>
+                <DialogTitle>Editar Registro</DialogTitle>
                 <DialogContent>
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        value={fechaEditada}
+                        onChange={(newValue) => setFechaEditada(newValue)}
+                        format="DD/MM/YYYY"
+                        sx={{ mb: 2, width: '100%' }}
+                    />
+                    </LocalizationProvider>
+
                     <TextField
                         autoFocus
                         margin="dense"
                         id="descripcion"
-                        label="Descripción"
+                        label="Motivo"
                         type="text"
                         fullWidth
+                        multiline
+                        minRows={3}
                         value={descripcionEditada}
                         onChange={(e) => setDescripcionEditada(e.target.value)}
                         variant="outlined"
                     />
                 </DialogContent>
-                <DialogActions sx={{display: "flex", justifyContent: "center"}}>
-                    <Button onClick={() => setOpenEditar(false)} color="primary"
-                        sx={{textTransform: "capitalize"}}>
+                <DialogActions sx={{ display: 'flex', justifyContent: 'center' }}>
+                    <Button onClick={() => setOpenEditar(false)} color="primary" sx={{ textTransform: 'capitalize' }}>
                         Cancelar
                     </Button>
-                    <Button onClick={handleEditar} color="primary"
-                    sx={{textTransform: "capitalize"}}>
+                    <Button onClick={handleEditar} color="primary" sx={{ textTransform: 'capitalize' }}>
                         Guardar cambios
                     </Button>
                 </DialogActions>

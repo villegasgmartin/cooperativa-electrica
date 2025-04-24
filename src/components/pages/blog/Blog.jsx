@@ -20,7 +20,6 @@ const Blog = () => {
     // Traer blogs desde la base de datos
     axios.get('http://localhost:8000/api/blog/blogs')
       .then((response) => {
-        console.log("Datos recibidos del backend:", response.data.blogs);
         setBlogs(response.data.blogs || []);
       })
       .catch((error) => {

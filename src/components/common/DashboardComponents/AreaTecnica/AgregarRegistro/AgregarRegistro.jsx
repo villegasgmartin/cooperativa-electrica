@@ -66,7 +66,7 @@ export default function AgregarRegistro() {
                     label="Fecha"
                     value={fecha}
                     onChange={(newValue) => setFecha(newValue)}
-                    format="YYYY-MM-DD"
+                    format="DD/MM/YYYY"
                     sx={{ mb: 2, width: '40%' }}
                 />
             </LocalizationProvider>
