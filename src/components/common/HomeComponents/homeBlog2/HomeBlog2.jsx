@@ -45,7 +45,7 @@ const HomeBlog2 = () => {
         <Fade cascade={true} duration={800} triggerOnce={true}>
           {blogs.map((blog, index) => (
             <div key={blog._id} className={`homeBlog-noticia noticia-0${index + 1}`}>
-              <Link to={`/blog/${blog._id}/${encodeURIComponent(blog.titulo)}`}>
+              <Link to={`/blog/${blog.path}`}>
                 <div className='homeBlog-img-container'>
                   <img
                     className='homeBlog-img'

@@ -39,7 +39,6 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 //Logos para PDF
 import logo1 from '../../../../assets/images/logos/logo-nave-negro.png';
-import logo2 from '../../../../assets/images/logos/logo-pdf.png';
 
 //JSX;
 //Estilo de modales:
@@ -60,29 +59,70 @@ const modalBoxStyles = (theme) => ({
 //PDF:
 function Row({ row, handleEditClick, handleDeleteClick }) {
   const [open, setOpen] = React.useState(false);
-
+  
   const handleImprimir = () => {
     const doc = new jsPDF();
-    doc.addImage(logo1, 'PNG', 10, 10, 30, 25);
-    doc.addImage(logo2, 'PNG', 170, 10, 30, 25);
+  
+    // Título 
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(20);
-    doc.text('Orden de Instalación Programada', 105, 50, { align: 'center' });
-    doc.setFontSize(14);
+    doc.setFontSize(16);
+    doc.text('Cooperativa de Provisión de Electricidad,', 105, 20, { align: 'center' });
+    doc.text('Servicios Públicos y Vivienda de Mar del Plata Ltda.', 105, 30, { align: 'center' });
+  
+    // Subtítulo 
     doc.setFont('helvetica', 'normal');
-    doc.text(`Servicio: ${row.internet}`, 10, 70);
-    doc.text(`Fecha y Hora: ${row.fechaFormateada} - ${row.horario}`, 10, 80);
-    doc.text(`Mes: ${row.mes}`, 10, 90);
+    doc.setFontSize(10);
+    doc.text('20 de Septiembre 2638 Whatsapp 2235376973', 105, 40, { align: 'center' });
+  
+    let y = 50;
+  
+    // Título de la sección
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text('SERVICIO DE INTERNET - Conexión de Servicio', 10, y);
+    y += 12;
+  
+    // Datos del socio
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.text(`Fecha Solicitud: ${row.fechaFormateada}`, 10, y); y += 10;
+    doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
+    doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
+    doc.text(`Tipo: ${row.tipo || 'No disponible'}   Piso: ${row.Piso || 'No disponible'}   Dpto: ${row.Dpto || 'No disponible'}`, 10, y); y += 10;
+    doc.text(`Teléfono: ${row.telefono}`, 10, y); y += 10;
+    doc.text('D.N.I.: ', 10, y); y += 10;
+    doc.text('C.U.I.T.: ', 10, y); y += 10;
+    doc.text('Email: ', 10, y); y += 10;
+  
+    // Datos del servicio solicitado
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(12);
+    doc.text('DATOS DEL SERVICIO SOLICITADO', 10, y);
+    y += 12;
+  
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.text(`Plan elegido: ${row.internet || 'No disponible'}`, 10, y); y += 10;
+    doc.text(`Plataforma digital: ${row.plataforma || 'No disponible'}`, 10, y); y += 10;
+    doc.text(`Fecha y horario de conexión elegido: ${row.fechaFormateada} - ${row.horario}`, 10, y); y += 10;
+  
+    // Declaración
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    const declarationText = `Declaro que los datos detallados precedentemente son totalmente ciertos y que han sido proporcionados con el fin de obtener los servicios ofrecidos por la Cooperativa en los términos y condiciones explícitas en el reverso de la presente, y a la vez me comprometo a no comercializar, subcontratar, suministrar a terceros ni enajenar en cualquier forma, el servicio solicitado. Además me comprometo a utilizar el servicio accediendo únicamente desde el domicilio declarado, y a no dar a conocer a terceros por ningún medio los datos de acceso a vuestro Servidor. Quedo a la vez notificado que, en caso de comprobarse por cualquier medio el incumplimiento de los compromisos, me será impedido el acceso al servicio en forma inmediata y sin comunicación previa de inhabilitación.`;
+  
+    const lines = doc.splitTextToSize(declarationText, 180);
+    doc.text(lines, 10, y); y += lines.length * 6; 
+  
+    doc.text('Observaciones:', 10, y); y += 10;
+    y += 20; 
+  
+    doc.text('Firma del Titular ...............................................', 10, y); y += 20;
+    doc.text('Aclaración ...................................................', 10, y -10); y += 10;
+    doc.text(`Fecha ....../......./........... Hora ......... : ..........`, 10, y-10); y += 10;
+  
+    doc.addImage(logo1, 'PNG', 170, y - 30, 30, 25);
 
-    let y = 110;
-    doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 12;
-    doc.text(`Dirección: ${row.direccion}`, 10, y); y += 12;
-    if (row.Piso) { doc.text(`Piso: ${row.Piso}`, 10, y); y += 12; }
-    if (row.Dpto) { doc.text(`Dpto: ${row.Dpto}`, 10, y); y += 12; }
-    doc.text(`Teléfono: ${row.telefono}`, 10, y);
-
-    doc.text('Firma:', 10, 240);
-    doc.line(30, 240, 100, 240);
     doc.save(`orden-instalacion-${row.nombre.replace(/ /g, '_')}.pdf`);
   };
 
@@ -142,8 +182,9 @@ export default function Reservas() {
   const [reservasFiltradas, setReservasFiltradas] = React.useState([]);
   const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [fechaFiltro, setFechaFiltro] = React.useState(null);
 
-  //Botón de filtrar por mes:
+  //Filtrar por mes:
   const handleMostrarMesActual = () => {
     if (mostrarMesActual) {
       setReservasFiltradas([]);
@@ -242,6 +283,13 @@ export default function Reservas() {
     fetchReservas();
   }, []);
 
+  //Función para limpiar los filtros
+  const handleLimpiarFiltros = () => {
+    setFechaFiltro(null); 
+    setMostrarMesActual(false); 
+    setSearchQuery('');
+  };
+
   //Tabla:
   return (
     <Box sx={{ width: '80%', margin: 'auto', marginTop: '30px' }}>
@@ -250,23 +298,45 @@ export default function Reservas() {
       </Typography>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 2 }}>
-      <TextField
-        label="Buscar servicio"
-        variant="outlined"
-        size="small"
-        sx={{ width: '250px' }}
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-      />
+        {/*Input de búsqueda por servicio*/}
+        <TextField
+          label="Buscar servicio"
+          variant="outlined"
+          size="small"
+          sx={{ width: '250px' }}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+        {/*DatePicker para filtrar por fecha*/}
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            format="DD/MM/YYYY"
+            label="Filtrar por fecha"
+            value={fechaFiltro}
+            onChange={(newDate) => setFechaFiltro(newDate)}
+            renderInput={(params) => <TextField {...params} size="small" sx={{ width: '250px' }} />}
+          />
+        </LocalizationProvider>
+        {/*Botón para filtrar por mes*/}
         <Button
           variant="contained"
           color="primary"
           sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px' }}
-          onClick={handleMostrarMesActual}
+          onClick={() => setMostrarMesActual(!mostrarMesActual)}
         >
-          {mostrarMesActual ? 'Todas' : 'Mes actual'}
+          {mostrarMesActual ? 'Mostrar todas' : 'Mes actual'}
+        </Button>
+        {/*Botón para limpiar filtros*/}
+        <Button
+          variant="outlined"
+          color="secondary"
+          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px' }}
+          onClick={handleLimpiarFiltros}
+        >
+          Limpiar filtros
         </Button>
       </Box>
+
 
       <Box sx={{ marginBottom: '50px' }}>
         <TableContainer component={Paper}>
@@ -282,13 +352,22 @@ export default function Reservas() {
             </TableHead>
             <TableBody>
               {(reservasFiltradas.length > 0 ? reservasFiltradas : reservas)
-                .filter((row) => 
-                  row.internet.toLowerCase().includes(searchQuery.toLowerCase()) // Filtra por servicio
+                .filter((row) =>
+                  row.internet.toLowerCase().includes(searchQuery.toLowerCase())
                 )
+                .filter((row) => {
+                  if (!fechaFiltro) return true;
+                  return dayjs(row.fecha).isSame(fechaFiltro, 'day');
+                })
+                .filter((row) => {
+                  if (!mostrarMesActual) return true; 
+                  const mesActual = dayjs().format('MMMM');
+                  return dayjs(row.fecha).format('MMMM') === mesActual;
+                })
                 .map((row) => (
-          <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
-  ))}
-          </TableBody>
+                  <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
+                ))}
+            </TableBody>
           </Table>
         </TableContainer>
       </Box>
@@ -307,6 +386,7 @@ export default function Reservas() {
               <TextField label="Servicio" fullWidth margin="normal" value={selectedReserva.internet} onChange={(e) => setSelectedReserva({ ...selectedReserva, internet: e.target.value })} />
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
+                  format="DD/MM/YYYY"
                   label="Fecha"
                   value={dayjs(selectedReserva.fecha)}
                   onChange={(newDate) => setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })}

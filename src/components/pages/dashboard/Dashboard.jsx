@@ -1,5 +1,6 @@
 // Importaciones:
 import * as React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createTheme, useColorScheme } from '@mui/material/styles';
 import { AppProvider } from '@toolpad/core/AppProvider';
@@ -11,6 +12,8 @@ import PeopleIcon from '@mui/icons-material/People';
 import BuildIcon from '@mui/icons-material/Build';
 import { Helmet } from 'react-helmet';
 import logo from '../../../assets/images/logos/logo-dashboard.png';
+import axios from 'axios';
+import { CircularProgress, Box } from '@mui/material';
 
 // Componentes de secciones:
 import DashboardHome from '../../common/DashboardComponents/DashBoardHome/DashBoardHome';
@@ -19,14 +22,6 @@ import Usuarios from '../../common/DashboardComponents/Usuarios/Usuarios';
 import BlogEdit from '../../common/DashboardComponents/BlogEdit/BlogEdit';
 import AreaTecnica from '../../common/DashboardComponents/AreaTecnica/AreaTecnica';
 import Logout from '../../common/DashboardComponents/Logout/Logout';
-
-// Navegación:
-const NAVIGATION = [
-  { segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> },
-  { segment: 'blogs', title: 'Blogs', icon: <BookIcon /> },
-  { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
-  { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
-];
 
 // Tema:
 const demoTheme = createTheme({
@@ -82,7 +77,7 @@ DemoPageContent.propTypes = {
   pathname: PropTypes.string.isRequired,
 };
 
-// Componente del logo con inversión según el tema
+// Componente del logo con inversión según el tema:
 function Logo() {
   const { mode } = useColorScheme();
   const logoStyles = {
@@ -99,6 +94,77 @@ function Dashboard(props) {
   const router = useDemoRouter('/dashboard');
   const demoWindow = window !== undefined ? window() : undefined;
 
+  const [navigation, setNavigation] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const userId = localStorage.getItem('userId');
+        const token = localStorage.getItem('token');
+        
+        if (!userId || !token) {
+          console.error('No se encontró el userId o token en localStorage');
+          return;
+        }
+
+        const { data } = await axios.get(`http://localhost:8000/api/perfil?id=${userId}`, {
+          headers: {
+            'x-token': token,
+          },
+        });
+
+        // Construir navegación según rol y accesos:
+        let tempNavigation = [];
+
+        if (data.rol === 'USER_ADMIN') {
+          tempNavigation = [
+            { segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> },
+            { segment: 'blogs', title: 'Blogs', icon: <BookIcon /> },
+            { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
+            { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
+          ];
+        } else if (data.rol === 'USER_EMPLOYE') {
+          if (data.reservas) {
+            tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
+          }
+          if (data.blog) {
+            tempNavigation.push({ segment: 'blogs', title: 'Blogs', icon: <BookIcon /> });
+          }
+          if (data.usuarios) {
+            tempNavigation.push({ segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> });
+          }
+          if (data.tecnica) {
+            tempNavigation.push({ segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> });
+          }
+        }
+        setNavigation(tempNavigation);
+        setLoading(false);
+
+      } catch (error) {
+        console.error('Error obteniendo datos del usuario:', error);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, []);
+
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100vh',
+        }}
+      >
+        <CircularProgress sx={{ color: '#12824c' }} />
+      </Box>
+    );
+  }
+
   return (
     <>
       <Helmet>
@@ -106,7 +172,7 @@ function Dashboard(props) {
       </Helmet>
 
       <AppProvider
-        navigation={NAVIGATION}
+        navigation={navigation}
         branding={{
           logo: <Logo />,
           title: 'Panel de Control',

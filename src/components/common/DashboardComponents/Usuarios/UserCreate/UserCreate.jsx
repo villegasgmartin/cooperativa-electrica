@@ -1,3 +1,4 @@
+//Importaciones:
 import * as React from 'react';
 import axios from 'axios';
 import {
@@ -22,34 +23,51 @@ export default function UserCreate() {
     password: '',
     telefono: '',
     rol: '',
-    accesos: {
-      reservas: false,
-      blog: false,
-      usuarios: false,
-      areaTecnica: false,
-    }
+    reservas: false,
+    blog: false,
+    usuarios: false,
+    tecnica: false
   });
 
+  //JSX:
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+
+    if (name === 'rol' && value === 'USER_ADMIN') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+        reservas: true,
+        blog: true,
+        usuarios: true,
+        tecnica: true,
+      }));
+    } else if (name === 'rol' && value === 'USER_EMPLOYE') {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+        reservas: false,
+        blog: false,
+        usuarios: false,
+        tecnica: false,
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   const handleSwitch = (e) => {
     const { name, checked } = e.target;
     setFormData(prev => ({
       ...prev,
-      accesos: {
-        ...prev.accesos,
-        [name]: checked
-      }
+      [name]: checked
     }));
   };
 
@@ -60,18 +78,18 @@ export default function UserCreate() {
     setError(null);
 
     const token = localStorage.getItem('token');
-    const headers = {
-      'x-token': token
-    };
+    const headers = { 'x-token': token };
 
-    // Solo mandamos los accesos como parte del payload completo
     const payload = {
       nombre: formData.nombre,
       correo: formData.correo,
       password: formData.password,
-      telefono: formData.telefono,  // Incluimos el teléfono en el payload
+      telefono: formData.telefono,
       rol: formData.rol,
-      accesos: formData.accesos
+      reservas: formData.rol === 'USER_ADMIN' ? true : formData.reservas,
+      blog: formData.rol === 'USER_ADMIN' ? true : formData.blog,
+      usuarios: formData.rol === 'USER_ADMIN' ? true : formData.usuarios,
+      tecnica: formData.rol === 'USER_ADMIN' ? true : formData.tecnica,
     };
 
     try {
@@ -81,17 +99,15 @@ export default function UserCreate() {
         nombre: '',
         correo: '',
         password: '',
-        telefono: '',  // Limpiamos el campo de teléfono
+        telefono: '',
         rol: '',
-        accesos: {
-          reservas: false,
-          blog: false,
-          usuarios: false,
-          areaTecnica: false,
-        }
+        reservas: false,
+        blog: false,
+        usuarios: false,
+        tecnica: false
       });
     } catch (err) {
-      setError('Error al crear el usuario. Verificá los datos o el token.');
+      setError('Error al crear el usuario. Verificá los datos.');
     } finally {
       setLoading(false);
     }
@@ -103,7 +119,11 @@ export default function UserCreate() {
         Crear Usuario
       </Typography>
 
-      {loading && <CircularProgress />}
+      {loading && (
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
+          <CircularProgress />
+        </Box>
+      )}
       {success && <Alert severity="success" sx={{ mb: 2 }}>Usuario creado con éxito.</Alert>}
       {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
 
@@ -140,7 +160,7 @@ export default function UserCreate() {
             <TextField
               fullWidth
               label="Teléfono"
-              name="telefono"  // Agregamos el nombre del campo para el teléfono
+              name="telefono"
               value={formData.telefono}
               onChange={handleChange}
               margin="normal"
@@ -155,36 +175,39 @@ export default function UserCreate() {
                 onChange={handleChange}
               >
                 <MenuItem value="USER_ADMIN">Administrador</MenuItem>
-                <MenuItem value="USER_EDITOR">Usuario</MenuItem>
+                <MenuItem value="USER_EMPLOYE">Usuario</MenuItem>
               </Select>
             </FormControl>
           </Box>
 
           {/* Switches de accesos */}
           <Box sx={{ flex: 1, minWidth: 300 }}>
-            <Typography variant="h6" sx={{ fontFamily: "InterTight" }}>Accesos</Typography>
-            <Box sx={{ display: "flex", flexDirection: "column", gap: 1, marginTop: 1 }}>
+            <Typography variant="h6" sx={{ fontFamily: "InterTight", mb: 1 }}>
+              Accesos
+            </Typography>
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <FormControlLabel
-                control={<Switch checked={formData.accesos.reservas} onChange={handleSwitch} name="reservas" />}
+                control={<Switch checked={formData.reservas} onChange={handleSwitch} name="reservas" />}
                 label="Reservas"
               />
               <FormControlLabel
-                control={<Switch checked={formData.accesos.blog} onChange={handleSwitch} name="blog" />}
+                control={<Switch checked={formData.blog} onChange={handleSwitch} name="blog" />}
                 label="Blog"
               />
               <FormControlLabel
-                control={<Switch checked={formData.accesos.usuarios} onChange={handleSwitch} name="usuarios" />}
+                control={<Switch checked={formData.usuarios} onChange={handleSwitch} name="usuarios" />}
                 label="Usuarios"
               />
               <FormControlLabel
-                control={<Switch checked={formData.accesos.areaTecnica} onChange={handleSwitch} name="areaTecnica" />}
+                control={<Switch checked={formData.tecnica} onChange={handleSwitch} name="tecnica" />}
                 label="Área Técnica"
               />
             </Box>
           </Box>
+
         </Box>
 
-        <Box sx={{ textAlign: "center", marginTop: 3 }}>
+        <Box sx={{ textAlign: "center", marginTop: 4 }}>
           <Button
             variant="contained"
             color="primary"

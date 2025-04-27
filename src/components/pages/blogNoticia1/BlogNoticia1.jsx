@@ -10,10 +10,15 @@ import { CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { ArrowBackIos, ArrowForwardIos } from '@mui/icons-material';
 import { CSSTransition } from 'react-transition-group';
+import Footer from '../../common/layout/footer/Footer';
+import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
+import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
+import "../../common/layout/header/Header.css"
+import NavBar from '../../common/layout/navBar/NavBar';
 
 //JSX:
 function BlogNoticia1() {
-  const { id } = useParams();
+  const { path } = useParams();
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -21,7 +26,7 @@ function BlogNoticia1() {
   const nodeRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/blog/get-blog?id=${id}`)
+    axios.get(`http://localhost:8000/api/blog/get-blog?path=${path}`)
       .then(response => {
         setBlog(response.data);
         setLoading(false);
@@ -30,7 +35,7 @@ function BlogNoticia1() {
         console.error('Error al obtener el blog:', error);
         setLoading(false);
       });
-  }, [id]);
+  }, [path]);
 
   if (loading) {
     return (
@@ -65,10 +70,33 @@ function BlogNoticia1() {
   };
 
   return (
-    <section className='noticia1-main-container'>
+    <>
+      <header className="header-main-container">
+          <div className="header-contactos-container">
+              <div className="header-contactos">
+                  <LocationOnTwoToneIcon sx={{ color: "white" }} />
+                  <h4 className="header-contactosText">Alberti 3600, Mar del Plata</h4>
+              </div>
+              <div className="header-contactos">
+                  <LocationOnTwoToneIcon sx={{ color: "white" }} />
+                  <h4 className="homePortada-contactosText">20 de Septiembre 2638, Mar del Plata</h4>
+              </div>
+              <div className="header-contactos" id="homePortada-tel">
+                  <LocalPhoneTwoToneIcon sx={{ color: "white" }} />
+                  <h4 className="header-contactosText">0800-333-0357 / (0223) 495-1411</h4>
+              </div>
+          </div>
+          <div className="navbarPages-container">
+              <NavBar/>
+          </div>
+          <Fade duration={800} triggerOnce={true}>
+              <h1 className="header-title-blog">{blog.titulo}</h1>
+          </Fade>
+      </header>
+      <section className='noticia1-main-container'>
       <Box>
         <Fade triggerOnce={true} duration={800} delay={300} direction='left'>
-          <h1 className='noticia1-title' gutterBottom>{blog.titulo}</h1>
+          <h2 className='noticia1-title' gutterBottom>{blog.subtitulo}</h2>
           <p className='noticia1-description' paragraph>{blog.descripcion}</p>
         </Fade>
         <Grid container spacing={2}>
@@ -169,7 +197,9 @@ function BlogNoticia1() {
           </div>
         </div>
       </CSSTransition>
-    </section>
+      </section>
+      <Footer/>
+    </>
   );
 }
 

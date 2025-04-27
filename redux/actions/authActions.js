@@ -1,5 +1,7 @@
+//Importaciones:
 import axios from 'axios';
 
+//JSX:
 const url = 'http://localhost:8000';
 
 export const LOGIN = 'LOGIN';
@@ -7,29 +9,31 @@ export const LOGIN = 'LOGIN';
 export function login(payload) {
 	return async function (dispatch) {
 		try {
-			const info = await axios.post(`${url}/api/auth/login`, payload);
-			const token = info.data.token;
+		const response = await axios.post(`${url}/api/auth/login`, payload);
 
-			// Guardar token en localStorage
-			localStorage.setItem('token', token);
+		const { token, usuario } = response.data;
+		const userId = usuario.uid;
 
-			// Redirigir a dashboard
-			window.location.href = '/dashboard';
 
-			return dispatch({
-				ok: true,
-				type: LOGIN,
-				payload: info.data
-			});
+		// Guardar token y userId en localStorage
+		localStorage.setItem('token', token);
+		localStorage.setItem('userId', userId);
+
+    // Redirigir a dashboard
+	window.location.href = '/dashboard';
+
+		return dispatch({
+			ok: true,
+			type: LOGIN,
+			payload: response.data,
+		});
 		} catch (error) {
-			// Obtener mensaje personalizado si el backend lo proporciona
-			const errorMsg =
-				error.response?.data?.msg ||
-				error.response?.data?.message ||
-				'Los datos ingresados no son correctos';
+		const errorMsg =
+			error.response?.data?.msg ||
+			error.response?.data?.message ||
+			'Los datos ingresados no son correctos';
 
-			// Lanzar error para manejarlo desde el componente (ej: Login.js)
-			throw new Error(errorMsg);
+		throw new Error(errorMsg);
 		}
 	};
 }

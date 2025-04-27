@@ -19,6 +19,10 @@ import {
     DialogTitle,
     Button,
     TextField,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormControl,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -35,6 +39,7 @@ export default function Registros() {
     const [registroEliminar, setRegistroEliminar] = React.useState(null);
     const [openEditar, setOpenEditar] = React.useState(false);
     const [descripcionEditada, setDescripcionEditada] = React.useState('');
+    const [categoriaEditada, setCategoriaEditada] = React.useState('');
     const [fechaEditada, setFechaEditada] = React.useState(null);
     const [registroEditar, setRegistroEditar] = React.useState(null);
     const theme = useTheme();
@@ -81,6 +86,7 @@ export default function Registros() {
                 `http://localhost:8000/api/tecnica/actualizar-tecnica?id=${registroEditar._id}`,
                 {
                     descripcion: descripcionEditada,
+                    categoria: categoriaEditada,
                     fecha: fechaEditada.toISOString(),
                 },
                 { headers }
@@ -90,7 +96,12 @@ export default function Registros() {
                 setRegistros(
                     registros.map((registro) =>
                         registro._id === registroEditar._id
-                            ? { ...registro, descripcion: descripcionEditada, fecha: fechaEditada.toISOString() }
+                            ? {
+                                ...registro,
+                                descripcion: descripcionEditada,
+                                categoria: categoriaEditada,
+                                fecha: fechaEditada.toISOString(),
+                            }
                             : registro
                     )
                 );
@@ -148,6 +159,16 @@ export default function Registros() {
                                     py: 2,
                                 }}
                             >
+                                Descripción
+                            </TableCell>
+                            <TableCell
+                                sx={{
+                                    fontWeight: 'bold',
+                                    fontSize: '1rem',
+                                    color: isLight ? '#fff' : 'primary.main',
+                                    py: 2,
+                                }}
+                            >
                                 Gestión
                             </TableCell>
                         </TableRow>
@@ -156,6 +177,7 @@ export default function Registros() {
                         {registros.map((registro) => (
                             <TableRow key={registro._id}>
                                 <TableCell>{formatFecha(registro.fecha)}</TableCell>
+                                <TableCell>{registro.categoria}</TableCell>
                                 <TableCell>{registro.descripcion}</TableCell>
                                 <TableCell>
                                     <Stack direction="row" spacing={1}>
@@ -165,6 +187,7 @@ export default function Registros() {
                                             onClick={() => {
                                                 setRegistroEditar(registro);
                                                 setDescripcionEditada(registro.descripcion);
+                                                setCategoriaEditada(registro.categoria); // nuevo
                                                 setFechaEditada(dayjs(registro.fecha));
                                                 setOpenEditar(true);
                                             }}
@@ -210,19 +233,42 @@ export default function Registros() {
                 <DialogTitle>Editar Registro</DialogTitle>
                 <DialogContent>
                     <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                        value={fechaEditada}
-                        onChange={(newValue) => setFechaEditada(newValue)}
-                        format="DD/MM/YYYY"
-                        sx={{ mb: 2, width: '100%' }}
-                    />
+                        <DatePicker
+                            value={fechaEditada}
+                            onChange={(newValue) => setFechaEditada(newValue)}
+                            format="DD/MM/YYYY"
+                            sx={{ mb: 2, width: '100%' }}
+                        />
                     </LocalizationProvider>
 
+                    {/* Select para motivo */}
+                    <FormControl fullWidth sx={{ mb: 2 }}>
+                        <InputLabel>Motivo</InputLabel>
+                        <Select
+                            value={categoriaEditada}
+                            onChange={(e) => setCategoriaEditada(e.target.value)}
+                            label="Motivo"
+                        >
+                            <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
+                            <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
+                            <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
+                            <MenuItem value="Cambio de plan internet">Cambio de plan internet</MenuItem>
+                            <MenuItem value="Cambio de plan tv">Cambio de plan tv</MenuItem>
+                            <MenuItem value="Baja de internet">Baja de internet</MenuItem>
+                            <MenuItem value="Baja de tv">Baja de tv</MenuItem>
+                            <MenuItem value="Cambio de titularidad">Cambio de titularidad</MenuItem>
+                            <MenuItem value="Cambio de domicilio">Cambio de domicilio</MenuItem>
+                            <MenuItem value="Tarea programada">Tarea programada</MenuItem>
+                            <MenuItem value="Suspension">Suspension</MenuItem>
+                            <MenuItem value="Reconexión">Reconexión</MenuItem>
+                        </Select>
+                    </FormControl>
+
+                    {/* Campo de descripción */}
                     <TextField
-                        autoFocus
                         margin="dense"
                         id="descripcion"
-                        label="Motivo"
+                        label="Descripción"
                         type="text"
                         fullWidth
                         multiline

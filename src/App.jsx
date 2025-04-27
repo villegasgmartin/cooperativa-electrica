@@ -50,9 +50,9 @@ function AppContent() {
           <Route path="/preguntas-frecuentes" element={<Preguntas />} />
           <Route path="/contacto" element={<Contacto />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:id/:titulo" element={<BlogNoticia1 />} />
         </Route>
 
+        <Route path="/blog/:path" element={<BlogNoticia1 />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
         <Route path="/AMImutual" element={<Mutual />} />
         <Route path="/formas-de-pago" element={<FormasPago />} />

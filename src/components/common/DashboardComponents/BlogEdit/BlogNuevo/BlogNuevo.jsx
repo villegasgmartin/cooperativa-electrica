@@ -1,3 +1,4 @@
+//Importaciones:
 import React, { useState } from 'react';
 import { Box, Typography, TextField, Button, IconButton } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
@@ -5,8 +6,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import axios from 'axios';
 import { useTheme, alpha } from '@mui/material/styles';
 
+//JSX:
 export default function BlogNuevo() {
     const [titulo, setTitulo] = useState('');
+    const [subtitulo, setSubtitulo] = useState('');  // Nuevo estado para el subtítulo
     const [texto, setTexto] = useState('');
     const [imagenes, setImagenes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -32,6 +35,7 @@ export default function BlogNuevo() {
 
         const formData = new FormData();
         formData.append('titulo', titulo);
+        formData.append('subtitulo', subtitulo);  // Agregar el subtítulo al formData
         formData.append('descripcion', texto);
         imagenes.forEach((imagen) => {
             formData.append('imagenes', imagen);
@@ -51,6 +55,7 @@ export default function BlogNuevo() {
 
             console.log('Publicación creada:', response.data);
             setTitulo('');
+            setSubtitulo('');
             setTexto('');
             setImagenes([]);
             setSuccess(true);
@@ -77,6 +82,15 @@ export default function BlogNuevo() {
                 sx={{ mb: 2 }}
                 value={titulo}
                 onChange={(e) => setTitulo(e.target.value)}
+            />
+
+            <TextField
+                label="Subtítulo de la publicación"
+                variant="outlined"
+                fullWidth
+                sx={{ mb: 2 }}
+                value={subtitulo}
+                onChange={(e) => setSubtitulo(e.target.value)}
             />
 
             <TextField

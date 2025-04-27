@@ -1,6 +1,6 @@
 //Importaciones:
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert, CircularProgress } from '@mui/material';
 import { Fade } from 'react-awesome-reveal';
 import Footer from '../../common/layout/footer/Footer';
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
@@ -24,6 +24,7 @@ const Form = () => {
     const [planTV, setPlanTV] = useState('');
     const [direccion, setDireccion] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
+    const [coberturaMensaje, setCoberturaMensaje] = useState('');
     const [tipoInmueble, setTipoInmueble] = useState({
         casa: false,
         edificio: false,
@@ -58,6 +59,72 @@ const Form = () => {
         script.onload = () => setIsLoaded(true);
         document.head.appendChild(script);
     }, []);
+
+    //Zonas de cobertura:
+    const zona1 = [
+        { lat: -38.000417, lng: -57.556455 },
+        { lat: -37.997033, lng: -57.563437 },
+        { lat: -38.009027, lng: -57.563467 },
+        { lat: -38.005620, lng: -57.570244 }
+    ];
+    
+    const zona2 = [
+        { lat: -38.0100, lng: -57.5700 },
+        { lat: -38.0150, lng: -57.5750 },
+        { lat: -38.0200, lng: -57.5650 },
+        { lat: -38.0125, lng: -57.5600 },
+        { lat: -38.0100, lng: -57.5700 }
+    ];
+    
+
+    const verificarCobertura = async () => {
+        if (!direccion) {
+            setCoberturaMensaje('Por favor, ingresá una dirección.');
+            return;
+        }
+    
+        try {
+            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`);
+            const data = await response.json();
+    
+            if (data.length > 0) {
+                const { lat, lon } = data[0];
+                const latFloat = parseFloat(lat);
+                const lonFloat = parseFloat(lon);
+    
+                const dentroDeZona = isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona1) ||
+                                    isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona2);
+    
+                if (dentroDeZona) {
+                    setCoberturaMensaje('¡Excelente! Hay cobertura en tu zona.');
+                } else {
+                    setCoberturaMensaje('Lo sentimos, no hay cobertura en tu dirección.');
+                }
+            } else {
+                setCoberturaMensaje('Dirección no encontrada. Por favor, revisala.');
+            }
+        } catch (error) {
+            console.error(error);
+            setCoberturaMensaje('Error al verificar la dirección.');
+        }
+    };
+
+    function isPointInPolygon(point, polygon) {
+        let x = point.lat, y = point.lng;
+        let inside = false;
+    
+        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
+            let xi = polygon[i].lat, yi = polygon[i].lng;
+            let xj = polygon[j].lat, yj = polygon[j].lng;
+    
+            let intersect = ((yi > y) !== (yj > y)) &&
+                (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+    
+            if (intersect) inside = !inside;
+        }
+    
+        return inside;
+    }
 
     //CheckBox de Tipo de inmueble
     const handleCheckboxChange = (event) => {
@@ -97,8 +164,8 @@ const Form = () => {
     
             const dataToSend = {
                 DNI: formData.dni,
-                Dpto: "", 
-                Piso: "", 
+                Dpto: formData.departamento,
+                Piso: formData.piso,
                 direccion,
                 fecha: isoFecha,
                 horario: franjaHoraria,
@@ -337,6 +404,86 @@ const Form = () => {
                                     label={<Typography variant="body2" sx={{ fontSize: '18px' }}>PH</Typography>}
                                 />
                             </div>
+                            <div style={{display: "flex", gap: "10px"}}>
+                                {/* Piso */}
+                            <TextField
+                                label="Piso"
+                                variant="outlined"
+                                fullWidth
+                                type="text"
+                                name="piso"
+                                value={formData.piso}
+                                onChange={handleInputChange}
+                                error={!!errors.piso}
+                                helperText={errors.piso}
+                                sx={{
+                                    backgroundColor: "#edeaff",
+                                    borderRadius: "25px",
+                                    '& .MuiOutlinedInput-root': {
+                                        borderRadius: "25px",
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#8048ff',
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: '#8048ff',
+                                    },
+                                    width: "130px"
+                                }}
+                            />
+                            {/* Departamento */}
+                            <TextField
+                                label="Departamento"
+                                variant="outlined"
+                                fullWidth
+                                type="text"
+                                name="departamento"
+                                value={formData.departamento}
+                                onChange={handleInputChange}
+                                error={!!errors.departamento}
+                                helperText={errors.departamento}
+                                sx={{
+                                    backgroundColor: "#edeaff",
+                                    borderRadius: "25px",
+                                    '& .MuiOutlinedInput-root': {
+                                        borderRadius: "25px",
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#8048ff',
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: '#8048ff',
+                                    },
+                                    width: "130px"
+                                }}
+                            />
+                            </div>
+                            {/*Botón para consultar cobertura*/}
+                            <Button
+                                variant="contained"
+                                onClick={verificarCobertura}
+                                sx={{
+                                    marginTop: "10px",
+                                    borderRadius: "25px",
+                                    backgroundColor: "#8048ff",
+                                    textTransform: "none",
+                                    fontSize: "18px",
+                                    fontWeight: "bold",
+                                    '&:hover': {
+                                        backgroundColor: "#5c32b3"
+                                    }
+                                }}
+                            >
+                                Consultar cobertura
+                            </Button>
+                            {coberturaMensaje && (
+                                <Typography
+                                    variant="body2"
+                                    sx={{ marginTop: "10px", fontWeight: "bold", color: coberturaMensaje.includes('¡Excelente!') ? 'green' : 'red' }}
+                                >
+                                    {coberturaMensaje}
+                                </Typography>
+                            )}
                             {/*Email*/}
                             <TextField
                                 label="Mail de contacto"

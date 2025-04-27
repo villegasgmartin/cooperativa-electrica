@@ -1,4 +1,4 @@
-//Importaciones:
+// Importaciones:
 import React, { useEffect, useState } from 'react';
 import {
     Box,
@@ -16,7 +16,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
 
-//JSX:
+// JSX:
 const styleModal = {
     position: 'absolute',
     top: '50%',
@@ -35,18 +35,19 @@ export default function BlogGestor() {
     const [modalEditar, setModalEditar] = useState(false);
     const [blogSeleccionado, setBlogSeleccionado] = useState(null);
     const [tituloEditado, setTituloEditado] = useState('');
+    const [subtituloEditado, setSubtituloEditado] = useState(''); // Nuevo estado para el subtítulo
     const [descripcionEditada, setDescripcionEditada] = useState('');
 
     const obtenerBlogs = async () => {
         try {
-        const response = await axios.get('http://localhost:8000/api/blog/blogs', {
-            headers: {
-            'x-token': localStorage.getItem('token'),
-            },
-        });
-        setBlogs(response.data.blogs);
+            const response = await axios.get('http://localhost:8000/api/blog/blogs', {
+                headers: {
+                    'x-token': localStorage.getItem('token'),
+                },
+            });
+            setBlogs(response.data.blogs);
         } catch (error) {
-        console.error('Error al obtener blogs:', error);
+            console.error('Error al obtener blogs:', error);
         }
     };
 
@@ -56,36 +57,37 @@ export default function BlogGestor() {
 
     const handleEliminar = async () => {
         try {
-        await axios.delete(`http://localhost:8000/api/blog/borrar-blog?id=${blogSeleccionado._id}`, {
-            headers: {
-            'x-token': localStorage.getItem('token'),
-            },
-        });
-        setModalEliminar(false);
-        obtenerBlogs();
+            await axios.delete(`http://localhost:8000/api/blog/borrar-blog?id=${blogSeleccionado._id}`, {
+                headers: {
+                    'x-token': localStorage.getItem('token'),
+                },
+            });
+            setModalEliminar(false);
+            obtenerBlogs();
         } catch (error) {
-        console.error('Error al eliminar el blog:', error);
+            console.error('Error al eliminar el blog:', error);
         }
     };
 
     const handleEditar = async () => {
         try {
-        await axios.put(
-            `http://localhost:8000/api/blog/actualizar-blog?id=${blogSeleccionado._id}`,
-            {
-            titulo: tituloEditado,
-            descripcion: descripcionEditada,
-            },
-            {
-            headers: {
-                'x-token': localStorage.getItem('token'),
-            },
-            }
-        );
-        setModalEditar(false);
-        obtenerBlogs();
+            await axios.put(
+                `http://localhost:8000/api/blog/actualizar-blog?id=${blogSeleccionado._id}`,
+                {
+                    titulo: tituloEditado,
+                    subtitulo: subtituloEditado, // Enviamos el subtítulo editado
+                    descripcion: descripcionEditada,
+                },
+                {
+                    headers: {
+                        'x-token': localStorage.getItem('token'),
+                    },
+                }
+            );
+            setModalEditar(false);
+            obtenerBlogs();
         } catch (error) {
-        console.error('Error al editar el blog:', error);
+            console.error('Error al editar el blog:', error);
         }
     };
 
@@ -97,95 +99,101 @@ export default function BlogGestor() {
     const abrirModalEditar = (blog) => {
         setBlogSeleccionado(blog);
         setTituloEditado(blog.titulo);
+        setSubtituloEditado(blog.subtitulo || ''); // Asignamos el subtítulo
         setDescripcionEditada(blog.descripcion);
         setModalEditar(true);
     };
 
     return (
-        <Box sx={{ mt: 3,  marginBottom: 4 }}>
-        <Typography variant="h5" sx={{ fontFamily: 'interTight', mb: 2 }}>
-            Lista de Publicaciones
-        </Typography>
+        <Box sx={{ mt: 3, marginBottom: 4 }}>
+            <Typography variant="h5" sx={{ fontFamily: 'interTight', mb: 2 }}>
+                Lista de Publicaciones
+            </Typography>
 
-        <Grid container spacing={2}>
-            {blogs.map((blog) => (
-            <Grid item xs={12} md={6} key={blog._id}>
-                <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
-                <CardContent>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
-                    {blog.titulo}
-                    </Typography>
-                    <Typography variant="body2">{blog.descripcion}</Typography>
-                </CardContent>
-                <CardActions sx={{ justifyContent: 'flex-end' }}>
-                    <IconButton color="primary" onClick={() => abrirModalEditar(blog)}>
-                    <EditIcon />
-                    </IconButton>
-                    <IconButton color="error" onClick={() => abrirModalEliminar(blog)}>
-                    <DeleteIcon />
-                    </IconButton>
-                </CardActions>
-                </Card>
+            <Grid container spacing={2}>
+                {blogs.map((blog) => (
+                    <Grid item xs={12} md={6} key={blog._id}>
+                        <Card sx={{ borderRadius: 3, boxShadow: 3 }}>
+                            <CardContent>
+                                <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
+                                    {blog.titulo}
+                                </Typography>
+                                {blog.subtitulo && (  // Mostrar el subtítulo si está presente
+                                    <Typography variant="body2" sx={{ fontStyle: 'italic', mb: 1 }}>
+                                        {blog.subtitulo}
+                                    </Typography>
+                                )}
+                                <Typography variant="body2">{blog.descripcion}</Typography>
+                            </CardContent>
+                            <CardActions sx={{ justifyContent: 'flex-end' }}>
+                                <IconButton color="primary" onClick={() => abrirModalEditar(blog)}>
+                                    <EditIcon />
+                                </IconButton>
+                                <IconButton color="error" onClick={() => abrirModalEliminar(blog)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </CardActions>
+                        </Card>
+                    </Grid>
+                ))}
             </Grid>
-            ))}
-        </Grid>
 
-        {/* Modal Eliminar */}
-        <Modal
-            open={modalEliminar}
-            onClose={() => setModalEliminar(false)}
-            aria-labelledby="modal-eliminar"
-        >
-            <Box sx={styleModal}>
-            <Typography id="modal-eliminar" variant="h6" sx={{ mb: 2 }}>
-                ¿Estás seguro de que deseas eliminar este blog?
-            </Typography>
-            <Button variant="contained" color="error" onClick={handleEliminar} sx={{ mr: 1 }}>
-                Eliminar
-            </Button>
-            <Button variant="outlined" onClick={() => setModalEliminar(false)}>
-                Cancelar
-            </Button>
-            </Box>
-        </Modal>
+            {/* Modal Eliminar */}
+            <Modal open={modalEliminar} onClose={() => setModalEliminar(false)} aria-labelledby="modal-eliminar">
+                <Box sx={styleModal}>
+                    <Typography id="modal-eliminar" variant="h6" sx={{ mb: 2 }}>
+                        ¿Estás seguro de que deseas eliminar este blog?
+                    </Typography>
+                    <Button variant="contained" color="error" onClick={handleEliminar} sx={{ mr: 1 }}>
+                        Eliminar
+                    </Button>
+                    <Button variant="outlined" onClick={() => setModalEliminar(false)}>
+                        Cancelar
+                    </Button>
+                </Box>
+            </Modal>
 
-        {/* Modal Editar */}
-        <Modal
-            open={modalEditar}
-            onClose={() => setModalEditar(false)}
-            aria-labelledby="modal-editar"
-        >
-            <Box sx={styleModal}>
-            <Typography id="modal-editar" variant="h6" sx={{ mb: 2 }}>
-                Editar Publicación
-            </Typography>
+            {/* Modal Editar */}
+            <Modal open={modalEditar} onClose={() => setModalEditar(false)} aria-labelledby="modal-editar">
+                <Box sx={styleModal}>
+                    <Typography id="modal-editar" variant="h6" sx={{ mb: 2 }}>
+                        Editar Publicación
+                    </Typography>
 
-            <TextField
-                label="Título"
-                fullWidth
-                value={tituloEditado}
-                onChange={(e) => setTituloEditado(e.target.value)}
-                sx={{ mb: 2 }}
-            />
+                    <TextField
+                        label="Título"
+                        fullWidth
+                        value={tituloEditado}
+                        onChange={(e) => setTituloEditado(e.target.value)}
+                        sx={{ mb: 2 }}
+                    />
 
-            <TextField
-                label="Descripción"
-                fullWidth
-                multiline
-                rows={4}
-                value={descripcionEditada}
-                onChange={(e) => setDescripcionEditada(e.target.value)}
-                sx={{ mb: 2 }}
-            />
+                    <TextField
+                        label="Subtítulo"  // Campo de subtítulo
+                        fullWidth
+                        value={subtituloEditado}
+                        onChange={(e) => setSubtituloEditado(e.target.value)}
+                        sx={{ mb: 2 }}
+                    />
 
-            <Button variant="contained" color="primary" onClick={handleEditar} sx={{ mr: 1 }}>
-                Guardar Cambios
-            </Button>
-            <Button variant="outlined" onClick={() => setModalEditar(false)}>
-                Cancelar
-            </Button>
-            </Box>
-        </Modal>
+                    <TextField
+                        label="Descripción"
+                        fullWidth
+                        multiline
+                        rows={4}
+                        value={descripcionEditada}
+                        onChange={(e) => setDescripcionEditada(e.target.value)}
+                        sx={{ mb: 2 }}
+                    />
+
+                    <Button variant="outlined" sx={{ mr: 1 }} onClick={() => setModalEditar(false)}>
+                        Cancelar
+                    </Button>
+                    <Button variant="contained" color="primary" onClick={handleEditar}>
+                        Guardar Cambios
+                    </Button>
+                </Box>
+            </Modal>
         </Box>
     );
 }

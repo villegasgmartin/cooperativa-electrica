@@ -43,7 +43,7 @@ const Blog = () => {
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           {blogs.reverse().map((blog) => (
             <div key={blog._id} className='blog-subcontainer'>
-              <Link to={`/blog/${blog._id}/${encodeURIComponent(blog.titulo)}`}>
+              <Link to={`/blog/${blog.path}`}>
                 <div className='blog-image-container'>
                     <img
                         src={blog.imagenes[0]?.url}
