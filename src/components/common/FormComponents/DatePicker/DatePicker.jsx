@@ -32,85 +32,49 @@ dayjs.locale({
 dayjs.locale('es-custom');
 
 export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion, franjaHoraria, setFranjaHoraria }) {
-    const [reservasOcupadas, setReservasOcupadas] = React.useState([]);
-    const token = localStorage.getItem('token');
+    const [horariosDisponibles, setHorariosDisponibles] = React.useState([]);
 
-    //Estilos:
-    const estilos = {
-        '& .MuiInputBase-root': {
-            color: '#3d116d',
-        },
-        '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-                borderColor: '#3d116d',
-            },
-            '&:hover fieldset': {
-                borderColor: '#3d116d',
-            },
-            '&.Mui-focused fieldset': {
-                borderColor: '#3d116d',
-            },
-        },
-        '& .MuiInputLabel-root': {
-            color: '#3d116d',
-            '&.Mui-focused': {
-                color: '#3d116d',
-            },
-        },
-        '& .MuiSvgIcon-root': {
-            color: '#3d116d',
-        },
-    };
+    const estilos = { /* tu objeto estilos como ya lo tenías */ };
 
-    // Traer reservas existentes desde la API
-    const fetchReservas = async () => {
+    const fetchHorariosDisponibles = async (fecha) => {
         try {
-            const response = await axios.get('http://localhost:8000/api/reservas/reservas', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'x-token': token,
-                },
+            const response = await axios.get('http://localhost:8000/api/reservas/horarios-disponibles', {
+                params: { fecha: dayjs(fecha).format('YYYY-MM-DD') }
             });
 
-            const ocupadas = response.data.reservas.map(reserva => ({
-                fecha: dayjs(reserva.fecha).format('DD/MM/YYYY'),
-                franja: reserva.horario,
-            }));
-            setReservasOcupadas(ocupadas);
+            if (response.data.horariosDisponibles) {
+                setHorariosDisponibles(response.data.horariosDisponibles);
+            } else {
+                setHorariosDisponibles([]);
+            }
         } catch (error) {
-            console.error('Error al obtener las reservas:', error);
+            console.error('Error al obtener los horarios disponibles:', error);
+            setHorariosDisponibles([]);
         }
     };
-
-    React.useEffect(() => {
-        fetchReservas();
-    }, []);
 
     const handleDateChange = (newValue) => {
         setFechaInstalacion(newValue);
-        if (!newValue) {
-            setFranjaHoraria("");
+        setFranjaHoraria(""); // Reiniciamos franja si cambia la fecha
+        if (newValue) {
+            fetchHorariosDisponibles(newValue);
         }
-    };
-
-    const isFechaOcupada = (fecha, franja) => {
-        return reservasOcupadas.some(reserva => reserva.fecha === fecha && reserva.franja === franja);
     };
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker']}>
-            <DatePicker
-                format="DD/MM/YYYY"
-                label="Fecha de instalación"
-                value={fechaInstalacion}
-                onChange={handleDateChange}
-                shouldDisableDate={(date) => {
-                    const day = date.day();
-                    return day === 0 || day === 6;
-                }}
-                sx={estilos}
-            />
+                <DatePicker
+                    format="DD/MM/YYYY"
+                    label="Fecha de instalación"
+                    value={fechaInstalacion}
+                    onChange={handleDateChange}
+                    shouldDisableDate={(date) => {
+                        const day = date.day();
+                        return day === 0 || day === 6; // No permitir sábados ni domingos
+                    }}
+                    sx={estilos}
+                />
             </DemoContainer>
 
             {fechaInstalacion && (
@@ -122,6 +86,7 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
                         width: 260,
                         margin: '0 auto',
                     }}
+                    disabled={horariosDisponibles.length === 0}
                 >
                     <InputLabel id="horario-label">Horario de instalación</InputLabel>
                     <Select
@@ -130,18 +95,21 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
                         label="Horario de instalación"
                         onChange={(e) => setFranjaHoraria(e.target.value)}
                     >
-                        {['8 a 10', '10 a 12', '12 a 14', '14 a 16'].map(franja => (
-                            <MenuItem
-                                key={franja}
-                                value={franja}
-                                disabled={isFechaOcupada(dayjs(fechaInstalacion).format('DD/MM/YYYY'), franja)}
-                            >
-                                {franja}
+                        {horariosDisponibles.length > 0 ? (
+                            horariosDisponibles.map((franja) => (
+                                <MenuItem key={franja} value={franja}>
+                                    {franja}
+                                </MenuItem>
+                            ))
+                        ) : (
+                            <MenuItem value="" disabled>
+                                No hay horarios disponibles
                             </MenuItem>
-                        ))}
+                        )}
                     </Select>
                 </FormControl>
             )}
         </LocalizationProvider>
     );
 }
+

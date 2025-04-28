@@ -1,5 +1,5 @@
 //Importaciones:
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert, CircularProgress } from '@mui/material';
 import { Fade } from 'react-awesome-reveal';
 import Footer from '../../common/layout/footer/Footer';
@@ -14,6 +14,7 @@ import axios from 'axios';
 import "../formulario/Form.css"
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
+import { isPointInPolygon } from "geolib";
 
 //JSX:
 const Form = () => {
@@ -21,6 +22,7 @@ const Form = () => {
     const [fechaInstalacion, setFechaInstalacion] = useState(null); 
     const [franjaHoraria, setFranjaHoraria] = useState('');
     const [planInternet, setPlanInternet] = useState('');
+    const [internetPlan, setInternetPlan] = useState('');
     const [planTV, setPlanTV] = useState('');
     const [direccion, setDireccion] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
@@ -39,6 +41,9 @@ const Form = () => {
     const [errors, setErrors] = useState({});
     const [successMessageOpen, setSuccessMessageOpen] = useState(false);
     const [terminosAceptados, setTerminosAceptados] = useState(false);
+    const [zona, setZona] = useState("");
+    const inputRef = useRef(null);
+    const [internetPlanURL, setInternetPlanURL] = useState('');
 
     const onLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
@@ -51,80 +56,129 @@ const Form = () => {
     }
     };
 
-    //Google Maps
     useEffect(() => {
-        const script = document.createElement('script');
-        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU&libraries=places";
-        script.async = true;
-        script.onload = () => setIsLoaded(true);
-        document.head.appendChild(script);
-    }, []);
+        if (window.google && window.google.maps) {
+          const autocomplete = new window.google.maps.places.Autocomplete(
+            inputRef.current,
+            { types: ["geocode"] } // Opcional: limitar a direcciones
+          );
+    
+          autocomplete.addListener("place_changed", () => {
+            const place = autocomplete.getPlace();
+            if (place.formatted_address) {
+              setDireccion(place.formatted_address);
+            }
+          });
+        }
+      }, []);
+
+      useEffect(() => {
+        console.log("Zona detectada:", zona);
+        console.log("Zona detectada (trim):", zona?.trim());
+        if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
+            setInternetPlanURL("Fuera de Zona");
+        } else {
+            setInternetPlanURL("");
+        }
+    }, [zona]);
 
     //Zonas de cobertura:
     const zona1 = [
-        { lat: -38.000417, lng: -57.556455 },
-        { lat: -37.997033, lng: -57.563437 },
-        { lat: -38.009027, lng: -57.563467 },
-        { lat: -38.005620, lng: -57.570244 }
-    ];
+        { latitude: -38.0035, longitude: -57.5580 }, // Av. Independencia y Alvarado
+        { latitude: -38.0035, longitude: -57.5625 }, // Av. Independencia y Garay
+        { latitude: -38.0060, longitude: -57.5625 }, // Guido y Garay
+        { latitude: -38.0060, longitude: -57.5580 }, // Guido y Alvarado
+        { latitude: -38.0035, longitude: -57.5580 }  // Cierre del polígono
+      ];
     
-    const zona2 = [
-        { lat: -38.0100, lng: -57.5700 },
-        { lat: -38.0150, lng: -57.5750 },
-        { lat: -38.0200, lng: -57.5650 },
-        { lat: -38.0125, lng: -57.5600 },
-        { lat: -38.0100, lng: -57.5700 }
-    ];
+      const zona2 = [
+        { latitude: -38.0035, longitude: -57.5580 }, // Av. Independencia y Alvarado
+        { latitude: -38.0035, longitude: -57.5535 }, // La Rioja y Alvarado
+        { latitude: -38.0060, longitude: -57.5535 }, // La Rioja y Garay
+        { latitude: -38.0060, longitude: -57.5580 }, // Av. Independencia y Garay
+        { latitude: -38.0035, longitude: -57.5580 }  // Cierre del polígono
+      ];
+    
     
 
-    const verificarCobertura = async () => {
-        if (!direccion) {
-            setCoberturaMensaje('Por favor, ingresá una dirección.');
-            return;
-        }
+    // const verificarCobertura = async () => {
+    //     if (!direccion) {
+    //         setCoberturaMensaje('Por favor, ingresá una dirección.');
+    //         return;
+    //     }
+    
+    //     try {
+    //         const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`);
+    //         const data = await response.json();
+    
+    //         if (data.length > 0) {
+    //             const { lat, lon } = data[0];
+    //             const latFloat = parseFloat(lat);
+    //             const lonFloat = parseFloat(lon);
+    
+    //             const dentroDeZona = isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona1) ||
+    //                                 isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona2);
+    
+    //             if (dentroDeZona) {
+    //                 setCoberturaMensaje('¡Excelente! Hay cobertura en tu zona.');
+    //             } else {
+    //                 setCoberturaMensaje('Lo sentimos, no hay cobertura en tu dirección.');
+    //             }
+    //         } else {
+    //             setCoberturaMensaje('Dirección no encontrada. Por favor, revisala.');
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         setCoberturaMensaje('Error al verificar la dirección.');
+    //     }
+    // };
+    const getCoordinates = async (address) => {
+        console.log("address", address)
+
+        const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
+        console.log("api", apiKey)
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
     
         try {
-            const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`);
+            const response = await fetch(url);
             const data = await response.json();
+            console.log(data);
     
-            if (data.length > 0) {
-                const { lat, lon } = data[0];
-                const latFloat = parseFloat(lat);
-                const lonFloat = parseFloat(lon);
-    
-                const dentroDeZona = isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona1) ||
-                                    isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona2);
-    
-                if (dentroDeZona) {
-                    setCoberturaMensaje('¡Excelente! Hay cobertura en tu zona.');
-                } else {
-                    setCoberturaMensaje('Lo sentimos, no hay cobertura en tu dirección.');
-                }
+            if (data.status === "OK") {
+                const { lat, lng } = data.results[0].geometry.location;
+                console.log("Coordenadas:", { lat, lng });
+                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng) };
             } else {
-                setCoberturaMensaje('Dirección no encontrada. Por favor, revisala.');
+                console.error("Error en la geocodificación:", data.status);
+                return null;
             }
         } catch (error) {
-            console.error(error);
-            setCoberturaMensaje('Error al verificar la dirección.');
+            console.error("Error en la solicitud:", error);
+            return null;
         }
     };
+    
+   
+    async function verificarCobertura(e) {
+        e.preventDefault();
+    
+        try {
+            console.log(direccion)
+          const coordenadas = await getCoordinates(direccion);
+          console.log(coordenadas)
+          console.log(isPointInPolygon({ latitude: -38.0008798, longitude: -57.55968679999999 }, zona1)); // Verifica si está en zona1
 
-    function isPointInPolygon(point, polygon) {
-        let x = point.lat, y = point.lng;
-        let inside = false;
-    
-        for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i++) {
-            let xi = polygon[i].lat, yi = polygon[i].lng;
-            let xj = polygon[j].lat, yj = polygon[j].lng;
-    
-            let intersect = ((yi > y) !== (yj > y)) &&
-                (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
-    
-            if (intersect) inside = !inside;
+          if (isPointInPolygon(coordenadas, zona1)) {
+            setZona("Direccion en Zona 1");
+          } else if (isPointInPolygon(coordenadas, zona2)) {
+            setZona("Direccion en Zona 2");
+          } else {
+            setZona("Fuera de Zona de Servicio");
+          }
+        } catch (error) {
+          setZona("Error al buscar la dirección");
         }
-    
-        return inside;
-    }
+      }
 
     //CheckBox de Tipo de inmueble
     const handleCheckboxChange = (event) => {
@@ -141,6 +195,10 @@ const Form = () => {
             ...formData,
             [name]: value,
         });
+    };
+
+    const handleInternetChange = (event) => {
+        setInternetPlan(event.target.value);
     };
 
     //Enviamos los datos
@@ -510,35 +568,41 @@ const Form = () => {
                                 }}
                             />
                             {/* Servicio de internet */}
-                            <Select
-                                fullWidth
-                                value={planInternet}
-                                onChange={(e) => {
-                                    setPlanInternet(e.target.value);
-                                    setPlanTV("");
-                                }}
-                                displayEmpty
-                                sx={{
-                                    backgroundColor: "#edeaff",
-                                    borderRadius: "25px",
-                                    '& .MuiOutlinedInput-root': {
-                                        borderRadius: "25px",
-                                        '&.Mui-focused fieldset': {
-                                            borderColor: '#8048ff',
-                                        },
-                                    },
-                                    '& .MuiInputLabel-root.Mui-focused': {
-                                        color: '#8048ff',
-                                    }
-                                }}
-                                inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
-                            >
-                                <MenuItem disabled value="">Plan que solicita de Internet</MenuItem>
-                                <MenuItem value="100 megas">100 megas</MenuItem>
-                                <MenuItem value="300 megas">300 megas</MenuItem>
-                                <MenuItem value="500 megas">500 megas</MenuItem>
-                                <MenuItem value="Ninguno">Ninguno</MenuItem>
-                            </Select>
+              
+                {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                        <>
+                        <MenuItem id="internet-plan-label">Plan que solicita de internet</MenuItem>
+                        <Select
+                            variant="outlined"
+                            labelId="internet-plan-label"
+                            id="internet-plan-select"
+                            value={internetPlanURL}
+                            label="Plan que solicita de internet"
+                            onChange={handleInternetChange}
+                            sx={{ backgroundColor: "#edeaff", borderRadius: "25px" }}
+                        >
+                            <MenuItem value="300 MB">300 megas</MenuItem>
+                            <MenuItem value="500 MB">600 megas</MenuItem>
+                            <MenuItem value="1000 MB">1000 megas</MenuItem>
+                            <MenuItem value="Ninguna">Ninguna</MenuItem>
+                        </Select>
+                        </>
+                    ):(
+                        <>
+                       <MenuItem id="internet-plan-label">Plan que solicita de internet</MenuItem>
+                       <Select
+                           variant="outlined"
+                           labelId="internet-plan-label"
+                           id="internet-plan-select"
+                           value={internetPlanURL}
+                           label="Plan que solicita de internet"
+                           onChange={handleInternetChange}
+                           sx={{ backgroundColor: "#edeaff", borderRadius: "25px" }}
+                       >
+                           <MenuItem value="Fuera de Zona" selected>Fuera de Zona</MenuItem>
+                       </Select>
+                       </>
+                    )}
                             {/*Servicio de cable*/}
                             <Select
                                 fullWidth
@@ -561,6 +625,7 @@ const Form = () => {
                                 inputProps={{ 'aria-label': 'Plan que solicita de TV' }}
                             >
                                 <MenuItem disabled value="">Plan que solicita de TV</MenuItem>
+
                                 <MenuItem
                                     value="TV full"
                                     disabled={planInternet !== 'Ninguno'}
