@@ -49,7 +49,7 @@ export default function Registros() {
         try {
             const token = localStorage.getItem('token');
             const headers = { 'x-token': token };
-            const response = await axios.get('http://localhost:8000/api/tecnica/tecnicas', { headers });
+            const response = await axios.get('https://cooperativaback.up.railway.app/api/tecnica/tecnicas', { headers });
             setRegistros(response.data.tecnica);
         } catch (error) {
             console.error('Error al cargar los registros:', error);
@@ -65,7 +65,7 @@ export default function Registros() {
             const token = localStorage.getItem('token');
             const headers = { 'x-token': token };
             const response = await axios.delete(
-                `http://localhost:8000/api/tecnica/borrar-tecnica?id=${registroEliminar._id}`,
+                `https://cooperativaback.up.railway.app/api/tecnica/borrar-tecnica?id=${registroEliminar._id}`,
                 { headers }
             );
 
@@ -83,7 +83,7 @@ export default function Registros() {
             const token = localStorage.getItem('token');
             const headers = { 'x-token': token };
             const response = await axios.put(
-                `http://localhost:8000/api/tecnica/actualizar-tecnica?id=${registroEditar._id}`,
+                `https://cooperativaback.up.railway.app/api/tecnica/actualizar-tecnica?id=${registroEditar._id}`,
                 {
                     descripcion: descripcionEditada,
                     categoria: categoriaEditada,

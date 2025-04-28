@@ -26,7 +26,7 @@ function BlogNoticia1() {
   const nodeRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`http://localhost:8000/api/blog/get-blog?path=${path}`)
+    axios.get(`https://cooperativaback.up.railway.app/api/blog/get-blog?path=${path}`)
       .then(response => {
         setBlog(response.data);
         setLoading(false);

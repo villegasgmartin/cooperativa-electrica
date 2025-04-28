@@ -35,7 +35,7 @@ const Logout = () => {
         try {
         const token = localStorage.getItem('token');
 
-        await axios.get('http://localhost:8000/api/auth/logout', {
+        await axios.get('https://cooperativaback.up.railway.app/api/auth/logout', {
             headers: {
             'x-token': token,
             },

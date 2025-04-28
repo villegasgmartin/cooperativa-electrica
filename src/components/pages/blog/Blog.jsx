@@ -18,7 +18,7 @@ const Blog = () => {
     dispatch(setTitle('Blog'));
 
     // Traer blogs desde la base de datos
-    axios.get('http://localhost:8000/api/blog/blogs')
+    axios.get('https://cooperativaback.up.railway.app/api/blog/blogs')
       .then((response) => {
         setBlogs(response.data.blogs || []);
       })

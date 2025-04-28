@@ -34,11 +34,34 @@ dayjs.locale('es-custom');
 export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion, franjaHoraria, setFranjaHoraria }) {
     const [horariosDisponibles, setHorariosDisponibles] = React.useState([]);
 
-    const estilos = { /* tu objeto estilos como ya lo tenías */ };
+    const estilos = {
+        backgroundColor: "#edeaff",
+        borderRadius: "25px",
+        '& .MuiOutlinedInput-root': {
+            borderRadius: "25px",
+            backgroundColor: "#edeaff",
+            '& fieldset': {
+                borderColor: '#ccc',
+            },
+            '&:hover fieldset': {
+                borderColor: '#8048ff', 
+            },
+            '&.Mui-focused fieldset': {
+                borderColor: '#8048ff', 
+            },
+        },
+        '& .MuiInputLabel-root': {
+            color: '#161616', 
+        },
+        '& .MuiInputLabel-root.Mui-focused': {
+            color: '#8048ff', 
+        }
+    };
+    
 
     const fetchHorariosDisponibles = async (fecha) => {
         try {
-            const response = await axios.get('http://localhost:8000/api/reservas/horarios-disponibles', {
+            const response = await axios.get('https://cooperativaback.up.railway.app/api/reservas/horarios-disponibles', {
                 params: { fecha: dayjs(fecha).format('YYYY-MM-DD') }
             });
 
@@ -55,7 +78,7 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
 
     const handleDateChange = (newValue) => {
         setFechaInstalacion(newValue);
-        setFranjaHoraria(""); // Reiniciamos franja si cambia la fecha
+        setFranjaHoraria("");
         if (newValue) {
             fetchHorariosDisponibles(newValue);
         }
@@ -71,7 +94,7 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
                     onChange={handleDateChange}
                     shouldDisableDate={(date) => {
                         const day = date.day();
-                        return day === 0 || day === 6; // No permitir sábados ni domingos
+                        return day === 0 || day === 6;
                     }}
                     sx={estilos}
                 />

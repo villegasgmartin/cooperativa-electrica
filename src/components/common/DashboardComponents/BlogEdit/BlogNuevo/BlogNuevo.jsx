@@ -9,7 +9,7 @@ import { useTheme, alpha } from '@mui/material/styles';
 //JSX:
 export default function BlogNuevo() {
     const [titulo, setTitulo] = useState('');
-    const [subtitulo, setSubtitulo] = useState('');  // Nuevo estado para el subtítulo
+    const [subtitulo, setSubtitulo] = useState('');
     const [texto, setTexto] = useState('');
     const [imagenes, setImagenes] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ export default function BlogNuevo() {
 
         const formData = new FormData();
         formData.append('titulo', titulo);
-        formData.append('subtitulo', subtitulo);  // Agregar el subtítulo al formData
+        formData.append('subtitulo', subtitulo);
         formData.append('descripcion', texto);
         imagenes.forEach((imagen) => {
             formData.append('imagenes', imagen);
@@ -43,7 +43,7 @@ export default function BlogNuevo() {
 
         try {
             const response = await axios.post(
-                'http://localhost:8000/api/blog/crear-blog',
+                'https://cooperativaback.up.railway.app/api/blog/crear-blog',
                 formData,
                 {
                     headers: {

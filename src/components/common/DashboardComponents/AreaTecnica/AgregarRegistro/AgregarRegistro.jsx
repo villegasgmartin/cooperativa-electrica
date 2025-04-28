@@ -37,7 +37,7 @@ export default function AgregarRegistro() {
             };
 
             const response = await axios.post(
-                'http://localhost:8000/api/tecnica/crear-tecnica',
+                'https://cooperativaback.up.railway.app/api/tecnica/crear-tecnica',
                 {
                     fecha: fecha.toISOString(),
                     categoria: categoria,

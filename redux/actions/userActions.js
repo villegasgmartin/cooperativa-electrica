@@ -2,7 +2,7 @@
 import axios from 'axios'; 
 
 // URL base
-const url = 'http://localhost:8000';
+const url = 'https://cooperativaback.up.railway.app';
 
 // Tipos de acción
 //Acciones de post
