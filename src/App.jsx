@@ -34,6 +34,7 @@ import Oculta from "./components/pages/oculta/Oculta.jsx"
 import Blognoticia9 from "./components/pages/blogNoticia9/BlogNoticia9.jsx"
 import Blognoticia7 from "./components/pages/blogNoticia7/BlogNoticia7.jsx"
 import Blognoticia8 from "./components/pages/blogNoticia8/BlogNoticia8.jsx"
+import Blognoticia10 from "./components/pages/blogNoticia10/BlogNoticia10.jsx"
 
 //JSX:
 function App() {
@@ -65,7 +66,8 @@ function App() {
           <Route path="/8m-reflexiones-cooperativas-con-perspectiva-de-genero" element={<Blognoticia8 />} />
           <Route path="/cooperativa-electrica-en-clinica-fiscalizate" element={<Blognoticia7 />} />
           <Route path="/nueva-modalidad-pago-facturas-qr" element={<Blognoticia9 />} />
-          
+          <Route path="/encuentro-con-autoridades-provinciales" element={<Blognoticia10 />} />
+
 
         </Route>
         

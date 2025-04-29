@@ -38,12 +38,12 @@ const Blog = () => {
             <p className='blog-description'>La Cooperativa Eléctrica de MdP participó de la clinica de cumplimiento participativo en el marco del programa  FISCALIZATE.
             </p>
           </div>
-          <div className='blog-subcontainer'>
-        
-            <Link to={"/8m-reflexiones-cooperativas-con-perspectiva-de-genero"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1744800644/cooperativa/genero_trabajo_8M_wc4bkx.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/8m-reflexiones-cooperativas-con-perspectiva-de-genero"} style={{textDecoration: "none"}}><h3 className='blog-title'> 8M: reflexiones cooperativas con perspectiva de género</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Organizada por el Consejo de Administración, se desarrolló la charla "Género, Trabajo y Cooperativismo " en el marco del  8M.</p>
-          </div>
+        <div className='blog-subcontainer'>
+            <Link to={"/encuentro-con-autoridades-provinciales"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1745919043/cooperativa/Encuentro_con_autoridades_provinciales_yljtsj.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/encuentro-con-autoridades-provinciales"} style={{textDecoration: "none"}}><h3 className='blog-title'>Encuentro con autoridades provinciales</h3></Link>
+            <p className='blog-description'>La Cooperativa MdP mantuvo una reunión con autoridades provinciales para abordar proyectos, costos e inversiones.
+            </p>
+        </div>
          
          
         </Fade>
@@ -55,11 +55,12 @@ const Blog = () => {
             <Link to={"/nueva-modalidad-pago-facturas-qr"} style={{textDecoration: "none"}}><h3 className='blog-title'>Nueva modalidad de pago de las facturas con QR</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>La Cooperativa Eléctrica de Mar del Plata ha incorporado una nueva modalidad de pago en las facturas del servicio eléctrico e Internet.</p>
           </div>
-        <div className='blog-subcontainer'>
-            <Link to={"/energias-renovables"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/energias-renovables"} style={{textDecoration: "none"}}><h3 className='blog-title'>Energías Renovables</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica.</p>
-          </div>
+          <div className='blog-subcontainer'>
+        
+        <Link to={"/8m-reflexiones-cooperativas-con-perspectiva-de-genero"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1744800644/cooperativa/genero_trabajo_8M_wc4bkx.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+        <Link to={"/8m-reflexiones-cooperativas-con-perspectiva-de-genero"} style={{textDecoration: "none"}}><h3 className='blog-title'> 8M: reflexiones cooperativas con perspectiva de género</h3></Link>{/*Cambio de título*/}
+        <p className='blog-description'>Organizada por el Consejo de Administración, se desarrolló la charla "Género, Trabajo y Cooperativismo " en el marco del  8M.</p>
+      </div>
        
         </Fade>
       </div>
@@ -71,13 +72,12 @@ const Blog = () => {
             <p className='blog-description'>El  Consejo de Administración de la Cooperativa Eléctrica MdP se reunió con el Diputado provincial Gustavo Pulti y la Concejala María Eva Ayala.
             </p>
           </div>
-          <div className='blog-subcontainer'>
         
-            <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741432842/cooperativa/Encuentro_Productivo_Bonaerense-1_ix5tsb.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"} style={{textDecoration: "none"}}><h3 className='blog-title'> Cooperativa Eléctrica en Encuentro Productivo Bonaerense</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>La Cooperativa Eléctrica MdP se sumó al Encuentro Productivo de Gral Pueyrredon  organizado por la Provincia de Buenos Aires  el pasado sábado 22.</p>
+          <div className='blog-subcontainer'>
+            <Link to={"/energias-renovables"}><div className='blog-image-container'><img src={blogImage02} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/energias-renovables"} style={{textDecoration: "none"}}><h3 className='blog-title'>Energías Renovables</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>Mar del Plata es una ciudad con un potencial único para aprovechar energías renovables como la solar y la eólica.</p>
           </div>
-         
          
         </Fade>
       </div>
@@ -89,10 +89,12 @@ const Blog = () => {
             <p className='blog-description'>La Cooperativa Eléctrica de MdP, conmemora el día Internacional de la Mujer trabajadora y se suma  a los actos y reivindicaciones  para celebrar sus logros en la lucha por la igualdad,  el  reconocimiento y sus  derechos en los ámbitos social, político y laboral.</p>
           </div>
           <div className='blog-subcontainer'>
-            <Link to={"/como-ahorrar-energia"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
-            <Link to={"/como-ahorrar-energia"} style={{textDecoration: "none"}}><h3 className='blog-title'>Cómo Ahorrar Energía en el Hogar</h3></Link>{/*Cambio de título*/}
-            <p className='blog-description'>Ahorrar energía no solo beneficia tu bolsillo, sino también al medio ambiente.</p>
-          </div>
+        
+        <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"}><div className='blog-image-container'><img src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1741432842/cooperativa/Encuentro_Productivo_Bonaerense-1_ix5tsb.jpg" alt="imágen de blog" className='blog-image' /></div></Link>
+        <Link to={"/cooperativa-electrica-en-encuentro-productivo-bonaerense"} style={{textDecoration: "none"}}><h3 className='blog-title'> Cooperativa Eléctrica en Encuentro Productivo Bonaerense</h3></Link>{/*Cambio de título*/}
+        <p className='blog-description'>La Cooperativa Eléctrica MdP se sumó al Encuentro Productivo de Gral Pueyrredon  organizado por la Provincia de Buenos Aires  el pasado sábado 22.</p>
+      </div>
+          
         </Fade>
       </div>
       <div className='blog-container'>
@@ -101,6 +103,11 @@ const Blog = () => {
             <Link to={"/las-claves-de-la-velocidad-de-internet"}><div className='blog-image-container'><img src={blogImage03} alt="imágen de blog" className='blog-image' /></div></Link>
             <Link to={"/las-claves-de-la-velocidad-de-internet"} style={{textDecoration: "none"}}><h3 className='blog-title'>Velocidad de Internet</h3></Link>{/*Cambio de título*/}
             <p className='blog-description'>En un mundo cada vez más conectado, la velocidad de internet se ha convertido en un factor esencial para las actividades diarias.</p>
+          </div>
+          <div className='blog-subcontainer'>
+            <Link to={"/como-ahorrar-energia"}><div className='blog-image-container'><img src={blogImage01} alt="imágen de blog" className='blog-image' /></div></Link>
+            <Link to={"/como-ahorrar-energia"} style={{textDecoration: "none"}}><h3 className='blog-title'>Cómo Ahorrar Energía en el Hogar</h3></Link>{/*Cambio de título*/}
+            <p className='blog-description'>Ahorrar energía no solo beneficia tu bolsillo, sino también al medio ambiente.</p>
           </div>
         </Fade>
       </div>
