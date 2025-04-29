@@ -58,29 +58,29 @@ const Form = () => {
 
     useEffect(() => {
         if (window.google && window.google.maps) {
-          const autocomplete = new window.google.maps.places.Autocomplete(
-            inputRef.current,
-            { types: ["geocode"] } // Opcional: limitar a direcciones
-          );
-    
-          autocomplete.addListener("place_changed", () => {
-            const place = autocomplete.getPlace();
-            if (place.formatted_address) {
-              setDireccion(place.formatted_address);
+            const autocomplete = new window.google.maps.places.Autocomplete(
+                inputRef.current,
+                { types: ["geocode"] } // Opcional: limitar a direcciones
+            );
+        
+            autocomplete.addListener("place_changed", () => {
+                const place = autocomplete.getPlace();
+                if (place.formatted_address) {
+                setDireccion(place.formatted_address);
+                }
+            });
             }
-          });
-        }
-      }, []);
+        }, []);
 
-      useEffect(() => {
-        console.log("Zona detectada:", zona);
-        console.log("Zona detectada (trim):", zona?.trim());
-        if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
-            setInternetPlanURL("Fuera de Zona");
-        } else {
-            setInternetPlanURL("");
-        }
-    }, [zona]);
+        useEffect(() => {
+            console.log("Zona detectada:", zona);
+            console.log("Zona detectada (trim):", zona?.trim());
+            if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
+                setInternetPlanURL("Fuera de Zona");
+            } else {
+                setInternetPlanURL("");
+            }
+        }, [zona]);
 
     //Zonas de cobertura:
     const zona1 = [
@@ -103,7 +103,7 @@ const Form = () => {
         { latitude: -38.00662, longitude: -57.55275 },
         { latitude: -38.00361, longitude: -57.55039 },
         { latitude: -37.99692, longitude: -57.5633 }
-      ]
+        ]
     
     
 
@@ -164,24 +164,24 @@ const Form = () => {
         }
     };
     
-   
+
     async function verificarCobertura(e) {
         e.preventDefault();
     
         try {
             console.log(direccion)
-          const coordenadas = await getCoordinates(direccion);
-          console.log(coordenadas)
+            const coordenadas = await getCoordinates(direccion);
+            console.log(coordenadas)
 
-          if (isPointInPolygon(coordenadas, zona1)) {
-            setZona("Direccion en Zona 1");
-          } else {
-            setZona("Fuera de Zona de Servicio");
-          }
-        } catch (error) {
-          setZona("Error al buscar la dirección");
+            if (isPointInPolygon(coordenadas, zona1)) {
+                setZona("Direccion en Zona 1");
+            } else {
+                setZona("Fuera de Zona de Servicio");
+            }
+            } catch (error) {
+            setZona("Error al buscar la dirección");
+            }
         }
-      }
 
     //CheckBox de Tipo de inmueble
     const handleCheckboxChange = (event) => {
@@ -576,7 +576,7 @@ const Form = () => {
                                     displayEmpty
                                     fullWidth
                                     id="internet-plan-select"
-                                    value={internetPlanURL}
+                                    value={internetPlan}
                                     onChange={handleInternetChange}
                                     sx={{
                                         backgroundColor: "#edeaff",
@@ -604,7 +604,7 @@ const Form = () => {
                                     displayEmpty
                                     fullWidth
                                     id="internet-plan-select"
-                                    value={internetPlanURL}
+                                    value={internetPlan}
                                     onChange={handleInternetChange}
                                     sx={{
                                         backgroundColor: "#edeaff",
@@ -621,52 +621,52 @@ const Form = () => {
                                     }}
                                     inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
                                 >
-                                    <MenuItem value="Fuera de Zona" selected>Fuera de Zona</MenuItem>
+                                    <MenuItem value="Fuera de Zona">Fuera de Zona</MenuItem>
                                 </Select>
                                 )}
                             {/*Servicio de cable*/}
                             {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
-                                   <Select
-                                   fullWidth
-                                   value={planTV}
-                                   onChange={(e) => setPlanTV(e.target.value)}
-                                   displayEmpty
-                                   sx={{
-                                       backgroundColor: "#edeaff",
-                                       borderRadius: "25px",
-                                       '& .MuiOutlinedInput-root': {
-                                           borderRadius: "25px",
-                                           '&.Mui-focused fieldset': {
-                                               borderColor: '#8048ff',
-                                           },
-                                       },
-                                       '& .MuiInputLabel-root.Mui-focused': {
-                                           color: '#8048ff',
-                                       }
-                                   }}
-                                   inputProps={{ 'aria-label': 'Plan que solicita de TV' }}
-                               >
-                                   <MenuItem disabled value="">Plan que solicita de TV</MenuItem>
-   
-                                   <MenuItem
-                                       value="TV full"
-                                       disabled={planInternet !== 'Ninguno'}
-                                   >
-                                       TV full + Pack Fútbol + Max gratis
-                                   </MenuItem>
-                                   <MenuItem
-                                       value="Pack adicional"
-                                       disabled={planInternet === 'Ninguno'}
-                                   >
-                                       Pack TV adicional $5999
-                                   </MenuItem>
-                                   <MenuItem
-                                       value="Ninguno"
-                                       disabled={planInternet === 'Ninguno'}
-                                   >
-                                       Ninguno
-                                   </MenuItem>
-                               </Select>
+                                    <Select
+                                    fullWidth
+                                    value={planTV}
+                                    onChange={(e) => setPlanTV(e.target.value)}
+                                    displayEmpty
+                                    sx={{
+                                        backgroundColor: "#edeaff",
+                                        borderRadius: "25px",
+                                        '& .MuiOutlinedInput-root': {
+                                            borderRadius: "25px",
+                                            '&.Mui-focused fieldset': {
+                                                borderColor: '#8048ff',
+                                            },
+                                        },
+                                        '& .MuiInputLabel-root.Mui-focused': {
+                                            color: '#8048ff',
+                                        }
+                                    }}
+                                    inputProps={{ 'aria-label': 'Plan que solicita de TV' }}
+                                >
+                                    <MenuItem disabled value="">Plan que solicita de TV</MenuItem>
+    
+                                    <MenuItem
+                                        value="TV full"
+                                        disabled={planInternet !== 'Ninguno'}
+                                    >
+                                        TV full + Pack Fútbol + Max gratis
+                                    </MenuItem>
+                                    <MenuItem
+                                        value="Pack adicional"
+                                        disabled={planInternet === 'Ninguno'}
+                                    >
+                                        Pack TV adicional $5999
+                                    </MenuItem>
+                                    <MenuItem
+                                        value="Ninguno"
+                                        disabled={planInternet === 'Ninguno'}
+                                    >
+                                        Ninguno
+                                    </MenuItem>
+                                </Select>
                             ):(
                                 <Select
                                 fullWidth
