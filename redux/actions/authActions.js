@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 //JSX:
-const url = 'http://localhost:8000';
+const url = 'https://cooperativaback.up.railway.app';
 
 export const LOGIN = 'LOGIN';
 

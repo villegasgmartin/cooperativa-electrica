@@ -238,7 +238,7 @@ const Form = () => {
             //Si no hay errores, hacemos POST
             try {
                 const response = await axios.post(
-                    'http://localhost:8000/api/reservas/crear-reserva',
+                    'https://cooperativaback.up.railway.app/api/reservas/crear-reserva',
                     dataToSend
                 );
 
@@ -571,41 +571,59 @@ const Form = () => {
                                 }}
                             />
                             {/* Servicio de internet */}
-              
-                {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
-                        <>
-                        <MenuItem id="internet-plan-label">Plan que solicita de internet</MenuItem>
-                        <Select
-                            variant="outlined"
-                            labelId="internet-plan-label"
-                            id="internet-plan-select"
-                            value={internetPlanURL}
-                            label="Plan que solicita de internet"
-                            onChange={handleInternetChange}
-                            sx={{ backgroundColor: "#edeaff", borderRadius: "25px" }}
-                        >
-                            <MenuItem value="300 MB">300 megas</MenuItem>
-                            <MenuItem value="500 MB">600 megas</MenuItem>
-                            <MenuItem value="1000 MB">1000 megas</MenuItem>
-                            <MenuItem value="Ninguna">Ninguna</MenuItem>
-                        </Select>
-                        </>
-                    ):(
-                        <>
-                       <MenuItem id="internet-plan-label">Plan que solicita de internet</MenuItem>
-                       <Select
-                           variant="outlined"
-                           labelId="internet-plan-label"
-                           id="internet-plan-select"
-                           value={internetPlanURL}
-                           label="Plan que solicita de internet"
-                           onChange={handleInternetChange}
-                           sx={{ backgroundColor: "#edeaff", borderRadius: "25px" }}
-                       >
-                           <MenuItem value="Fuera de Zona" selected>Fuera de Zona</MenuItem>
-                       </Select>
-                       </>
-                    )}
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                                <Select
+                                    displayEmpty
+                                    fullWidth
+                                    id="internet-plan-select"
+                                    value={internetPlanURL}
+                                    onChange={handleInternetChange}
+                                    sx={{
+                                        backgroundColor: "#edeaff",
+                                        borderRadius: "25px",
+                                        '& .MuiOutlinedInput-root': {
+                                            borderRadius: "25px",
+                                            '&.Mui-focused fieldset': {
+                                                borderColor: '#8048ff',
+                                            },
+                                        },
+                                        '& .MuiInputLabel-root.Mui-focused': {
+                                            color: '#8048ff',
+                                        }
+                                    }}
+                                    inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
+                                >
+                                    <MenuItem disabled value="">Plan que solicita de Internet</MenuItem>
+                                    <MenuItem value="300 MB">300 megas</MenuItem>
+                                    <MenuItem value="500 MB">600 megas</MenuItem>
+                                    <MenuItem value="1000 MB">1000 megas</MenuItem>
+                                    <MenuItem value="Ninguna">Ninguna</MenuItem>
+                                </Select>
+                                ):(
+                                <Select
+                                    displayEmpty
+                                    fullWidth
+                                    id="internet-plan-select"
+                                    value={internetPlanURL}
+                                    onChange={handleInternetChange}
+                                    sx={{
+                                        backgroundColor: "#edeaff",
+                                        borderRadius: "25px",
+                                        '& .MuiOutlinedInput-root': {
+                                            borderRadius: "25px",
+                                            '&.Mui-focused fieldset': {
+                                                borderColor: '#8048ff',
+                                            },
+                                        },
+                                        '& .MuiInputLabel-root.Mui-focused': {
+                                            color: '#8048ff',
+                                        }
+                                    }}
+                                    inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
+                                >
+                                    <MenuItem value="Fuera de Zona" selected>Fuera de Zona</MenuItem>
+                                </Select>
+                                )}
                             {/*Servicio de cable*/}
                             <Select
                                 fullWidth

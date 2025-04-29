@@ -13,7 +13,7 @@ const HomeBlog2 = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/blog/blogs');
+        const response = await axios.get('https://cooperativaback.up.railway.app/api/blog/blogs');
         const todosLosBlogs = response.data.blogs || [];
   
         // Ordenar por _id (más nuevo primero) y tomar los 3 primeros

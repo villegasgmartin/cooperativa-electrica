@@ -42,8 +42,7 @@ export default function NewPassword() {
         }
 
         try {
-            // Aquí debes modificar manualmente la URL para la API
-            await axios.put(`http://localhost:8000/api/auth/actualizar-clave?token=${token}`, {
+            await axios.put(`https://cooperativaback.up.railway.app/api/auth/actualizar-clave?token=${token}`, {
                 password: newPassword
             });
 

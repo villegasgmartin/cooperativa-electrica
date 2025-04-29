@@ -80,7 +80,7 @@ export default function Login() {
         }
 
         try {
-            await axios.post('http://localhost:8000/api/auth/nueva-password', {
+            await axios.post('https://cooperativaback.up.railway.app/api/auth/nueva-password', {
                 email: input.correo
             });
 

@@ -35,12 +35,12 @@ export default function BlogGestor() {
     const [modalEditar, setModalEditar] = useState(false);
     const [blogSeleccionado, setBlogSeleccionado] = useState(null);
     const [tituloEditado, setTituloEditado] = useState('');
-    const [subtituloEditado, setSubtituloEditado] = useState(''); // Nuevo estado para el subtítulo
+    const [subtituloEditado, setSubtituloEditado] = useState('');
     const [descripcionEditada, setDescripcionEditada] = useState('');
 
     const obtenerBlogs = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/blog/blogs', {
+            const response = await axios.get('https://cooperativaback.up.railway.app/api/blog/blogs', {
                 headers: {
                     'x-token': localStorage.getItem('token'),
                 },
@@ -57,7 +57,7 @@ export default function BlogGestor() {
 
     const handleEliminar = async () => {
         try {
-            await axios.delete(`http://localhost:8000/api/blog/borrar-blog?id=${blogSeleccionado._id}`, {
+            await axios.delete(`https://cooperativaback.up.railway.app/api/blog/borrar-blog?id=${blogSeleccionado._id}`, {
                 headers: {
                     'x-token': localStorage.getItem('token'),
                 },
@@ -72,10 +72,10 @@ export default function BlogGestor() {
     const handleEditar = async () => {
         try {
             await axios.put(
-                `http://localhost:8000/api/blog/actualizar-blog?id=${blogSeleccionado._id}`,
+                `https://cooperativaback.up.railway.app/api/blog/actualizar-blog?id=${blogSeleccionado._id}`,
                 {
                     titulo: tituloEditado,
-                    subtitulo: subtituloEditado, // Enviamos el subtítulo editado
+                    subtitulo: subtituloEditado,
                     descripcion: descripcionEditada,
                 },
                 {
@@ -99,7 +99,7 @@ export default function BlogGestor() {
     const abrirModalEditar = (blog) => {
         setBlogSeleccionado(blog);
         setTituloEditado(blog.titulo);
-        setSubtituloEditado(blog.subtitulo || ''); // Asignamos el subtítulo
+        setSubtituloEditado(blog.subtitulo || '');
         setDescripcionEditada(blog.descripcion);
         setModalEditar(true);
     };
@@ -118,7 +118,7 @@ export default function BlogGestor() {
                                 <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
                                     {blog.titulo}
                                 </Typography>
-                                {blog.subtitulo && (  // Mostrar el subtítulo si está presente
+                                {blog.subtitulo && ( 
                                     <Typography variant="body2" sx={{ fontStyle: 'italic', mb: 1 }}>
                                         {blog.subtitulo}
                                     </Typography>
@@ -169,7 +169,7 @@ export default function BlogGestor() {
                     />
 
                     <TextField
-                        label="Subtítulo"  // Campo de subtítulo
+                        label="Subtítulo"
                         fullWidth
                         value={subtituloEditado}
                         onChange={(e) => setSubtituloEditado(e.target.value)}

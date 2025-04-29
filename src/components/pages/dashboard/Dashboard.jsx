@@ -108,7 +108,7 @@ function Dashboard(props) {
           return;
         }
 
-        const { data } = await axios.get(`http://localhost:8000/api/perfil?id=${userId}`, {
+        const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
           headers: {
             'x-token': token,
           },
