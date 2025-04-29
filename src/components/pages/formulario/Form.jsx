@@ -625,7 +625,50 @@ const Form = () => {
                                 </Select>
                                 )}
                             {/*Servicio de cable*/}
-                            <Select
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                                   <Select
+                                   fullWidth
+                                   value={planTV}
+                                   onChange={(e) => setPlanTV(e.target.value)}
+                                   displayEmpty
+                                   sx={{
+                                       backgroundColor: "#edeaff",
+                                       borderRadius: "25px",
+                                       '& .MuiOutlinedInput-root': {
+                                           borderRadius: "25px",
+                                           '&.Mui-focused fieldset': {
+                                               borderColor: '#8048ff',
+                                           },
+                                       },
+                                       '& .MuiInputLabel-root.Mui-focused': {
+                                           color: '#8048ff',
+                                       }
+                                   }}
+                                   inputProps={{ 'aria-label': 'Plan que solicita de TV' }}
+                               >
+                                   <MenuItem disabled value="">Plan que solicita de TV</MenuItem>
+   
+                                   <MenuItem
+                                       value="TV full"
+                                       disabled={planInternet !== 'Ninguno'}
+                                   >
+                                       TV full + Pack Fútbol + Max gratis
+                                   </MenuItem>
+                                   <MenuItem
+                                       value="Pack adicional"
+                                       disabled={planInternet === 'Ninguno'}
+                                   >
+                                       Pack TV adicional $5999
+                                   </MenuItem>
+                                   <MenuItem
+                                       value="Ninguno"
+                                       disabled={planInternet === 'Ninguno'}
+                                   >
+                                       Ninguno
+                                   </MenuItem>
+                               </Select>
+                            ):(
+                                <Select
                                 fullWidth
                                 value={planTV}
                                 onChange={(e) => setPlanTV(e.target.value)}
@@ -647,25 +690,22 @@ const Form = () => {
                             >
                                 <MenuItem disabled value="">Plan que solicita de TV</MenuItem>
 
+                           
                                 <MenuItem
-                                    value="TV full"
-                                    disabled={planInternet !== 'Ninguno'}
-                                >
-                                    TV full + Pack Fútbol + Max gratis
-                                </MenuItem>
-                                <MenuItem
-                                    value="Pack adicional"
+                                    value="Futbol fuera de zona"
                                     disabled={planInternet === 'Ninguno'}
                                 >
-                                    Pack TV adicional $5999
+                                     TV  $10000
                                 </MenuItem>
                                 <MenuItem
                                     value="Ninguno"
-                                    disabled={planInternet === 'Ninguno'}
                                 >
                                     Ninguno
                                 </MenuItem>
                             </Select>
+
+                            )}
+                        
                             {/*Calendario */}
                             <div className='form-calendar'>
                                 <p className='form-calendar-text'>Elegí fecha y horario para coordinar la instalación del servicio.</p>
