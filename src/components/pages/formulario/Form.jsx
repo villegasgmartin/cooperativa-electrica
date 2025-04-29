@@ -84,20 +84,26 @@ const Form = () => {
 
     //Zonas de cobertura:
     const zona1 = [
-        { latitude: -38.0035, longitude: -57.5580 }, // Av. Independencia y Alvarado
-        { latitude: -38.0035, longitude: -57.5625 }, // Av. Independencia y Garay
-        { latitude: -38.0060, longitude: -57.5625 }, // Guido y Garay
-        { latitude: -38.0060, longitude: -57.5580 }, // Guido y Alvarado
-        { latitude: -38.0035, longitude: -57.5580 }  // Cierre del polígono
-      ];
-    
-      const zona2 = [
-        { latitude: -38.0035, longitude: -57.5580 }, // Av. Independencia y Alvarado
-        { latitude: -38.0035, longitude: -57.5535 }, // La Rioja y Alvarado
-        { latitude: -38.0060, longitude: -57.5535 }, // La Rioja y Garay
-        { latitude: -38.0060, longitude: -57.5580 }, // Av. Independencia y Garay
-        { latitude: -38.0035, longitude: -57.5580 }  // Cierre del polígono
-      ];
+        { latitude: -37.99692, longitude: -57.5633 },
+        { latitude: -38.00557, longitude: -57.57025 },
+        { latitude: -38.00703, longitude: -57.5673 },
+        { latitude: -38.00784, longitude: -57.56786 },
+        { latitude: -38.00835, longitude: -57.5669 },
+        { latitude: -38.01158, longitude: -57.56949 },
+        { latitude: -38.012, longitude: -57.56853 },
+        { latitude: -38.01129, longitude: -57.56785 },
+        { latitude: -38.0117, longitude: -57.567 },
+        { latitude: -38.01099, longitude: -57.56622 },
+        { latitude: -38.01139, longitude: -57.56545 },
+        { latitude: -38.00503, longitude: -57.5603 },
+        { latitude: -38.0143, longitude: -57.5421 },
+        { latitude: -38.00967, longitude: -57.53841 },
+        { latitude: -38.00916, longitude: -57.5394 },
+        { latitude: -38.01214, longitude: -57.54176 },
+        { latitude: -38.00662, longitude: -57.55275 },
+        { latitude: -38.00361, longitude: -57.55039 },
+        { latitude: -37.99692, longitude: -57.5633 }
+      ]
     
     
 
@@ -166,12 +172,9 @@ const Form = () => {
             console.log(direccion)
           const coordenadas = await getCoordinates(direccion);
           console.log(coordenadas)
-          console.log(isPointInPolygon({ latitude: -38.0008798, longitude: -57.55968679999999 }, zona1)); // Verifica si está en zona1
 
           if (isPointInPolygon(coordenadas, zona1)) {
             setZona("Direccion en Zona 1");
-          } else if (isPointInPolygon(coordenadas, zona2)) {
-            setZona("Direccion en Zona 2");
           } else {
             setZona("Fuera de Zona de Servicio");
           }
