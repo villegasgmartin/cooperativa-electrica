@@ -123,3 +123,11 @@
         width: 18.75rem;
     }
 }
+
+.MuiPaper-root img{
+    height: 300px!important;
+   object-position: top;
+}
+.blog-image{
+    object-position: top;
+}

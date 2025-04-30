@@ -44,6 +44,7 @@ const Form = () => {
     const [zona, setZona] = useState("");
     const inputRef = useRef(null);
     const [internetPlanURL, setInternetPlanURL] = useState('');
+    const [direccionValidada, setDireccionValidada] = useState(false)
 
     const onLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
@@ -76,7 +77,9 @@ const Form = () => {
             console.log("Zona detectada:", zona);
             console.log("Zona detectada (trim):", zona?.trim());
             if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
+                
                 setInternetPlanURL("Fuera de Zona");
+                
             } else {
                 setInternetPlanURL("");
             }
@@ -172,7 +175,7 @@ const Form = () => {
             console.log(direccion)
             const coordenadas = await getCoordinates(direccion);
             console.log(coordenadas)
-
+            setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
                 setZona("Direccion en Zona 1");
             } else {
@@ -230,7 +233,8 @@ const Form = () => {
                 direccion,
                 fecha: isoFecha,
                 horario: franjaHoraria,
-                internet: planInternet,
+                internet: internetPlan,
+                tv: planTV,
                 nombre: formData.name,
                 telefono: formData.telefono,
                 tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
@@ -519,7 +523,7 @@ const Form = () => {
                                 }}
                             />
                             </div>
-                            {/*Botón para consultar cobertura*/}
+                            {/*Botón para tar cobertura*/}
                             <Button
                                 variant="contained"
                                 onClick={verificarCobertura}
@@ -570,8 +574,10 @@ const Form = () => {
                                     }
                                 }}
                             />
-                            {/* Servicio de internet */}
-                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                    {direccionValidada?(
+                        <>
+                           {/* Servicio de internet */}
+                           {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
                                 <Select
                                     displayEmpty
                                     fullWidth
@@ -705,6 +711,16 @@ const Form = () => {
                             </Select>
 
                             )}
+                        
+                        
+                        
+                        </>
+
+
+
+
+                    ):("")}
+                         
                         
                             {/*Calendario */}
                             <div className='form-calendar'>

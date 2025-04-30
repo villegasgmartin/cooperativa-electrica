@@ -161,6 +161,7 @@ function Row({ row, handleEditClick, handleDeleteClick }) {
                 <li>Dirección: {row.direccion}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
+                <li>Tv: {row.tv}</li>
                 <li>Teléfono: {row.telefono}</li>
               </ul>
             </Box>

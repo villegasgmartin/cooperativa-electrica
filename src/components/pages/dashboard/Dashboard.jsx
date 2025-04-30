@@ -102,6 +102,7 @@ function Dashboard(props) {
       try {
         const userId = localStorage.getItem('userId');
         const token = localStorage.getItem('token');
+       console.log(token)
         
         if (!userId || !token) {
           console.error('No se encontró el userId o token en localStorage');
@@ -113,6 +114,8 @@ function Dashboard(props) {
             'x-token': token,
           },
         });
+
+        console.log(data)
 
         // Construir navegación según rol y accesos:
         let tempNavigation = [];
