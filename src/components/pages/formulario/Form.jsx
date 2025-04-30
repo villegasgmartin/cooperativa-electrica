@@ -52,15 +52,15 @@ const Form = () => {
         window.open(whatsappUrl, '_blank');
     };
 
-    useEffect(() => {
-        // Obtener los parámetros de la URL
-        const params = new URLSearchParams(window.location.search);
-        const plan = params.get('internet'); // Obtener el valor del parámetro 'internet'
-        console.log(plan);
-        if (plan) {
-            setInternetPlanURL(plan); // Establecer el valor en el estado si existe en la URL
-        }
-      }, []);
+    // useEffect(() => {
+    //     // Obtener los parámetros de la URL
+    //     const params = new URLSearchParams(window.location.search);
+    //     const plan = params.get('internet'); // Obtener el valor del parámetro 'internet'
+    //     console.log(plan);
+    //     if (plan) {
+    //         setInternetPlanURL(plan); // Establecer el valor en el estado si existe en la URL
+    //     }
+    //   }, []);
 
     return (
         <>
@@ -205,7 +205,7 @@ const Form = () => {
                         variant='outlined'
                         labelId="internet-plan-label"
                         id="internet-plan-select"
-                        value={internetPlanURL}
+                        value={internetPlan}
                         label="Plan que solicita de internet"
                         onChange={handleInternetChange}
                         sx={{ backgroundColor: "#edeaff",borderRadius:"25px",}}
