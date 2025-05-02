@@ -10,17 +10,10 @@ import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import axios from 'axios';
 
 //JSX:
-// Localización personalizada
 dayjs.locale({
     name: 'es-custom',
-    months: [
-        'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-        'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ],
-    monthsShort: [
-        'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
-        'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
-    ],
+    months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+    monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
     weekdays: dayjs.Ls['es'].weekdays,
     weekdaysShort: dayjs.Ls['es'].weekdaysShort,
     weekdaysMin: dayjs.Ls['es'].weekdaysMin,
@@ -31,8 +24,11 @@ dayjs.locale({
 
 dayjs.locale('es-custom');
 
-export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion, franjaHoraria, setFranjaHoraria }) {
+export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion, franjaHoraria, setFranjaHoraria, tipoInmueble }) {
     const [horariosDisponibles, setHorariosDisponibles] = React.useState([]);
+    
+    // Establecemos el número de días a bloquear según el tipo de inmueble
+    const diasBloqueados = tipoInmueble === 'edificio' ? 5 : tipoInmueble === 'casa' || tipoInmueble === 'ph' ? 2 : 0;
 
     const estilos = {
         backgroundColor: "#edeaff",
@@ -57,7 +53,31 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
             color: '#8048ff', 
         }
     };
-    
+
+    // Función para calcular días hábiles
+    const calcularDiasHabiles = (fechaInicio, diasAHabilitar) => {
+        let diasContados = 0;
+        let fecha = dayjs(fechaInicio);
+
+        while (diasContados < diasAHabilitar) {
+            fecha = fecha.add(1, 'day'); // Avanzar al siguiente día
+            // Si el día no es sábado (6) ni domingo (0), contamos el día
+            if (fecha.day() !== 0 && fecha.day() !== 6) {
+                diasContados++;
+            }
+        }
+        return fecha;
+    };
+
+    // Función para deshabilitar los días no permitidos
+    const shouldDisableDate = (date) => {
+        const today = dayjs();
+        const diasHabiles = diasBloqueados; 
+        const disableFrom = calcularDiasHabiles(today, diasHabiles);
+
+        // Deshabilitar fechas antes de "disableFrom" y también deshabilitar fines de semana (sábado y domingo)
+        return date.isBefore(disableFrom, 'day') || date.day() === 0 || date.day() === 6;
+    };
 
     const fetchHorariosDisponibles = async (fecha) => {
         try {
@@ -92,10 +112,7 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
                     label="Fecha de instalación"
                     value={fechaInstalacion}
                     onChange={handleDateChange}
-                    shouldDisableDate={(date) => {
-                        const day = date.day();
-                        return day === 0 || day === 6;
-                    }}
+                    shouldDisableDate={shouldDisableDate}
                     sx={estilos}
                 />
             </DemoContainer>
@@ -135,4 +152,3 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
         </LocalizationProvider>
     );
 }
-

@@ -102,7 +102,6 @@ function Dashboard(props) {
       try {
         const userId = localStorage.getItem('userId');
         const token = localStorage.getItem('token');
-       console.log(token)
         
         if (!userId || !token) {
           console.error('No se encontró el userId o token en localStorage');

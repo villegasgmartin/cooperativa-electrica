@@ -236,6 +236,7 @@ const Form = () => {
                 internet: internetPlan,
                 tv: planTV,
                 nombre: formData.name,
+                email: formData.email,
                 telefono: formData.telefono,
                 tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
             };
@@ -247,7 +248,7 @@ const Form = () => {
                 );
 
                 // Limpiamos campos
-                setFormData({ name: '', dni: '', telefono: '', email: '' });
+                setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
                 setDireccion('');
                 setFechaInstalacion(null);
                 setFranjaHoraria('');
@@ -730,6 +731,7 @@ const Form = () => {
                                     setFechaInstalacion={setFechaInstalacion}
                                     franjaHoraria={franjaHoraria}
                                     setFranjaHoraria={setFranjaHoraria}
+                                    tipoInmueble={Object.keys(tipoInmueble).find(key => tipoInmueble[key])}
                                 />
                             </div>
                             {/*Bases y condiciones */}
