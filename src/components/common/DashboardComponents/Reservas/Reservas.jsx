@@ -1,0 +1,77 @@
+// Importaciones:
+import React from 'react';
+import {
+    Box,
+    Tabs,
+    Tab,
+    Typography
+} from '@mui/material';
+import { Link } from 'react-router-dom';
+import ReservasPendientes from '../Reservas/ReservasPendientes/ReservasPendientes';
+import ReservasCompletadas from '../Reservas/ReservasCompletadas/ReservasCompletadas';
+
+// Subcomponente TabPanel
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
+
+    return (
+        <div
+            role="tabpanel"
+            hidden={value !== index}
+            id={`reservas-tabpanel-${index}`}
+            aria-labelledby={`reservas-tab-${index}`}
+            {...other}
+        >
+            {value === index && (
+                <Box sx={{ pt: 2 }}>
+                    {children}
+                </Box>
+            )}
+        </div>
+    );
+}
+
+export default function ReservasTabs() {
+    const [value, setValue] = React.useState(0);
+
+    const handleChange = (_, newValue) => {
+        setValue(newValue);
+    };
+
+    return (
+        <Box sx={{ width: '90%', margin: 'auto', mt: 4 }}>
+            <Typography
+                variant="h4"
+                gutterBottom
+                sx={{
+                    fontFamily: "interTight",
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    textDecoration: 'none',
+                    color: 'inherit',
+                    '&:hover': {
+                        color: 'primary.main',
+                        transform: 'scale(1.1)',
+                    }
+                }}
+                component={Link}
+                to="/reservas"
+                target="_blank"
+            >
+                Reservas
+            </Typography>
+
+            <Tabs value={value} onChange={handleChange} aria-label="Tabs de reservas">
+                <Tab label="Pendientes" sx={{ textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px" }} />
+                <Tab label="Completadas" sx={{ textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px" }} />
+            </Tabs>
+
+            <TabPanel value={value} index={0}>
+                <ReservasPendientes />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <ReservasCompletadas />
+            </TabPanel>
+        </Box>
+    );
+}

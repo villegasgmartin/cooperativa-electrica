@@ -20,10 +20,14 @@
 .blog-container{
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-    margin-top: 5rem;
+
+    align-items: center;
+    margin-top: 3rem;
+
     flex-wrap: wrap;
-    gap: 2rem;
+    gap: 2.8125rem;
+    margin-left: 1.25rem;
+    margin-right: 1.25rem;
 }
 
 /*Sub-contenedor*/
@@ -39,8 +43,8 @@
     overflow: hidden;
     border-radius: 2.5rem;
     box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3);
-    width: 28.125rem;
-    height: 28.125rem;
+    width: 25rem;
+    height: 25rem;
     transition: color 0.3s ease, transform 0.3s ease;
 }
 
@@ -57,25 +61,19 @@
 /* Titulo de noticia */
 .blog-title{
     font-family: "archivo";
-    font-size: 1.875rem;
+    font-size: 1.5625rem;
     color: var(--black);
     text-align: center;
     margin-top: 15px;
-    transition: color 0.3s ease, transform 0.3s ease;
+    width: 25rem;
+    transition: transform 0.3s ease;
 }
 
 /* Hover para título */
 .blog-title:hover{
-    color: var(--newgreen);
-}
 
-/* Descripción de noticia */
-.blog-description{
-    font-family: "interTight";
-    color: black;
-    font-size: 1.25rem;
-    width: 31.25rem;
-    text-align: center;
+    transform: scale(1.1);
+
 }
 
 /*----------------Media Queries----------------*/
@@ -83,17 +81,6 @@
 @media (max-width: 1250px){
     .blog-intro{
         width: 80%;
-    }
-    .blog-container{
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 80px;
-    }
-    .blog-description{
-        text-align: center;
-        width: 80%;
-        margin: auto;
     }
 }
 
@@ -106,29 +93,27 @@
         width: 90%;
         font-size: 1.375rem;
     }
-    .blog-description{
-        width: 90%;
-        font-size: 1.125rem;
-    }
     .blog-container{
-        margin-top: 2.5rem;
+        margin-top: 2rem;
     }
     .blog-container{
         gap: 40px;
     }
-}
-
-@media (max-width: 550px){
-    .blog-image-container{
-        width: 25rem;
-        height: 25rem;
+    .blog-title{
+        font-size: 22px;
     }
 }
 
 @media (max-width: 450px){
+    .blog-container{
+        gap: 1.875rem;
+    }
     .blog-image-container{
         width: 21.875rem;
         height: 21.875rem;
+    }
+    .blog-title{
+        width: 21.875rem;
     }
 }
 
@@ -137,4 +122,15 @@
         width: 18.75rem;
         height: 18.75rem;
     }
+    .blog-title{
+        width: 18.75rem;
+    }
+}
+
+.MuiPaper-root img{
+    height: 300px!important;
+   object-position: top;
+}
+.blog-image{
+    object-position: top;
 }

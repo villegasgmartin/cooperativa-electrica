@@ -1,5 +1,5 @@
 //Importaciones:
-import { useEffect, useState, useRef } from 'react';
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { TextField, Button, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import "../formulario/Form.css"
@@ -8,13 +8,22 @@ import Footer from '../../common/layout/footer/Footer';
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
 import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
-import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png"
-import {Helmet} from "react-helmet"
+import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png";
+import { Helmet } from "react-helmet";
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
+import BasicDatePicker from '../../common/FormComponents/DatePicker/DatePicker';
+import axios from 'axios';
+import "../formulario/Form.css"
+// Google Maps
+import { Autocomplete } from '@react-google-maps/api';
+import { isPointInPolygon } from "geolib";
 
 //JSX:
 const Form = () => {
-    const dispatch = useDispatch();
+    const [autocomplete, setAutocomplete] = useState(null);
+    const [fechaInstalacion, setFechaInstalacion] = useState(null); 
+    const [franjaHoraria, setFranjaHoraria] = useState('');
+    const [planInternet, setPlanInternet] = useState('');
     const [internetPlan, setInternetPlan] = useState('');
     const [tvPlan, setTvPlan] = useState('');
     const [name, setName] = useState('');
@@ -22,18 +31,13 @@ const Form = () => {
     const [address, setAddress] = useState('');
     const [phone, setPhone] = useState('');
     const [email, setEmail] = useState('');
-    const [internetPlanURL, setInternetPlanURL] = useState('');
-
 
     const handleInternetChange = (event) => {
         setInternetPlan(event.target.value);
     };
 
-    const handleTvChange = (event) => {
-        setTvPlan(event.target.value);
-    };
-
-    const handleSubmit = (event) => {
+    //Enviamos los datos
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         let message = `Hola, mi nombre es ${name}\nDNI: ${dni}\nDirección: ${address}\nMail: ${email}`;
@@ -52,49 +56,41 @@ const Form = () => {
         window.open(whatsappUrl, '_blank');
     };
 
-    // useEffect(() => {
-    //     // Obtener los parámetros de la URL
-    //     const params = new URLSearchParams(window.location.search);
-    //     const plan = params.get('internet'); // Obtener el valor del parámetro 'internet'
-    //     console.log(plan);
-    //     if (plan) {
-    //         setInternetPlanURL(plan); // Establecer el valor en el estado si existe en la URL
-    //     }
-    //   }, []);
-
     return (
         <>
+            {/*Header */}
             <Helmet>
                 <title>NAVE Internet</title>
             </Helmet>
             <header className="header-nave-container">
                 <div className="header-contactos-container">
-                <div className="header-contactos">
-                    <LocationOnTwoToneIcon sx={{ color: "white" }} />
-                    <h4 className="header-contactosText">Alberti 3600, Mar del Plata</h4>
-                </div>
-                <div className="header-contactos">
-                    <LocationOnTwoToneIcon sx={{ color: "white" }} />
-                    <h4 className="homePortada-contactosText">20 de Septiembre 2638, Mar del Plata</h4>
-                </div>
-                <div className="header-contactos" id="homePortada-tel">
-                    <LocalPhoneTwoToneIcon sx={{ color: "white" }} />
-                    <h4 className="header-contactosText">0800-333-0357 / (0223) 495-1411</h4>
-                </div>
-                </div>
-                <div className="navbarPages-container">
-                <NavBar backgroundColorMovile="#201c1c" backgroundColor="#201c1c" />
-                </div>
-                <Fade triggerOnce={true} duration={800} delay={300}>
-                <div className='header-nave'>
-                    <div className='header-nave-logoContainer'><img src={LogoNave} alt="NAVE Internet" className='header-nave-logo' /></div>
-                    <div className='header-nave-textContainer'>
-                    <h1 className='header-nave-title'>Internet <span className='header-nave-resaltado'>Cooperativa</span></h1>
-                    <p className='header-nave-text'>Descubre nuestras increíbles <span  className='header-nave-resaltado'>opciones de Internet y televisión</span> diseñadas para satisfacer todas tus necesidades de entretenimiento y conectividad.</p>
+                    <div className="header-contactos">
+                        <LocationOnTwoToneIcon sx={{ color: "white" }} />
+                        <h4 className="header-contactosText">Alberti 3600, Mar del Plata</h4>
+                    </div>
+                    <div className="header-contactos">
+                        <LocationOnTwoToneIcon sx={{ color: "white" }} />
+                        <h4 className="homePortada-contactosText">20 de Septiembre 2638, Mar del Plata</h4>
+                    </div>
+                    <div className="header-contactos" id="homePortada-tel">
+                        <LocalPhoneTwoToneIcon sx={{ color: "white" }} />
+                        <h4 className="header-contactosText">0800-333-0357 / (0223) 495-1411</h4>
                     </div>
                 </div>
+                <div className="navbarPages-container">
+                    <NavBar backgroundColorMovile="#201c1c" backgroundColor="#201c1c" />
+                </div>
+                <Fade triggerOnce={true} duration={800} delay={300}>
+                    <div className='header-nave'>
+                        <div className='header-nave-logoContainer'><img src={LogoNave} alt="NAVE Internet" className='header-nave-logo' /></div>
+                        <div className='header-nave-textContainer'>
+                            <h1 className='header-nave-title'>Internet <span className='header-nave-resaltado'>Cooperativa</span></h1>
+                            <p className='header-nave-text'>Descubre nuestras increíbles <span className='header-nave-resaltado'>opciones de Internet y televisión</span> diseñadas para satisfacer todas tus necesidades de entretenimiento y conectividad.</p>
+                        </div>
+                    </div>
                 </Fade>
-            </header>     
+            </header>
+            {/*Descripción*/}
             <section className='form-main-container'>
                 <div className='form-text-container'>
                     <Fade triggerOnce={true} duration={800} delay={300}>
@@ -210,9 +206,9 @@ const Form = () => {
                         onChange={handleInternetChange}
                         sx={{ backgroundColor: "#edeaff",borderRadius:"25px",}}
                         >
-                       <MenuItem value="300MB">300 megas</MenuItem>
-                        <MenuItem value="600MB">600 megas</MenuItem>
-                        <MenuItem value="1000MB">1000 megas</MenuItem>
+                        <MenuItem value="100 megas">100 megas</MenuItem>
+                        <MenuItem value="300 megas">300 megas</MenuItem>
+                        <MenuItem value="500 megas">500 megas</MenuItem>
                         <MenuItem value="Ninguna">Ninguna</MenuItem>
                         </Select>
                     </FormControl>
@@ -265,9 +261,25 @@ const Form = () => {
             </div>
             <BotonWhatsapp/>
             </section>
-            <Footer/>
+            <Footer />
+            <BotonWhatsapp />
+            {/*Mensaje de datos enviados*/}
+            <Snackbar
+                open={successMessageOpen}
+                autoHideDuration={4000}
+                onClose={() => setSuccessMessageOpen(false)}
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+            >
+                <Alert
+                    onClose={() => setSuccessMessageOpen(false)}
+                    severity="success"
+                    sx={{ width: '100%' }}
+                >
+                    ¡Tus datos fueron enviados con éxito!
+                </Alert>
+            </Snackbar>
         </>
     );
-};
+}
 
 export default Form;
