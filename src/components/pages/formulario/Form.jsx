@@ -384,7 +384,9 @@ const Form = () => {
                                 }}
                             />
                             {/*Dirección con Google Maps Autocompletado*/}
+                            
                             <div style={{ width: '100%' }}>
+                            <span>*Eliga una direccion del desplegable</span>
                                 <Autocomplete
                                     onLoad={onLoad}
                                     onPlaceChanged={onPlaceChanged}
@@ -411,6 +413,7 @@ const Form = () => {
                                         }}
                                     />
                                 </Autocomplete>
+                              
                             </div>
                             {/*Tipos de inmueble*/}
                             <div className="form-check" style={{ display: 'flex', justifyContent: 'center', width: '100%', gap: 15 }}>
