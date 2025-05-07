@@ -104,7 +104,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada })
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
     doc.text(`Plan elegido: ${row.internet || 'No disponible'}`, 10, y); y += 10;
-    doc.text(`Plataforma digital: ${row.plataforma || 'No disponible'}`, 10, y); y += 10;
+    doc.text(`Plataforma digital: ${row.tv || 'No disponible'}`, 10, y); y += 10;
     doc.text(`Fecha y horario de conexión elegido: ${row.fechaFormateada} - ${row.horario}`, 10, y); y += 10;
   
     // Declaración
@@ -176,6 +176,8 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada })
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
                 <li>Tv: {row.tv}</li>
                 <li>Teléfono: {row.telefono}</li>
+                <li>DNI: {row.DNI}</li>
+                <li>Correo: {row.email}</li>
               </ul>
             </Box>
           </Collapse>

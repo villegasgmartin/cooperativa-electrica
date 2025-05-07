@@ -163,6 +163,8 @@ function Row({ row, handleEditClick, handleDeleteClick }) {
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
                 <li>Tv: {row.tv}</li>
                 <li>Teléfono: {row.telefono}</li>
+                <li>DNI: {row.DNI}</li>
+                <li>Correo: {row.email}</li>
               </ul>
             </Box>
           </Collapse>

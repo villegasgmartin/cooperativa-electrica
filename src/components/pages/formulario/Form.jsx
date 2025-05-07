@@ -74,8 +74,7 @@ const Form = () => {
         }, []);
 
         useEffect(() => {
-            console.log("Zona detectada:", zona);
-            console.log("Zona detectada (trim):", zona?.trim());
+           
             if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
                 
                 setInternetPlanURL("Fuera de Zona");
@@ -142,20 +141,16 @@ const Form = () => {
     //     }
     // };
     const getCoordinates = async (address) => {
-        console.log("address", address)
 
         const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
-        console.log("api", apiKey)
         const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
     
         try {
             const response = await fetch(url);
             const data = await response.json();
-            console.log(data);
     
             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
-                console.log("Coordenadas:", { lat, lng });
                 return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng) };
             } else {
                 console.error("Error en la geocodificación:", data.status);
@@ -169,12 +164,13 @@ const Form = () => {
     
 
     async function verificarCobertura(e) {
-        e.preventDefault();
+      const {casa, edificio, ph} = tipoInmueble
+      if(!casa && !edificio && !ph){
+        return alert('Elija un tipo de inmueble')
+      }
     
         try {
-            console.log(direccion)
             const coordenadas = await getCoordinates(direccion);
-            console.log(coordenadas)
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
                 setZona("Direccion en Zona 1");
@@ -713,18 +709,8 @@ const Form = () => {
 
                             )}
                         
-                        
-                        
-                        </>
-
-
-
-
-                    ):("")}
-                         
-                        
-                            {/*Calendario */}
-                            <div className='form-calendar'>
+                           {/*Calendario */}
+                           <div className='form-calendar'>
                                 <p className='form-calendar-text'>Elegí fecha y horario para coordinar la instalación del servicio.</p>
                                 <BasicDatePicker
                                     fechaInstalacion={fechaInstalacion}
@@ -734,6 +720,16 @@ const Form = () => {
                                     tipoInmueble={Object.keys(tipoInmueble).find(key => tipoInmueble[key])}
                                 />
                             </div>
+                        
+                        </>
+
+
+
+
+                    ):("")}
+                         
+                        
+                         
                             {/*Bases y condiciones */}
                             <div className='form-check'>
                                 <FormControlLabel
