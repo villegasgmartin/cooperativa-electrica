@@ -97,6 +97,15 @@ const Form = () => {
         { latitude: -38.0117, longitude: -57.567 },
         { latitude: -38.01099, longitude: -57.56622 },
         { latitude: -38.01139, longitude: -57.56545 },
+
+        { latitude: -38.013, longitude: -57.56665 },
+        { latitude: -38.01212, longitude: -57.5686 },
+        { latitude: -38.01279, longitude: -57.56914 },
+        { latitude: -38.01645, longitude: -57.56206 },
+        { latitude: -38.01325, longitude: -57.55959 },
+        { latitude: -38.01063, longitude: -57.56476 },
+  
+
         { latitude: -38.00503, longitude: -57.5603 },
         { latitude: -38.0143, longitude: -57.5421 },
         { latitude: -38.00967, longitude: -57.53841 },
