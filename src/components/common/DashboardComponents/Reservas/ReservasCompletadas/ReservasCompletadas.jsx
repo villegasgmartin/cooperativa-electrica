@@ -57,7 +57,7 @@ const modalBoxStyles = (theme) => ({
   boxShadow: 24,
 });
 //PDF:
-function Row({ row, handleEditClick, handleDeleteClick }) {
+function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada }) {
   const [open, setOpen] = React.useState(false);
   
   const handleImprimir = () => {
@@ -147,6 +147,18 @@ function Row({ row, handleEditClick, handleDeleteClick }) {
           <IconButton color="error" size="small" onClick={handleImprimir} title="Imprimir PDF">
             <PictureAsPdfIcon />
           </IconButton>
+        </TableCell>
+         <TableCell>
+        <Button
+          variant="contained"
+          onClick={() => handleMarkAsRealizada(row)}
+          disabled={!row.estado}
+          sx={{
+            fontSize: "12px",
+          }}
+        >
+          Pendiente
+        </Button>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -293,6 +305,38 @@ export default function ReservasCompletadas() {
     setSearchQuery('');
   };
 
+    //Función para marcar la reserva como realizada
+  const handleMarkAsRealizada = async (row) => {
+
+    try {
+      const token = localStorage.getItem('token');
+  
+      const updatedReserva = {
+        ...row,
+        estado: false,
+      };
+  
+      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-token': token,
+        },
+        body: JSON.stringify(updatedReserva),
+      });
+  
+      if (!response.ok) throw new Error('Error al actualizar la reserva');
+  
+      console.log("Reserva actualizada correctamente");
+  
+      // Actualizamos la lista de reservas localmente
+      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: false } : r));
+  
+    } catch (error) {
+      console.error('Error al marcar como realizada:', error);
+    }
+  };
+
   //Tabla:
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
@@ -351,6 +395,8 @@ export default function ReservasCompletadas() {
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha y Hora</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Mes</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
+                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Pendiente</TableCell>
+
               </TableRow>
             </TableHead>
             <TableBody>
@@ -368,7 +414,7 @@ export default function ReservasCompletadas() {
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
                 .map((row) => (
-                  <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
+                  <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada} />
                 ))}
             </TableBody>
           </Table>

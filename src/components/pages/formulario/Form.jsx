@@ -612,7 +612,7 @@ const Form = () => {
                                 >
                                     <MenuItem disabled value="">Plan que solicita de Internet</MenuItem>
                                     <MenuItem value="300 MB">300 megas</MenuItem>
-                                    <MenuItem value="500 MB">600 megas</MenuItem>
+                                    <MenuItem value="600 MB">600 megas</MenuItem>
                                     <MenuItem value="1000 MB">1000 megas</MenuItem>
                                     <MenuItem value="Ninguna">Ninguna</MenuItem>
                                 </Select>
