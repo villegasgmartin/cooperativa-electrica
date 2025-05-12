@@ -216,6 +216,11 @@ const Form = () => {
 
     //Enviamos los datos
     const handleSubmit = async (event) => {
+
+        if(internetPlan==='Fuera de Zona' && planTV==='Ninguno'){
+            return alert( 'No esta habilitado para solicitar un turno')
+        } 
+
         event.preventDefault();
         
         //Validaciones
@@ -805,6 +810,7 @@ const Form = () => {
                                     !franjaHoraria ||
                                     !Object.values(tipoInmueble).includes(true) ||
                                     !terminosAceptados
+                                    
                                 }
                                 >
                                 Enviar
