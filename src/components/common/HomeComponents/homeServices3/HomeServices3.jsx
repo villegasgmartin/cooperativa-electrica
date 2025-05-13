@@ -29,11 +29,9 @@ const HomeServices3 = () => {
         <CardCarousel servicios={serviciosHome} />
       </Fade>
       <Fade triggerOnce={true} duration={800} delay={700}>
-        <Link to={"/nave"}>
-          <div className='homeServicios-link-container'>
-            <a href="" className='homeServicios-link'>Conoce más</a>
-          </div>
-        </Link>
+       <Link to="/nave" className='homeServicios-link-container'>
+        <span className='homeServicios-link'>Conoce más</span>
+      </Link>
       </Fade>
     </section>
   );

@@ -154,15 +154,17 @@ const Form = () => {
     const getCoordinates = async (address) => {
 
         const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}&loading=async`;
     
         try {
             const response = await fetch(url);
             const data = await response.json();
+            console.log(data)
     
             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
-                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng) };
+                const city = data.results[0].address_components[2];
+                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city };
             } else {
                 console.error("Error en la geocodificación:", data.status);
                 return null;
@@ -182,6 +184,11 @@ const Form = () => {
     
         try {
             const coordenadas = await getCoordinates(direccion);
+            const ciudad = coordenadas.city.long_name
+
+            if(ciudad != 'Mar del Plata'){
+                return alert('Servicio no disponible fuera de Mar del Plata')
+            }
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
                 setZona("Direccion en Zona 1");

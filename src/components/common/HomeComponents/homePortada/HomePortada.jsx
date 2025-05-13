@@ -43,27 +43,29 @@ return (
                 transition={{ duration: 1, delay: 0.4 }}
                 className="homePortada-buttonContainer"
             >
-                <Link to={"/nave"}>
-                    <Button sx={{ 
-                        width: "100%",
-                        height: "70px",
-                        fontFamily: "interTight",
-                        marginTop: "20px",
-                        fontSize: "30px",
-                        fontWeight: "bold",
-                        letterSpacing: "2px",
-                        borderRadius: "50px",
-                        boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
-                        textTransform: "none",
-                        color:"white",
-                        backgroundColor: "#8048ff",
-                        }} 
-                        variant='contained' 
-                        size='large'
-                    >
-                        Contratá
-                    </Button>
-                </Link>
+                <Button
+  component={Link}
+  to="/nave"
+  sx={{
+    width: "100%",
+    height: "70px",
+    fontFamily: "interTight",
+    marginTop: "20px",
+    fontSize: "30px",
+    fontWeight: "bold",
+    letterSpacing: "2px",
+    borderRadius: "50px",
+    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+    textTransform: "none",
+    color: "white",
+    backgroundColor: "#8048ff",
+  }}
+  variant="contained"
+  size="large"
+>
+  Contratá
+</Button>
+
             </motion.div>
         </section>
     );
