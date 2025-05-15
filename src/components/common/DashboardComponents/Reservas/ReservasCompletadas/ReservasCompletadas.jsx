@@ -141,9 +141,9 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada })
           <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
             <EditIcon />
           </IconButton>
-          <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
+          {/* <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
             <DeleteIcon />
-          </IconButton>
+          </IconButton> */}
           <IconButton color="error" size="small" onClick={handleImprimir} title="Imprimir PDF">
             <PictureAsPdfIcon />
           </IconButton>
@@ -413,8 +413,11 @@ export default function ReservasCompletadas() {
                   const mesActual = dayjs().format('MMMM');
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
-                .map((row) => (
-                  <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada} />
+                // .map((row) => (
+                //   <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada} />
+                // ))}
+                 .map((row) => (
+                  <Row key={row._id} row={row} handleEditClick={handleEditClick} handleMarkAsRealizada={handleMarkAsRealizada} />
                 ))}
             </TableBody>
           </Table>
