@@ -87,8 +87,8 @@ const Form = () => {
     //Zonas de cobertura:
     const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
-        { latitude: -38.00557, longitude: -57.57025 },
-        { latitude: -38.00703, longitude: -57.5673 },
+        { latitude: -38.00567, longitude: -57.5707 },
+        { latitude: -38.00728, longitude: -57.56752 },
         { latitude: -38.00784, longitude: -57.56786 },
         { latitude: -38.00835, longitude: -57.5669 },
         { latitude: -38.01158, longitude: -57.56949 },
