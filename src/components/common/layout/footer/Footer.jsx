@@ -9,7 +9,7 @@ const Footer = () => {
     const location = useLocation();
 
     // Verifica si la ruta actual es "/nave" o "/formulario"
-    const excludePages = ["/nave", "/formulario"];
+    const excludePages = ["/nave", "/formulario", "/preguntas-nave"];
     const shouldHideSpecificInfo = excludePages.includes(location.pathname);
 
     return (

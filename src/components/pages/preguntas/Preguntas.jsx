@@ -6,7 +6,6 @@ import AccordionGroup from '@mui/joy/AccordionGroup';
 import Accordion from '@mui/joy/Accordion';
 import AccordionDetails from '@mui/joy/AccordionDetails';
 import AccordionSummary from '@mui/joy/AccordionSummary';
-import PagosAcordeon from '../../common/FormasPagoComponents/PagosAcordeon';
 import "../preguntas/Preguntas.css";
 import { Fade } from 'react-awesome-reveal';
 import { Helmet } from "react-helmet";

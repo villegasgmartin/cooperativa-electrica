@@ -41,7 +41,7 @@ export default function DashboardHome() {
         >
             <EmojiPeopleIcon />
             <Typography variant="caption">
-            Sistema de gestión - Versión 1.0
+            Sistema de gestión - Versión 1.01
             </Typography>
         </Box>
         </Box>

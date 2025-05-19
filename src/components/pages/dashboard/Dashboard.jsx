@@ -114,8 +114,6 @@ function Dashboard(props) {
           },
         });
 
-        console.log(data)
-
         // Construir navegación según rol y accesos:
         let tempNavigation = [];
 
@@ -128,6 +126,9 @@ function Dashboard(props) {
           ];
         } else if (data.rol === 'USER_EMPLOYE') {
           if (data.reservas) {
+            tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
+          }
+          if (data.reservasLeer) {
             tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
           }
           if (data.blog) {

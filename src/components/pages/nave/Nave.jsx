@@ -13,7 +13,8 @@ import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png"
 import {Helmet} from "react-helmet"
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import logoMax from "../../../assets/images/logos/logo-max.jpg"
-
+import { Button} from '@mui/material';
+import { Link } from 'react-router-dom';
 
 //JSX:
 const Nave = () => {
@@ -24,11 +25,9 @@ const Nave = () => {
   }, [dispatch]);
 
   const serviciosNave = [
-
-    { servicio: "INTERNET 300 MB", precio: "$12.222",/* precioLista: "$18.1333",*/ descuento: "$10.656 OFF por 12 meses", categoria: "internet" },
-    { servicio: "INTERNET 600 MB", precio: "$15.405", /*precioLista: "$21.381",*/ descuento: "$15.405 OFF por 12 meses", categoria: "internet" },
-
-    { servicio: "INTERNET 1000 MB", precio: "$18.000", /*precioLista: "$26.795",*/ descuento: "$18.000 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 100 MB", precio: "$11.113",/* precioLista: "$18.1333",*/ descuento: "$7.020 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 300 MB", precio: "$12.222", /*precioLista: "$21.381",*/ descuento: "$9.159 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 500 MB", precio: "$15.405", /*precioLista: "$26.795",*/ descuento: "$11.390 OFF por 12 meses", categoria: "internet" },
     { servicio: "PACK TV", precio: "9.999", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv", descripcion: (
       <>
         Tv Full + Futbol + 
@@ -101,8 +100,36 @@ const Nave = () => {
             <button className='nave-button-03' onClick={() => filtrarServicios("tv")}>TV</button>
         </div>
       </Fade>
-        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-          <CardCarousel servicios={serviciosFiltrados} />
+        <Fade triggerOnce={true} duration={800} delay={300} >
+          <CardCarousel servicios={serviciosFiltrados}/>
+        </Fade>
+        <Fade triggerOnce={true} duration={800} delay={300}>
+          <div className='nave-subcontainer'>
+            <h2 className='nave-h2'>Conectividad confiable y accesible para Mar del Plata</h2>
+            <p className='nave-description'>Ofrecemos planes de internet por fibra óptica diseñados para hogares y comercios, con atención personalizada y soporte técnico local.</p>
+          </div>
+          <div className='nave-button-container'>
+            <Link to="/preguntas-nave" style={{ width: '100%', textDecoration: 'none' }}>
+              <Button sx={{ 
+                width: "100%",
+                height: "50px",
+                fontFamily: "interTight",
+                marginTop: "20px",
+                fontSize: "20px",
+                letterSpacing: "1px",
+                borderRadius: "50px",
+                boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                textTransform: "none",
+                color: "white",
+                backgroundColor: "#8048ff",
+              }} 
+              variant='contained' 
+              size='large'
+              >
+                Ver Preguntas Frecuentes
+              </Button>
+            </Link>
+          </div>
         </Fade>
         <BotonWhatsapp/>
       </section>
