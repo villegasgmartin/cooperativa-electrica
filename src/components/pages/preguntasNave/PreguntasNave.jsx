@@ -12,9 +12,22 @@ import PreguntasNaveAccordion from "../../common/PreguntasNaveComponents/pregunt
 import PreguntasNaveVideos from "../../common/PreguntasNaveComponents/preguntasNaveVideos/PreguntasNaveVideos";
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 //JSX:
 const PreguntasNave = () => {
+
+useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+        const target = document.querySelector(hash);
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+}, []);
+
     return (
     <>
         <Helmet>
@@ -52,7 +65,7 @@ const PreguntasNave = () => {
             <PreguntasNaveAccordion/>
             <Fade triggerOnce={true} duration={800} delay={300}>
                 <div className="preguntasNave-videos-container">
-                    <h2 className='preguntasNave-h2'>Aprendé a usar la Oficina Virtual</h2>
+                    <h2 className='preguntasNave-h2' id="tutoriales-oficina">Aprendé a usar la Oficina Virtual</h2>
                     <p className='preguntasNave-description'>En esta sección encontrarás una serie de videos tutoriales breves y prácticos que te guiarán paso a paso para realizar distintas gestiones desde la Oficina Virtual.</p>
                     <PreguntasNaveVideos/>
                 </div>

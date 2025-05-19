@@ -63,6 +63,16 @@ const Footer = () => {
                                 <p className="footer-info">223 535-1358</p>
                             </a>
                         </div>
+                        <div>
+                            <h4 className="footer-info-title">BIBLIOTECA:</h4>
+                            <p className="footer-info">Lunes a Viernes de 7:30 a 13:30 hs.</p>
+                            <a href="tel:2234935777" style={{ textDecoration: "none" }}>
+                                <p className="footer-info">223 493-5777 (interno 5)</p>
+                            </a>
+                            <a href="https://bibliotecarateriy.com.ar/" target="_blank" style={{ textDecoration: "none" }}>
+                                <p className="footer-info">bibliotecarateriy.com.ar</p>
+                            </a>
+                        </div>
                     </>
                 )}
                 {/* Resto de la información que siempre se muestra */}

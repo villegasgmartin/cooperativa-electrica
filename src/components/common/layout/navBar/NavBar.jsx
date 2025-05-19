@@ -36,6 +36,9 @@ const pages = [
         name: 'Usuarios', path: '#', submenu: [
             { name: 'Medios de pago', path: '/formas-de-pago' },
             { name: 'Consejos Útiles', path: '/consejos-utiles' },
+            { name: 'Preguntas: Energía', path: '/preguntas-frecuentes' },
+            { name: 'Preguntas: NAVE Internet', path: '/preguntas-nave' },
+            { name: 'Tutoriales: Oficina Virtual', path: '/preguntas-nave#tutoriales-oficina' },
         ]
     },
     { name: 'Contacto', path: '/contacto' },
