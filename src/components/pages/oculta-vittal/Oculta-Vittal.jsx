@@ -20,7 +20,7 @@ const OcultaVittal = () => {
   return (
     <>
     <Helmet>
-      <title>Promocion Asociado Nave</title>
+      <title>Promocion Vittal</title>
       <meta name="robots" content="noindex"/>
       <meta name="googlebot" content="noindex"/>
 
@@ -48,7 +48,7 @@ const OcultaVittal = () => {
       </div>
 
       <div className="descuento-botones">
-        <a href="/formulario?internet=600MB" className="boton-oferta">
+        <a href="/vittal" className="boton-oferta">
           <div className="boton-mb">Consulta Ahora</div>
          
         </a>
