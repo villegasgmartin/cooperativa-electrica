@@ -38,6 +38,11 @@ const pages = [
             { name: 'Consejos Útiles', path: '/consejos-utiles' },
         ]
     },
+    {name: 'Preguntas Frecuentes', path: '#', submenu:[
+         { name: 'Energía', path: '/preguntas-frecuentes' },
+            { name: 'NAVE Internet', path: '/preguntas-nave' },
+            { name: 'Oficina Virtual', path: '/preguntas-nave#tutoriales-oficina' }
+    ]},
     { name: 'Contacto', path: '/contacto' },
     { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];

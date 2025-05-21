@@ -36,6 +36,7 @@
     width: 280px;
     letter-spacing: 1px;
     margin: auto;
+    font-size: .9375rem;
 }
 
 /*Copyright en movile*/
@@ -50,16 +51,16 @@
     font-family: "interTight-medium";
     transition:  color 0.3s ease;
     margin-top: .3125rem;
+    font-size: .9375rem;
 }
 
 /*Hover*/
 .copyright-link:hover{
     color: #57d89f;
     background-color: #230a33;
-    padding: 1px 15px 5px 15px;
+    padding: 1px 15px 1px 15px;
     border-radius: .9375rem;
     border: 0.5px inset #57d89f;
-    box-shadow: 5px 5px 8px rgba(0, 0, 0, 0.3)
 }
 
 /*Contenedor de links*/
@@ -105,6 +106,7 @@
     color: var(--lightgreen);
     font-family: "interTight";
     letter-spacing: .0625rem;
+    font-size: .9375rem;
 }
 
 /*Info*/
@@ -112,6 +114,7 @@
     color: white;
     font-family: "InterTight";
     letter-spacing: .0625rem;
+    font-size: .9375rem;
 }
 
 /*----------------Media Queries----------------*/

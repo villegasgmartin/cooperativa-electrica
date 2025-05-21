@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { enviarFormularioMutual } from '../../../store/mutualSlice';
-import { Button, TextField, Typography } from '@mui/material';
+import { Button, TextField, Typography, Modal, Box } from '@mui/material';
 import "../vital/Vital.css";
 import { Fade } from 'react-awesome-reveal';
 import Swal from 'sweetalert2';
@@ -14,6 +14,7 @@ import LogoVittal from "../../../assets/images/logos/vittal-logo.png"
 import {Helmet} from "react-helmet"
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import { enviarFormularioVittal } from '../../../store/vittalSlice';
+import CloseIcon from '@mui/icons-material/Close';
 
 //JSX:
 const Vital = () => {
@@ -24,11 +25,12 @@ const Vital = () => {
     nombre: '',
     correo: '',
     mensaje: '',
-    dni:'',
-    telefono: '',
-    direccion: '',
-    numeroAsociado: ''
   });
+
+const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -150,6 +152,9 @@ const Vital = () => {
     }
   }, [success, error]);
 
+
+
+  
   return (
     <>
     <Helmet>
@@ -174,7 +179,7 @@ const Vital = () => {
               <NavBar/>
           </div>
           <Fade  triggerOnce={true} duration={800} delay={300}>
-            <div className='header-logo-container'><img src={LogoVittal} alt="Vittal" width={"100%"} /></div>
+            <div className='vittal-logo-container'><img src={LogoVittal} alt="Vittal" width={"100%"} /></div>
           </Fade>
       </header>
       <section className='mutual-main-container'>
@@ -185,7 +190,8 @@ const Vital = () => {
         </Fade>
         <div className='mutual-container'>
           <Fade triggerOnce={true} duration={800} delay={300}>
-            <div className='mutual-image-container'>
+            <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+              <div className='vittal-image-container'>
               <p className='mutual-text01'>Vittal + AMI</p>
               <ul>
                 <li className="vittal-text02">Servicio de Emergencia</li>
@@ -197,7 +203,28 @@ const Vital = () => {
                 <li className="vittal-text02">Servicio de asistencia al viajero</li>
                 <li className="vittal-text02">Beneficios y descuentos exclusivos de AMI</li>
               </ul>
-              
+            </div>
+            <div className='vittal-button-container'>
+                <Button sx={{ 
+                    width: "100%",
+                    height: "50px",
+                    fontFamily: "interTight",
+                    marginTop: "20px",
+                    fontSize: "20px",
+                    letterSpacing: "1px",
+                    borderRadius: "50px",
+                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                    textTransform: "none",
+                    color:"white",
+                    backgroundColor: "#8048ff",
+                  }} 
+                  variant='contained' 
+                  size='large'
+                  onClick={handleOpenModal}
+                >
+                  Conocé todo lo que incluye
+                </Button>
+              </div>
             </div>
             <form className='mutual-form-container' onSubmit={handleSubmit}>
               <p className='mutual-form'>Realiza tu consulta</p>
@@ -208,94 +235,6 @@ const Vital = () => {
                 margin="normal"
                 name="nombre"
                 value={formData.nombre}
-                onChange={handleChange}
-                required
-                sx={{
-                  backgroundColor: "white",
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: "15px",
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#3d116d',
-                    },
-                  },
-                  '& .MuiInputLabel-root.Mui-focused': {
-                    color: '#3d116d',
-                  },
-                }}
-              />
-                   <TextField
-                label="DNI"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                name="dni"
-                value={formData.dni}
-                onChange={handleChange}
-                required
-                sx={{
-                  backgroundColor: "white",
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: "15px",
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#3d116d',
-                    },
-                  },
-                  '& .MuiInputLabel-root.Mui-focused': {
-                    color: '#3d116d',
-                  },
-                }}
-              />
-                     <TextField
-                label="Telefono"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                name="telefono"
-                value={formData.telefono}
-                onChange={handleChange}
-                required
-                sx={{
-                  backgroundColor: "white",
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: "15px",
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#3d116d',
-                    },
-                  },
-                  '& .MuiInputLabel-root.Mui-focused': {
-                    color: '#3d116d',
-                  },
-                }}
-              />
-                     <TextField
-                label="Direccion"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                name="direccion"
-                value={formData.direccion}
-                onChange={handleChange}
-                required
-                sx={{
-                  backgroundColor: "white",
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: "15px",
-                    '&.Mui-focused fieldset': {
-                      borderColor: '#3d116d',
-                    },
-                  },
-                  '& .MuiInputLabel-root.Mui-focused': {
-                    color: '#3d116d',
-                  },
-                }}
-              />
-                     <TextField
-                label="Numero de Asociado"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                name="numeroAsociado"
-                value={formData.numeroAsociado}
                 onChange={handleChange}
                 required
                 sx={{
@@ -383,6 +322,77 @@ const Vital = () => {
             </form>
           </Fade>
         </div>
+        <Fade triggerOnce={true} duration={800} delay={300}>
+          <div className='vittal-button-container-mobile'>
+            <Button
+              sx={{
+                width: "100%",
+                height: "50px",
+                fontFamily: "interTight",
+                marginTop: "20px",
+                fontSize: "20px",
+                letterSpacing: "1px",
+                borderRadius: "50px",
+                boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                textTransform: "none",
+                color: "white",
+                backgroundColor: "#8048ff",
+
+                // Media query para pantallas de 370px o menos
+                "@media (max-width: 370px)": {
+                  fontSize: "16px",
+                },
+              }}
+              variant="contained"
+              size="large"
+              onClick={handleOpenModal}
+            >
+              Conocé todo lo que incluye
+            </Button>
+        </div>
+        </Fade>
+         {/* MODAL */}
+        <Modal
+          open={modalOpen}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-titulo"
+          aria-describedby="modal-descripcion"
+        >
+          <Box sx={{
+            backgroundColor: 'white',
+            borderRadius: "20px",
+            padding: "30px",
+            maxWidth: "600px",
+            width: "90%",
+            margin: "100px auto",
+            boxShadow: "0px 8px 20px rgba(0, 0, 0, 0.3)",
+            fontFamily: "interTight",
+            position: "relative"
+          }}>
+            <CloseIcon
+              onClick={handleCloseModal}
+              sx={{ position: "absolute", top: 20, right: 20, cursor: "pointer", color: "#8048ff" }}
+            />
+            <Typography id="modal-titulo" variant="h5" sx={{ color: "#3d116d", marginBottom: "20px", fontWeight: "bold" }}>
+              Servicios incluidos con Vittal + AMI
+            </Typography>
+            <ul style={{ paddingLeft: "20px", marginBottom: "20px", color: "#333" }}>
+              <li><strong>Emergencias médicas:</strong> Sin cargo</li>
+              <li><strong>Urgencias médicas:</strong> Sin cargo</li>
+              <li><strong>Consultas médicas online:</strong> Sin cargo</li>
+              <li><strong>Visitas a domicilio:</strong> Con cargo (materiales descartables y medicación incluidos sin costo)</li>
+              <li><strong>Hogar protegido:</strong> Cobertura para terceros en el hogar</li>
+              <li><strong>Vehículo protegido:</strong> Cobertura para terceros en el vehículo</li>
+              <li><strong>Asistencia fuera de la ciudad</strong></li>
+              <li><strong>Beneficios y descuentos exclusivos de AMI</strong></li>
+            </ul>
+            <Typography id="modal-descripcion" sx={{ color: "#333" }}>
+              <strong>¿Cómo accedo al servicio?</strong><br />
+              Completá el formulario de inscripción en esta página. Una vez registrado, recibirás un mail de confirmación.<br /><br />
+              <strong>Importante:</strong> los servicios se activan a partir del día 10 del mes siguiente a tu inscripción.
+            </Typography>
+          </Box>
+        </Modal>
         {/* <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div className='mutual-enlace'>
             <p className='mutual-enlace-text'>LISTADO DE <strong>PROFESIONALES Y COMERCIOS</strong> ADHERIDOS</p>

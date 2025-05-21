@@ -9,6 +9,7 @@ import {
 import { Link } from 'react-router-dom';
 import ReservasPendientes from '../Reservas/ReservasPendientes/ReservasPendientes';
 import ReservasCompletadas from '../Reservas/ReservasCompletadas/ReservasCompletadas';
+import ReservasEliminadas from './ReservasEliminadas/ReservasEliminadas';
 
 // Subcomponente TabPanel
 function TabPanel(props) {
@@ -64,6 +65,7 @@ export default function ReservasTabs() {
             <Tabs value={value} onChange={handleChange} aria-label="Tabs de reservas">
                 <Tab label="Pendientes" sx={{ textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px" }} />
                 <Tab label="Completadas" sx={{ textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px" }} />
+                <Tab label="Eliminadas" sx={{ textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px" }} />
             </Tabs>
 
             <TabPanel value={value} index={0}>
@@ -71,6 +73,9 @@ export default function ReservasTabs() {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <ReservasCompletadas />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <ReservasEliminadas />
             </TabPanel>
         </Box>
     );

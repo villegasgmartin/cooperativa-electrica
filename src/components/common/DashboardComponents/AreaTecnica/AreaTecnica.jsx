@@ -8,6 +8,7 @@ import {
 } from '@mui/material';
 import AgregarRegistro from './AgregarRegistro/AgregarRegistro';
 import Registros from './Registros/Registros';
+import RegistrosCompletados from './RegistrosCompletados/RegistrosCompletados';
 
 // JSX:
 // Panel de pestañas:
@@ -59,7 +60,15 @@ const AreaTecnica = () => {
                     }}
                 />
                 <Tab
-                    label="Historial de Visitas"
+                    label="Visitas Pendientes"
+                    sx={{
+                        textTransform: "capitalize",
+                        fontFamily: "interTight",
+                        fontSize: "17px"
+                    }}
+                />
+                <Tab
+                    label="Visitas Realizadas"
                     sx={{
                         textTransform: "capitalize",
                         fontFamily: "interTight",
@@ -73,6 +82,9 @@ const AreaTecnica = () => {
             </TabPanel>
             <TabPanel value={value} index={1}>
                 <Registros />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <RegistrosCompletados />
             </TabPanel>
         </Box>
     );

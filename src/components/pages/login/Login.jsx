@@ -15,7 +15,10 @@ import {
 } from '@mui/material';
 import { Helmet } from "react-helmet";
 import "../login/Login.css";
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { InputAdornment, IconButton } from '@mui/material';
 
+//JSX:
 export default function Login() {
     const dispatch = useDispatch();
 
@@ -94,6 +97,12 @@ export default function Login() {
             setSnackbarOpen(true);
         }
     };
+
+    const [showPassword, setShowPassword] = useState(false);
+
+const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+};
 
     return (
         <>
@@ -174,11 +183,20 @@ export default function Login() {
 
                     <TextField
                         label="Contraseña"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         variant="outlined"
                         fullWidth
                         InputLabelProps={{ style: { color: '#ccc' } }}
-                        InputProps={{ style: { color: 'white' } }}
+                        InputProps={{
+                            style: { color: 'white' },
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={togglePasswordVisibility} edge="end">
+                                        {showPassword ? <VisibilityOff sx={{ color: '#ccc' }} /> : <Visibility sx={{ color: '#ccc' }} />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         sx={{
                             '& label.Mui-focused': {
                                 color: '#2eed8d',

@@ -9,10 +9,10 @@
 }
 
 /*Logo en header*/
-.header-logo-container{
+.vittal-logo-container{
     margin-left: 10%;
     margin-top: 3.75rem;
-    width: 18.75rem;
+    width: 21.875rem;
 }
 
 /*Contenedor principal*/
@@ -43,7 +43,7 @@
 }
 
 /*Contenedor de imágen*/
-.mutual-image-container{
+.vittal-image-container{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,17 +128,14 @@
     width: 28.125rem;
 }
 
-/*Contenedor del botón*/
-.mutual-button-container{
-    width: 15.625rem;
+/*Contenedor del botón en mobile*/
+.vittal-button-container-mobile{
+    display: none;
 }
 
 /*----------------Media Queries----------------*/
 
 @media (max-width: 1350px){
-    .mutual-image-container{
-        transform: scale(0.9);
-    }
     .mutual-form-container{
         width: 500px;
     }
@@ -151,9 +148,6 @@
     .mutual-text{
         font-size: 1.5625rem;
         width: 80%;
-    }
-    .mutual-image-container{
-        transform: scale(1.1);
     }
     .mutual-container{
         flex-direction: column-reverse;
@@ -171,11 +165,23 @@
     .mutual-enlace-text{
         font-size: 1.5625rem;
     }
+    .vittal-button-container{
+        display: none;
+    }
+    .vittal-button-container-mobile{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 28.125rem;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1.25rem;
+    }
 }
 
 @media (max-width: 830px){
-    .header-logo-container{
-        width: 15.625rem;
+    .vittal-logo-container{
+        width: 18.75rem;
     }
 }
 
@@ -189,8 +195,8 @@
     .header-mutual-container{
         height: 21.875rem;
     }
-    .header-logo-container{
-        width: 14.375rem;
+    .vittal-logo-container{
+        width: 17.5rem;
         margin-left: auto;
         margin-right: auto;
     }
@@ -223,7 +229,10 @@
     }
     .mutual-button-container{
         width: 90%;
-    }    
+    }
+        .vittal-button-container-mobile{
+        width: 90%;
+    }
 }
 
 @media (max-width: 500px){
@@ -251,14 +260,17 @@
         font-size: 1.125rem;
         width: 90%;
     }
+    .vittal-image-container{
+        width: 90%;
+    }
 }
 
 @media (max-width: 400px){
     .header-mutual-container{
         height: 18.75rem;
     }
-    .header-logo-container{
-        width: 12.5rem;
+    .vittal-logo-container{
+        width: 15.625rem;
         margin-top: 2.5rem;
         margin-left: auto;
         margin-right: auto;
