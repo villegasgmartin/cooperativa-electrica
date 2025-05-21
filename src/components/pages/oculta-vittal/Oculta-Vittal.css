@@ -1,0 +1,105 @@
+/*Header*/
+.header-container{
+    background: #000;
+    background-size: cover;
+    background-position: top;
+    height: auto;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+/*Logo en header*/
+.header-logo-container{
+    margin-left: 10%;
+    margin-top: 3.75rem;
+    width: 18.75rem;
+}
+
+.publicidad-buttonContainer{
+    display: flex;
+    justify-content: center;
+}
+.image-container-mobile{
+    display: none;
+}
+@media only screen and (max-width:768px){
+    .image-container{
+        display: none;
+    }
+    .image-container-mobile{
+        display:block;
+        width: 100vw;
+        height: auto;
+    }
+        img.vittal-img{
+  max-height: 500px;
+  width: auto;
+  max-width: 100vw;
+}
+}
+
+/*********/
+.descuento-container {
+    background: linear-gradient(to bottom right, #ffffff, #e0d4ff);
+    text-align: center;
+    padding: 40px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    min-height: 80vh;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  
+  @media (min-width: 768px) {
+    .descuento-botones {
+      flex-direction: row;
+      justify-content: center;
+    }
+    img.vittal-img{
+  max-height: 800px;
+  width: auto;
+}
+
+
+  }
+  
+  .boton-oferta {
+    background-color: #5b21b6;
+    color: white;
+    padding: 24px;
+    width: 100%;
+    min-width: 300px;
+    max-width: 300px;
+    border-radius: 16px;
+    text-decoration: none;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease;
+    font-family: "interTight";
+  }
+  
+  .boton-oferta:hover {
+    background-color: #6d28d9;
+  }
+  
+  .boton-mb {
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: "interTight";
+  }
+  
+
+  
+
+
+
+
+
+
+
+
+
+
+
+

@@ -58,7 +58,7 @@ const modalBoxStyles = (theme) => ({
   boxShadow: 24,
 });
 //PDF:
-function Row({ row, handleEditClick, handleDeleteClick, reservasLeer }) {
+function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsRealizada }) {
   const [open, setOpen] = React.useState(false);
   
   const handleImprimir = () => {
@@ -127,6 +127,8 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer }) {
     doc.save(`orden-instalacion-${row.nombre.replace(/ /g, '_')}.pdf`);
   };
 
+ 
+
   return (
     <>
       <TableRow>
@@ -140,17 +142,33 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer }) {
         <TableCell>{row.mes}</TableCell>
 
         {!reservasLeer && ( 
-          <TableCell>
-            <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
-              <DeleteIcon />
-            </IconButton>
-            <IconButton color="error" size="small" onClick={() => window.print()} title="Imprimir PDF">
-              <PictureAsPdfIcon />
-            </IconButton>
-          </TableCell>
+          <>
+  <TableCell>
+              <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
+                <DeleteIcon />
+              </IconButton>
+              <IconButton color="error" size="small" onClick={() => window.print()} title="Imprimir PDF">
+                <PictureAsPdfIcon />
+              </IconButton>
+            </TableCell>
+             <TableCell>
+        <Button
+          variant="contained"
+          onClick={() => handleMarkAsRealizada(row)}
+          disabled={!row.estado}
+          sx={{
+            fontSize: "12px",
+          }}
+        >
+          Pendiente
+        </Button>
+        </TableCell>
+          </>
+         
+          
         )}
 
       </TableRow>
@@ -250,7 +268,7 @@ export default function ReservasCompletadas() {
     try {
       const token = localStorage.getItem('token');
       const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
-        method: 'DELETE',
+        method: 'PUT',
         headers: { 'x-token': token },
       });
       if (!response.ok) throw new Error('Error al eliminar');
@@ -325,6 +343,38 @@ export default function ReservasCompletadas() {
     setSearchQuery('');
   };
 
+  const handleMarkAsRealizada = async (row) => {
+
+    try {
+      const token = localStorage.getItem('token');
+  
+      const updatedReserva = {
+        ...row,
+        estado: false,
+        estadoBorrado: false,
+      };
+  
+      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-token': token,
+        },
+        body: JSON.stringify(updatedReserva),
+      });
+  
+      if (!response.ok) throw new Error('Error al actualizar la reserva');
+  
+      console.log("Reserva actualizada correctamente");
+  
+      // Actualizamos la lista de reservas localmente
+      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: false } : r));
+  
+    } catch (error) {
+      console.error('Error al marcar como realizada:', error);
+    }
+  };
+
   //Tabla:
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
@@ -385,7 +435,9 @@ export default function ReservasCompletadas() {
                 {!reservasLeer && ( 
                                 <>
                                   <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
+                                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Pendiente</TableCell>
                                 </>
+                                
                               )}
               </TableRow>
             </TableHead>
@@ -404,7 +456,7 @@ export default function ReservasCompletadas() {
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
                 .map((row) => (
-                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} />
+                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada} />
                 ))}
             </TableBody>
           </Table>

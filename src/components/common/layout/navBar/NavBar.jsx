@@ -36,11 +36,13 @@ const pages = [
         name: 'Usuarios', path: '#', submenu: [
             { name: 'Medios de pago', path: '/formas-de-pago' },
             { name: 'Consejos Útiles', path: '/consejos-utiles' },
-            { name: 'Preguntas: Energía', path: '/preguntas-frecuentes' },
-            { name: 'Preguntas: NAVE Internet', path: '/preguntas-nave' },
-            { name: 'Tutoriales: Oficina Virtual', path: '/preguntas-nave#tutoriales-oficina' },
         ]
     },
+    {name: 'Preguntas Frecuentes', path: '#', submenu:[
+         { name: 'Energía', path: '/preguntas-frecuentes' },
+            { name: 'NAVE Internet', path: '/preguntas-nave' },
+            { name: 'Oficina Virtual', path: '/preguntas-nave#tutoriales-oficina' }
+    ]},
     { name: 'Contacto', path: '/contacto' },
     { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
 ];
