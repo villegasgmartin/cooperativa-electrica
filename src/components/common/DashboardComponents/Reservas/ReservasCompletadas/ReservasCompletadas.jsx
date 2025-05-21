@@ -150,7 +150,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
               <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
                 <DeleteIcon />
               </IconButton>
-              <IconButton color="error" size="small" onClick={() => window.print()} title="Imprimir PDF">
+              <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
                 <PictureAsPdfIcon />
               </IconButton>
             </TableCell>
