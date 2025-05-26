@@ -1,3 +1,4 @@
+
 // Importaciones:
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -57,7 +58,6 @@ export default function UserTable() {
       headers: { 'x-token': localStorage.getItem('token') }
     })
     .then(response => {
-      console.log('Datos obtenidos de la API:', response.data);
       setUsers(response.data.usuarios || []);
       setLoading(false);
     })
@@ -88,18 +88,26 @@ export default function UserTable() {
   };
 
   const handleDeleteUser = async () => {
-    if (userToDelete) {
-      try {
-        await axios.delete(`https://cooperativaback.up.railway.app/api?id=${userToDelete}`, {
-          headers: { 'x-token': localStorage.getItem('token') }
-        });
-        setUsers(users.filter(user => user.uid !== userToDelete));
-        setOpenModal(false);
-      } catch (error) {
-        console.error('Error al actualizar el estado del usuario:', error);
-      }
+  if (userToDelete) {
+    try {
+      const payload = { estado: false };
+
+      await axios.put(
+        `https://cooperativaback.up.railway.app/api?id=${userToDelete}`,
+        payload,
+        {
+          headers: { 'x-token': localStorage.getItem('token') },
+        }
+      );
+
+      setUsers(users.filter(user => user.uid !== userToDelete));
+      setOpenModal(false);
+    } catch (error) {
+      console.error('Error al desactivar el usuario:', error);
     }
-  };
+  }
+};
+
 
   const handleCancelDelete = () => {
     setOpenModal(false);

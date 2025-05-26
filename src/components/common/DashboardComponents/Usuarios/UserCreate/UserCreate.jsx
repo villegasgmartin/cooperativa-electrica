@@ -1,4 +1,4 @@
-//Importaciones:
+// Importaciones:
 import * as React from 'react';
 import axios from 'axios';
 import {
@@ -16,6 +16,7 @@ import {
   CircularProgress
 } from '@mui/material';
 
+// JSX:
 export default function UserCreate() {
   const [formData, setFormData] = React.useState({
     nombre: '',
@@ -24,12 +25,12 @@ export default function UserCreate() {
     telefono: '',
     rol: '',
     reservas: false,
+    reservasLeer: false,
     blog: false,
     usuarios: false,
     tecnica: false
   });
 
-  //JSX:
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -42,6 +43,7 @@ export default function UserCreate() {
         ...prev,
         [name]: value,
         reservas: true,
+        reservasLeer: false,
         blog: true,
         usuarios: true,
         tecnica: true,
@@ -51,6 +53,7 @@ export default function UserCreate() {
         ...prev,
         [name]: value,
         reservas: false,
+        reservasLeer: false,
         blog: false,
         usuarios: false,
         tecnica: false,
@@ -65,10 +68,18 @@ export default function UserCreate() {
 
   const handleSwitch = (e) => {
     const { name, checked } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [name]: checked
-    }));
+
+    setFormData(prev => {
+      let updated = { ...prev, [name]: checked };
+
+      if (name === 'reservas' && checked) {
+        updated.reservasLeer = false;
+      } else if (name === 'reservasLeer' && checked) {
+        updated.reservas = false;
+      }
+
+      return updated;
+    });
   };
 
   const handleSubmit = async (e) => {
@@ -87,6 +98,7 @@ export default function UserCreate() {
       telefono: formData.telefono,
       rol: formData.rol,
       reservas: formData.rol === 'USER_ADMIN' ? true : formData.reservas,
+      reservasLeer: formData.rol === 'USER_ADMIN' ? false : formData.reservasLeer,
       blog: formData.rol === 'USER_ADMIN' ? true : formData.blog,
       usuarios: formData.rol === 'USER_ADMIN' ? true : formData.usuarios,
       tecnica: formData.rol === 'USER_ADMIN' ? true : formData.tecnica,
@@ -102,9 +114,10 @@ export default function UserCreate() {
         telefono: '',
         rol: '',
         reservas: false,
+        reservasLeer: false,
         blog: false,
         usuarios: false,
-        tecnica: false
+        tecnica: false,
       });
     } catch (err) {
       setError('Error al crear el usuario. Verificá los datos.');
@@ -188,7 +201,11 @@ export default function UserCreate() {
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <FormControlLabel
                 control={<Switch checked={formData.reservas} onChange={handleSwitch} name="reservas" />}
-                label="Reservas"
+                label="Reservas (admin)"
+              />
+              <FormControlLabel
+                control={<Switch checked={formData.reservasLeer} onChange={handleSwitch} name="reservasLeer" />}
+                label="Reservas (lectura)"
               />
               <FormControlLabel
                 control={<Switch checked={formData.blog} onChange={handleSwitch} name="blog" />}

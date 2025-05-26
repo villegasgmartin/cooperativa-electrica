@@ -111,7 +111,7 @@ const Mutual = () => {
               <NavBar/>
           </div>
           <Fade  triggerOnce={true} duration={800} delay={300}>
-            <div className='header-logo-container'><img src={LogoMutual} alt="AMI Mutual" width={"100%"} /></div>
+            <div className='ami-logo-container'><img src={LogoMutual} alt="AMI Mutual" width={"100%"} /></div>
           </Fade>
       </header>
       <section className='mutual-main-container'>

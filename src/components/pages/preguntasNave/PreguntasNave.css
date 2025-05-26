@@ -1,0 +1,109 @@
+/*Contenedor principal*/
+.preguntasNave-main-container{
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background: rgb(61,17,109);
+background: linear-gradient(159deg, rgba(61,17,109,1) 0%, rgba(217,220,221,1) 40%, rgba(221,220,223,1) 50%, rgba(215,212,218,1) 60%, rgba(48,230,145,1) 100%);
+}
+
+/*Contenedor de acordeón*/
+.preguntasNave-accordion-container{
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*Estilo de texto*/
+.preguntasNave-texto{
+    font-style: italic;
+}
+
+/*Estilo para link*/
+.preguntasNave-link {
+    color: var(--darkviolet);
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.2s ease;
+    }
+
+    .preguntasNave-link:hover {
+    color: #5f2fc1; 
+    transform: translateY(-1px); 
+    }
+
+    .preguntasNave-link:active {
+    transform: scale(0.98);
+    opacity: 0.8;
+    }
+
+/*Contenedor de sección de videos*/
+.preguntasNave-videos-container{
+    width: 80%;
+    margin-top: 3.125rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 1.875rem;
+}
+
+/*Título debajo de las cards*/
+.preguntasNave-h2{
+    font-family: "archivo";
+    color: var(--darkviolet);
+    font-size: 1.875rem;
+    text-align: center;
+    margin: auto;
+}
+
+/*Descripción*/
+.preguntasNave-description{
+    font-family: "interTight";
+    text-align: center;
+    font-size: 1.25rem;
+    margin-top: .625rem;
+    margin-bottom: 1.25rem;
+}
+
+/*Título de video*/
+.preguntasNave-videoTitle{
+    font-family: "interTight";
+    text-align: center;
+    font-size: 1.125rem;
+    margin-top: .3125rem;
+    font-weight: bold;
+}
+
+/*----------------Media Queries----------------*/
+
+@media (max-width: 1300px){
+    .preguntasNave-accordion-container{
+        width: 800px;
+    }
+}
+
+@media (max-width: 920px){
+    .preguntasNave-accordion-container{
+        width: 41.875rem;
+    }
+}
+
+@media (max-width: 700px){
+    .preguntasNave-main-container{
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+    .preguntasNave-accordion-container{
+        width: 90%;
+    }
+    .preguntasNave-videos-container{
+    margin-top: 1.875rem;
+    margin-bottom: 1.25rem;
+    width: 90%;
+    }
+    .preguntasNave-h2{
+        font-size: 1.5625rem;
+    }
+    .preguntasNave-description{
+        font-size: 1.125rem;
+        margin-top: .3125rem;
+    }
+}

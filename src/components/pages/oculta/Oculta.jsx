@@ -21,6 +21,9 @@ const Oculta = () => {
     <>
     <Helmet>
       <title>Promocion Asociado Nave</title>
+      <meta name="robots" content="noindex"/>
+      <meta name="googlebot" content="noindex"/>
+
     </Helmet>
     <header className="header-container">
           <div className="header-contactos-container">

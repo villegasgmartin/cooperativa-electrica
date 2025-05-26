@@ -37,6 +37,7 @@ import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import axios from 'axios';
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
@@ -58,7 +59,7 @@ const modalBoxStyles = (theme) => ({
 });
 
 //PDF:
-function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada }) {
+function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , reservasLeer}) {
   const [open, setOpen] = React.useState(false);
   
   const handleImprimir = () => {
@@ -135,35 +136,41 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada })
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
+
         <TableCell>{row.internet}</TableCell>
         <TableCell>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
         <TableCell>{row.mes}</TableCell>
-        <TableCell>
-          <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
-            <EditIcon />
-          </IconButton>
-          {/* <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
-            <DeleteIcon />
-          </IconButton> */}
-          <IconButton color="error" size="small" onClick={handleImprimir} title="Imprimir PDF">
-            <PictureAsPdfIcon />
-          </IconButton>
-        </TableCell>
-        <TableCell>
-        <Button
-          variant="contained"
-          onClick={() => handleMarkAsRealizada(row)}
-          disabled={row.estado}
-          sx={{
-            fontSize: "12px",
-          }}
-        >
-          Realizada
-        </Button>
-        </TableCell>
+
+        {!reservasLeer && ( 
+          <TableCell>
+            <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
+              <EditIcon />
+            </IconButton>
+            <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
+              <DeleteIcon />
+            </IconButton>
+            <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
+              <PictureAsPdfIcon />
+            </IconButton>
+          </TableCell>
+        )}
+
+        {!reservasLeer && ( 
+          <TableCell>
+            <Button
+              variant="contained"
+              onClick={() => handleMarkAsRealizada(row)}
+              disabled={row.estado}
+              sx={{ fontSize: "12px" }}
+            >
+              Realizada
+            </Button>
+          </TableCell>
+        )}
       </TableRow>
+
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom>
@@ -199,7 +206,8 @@ export default function ReservasPendientes() {
   const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [fechaFiltro, setFechaFiltro] = React.useState(null);
-  
+  const [nombreUsuario, setNombreUsuario] = React.useState('');
+  const [reservasLeer, setReservasLeer] = React.useState(false);
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -227,22 +235,60 @@ export default function ReservasPendientes() {
     setOpenConfirmDialog(true);
   };
 
-  //Funcion para eliminar:
-  const handleConfirmDelete = async () => {
+  //Función para obtener nombre de usuario:
+  React.useEffect(() => {
+  const fetchUserData = async () => {
     try {
+      const userId = localStorage.getItem('userId');
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
-        method: 'DELETE',
-        headers: { 'x-token': token },
+
+      if (!userId || !token) {
+        console.error('No se encontró el userId o token en localStorage');
+        return;
+      }
+
+      const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
+        headers: {
+          'x-token': token,
+        },
       });
-      if (!response.ok) throw new Error('Error al eliminar');
-      setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
-      setOpenConfirmDialog(false);
-      setReservaAEliminar(null);
+      setNombreUsuario(data.nombre);
+      setReservasLeer(data.reservasLeer ?? false);
     } catch (error) {
-      console.error('Error al eliminar:', error);
+      console.error('Error al obtener el perfil del usuario:', error);
     }
   };
+
+  fetchUserData();
+}, []);
+
+
+  //Funcion para eliminar:
+  const handleConfirmDelete = async () => {
+  try {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${reservaAEliminar._id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-token': token,
+      },
+      body: JSON.stringify({
+        estadoBorrado: true,
+        responsable: nombreUsuario,
+      }),
+    });
+
+    if (!response.ok) throw new Error('Error al actualizar el estado');
+
+    setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
+    setOpenConfirmDialog(false);
+    setReservaAEliminar(null);
+  } catch (error) {
+    console.error('Error al marcar como borrado:', error);
+  }
+};
 
   //Cerramos modal:
   const handleCloseModal = () => {
@@ -316,7 +362,6 @@ const handleSaveChanges = async () => {
   }
 };
 
-
   //Traemos las reservas: GET
   React.useEffect(() => {
     const fetchReservas = async () => {
@@ -328,15 +373,17 @@ const handleSaveChanges = async () => {
 
         if (!response.ok) throw new Error('Error al obtener las reservas');
         const data = await response.json();
-        const reservasFormateadas = data.reservas.map((r) => {
-          const fechaObj = dayjs(r.fecha);
-          return {
-            ...r,
-            fechaFormateada: fechaObj.format('D [de] MMMM'),
-            mes: fechaObj.format('MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
-          };
-        });
+        const reservasFormateadas = data.reservas
+          .filter(r => r.estadoBorrado === false) 
+          .map((r) => {
+            const fechaObj = dayjs(r.fecha);
+            return {
+              ...r,
+              fechaFormateada: fechaObj.format('D [de] MMMM'),
+              mes: fechaObj.format('MMMM'),
+              horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
+            };
+          });
         setReservas(reservasFormateadas);
       } catch (error) {
         console.error('Error al cargar las reservas:', error);
@@ -410,8 +457,12 @@ const handleSaveChanges = async () => {
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Servicio</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha y Hora</TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Mes</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Realizada</TableCell>
+                {!reservasLeer && ( 
+                <>
+                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
+                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Realizada</TableCell>
+                </>
+              )}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -428,11 +479,8 @@ const handleSaveChanges = async () => {
                   const mesActual = dayjs().format('MMMM');
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
-                // .map((row) => (
-                //   <Row key={row._id} row={row} handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada}/>
-                // ))}
-                 .map((row) => (
-                  <Row key={row._id} row={row} handleEditClick={handleEditClick} handleMarkAsRealizada={handleMarkAsRealizada}/>
+                .map((row) => (
+                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada}/>
                 ))}
             </TableBody>
           </Table>
