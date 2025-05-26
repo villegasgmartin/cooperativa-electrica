@@ -110,12 +110,12 @@ const Form = () => {
 
         { latitude: -38.00503, longitude: -57.5603 },
         { latitude: -38.0143, longitude: -57.5421 },
-        { latitude: -38.00967, longitude: -57.53841 },
-        { latitude: -38.00916, longitude: -57.5394 },
+        { latitude: -38.00954, longitude: -57.5382 },
+        { latitude: -38.00904, longitude: -57.53921 },
         { latitude: -38.01214, longitude: -57.54176 },
         { latitude: -38.00662, longitude: -57.55275 },
-        { latitude: -38.00361, longitude: -57.55039 },
-        { latitude: -37.99692, longitude: -57.5633 }
+        { latitude: -38.00346, longitude: -57.55016 },
+        { latitude: -37.99683, longitude: -57.5633 }
         ]
     
     
