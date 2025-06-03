@@ -161,11 +161,12 @@ const Form = () => {
             const data = await response.json();
             console.log(data)
     
-            if (data.status === "OK") {
+             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
                 const city = data.results[0].address_components[2];
-                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city };
-            } else {
+                const address = data.results[0].formatted_address
+                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city, address };
+            } Ω else {
                 console.error("Error en la geocodificación:", data.status);
                 return null;
             }
@@ -185,8 +186,9 @@ const Form = () => {
         try {
             const coordenadas = await getCoordinates(direccion);
             const ciudad = coordenadas.city.long_name
+            const direccionCompleta = coordenadas.address;
 
-            if(ciudad != 'Mar del Plata'){
+              if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
                 return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
