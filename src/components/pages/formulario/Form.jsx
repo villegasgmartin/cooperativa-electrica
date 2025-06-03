@@ -166,7 +166,7 @@ const Form = () => {
                 const city = data.results[0].address_components[2];
                 const address = data.results[0].formatted_address
                 return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city, address };
-            } Ω else {
+            } else {
                 console.error("Error en la geocodificación:", data.status);
                 return null;
             }
