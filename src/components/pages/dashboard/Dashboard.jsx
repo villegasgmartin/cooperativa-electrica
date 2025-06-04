@@ -1,6 +1,6 @@
 // Importaciones:
 import * as React from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { createTheme, useColorScheme } from '@mui/material/styles';
 import { AppProvider } from '@toolpad/core/AppProvider';
@@ -12,9 +12,11 @@ import PeopleIcon from '@mui/icons-material/People';
 import BuildIcon from '@mui/icons-material/Build';
 import { Helmet } from 'react-helmet';
 import logo from '../../../assets/images/logos/logo-dashboard.png';
-import axios from 'axios';
 import { CircularProgress, Box } from '@mui/material';
 
+// Redux imports:
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserProfile } from '../../../../redux/actions/userActions';
 // Componentes de secciones:
 import DashboardHome from '../../common/DashboardComponents/DashBoardHome/DashBoardHome';
 import Reservas from '../../common/DashboardComponents/Reservas/Reservas';
@@ -94,64 +96,51 @@ function Dashboard(props) {
   const router = useDemoRouter('/dashboard');
   const demoWindow = window !== undefined ? window() : undefined;
 
-  const [navigation, setNavigation] = useState([]);
-  const [loading, setLoading] = useState(true);
+  // Redux hooks:
+  const dispatch = useDispatch();
+  const { user, loading, error } = useSelector(state => state.user);
 
+  // Estado local para navegación:
+  const [navigation, setNavigation] = React.useState([]);
+
+  //Función para traer el usuario:
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userId = localStorage.getItem('userId');
-        const token = localStorage.getItem('token');
-        
-        if (!userId || !token) {
-          console.error('No se encontró el userId o token en localStorage');
-          return;
+    dispatch(fetchUserProfile());
+  }, [dispatch]);
+
+  // Cuando cambia el usuario en Redux, actualizamos navegación:
+  React.useEffect(() => {
+    if (user) {
+      let tempNavigation = [];
+
+      if (user.rol === 'USER_ADMIN') {
+        tempNavigation = [
+          { segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> },
+          { segment: 'blogs', title: 'Blogs', icon: <BookIcon /> },
+          { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
+          { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
+        ];
+      } else if (user.rol === 'USER_EMPLOYE') {
+        if (user.reservas) {
+          tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
         }
-
-        const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
-          headers: {
-            'x-token': token,
-          },
-        });
-
-        // Construir navegación según rol y accesos:
-        let tempNavigation = [];
-
-        if (data.rol === 'USER_ADMIN') {
-          tempNavigation = [
-            { segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> },
-            { segment: 'blogs', title: 'Blogs', icon: <BookIcon /> },
-            { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
-            { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
-          ];
-        } else if (data.rol === 'USER_EMPLOYE') {
-          if (data.reservas) {
-            tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
-          }
-          if (data.reservasLeer) {
-            tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
-          }
-          if (data.blog) {
-            tempNavigation.push({ segment: 'blogs', title: 'Blogs', icon: <BookIcon /> });
-          }
-          if (data.usuarios) {
-            tempNavigation.push({ segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> });
-          }
-          if (data.tecnica) {
-            tempNavigation.push({ segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> });
-          }
+        if (user.reservasLeer) {
+          tempNavigation.push({ segment: 'reservas', title: 'Reservas', icon: <CalendarMonthIcon /> });
         }
-        setNavigation(tempNavigation);
-        setLoading(false);
-
-      } catch (error) {
-        console.error('Error obteniendo datos del usuario:', error);
-        setLoading(false);
+        if (user.blog) {
+          tempNavigation.push({ segment: 'blogs', title: 'Blogs', icon: <BookIcon /> });
+        }
+        if (user.usuarios) {
+          tempNavigation.push({ segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> });
+        }
+        if (user.tecnica) {
+          tempNavigation.push({ segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> });
+        }
       }
-    };
 
-    fetchUserData();
-  }, []);
+      setNavigation(tempNavigation);
+    }
+  }, [user]);
 
   if (loading) {
     return (
@@ -164,6 +153,23 @@ function Dashboard(props) {
         }}
       >
         <CircularProgress sx={{ color: '#12824c' }} />
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box
+        sx={{
+          color: 'error.main',
+          p: 2,
+          display: 'flex',
+          justifyContent: 'center',
+          height: '100vh',
+          alignItems: 'center',
+        }}
+      >
+        Error: {error}
       </Box>
     );
   }
@@ -185,10 +191,12 @@ function Dashboard(props) {
         theme={demoTheme}
         window={demoWindow}
       >
-        <DashboardLayout slots={{
-          toolbarAccount: () => null,
-          sidebarFooter: Logout
-        }}>
+        <DashboardLayout
+          slots={{
+            toolbarAccount: () => null,
+            sidebarFooter: Logout,
+          }}
+        >
           <DemoPageContent pathname={router.pathname} />
         </DashboardLayout>
       </AppProvider>

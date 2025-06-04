@@ -1,5 +1,4 @@
 //Importaciones:
-import * as React from 'react';
 import {
   Box,
   Collapse,
@@ -38,6 +37,14 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import axios from 'axios';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchReservasRealizadas } from '../../../../../../redux/actions/reservasActions'
+import { handleMarkAsPendienteRedux } from '../../../../../../redux/actions/reservasActions'
+import { updateReservaRealizada } from '../../../../../../redux/actions/reservasActions'
+import { deleteReservaCompletada } from '../../../../../../redux/actions/reservasActions'
+import { fetchUserData } from '../../../../../../redux/actions/userActions';
+
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
@@ -58,7 +65,7 @@ const modalBoxStyles = (theme) => ({
   boxShadow: 24,
 });
 //PDF:
-function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsRealizada }) {
+function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsPendiente }) {
   const [open, setOpen] = React.useState(false);
   
   const handleImprimir = () => {
@@ -127,8 +134,6 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
     doc.save(`orden-instalacion-${row.nombre.replace(/ /g, '_')}.pdf`);
   };
 
- 
-
   return (
     <>
       <TableRow>
@@ -154,10 +159,10 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
                 <PictureAsPdfIcon />
               </IconButton>
             </TableCell>
-             <TableCell>
+            <TableCell>
         <Button
           variant="contained"
-          onClick={() => handleMarkAsRealizada(row)}
+          onClick={() => handleMarkAsPendiente(row)}
           disabled={!row.estado}
           sx={{
             fontSize: "12px",
@@ -167,7 +172,6 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
         </Button>
         </TableCell>
           </>
-         
           
         )}
 
@@ -198,6 +202,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
 }
 
 export default function ReservasCompletadas() {
+
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
   const [reservas, setReservas] = React.useState([]);
@@ -209,7 +214,9 @@ export default function ReservasCompletadas() {
   const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
   const [fechaFiltro, setFechaFiltro] = React.useState(null);
-  const [reservasLeer, setReservasLeer] = React.useState(false);
+  const { nombre, reservasLeer} = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const { reservasRealizadas } = useSelector((state) => ({reservasRealizadas: state.reservas.realizadas,}));
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -238,46 +245,15 @@ export default function ReservasCompletadas() {
   };
 
   //Traemos datos del usuario:
-  React.useEffect(() => {
-  const fetchUserData = async () => {
-    try {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-
-      if (!userId || !token) {
-        console.error('No se encontró el userId o token en localStorage');
-        return;
-      }
-
-      const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
-        headers: {
-          'x-token': token,
-        },
-      });
-      setReservasLeer(data.reservasLeer ?? false);
-    } catch (error) {
-      console.error('Error al obtener el perfil del usuario:', error);
-    }
-  };
-
-  fetchUserData();
-}, []);
+  useEffect(() => {
+      dispatch(fetchUserData());
+    }, [dispatch]);
 
   //Funcion para eliminar:
   const handleConfirmDelete = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
-        method: 'PUT',
-        headers: { 'x-token': token },
-      });
-      if (!response.ok) throw new Error('Error al eliminar');
-      setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
-      setOpenConfirmDialog(false);
-      setReservaAEliminar(null);
-    } catch (error) {
-      console.error('Error al eliminar:', error);
-    }
+    dispatch(deleteReservaCompletada(reservaAEliminar._id));
+    setOpenConfirmDialog(false);
+    setReservaAEliminar(null);
   };
 
   //Cerramos modal:
@@ -288,53 +264,27 @@ export default function ReservasCompletadas() {
 
   //Función para editar:
   const handleSaveChanges = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': token,
-        },
-        body: JSON.stringify(selectedReserva),
-      });
-
-      if (!response.ok) throw new Error('Error al actualizar la reserva');
-      setOpenModal(false);
-      setSelectedReserva(null);
-      setReservas(reservas.map((r) => r._id === selectedReserva._id ? { ...r, ...selectedReserva } : r));
-    } catch (error) {
-      console.error('Error al guardar cambios:', error);
-    }
+    dispatch(updateReservaRealizada(selectedReserva));
+    setOpenModal(false);
+    setSelectedReserva(null);
   };
 
   //Traemos las reservas: GET
-  React.useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas-realizadas', {
-          headers: { 'x-token': token },
-        });
+  useEffect(() => {
+    dispatch(fetchReservasRealizadas());
+  }, [dispatch]);
 
-        if (!response.ok) throw new Error('Error al obtener las reservas');
-        const data = await response.json();
-        const reservasFormateadas = data.reservas.map((r) => {
-          const fechaObj = dayjs(r.fecha);
-          return {
-            ...r,
-            fechaFormateada: fechaObj.format('D [de] MMMM'),
-            mes: fechaObj.format('MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
-          };
-        });
-        setReservas(reservasFormateadas);
-      } catch (error) {
-        console.error('Error al cargar las reservas:', error);
-      }
-    };
-    fetchReservas();
-  }, []);
+  useEffect(() => {
+  if (reservasRealizadas && reservasRealizadas.length > 0) {
+    const reservasConFechaFormateada = reservasRealizadas.map(reserva => ({
+      ...reserva,
+      fechaFormateada: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+      mes: dayjs(reserva.fecha).format('MMMM'),
+    }));
+    setReservas(reservasConFechaFormateada);
+  }
+}, [reservasRealizadas]);
+
 
   //Función para limpiar los filtros
   const handleLimpiarFiltros = () => {
@@ -343,36 +293,9 @@ export default function ReservasCompletadas() {
     setSearchQuery('');
   };
 
-  const handleMarkAsRealizada = async (row) => {
-
-    try {
-      const token = localStorage.getItem('token');
-  
-      const updatedReserva = {
-        ...row,
-        estado: false,
-        estadoBorrado: false,
-      };
-  
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': token,
-        },
-        body: JSON.stringify(updatedReserva),
-      });
-  
-      if (!response.ok) throw new Error('Error al actualizar la reserva');
-  
-      console.log("Reserva actualizada correctamente");
-  
-      // Actualizamos la lista de reservas localmente
-      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: false } : r));
-  
-    } catch (error) {
-      console.error('Error al marcar como realizada:', error);
-    }
+  //Marcar reserva como pendiente:
+  const handleMarkAsPendiente = (row) => {
+    dispatch(handleMarkAsPendienteRedux(row));
   };
 
   //Tabla:
@@ -456,7 +379,7 @@ export default function ReservasCompletadas() {
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
                 .map((row) => (
-                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada} />
+                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsPendiente={handleMarkAsPendiente} />
                 ))}
             </TableBody>
           </Table>

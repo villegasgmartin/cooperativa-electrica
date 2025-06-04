@@ -12,12 +12,15 @@ import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import BasicDatePicker from '../../common/FormComponents/DatePicker/DatePicker';
 import axios from 'axios';
 import "../formulario/Form.css"
+import { useDispatch } from 'react-redux';
+import { createReservaForm } from '../../../../redux/actions/formActions';
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
 
 //JSX:
 const Form = () => {
+    const dispatch = useDispatch();
     const [autocomplete, setAutocomplete] = useState(null);
     const [fechaInstalacion, setFechaInstalacion] = useState(null); 
     const [franjaHoraria, setFranjaHoraria] = useState('');
@@ -261,10 +264,7 @@ const Form = () => {
             };
             //Si no hay errores, hacemos POST
             try {
-                const response = await axios.post(
-                    'https://cooperativaback.up.railway.app/api/reservas/crear-reserva',
-                    dataToSend
-                );
+                    await dispatch(createReservaForm(dataToSend));
 
                 // Limpiamos campos
                 setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});

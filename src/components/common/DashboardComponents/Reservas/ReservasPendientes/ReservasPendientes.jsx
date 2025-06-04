@@ -1,5 +1,4 @@
 //Importaciones:
-import * as React from 'react';
 import {
   Box,
   Collapse,
@@ -38,6 +37,13 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchReservas } from '../../../../../../redux/actions/reservasActions';
+import { updateReserva } from '../../../../../../redux/actions/reservasActions';
+import { markReservaAsRealizada } from '../../../../../../redux/actions/reservasActions';
+import { deleteReserva } from '../../../../../../redux/actions/reservasActions';
+import { fetchUserData } from '../../../../../../redux/actions/userActions';
+import React, { useEffect } from 'react';
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
@@ -197,7 +203,6 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
 export default function ReservasPendientes() {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
-  const [reservas, setReservas] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
   const [selectedReserva, setSelectedReserva] = React.useState(null);
   const [reservaAEliminar, setReservaAEliminar] = React.useState(null);
@@ -207,7 +212,9 @@ export default function ReservasPendientes() {
   const [searchQuery, setSearchQuery] = React.useState('');
   const [fechaFiltro, setFechaFiltro] = React.useState(null);
   const [nombreUsuario, setNombreUsuario] = React.useState('');
-  const [reservasLeer, setReservasLeer] = React.useState(false);
+  const dispatch = useDispatch();
+  const { reservas} = useSelector((state) => state.reservas);
+  const { nombre, reservasLeer} = useSelector((state) => state.user);
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -236,58 +243,17 @@ export default function ReservasPendientes() {
   };
 
   //Función para obtener nombre de usuario:
-  React.useEffect(() => {
-  const fetchUserData = async () => {
-    try {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-
-      if (!userId || !token) {
-        console.error('No se encontró el userId o token en localStorage');
-        return;
-      }
-
-      const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
-        headers: {
-          'x-token': token,
-        },
-      });
-      setNombreUsuario(data.nombre);
-      setReservasLeer(data.reservasLeer ?? false);
-    } catch (error) {
-      console.error('Error al obtener el perfil del usuario:', error);
-    }
-  };
-
-  fetchUserData();
-}, []);
-
+useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   //Funcion para eliminar:
-  const handleConfirmDelete = async () => {
-  try {
-    const token = localStorage.getItem('token');
+const handleConfirmDelete = () => {
+  if (!reservaAEliminar) return;
 
-    const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${reservaAEliminar._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-      },
-      body: JSON.stringify({
-        estadoBorrado: true,
-        responsable: nombreUsuario,
-      }),
-    });
-
-    if (!response.ok) throw new Error('Error al actualizar el estado');
-
-    setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
-    setOpenConfirmDialog(false);
-    setReservaAEliminar(null);
-  } catch (error) {
-    console.error('Error al marcar como borrado:', error);
-  }
+  dispatch(deleteReserva(reservaAEliminar._id, nombreUsuario));
+  setOpenConfirmDialog(false);
+  setReservaAEliminar(null);
 };
 
   //Cerramos modal:
@@ -297,101 +263,21 @@ export default function ReservasPendientes() {
   };
 
   //Función para marcar la reserva como realizada
-  const handleMarkAsRealizada = async (row) => {
-
-    try {
-      const token = localStorage.getItem('token');
-  
-      const updatedReserva = {
-        ...row,
-        estado: true,
-      };
-  
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': token,
-        },
-        body: JSON.stringify(updatedReserva),
-      });
-  
-      if (!response.ok) throw new Error('Error al actualizar la reserva');
-  
-      console.log("Reserva actualizada correctamente");
-  
-      // Actualizamos la lista de reservas localmente
-      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: true } : r));
-  
-    } catch (error) {
-      console.error('Error al marcar como realizada:', error);
-    }
-  };
-    
-
-// Función para editar:
-const handleSaveChanges = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-      },
-      body: JSON.stringify(selectedReserva),
-    });
-
-    if (!response.ok) throw new Error('Error al actualizar la reserva');
-
-    setOpenModal(false);
-    setSelectedReserva(null);
-
-    setReservas(reservas.map((r) =>
-      r._id === selectedReserva._id
-        ? {
-            ...r,
-            ...selectedReserva,
-            fechaFormateada: dayjs(selectedReserva.fecha).format('DD/MM'),
-            mes: dayjs(selectedReserva.fecha).format('MMMM'),
-          }
-        : r
-    ));
-  } catch (error) {
-    console.error('Error al guardar cambios:', error);
-  }
+const handleMarkAsRealizada = (row) => {
+  dispatch(markReservaAsRealizada(row));
 };
 
-  //Traemos las reservas: GET
-  React.useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas', {
-          headers: { 'x-token': token },
-        });
+// Función para editar:
+const handleSaveChanges = () => {
+  dispatch(updateReserva(selectedReserva));
+  setOpenModal(false);
+  setSelectedReserva(null);
+};
 
-        if (!response.ok) throw new Error('Error al obtener las reservas');
-        const data = await response.json();
-        const reservasFormateadas = data.reservas
-          .filter(r => r.estadoBorrado === false) 
-          .map((r) => {
-            const fechaObj = dayjs(r.fecha);
-            return {
-              ...r,
-              fechaFormateada: fechaObj.format('D [de] MMMM'),
-              mes: fechaObj.format('MMMM'),
-              horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
-            };
-          });
-        setReservas(reservasFormateadas);
-      } catch (error) {
-        console.error('Error al cargar las reservas:', error);
-      }
-    };
-    fetchReservas();
-  }, []);
-
+//Traemos las reservas: GET
+useEffect(() => {
+    dispatch(fetchReservas());
+  }, [dispatch]);
 
   //Función para limpiar los filtros
   const handleLimpiarFiltros = () => {

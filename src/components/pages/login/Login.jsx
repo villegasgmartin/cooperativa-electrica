@@ -1,7 +1,5 @@
 // Importaciones:
 import React, { useState } from 'react';
-import axios from 'axios';
-import { login } from '../../../../redux/actions/authActions';
 import { useDispatch } from 'react-redux';
 import {
     Box,
@@ -11,14 +9,17 @@ import {
     Typography,
     Paper,
     Snackbar,
-    Alert
+    Alert,
+    InputAdornment,
+    IconButton
 } from '@mui/material';
 import { Helmet } from "react-helmet";
-import "../login/Login.css";
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { InputAdornment, IconButton } from '@mui/material';
+import { login, forgotPassword } from '../../../../redux/actions/authActions';
+import "../login/Login.css";
 
-//JSX:
+// JSX:
+//Función Login:
 export default function Login() {
     const dispatch = useDispatch();
 
@@ -30,6 +31,11 @@ export default function Login() {
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+    const [showPassword, setShowPassword] = useState(false);
+
+    const togglePasswordVisibility = () => {
+        setShowPassword((prev) => !prev);
+    };
 
     const handleChange = (e) => {
         setInput({
@@ -83,26 +89,16 @@ export default function Login() {
         }
 
         try {
-            await axios.post('https://cooperativaback.up.railway.app/api/auth/nueva-password', {
-                email: input.correo
-            });
-
+            await dispatch(forgotPassword(input.correo));
             setSnackbarMessage('Se envió un enlace para restablecer tu contraseña');
             setSnackbarSeverity('success');
             setSnackbarOpen(true);
         } catch (error) {
-            console.error('Error al solicitar nueva contraseña:', error);
-            setSnackbarMessage('Error al enviar el correo. Verifica el email.');
+            setSnackbarMessage(error.message || 'Error al enviar el correo. Verifica el email.');
             setSnackbarSeverity('error');
             setSnackbarOpen(true);
         }
     };
-
-    const [showPassword, setShowPassword] = useState(false);
-
-const togglePasswordVisibility = () => {
-    setShowPassword((prev) => !prev);
-};
 
     return (
         <>

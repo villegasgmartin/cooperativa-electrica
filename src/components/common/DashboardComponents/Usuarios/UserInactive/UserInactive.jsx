@@ -15,32 +15,22 @@ import {
     Button,
     useTheme,
 } from '@mui/material';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchInactiveUsers } from '../..&../../../../../../../redux/actions/userActions';
+import { reactivateUser } from '../..&../../../../../../../redux/actions/userActions';
 
 //JSX:
 export default function UserInactive() {
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
+    const dispatch = useDispatch();
+    const { users, loadingUsers, errorUsers } = useSelector(state => state.user);
 
-    const [users, setUsers] = useState([]);
-    const [loading, setLoading] = useState(true);
 
   // Obtener usuarios inactivos (estado: false)
     useEffect(() => {
-    axios
-    .get('https://cooperativaback.up.railway.app/api/usuarios-suspendidos', {
-        headers: { 'x-token': localStorage.getItem('token') },
-    })
-    .then((response) => {
-        const usuariosInactivos = response.data.usuarios?.filter(user => user.estado === false) || [];
-        setUsers(usuariosInactivos);
-        setLoading(false);
-    })
-    .catch((error) => {
-        console.error('Error al obtener los usuarios:', error);
-        setLoading(false);
-    });
-}, []);
+    dispatch(fetchInactiveUsers());
+    }, [dispatch]);
 
 // Traducción de roles
 const traducirRol = (rol) => {
@@ -55,24 +45,9 @@ const traducirRol = (rol) => {
 };
 
 // Activar usuario (estado: true)
-const handleActivarUsuario = async (userId) => {
-    try {
-    const payload = { estado: true };
-
-    await axios.put(
-        `https://cooperativaback.up.railway.app/api?id=${userId}`,
-        payload,
-        {
-        headers: { 'x-token': localStorage.getItem('token') },
-        }
-    );
-
-    // Eliminar usuario activado de la lista local
-    setUsers(prev => prev.filter(user => user.uid !== userId));
-    } catch (error) {
-    console.error('Error al activar el usuario:', error);
-    }
-};
+    const handleActivarUsuario = (userId) => {
+        dispatch(reactivateUser(userId));
+    };
 
 return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: 3, marginBottom: 6 }}>
@@ -80,7 +55,7 @@ return (
         Usuarios inactivos
     </Typography>
 
-    {loading ? (
+    {loadingUsers ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
         <CircularProgress />
         <Typography variant="h6" sx={{ marginLeft: 2 }}>

@@ -1,28 +1,28 @@
 // Importaciones
 import * as React from 'react';
 import {
-Box,
-Typography,
-Table,
-TableBody,
-TableCell,
-TableContainer,
-TableHead,
-TableRow,
-Paper,
-IconButton,
-Stack,
-useTheme,
-Dialog,
-DialogActions,
-DialogContent,
-DialogTitle,
-Button,
-TextField,
-Select,
-MenuItem,
-InputLabel,
-FormControl,
+    Box,
+    Typography,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+    Paper,
+    IconButton,
+    Stack,
+    useTheme,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    Button,
+    TextField,
+    Select,
+    MenuItem,
+    InputLabel,
+    FormControl,
 } from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -30,11 +30,19 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import axios from 'axios';
 
-//JSX:
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    obtenerRegistros,
+    eliminarRegistro,
+    editarRegistro,
+    marcarComoRealizada,
+} from '../../../../../../redux/actions/tecnicaActions';
+
+// JSX:
 export default function Registros() {
-const [registros, setRegistros] = React.useState([]);
+const dispatch = useDispatch();
+const registros = useSelector((state) => state.tecnica.registros || []);
 const [openEliminar, setOpenEliminar] = React.useState(false);
 const [registroEliminar, setRegistroEliminar] = React.useState(null);
 const [openEditar, setOpenEditar] = React.useState(false);
@@ -45,131 +53,63 @@ const [registroEditar, setRegistroEditar] = React.useState(null);
 const [categoriaFiltro, setCategoriaFiltro] = React.useState('');
 const [fechaFiltro, setFechaFiltro] = React.useState(null);
 const [filtroMesActual, setFiltroMesActual] = React.useState(false);
+
 const theme = useTheme();
 const isLight = theme.palette.mode === 'light';
 
-//Obtenemos registros con estado en false:
-const cargarRegistros = async () => {
-try {
-    const token = localStorage.getItem('token');
-    const headers = { 'x-token': token };
-    const response = await axios.get(
-    'https://cooperativaback.up.railway.app/api/tecnica/tecnicas',
-    { headers }
-    );
-
-    // Filtrar solo registros con estado: false
-    const registrosFiltrados = response.data.tecnica.filter(registro => !registro.estado);
-    setRegistros(registrosFiltrados);
-} catch (error) {
-    console.error('Error al cargar los registros:', error);
-}
-};
-
-
+// Cargar visitas pendientes:
 React.useEffect(() => {
-    cargarRegistros();
-}, []);
+    dispatch(obtenerRegistros());
+}, [dispatch]);
 
-
-//Función para eliminar registros:
+// Eliminar visitas pendientes:
 const handleEliminar = async () => {
-    try {
-    const token = localStorage.getItem('token');
-    const headers = { 'x-token': token };
-    await axios.delete(
-        `https://cooperativaback.up.railway.app/api/tecnica/borrar-tecnica?id=${registroEliminar._id}`,
-        { headers }
-    );
-    setRegistros(registros.filter((r) => r._id !== registroEliminar._id));
+    if (!registroEliminar) return;
+    await dispatch(eliminarRegistro(registroEliminar._id));
     setOpenEliminar(false);
-    } catch (error) {
-    console.error('Error al eliminar el registro:', error);
-    }
 };
 
-//Función para editar registros:
+// Editamos visitas:
 const handleEditar = async () => {
-    try {
-    const token = localStorage.getItem('token');
-    const headers = { 'x-token': token };
-    await axios.put(
-        `https://cooperativaback.up.railway.app/api/tecnica/actualizar-tecnica?id=${registroEditar._id}`,
-        {
-        descripcion: descripcionEditada,
-        categoria: categoriaEditada,
-        fecha: fechaEditada.toISOString(),
-        },
-        { headers }
-    );
-
-    setRegistros(
-        registros.map((registro) =>
-        registro._id === registroEditar._id
-            ? {
-                ...registro,
-                descripcion: descripcionEditada,
-                categoria: categoriaEditada,
-                fecha: fechaEditada.toISOString(),
-            }
-            : registro
-        )
-    );
+    if (!registroEditar) return;
+    const data = {
+    descripcion: descripcionEditada,
+    categoria: categoriaEditada,
+    fecha: fechaEditada.toISOString(),
+    };
+    await dispatch(editarRegistro(registroEditar._id, data));
     setOpenEditar(false);
-    } catch (error) {
-    console.error('Error al editar el registro:', error);
-    }
 };
 
-//Función para marcar como visita realizada:
-const marcarComoRealizada = async (row) => {
-try {
-    const token = localStorage.getItem('token');
-    const updatedRegistro = { ...row, estado: true };
-
-    const response = await fetch(
-    `https://cooperativaback.up.railway.app/api/tecnica/actualizar-tecnica?id=${row._id}`,
-    {
-        method: 'PUT',
-        headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-        },
-        body: JSON.stringify(updatedRegistro),
-    }
-    );
-
-    if (!response.ok) throw new Error('Error al actualizar el registro');
-
-    await cargarRegistros();
-} catch (error) {
-    console.error('Error al marcar como realizada:', error);
-}
+// Marcar como visita realizada:
+const handleMarcarRealizada = async (registro) => {
+    await dispatch(marcarComoRealizada(registro));
 };
 
-
-const formatFecha = (fecha) => {
-    return new Date(fecha).toLocaleDateString('es-ES', {
+// Formatear fecha
+const formatFecha = (fecha) =>
+    new Date(fecha).toLocaleDateString('es-ES', {
     year: 'numeric',
     month: 'numeric',
     day: 'numeric',
     });
-};
 
+// Filtrar registros según filtros seleccionados
 const registrosFiltrados = React.useMemo(() => {
     return registros.filter((registro) => {
-    if (categoriaFiltro && registro.categoria !== categoriaFiltro)
-        return false;
+    if (registro.estado) return false;
+
+    if (categoriaFiltro && registro.categoria !== categoriaFiltro) return false;
 
     const fechaRegistro = dayjs(registro.fecha);
     if (filtroMesActual) {
         const inicioMes = dayjs().startOf('month');
         const finMes = dayjs().endOf('month');
         return fechaRegistro.isBetween(inicioMes, finMes, 'day', '[]');
-    } else if (fechaFiltro) {
+    }
+    if (fechaFiltro) {
         return fechaRegistro.isSame(fechaFiltro, 'day');
     }
-
     return true;
     });
 }, [registros, categoriaFiltro, fechaFiltro, filtroMesActual]);
@@ -192,7 +132,7 @@ return (
         Visitas Pendientes
     </Typography>
 
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, mb: 2 }}>
+    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 2 }}>
         <FormControl sx={{ minWidth: 220 }}>
         <InputLabel>Filtrar por motivo</InputLabel>
         <Select
@@ -204,7 +144,9 @@ return (
             }}
             label="Filtrar por motivo"
         >
-            <MenuItem value=""><em>Todos</em></MenuItem>
+            <MenuItem value="">
+            <em>Todos</em>
+            </MenuItem>
             <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
             <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
             <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
@@ -234,11 +176,21 @@ return (
         />
         </LocalizationProvider>
 
-        <Button variant="contained" onClick={filtrarMesActual} color="primary" sx={{ borderRadius: 50, px: 4 }}>
+        <Button
+        variant="contained"
+        onClick={filtrarMesActual}
+        color="primary"
+        sx={{ borderRadius: 50, px: 4 }}
+        >
         Mes Actual
         </Button>
 
-        <Button variant="outlined" onClick={limpiarFiltros} color="secondary" sx={{ borderRadius: 50, px: 4 }}>
+        <Button
+        variant="outlined"
+        onClick={limpiarFiltros}
+        color="secondary"
+        sx={{ borderRadius: 50, px: 4 }}
+        >
         Limpiar filtros
         </Button>
     </Box>
@@ -247,17 +199,59 @@ return (
         <Table>
         <TableHead>
             <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main' }}>Fecha</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main' }}>Motivo</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main' }}>Descripción</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main' }}>Gestión</TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main' }}>Marcar Realizada</TableCell>
+            <TableCell
+                sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                }}
+            >
+                Fecha
+            </TableCell>
+            <TableCell
+                sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                }}
+            >
+                Motivo
+            </TableCell>
+            <TableCell
+                sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                }}
+            >
+                Descripción
+            </TableCell>
+            <TableCell
+                sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                }}
+            >
+                Gestión
+            </TableCell>
+            <TableCell
+                sx={{
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                color: isLight ? '#fff' : 'primary.main',
+                }}
+            >
+                Marcar Realizada
+            </TableCell>
             </TableRow>
         </TableHead>
         <TableBody>
             {registrosFiltrados.length === 0 ? (
             <TableRow>
-                <TableCell colSpan={5} align="center">No hay registros que coincidan con los filtros.</TableCell>
+                <TableCell colSpan={5} align="center">
+                No hay registros que coincidan con los filtros.
+                </TableCell>
             </TableRow>
             ) : (
             registrosFiltrados.map((registro) => (
@@ -267,19 +261,25 @@ return (
                 <TableCell>{registro.descripcion}</TableCell>
                 <TableCell>
                     <Stack direction="row" spacing={1}>
-                    <IconButton color="primary" onClick={() => {
+                    <IconButton
+                        color="primary"
+                        onClick={() => {
                         setRegistroEditar(registro);
                         setDescripcionEditada(registro.descripcion);
                         setCategoriaEditada(registro.categoria);
                         setFechaEditada(dayjs(registro.fecha));
                         setOpenEditar(true);
-                    }}>
+                        }}
+                    >
                         <EditIcon />
                     </IconButton>
-                    <IconButton color="error" onClick={() => {
+                    <IconButton
+                        color="error"
+                        onClick={() => {
                         setRegistroEliminar(registro);
                         setOpenEliminar(true);
-                    }}>
+                        }}
+                    >
                         <DeleteIcon />
                     </IconButton>
                     </Stack>
@@ -290,7 +290,7 @@ return (
                     color="success"
                     size="small"
                     disabled={registro.estado}
-                    onClick={() => marcarComoRealizada(registro)}
+                    onClick={() => handleMarcarRealizada(registro)}
                     >
                     {registro.estado ? 'Realizada' : 'Realizada'}
                     </Button>
@@ -310,7 +310,9 @@ return (
         </DialogContent>
         <DialogActions>
         <Button onClick={() => setOpenEliminar(false)}>Cancelar</Button>
-        <Button onClick={handleEliminar} color="error">Eliminar</Button>
+        <Button onClick={handleEliminar} color="error">
+            Eliminar
+        </Button>
         </DialogActions>
     </Dialog>
 
@@ -325,7 +327,7 @@ return (
             onChange={(e) => setCategoriaEditada(e.target.value)}
             label="Motivo"
             >
-            {/* Reutiliza las mismas opciones que arriba */}
+            {/* Mismas opciones */}
             <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
             <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
             <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
@@ -360,7 +362,9 @@ return (
         </DialogContent>
         <DialogActions>
         <Button onClick={() => setOpenEditar(false)}>Cancelar</Button>
-        <Button onClick={handleEditar} variant="contained">Guardar</Button>
+        <Button onClick={handleEditar} variant="contained" color="primary">
+            Guardar
+        </Button>
         </DialogActions>
     </Dialog>
     </Box>
