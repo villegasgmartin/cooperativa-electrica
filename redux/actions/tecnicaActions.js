@@ -2,9 +2,9 @@
 import axios from 'axios';
 
 //URL:
-const url = 'https://cooperativaback.up.railway.app';
-//Producción:
-//const url = 'http://localhost:8000';
+//const url = 'https://cooperativaback.up.railway.app';
+//development::
+const url = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
@@ -42,7 +42,7 @@ export const crearTecnica = (fecha, categoria, descripcion) => async (dispatch) 
         const headers = { 'x-token': token };
 
         const response = await axios.post(
-            `${API_URL}/api/tecnica/crear-tecnica`,
+            `${url}/api/tecnica/crear-tecnica`,
             { fecha, categoria, descripcion },
             { headers }
         );
@@ -66,7 +66,7 @@ export const obtenerRegistrosCompletados = () => {
         try {
             const token = localStorage.getItem('token');
             const headers = { 'x-token': token };
-            const response = await axios.get(`${API_URL}/api/tecnica/tecnicas`, { headers });
+            const response = await axios.get(`${url}/api/tecnica/tecnicas`, { headers });
             const completados = response.data.tecnica.filter((r) => r.estado === true);
             dispatch({ type: OBTENER_REGISTROS_SUCCESS, payload: completados });
         } catch (error) {
@@ -82,7 +82,7 @@ export const obtenerRegistros = () => async (dispatch) => {
         const token = localStorage.getItem('token');
         const headers = { 'x-token': token };
 
-        const response = await axios.get(`${API_URL}/api/tecnica/tecnicas`, { headers });
+        const response = await axios.get(`${url}/api/tecnica/tecnicas`, { headers });
         const registrosFiltrados = response.data.tecnica.filter(reg => !reg.estado);
 
         dispatch({ type: OBTENER_REGISTROS, payload: registrosFiltrados });
@@ -97,7 +97,7 @@ export const eliminarRegistro = (id) => async (dispatch) => {
         const token = localStorage.getItem('token');
         const headers = { 'x-token': token };
 
-        await axios.delete(`${API_URL}/api/tecnica/borrar-tecnica?id=${id}`, { headers });
+        await axios.delete(`${url}/api/tecnica/borrar-tecnica?id=${id}`, { headers });
         dispatch({ type: ELIMINAR_REGISTRO, payload: id });
     } catch (error) {
         console.error('Error al eliminar el registro:', error);
@@ -110,7 +110,7 @@ export const editarRegistro = (id, data) => async (dispatch) => {
         const token = localStorage.getItem('token');
         const headers = { 'x-token': token };
 
-        await axios.put(`${API_URL}/api/tecnica/actualizar-tecnica?id=${id}`, data, { headers });
+        await axios.put(`${url}/api/tecnica/actualizar-tecnica?id=${id}`, data, { headers });
         dispatch({ type: EDITAR_REGISTRO, payload: { id, data } });
     } catch (error) {
         console.error('Error al editar el registro:', error);
@@ -123,7 +123,7 @@ export const marcarComoRealizada = (registro) => async (dispatch) => {
         const token = localStorage.getItem('token');
         const updated = { ...registro, estado: true };
 
-        await axios.put(`${API_URL}/api/tecnica/actualizar-tecnica?id=${registro._id}`, updated, {
+        await axios.put(`${url}/api/tecnica/actualizar-tecnica?id=${registro._id}`, updated, {
             headers: { 'x-token': token },
         });
 
@@ -140,7 +140,7 @@ export const marcarRegistroPendiente = (registro) => async (dispatch) => {
         const updatedRegistro = { ...registro, estado: false };
 
         await axios.put(
-            `${API_URL}/api/tecnica/actualizar-tecnica?id=${registro._id}`,
+            `${url}/api/tecnica/actualizar-tecnica?id=${registro._id}`,
             updatedRegistro,
             {
                 headers: {
