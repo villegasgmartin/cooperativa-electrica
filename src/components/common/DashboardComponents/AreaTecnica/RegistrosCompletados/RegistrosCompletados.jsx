@@ -30,6 +30,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import DownloadIcon from '@mui/icons-material/Download';
 
 // Redux
 import { useDispatch, useSelector } from 'react-redux';
@@ -57,9 +60,9 @@ export default function RegistrosCompletados() {
     const [categoriaEditada, setCategoriaEditada] = React.useState('');
     const [fechaEditada, setFechaEditada] = React.useState(null);
     const [registroEditar, setRegistroEditar] = React.useState(null);
-
-    const [categoriaFiltro, setCategoriaFiltro] = React.useState('');
-    const [fechaFiltro, setFechaFiltro] = React.useState(null);
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [fechaDesde, setFechaDesde] = React.useState(null);
+    const [fechaHasta, setFechaHasta] = React.useState(null);
     const [filtroMesActual, setFiltroMesActual] = React.useState(false);
 
     // Cargar visitas realizadas:
@@ -108,32 +111,67 @@ export default function RegistrosCompletados() {
     };
 
   // Filtrar registros localmente (el filtrado sigue aquí)
-    const registrosFiltrados = React.useMemo(() => {
-        return registros.filter((registro) => {
-        if (categoriaFiltro && registro.categoria !== categoriaFiltro) return false;
+const registrosFiltrados = React.useMemo(() => {
+    return registros.filter((registro) => {
+        if (!registro.estado) return false;
+        // Filtro por búsqueda general
+        const query = searchQuery.toLowerCase();
+        const coincideBusqueda = (
+            registro.descripcion?.toLowerCase().includes(query) ||
+            registro.categoria?.toLowerCase().includes(query)
+        );
+
+        if (searchQuery && !coincideBusqueda) return false;
+
+        // Filtro por fecha
         const fechaRegistro = dayjs(registro.fecha);
-        if (filtroMesActual) {
-            const inicioMes = dayjs().startOf('month');
-            const finMes = dayjs().endOf('month');
-            if (!fechaRegistro.isBetween(inicioMes, finMes, 'day', '[]')) return false;
-        } else if (fechaFiltro) {
-            if (!fechaRegistro.isSame(fechaFiltro, 'day')) return false;
+        if (!fechaRegistro.isValid()) return false;
+
+        if (fechaDesde && fechaHasta) {
+            if (!fechaRegistro.isBetween(fechaDesde, fechaHasta, 'day', '[]')) return false;
+        } else if (fechaDesde) {
+            if (fechaRegistro.isBefore(fechaDesde, 'day')) return false;
+        } else if (fechaHasta) {
+            if (fechaRegistro.isAfter(fechaHasta, 'day')) return false;
         }
+
+        // Filtro por mes actual
+        if (filtroMesActual) {
+            return fechaRegistro.format('MMMM') === dayjs().format('MMMM');
+        }
+
         return true;
-        });
-    }, [registros, categoriaFiltro, fechaFiltro, filtroMesActual]);
+    });
+    }, [registros, searchQuery, fechaDesde, fechaHasta, filtroMesActual]);
 
     const filtrarMesActual = () => {
-        setCategoriaFiltro('');
         setFiltroMesActual(true);
-        setFechaFiltro(null);
     };
 
     const limpiarFiltros = () => {
-        setCategoriaFiltro('');
-        setFechaFiltro(null);
-        setFiltroMesActual(false);
+    setFechaDesde(null);
+    setFechaHasta(null);
+    setSearchQuery('');
+    setFiltroMesActual(false);
     };
+
+    //Excel:
+        const exportarAExcel = () => {
+        const datosParaExcel = registrosFiltrados.map((registro) => ({
+            Fecha: formatFecha(registro.fecha),
+            Motivo: registro.categoria,
+            Descripción: registro.descripcion,
+        }));
+    
+        const hoja = XLSX.utils.json_to_sheet(datosParaExcel);
+        const libro = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(libro, hoja, 'Visitas');
+    
+        const excelBuffer = XLSX.write(libro, { bookType: 'xlsx', type: 'array' });
+        const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+        saveAs(blob, 'Área Técnica.xlsx');
+    };
+
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', marginTop: 3, marginBottom: '50px' }}>
@@ -142,64 +180,75 @@ export default function RegistrosCompletados() {
         </Typography>
 
         {/* Filtros */}
-        <Box
-            sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mb: 2,
-            flexWrap: 'wrap',
-            gap: 2,
-            }}
-        >
-            <FormControl sx={{ minWidth: 220 }}>
-            <InputLabel>Filtrar por motivo</InputLabel>
-            <Select
-                value={categoriaFiltro}
-                onChange={(e) => {
-                setCategoriaFiltro(e.target.value);
-                setFiltroMesActual(false);
-                setFechaFiltro(null);
-                }}
-                label="Filtrar por motivo"
-            >
-                <MenuItem value="">
-                <em>Todos</em>
-                </MenuItem>
-                <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
-                <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
-                <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
-                <MenuItem value="Cambio de plan internet">Cambio de plan internet</MenuItem>
-                <MenuItem value="Cambio de plan tv">Cambio de plan tv</MenuItem>
-                <MenuItem value="Baja de internet">Baja de internet</MenuItem>
-                <MenuItem value="Baja de tv">Baja de tv</MenuItem>
-                <MenuItem value="Cambio de titularidad">Cambio de titularidad</MenuItem>
-                <MenuItem value="Cambio de domicilio">Cambio de domicilio</MenuItem>
-                <MenuItem value="Tarea programada">Tarea programada</MenuItem>
-                <MenuItem value="Suspension">Suspension</MenuItem>
-                <MenuItem value="Reconexión">Reconexión</MenuItem>
-            </Select>
-            </FormControl>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: "15px" }}>
+            <TextField
+                label="Buscar"
+                variant="outlined"
+                size="small"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                sx={{ width: 200 }}
+                />
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-                label="Filtrar por fecha"
-                value={fechaFiltro}
-                onChange={(newValue) => {
-                setFechaFiltro(newValue);
-                setFiltroMesActual(false);
-                setCategoriaFiltro('');
-                }}
-                sx={{ minWidth: 180 }}
-                slotProps={{ textField: { size: 'small' } }}
-            />
-            </LocalizationProvider>
+            <Box>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                    <DatePicker
+                        sx={{width: "150px", marginRight: "10px"}}
+                        label="Desde"
+                        format="DD/MM/YYYY"
+                        value={fechaDesde}
+                        onChange={(newValue) => {
+                        setFechaDesde(newValue);
+                        setFiltroMesActual(false);
+                        }}
+                        maxDate={fechaHasta}
+                        renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150, mr: 2 }} />}
+                    />
+                    <DatePicker
+                        sx={{width: "150px"}}
+                        label="Hasta"
+                        format="DD/MM/YYYY"
+                        value={fechaHasta}
+                        onChange={(newValue) => {
+                        setFechaHasta(newValue);
+                        setFiltroMesActual(false);
+                        }}
+                        minDate={fechaDesde}
+                        renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
+                    />
+                </LocalizationProvider>
+            </Box>
 
-            <Button variant="contained" onClick={filtrarMesActual} color="primary" sx={{ borderRadius: 50, px: 4 }}>
-            Mes Actual
+            <Button
+                variant="contained"
+                onClick={filtrarMesActual}
+                color="primary"
+                sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+                >
+                Mes Actual
             </Button>
-            <Button variant="outlined" color="secondary" onClick={limpiarFiltros} sx={{ borderRadius: 50, px: 4 }}>
-            Limpiar filtros
+            <Button
+                variant="outlined"
+                onClick={limpiarFiltros}
+                color="secondary"
+                sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+                >
+                Limpiar filtros
+            </Button>
+            <Button
+                variant="outlined"
+                color="success"
+                startIcon={<DownloadIcon />}
+                sx={{
+                textTransform: 'capitalize',
+                borderRadius: '50px',
+                px: 3,
+                fontFamily: 'InterTight',
+                fontSize: '14px'
+                }}
+                onClick={exportarAExcel}
+            >
+                Excel
             </Button>
         </Box>
 

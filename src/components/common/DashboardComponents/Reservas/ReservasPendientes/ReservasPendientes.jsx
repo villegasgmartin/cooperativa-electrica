@@ -36,7 +36,6 @@ import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchReservas } from '../../../../../../redux/actions/reservasActions';
 import { updateReserva } from '../../../../../../redux/actions/reservasActions';
@@ -44,6 +43,10 @@ import { markReservaAsRealizada } from '../../../../../../redux/actions/reservas
 import { deleteReserva } from '../../../../../../redux/actions/reservasActions';
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
 import React, { useEffect } from 'react';
+import * as XLSX from 'xlsx';
+import { saveAs } from 'file-saver';
+import DownloadIcon from '@mui/icons-material/Download';
+
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
@@ -134,6 +137,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     doc.save(`orden-instalacion-${row.nombre.replace(/ /g, '_')}.pdf`);
   };
 
+
   return (
     <>
       <TableRow>
@@ -210,7 +214,8 @@ export default function ReservasPendientes() {
   const [reservasFiltradas, setReservasFiltradas] = React.useState([]);
   const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [fechaFiltro, setFechaFiltro] = React.useState(null);
+  const [fechaDesde, setFechaDesde] = React.useState(null);
+  const [fechaHasta, setFechaHasta] = React.useState(null);
   const [nombreUsuario, setNombreUsuario] = React.useState('');
   const dispatch = useDispatch();
   const { reservas} = useSelector((state) => state.reservas);
@@ -281,10 +286,70 @@ useEffect(() => {
 
   //Función para limpiar los filtros
   const handleLimpiarFiltros = () => {
-    setFechaFiltro(null); 
+    setFechaDesde(null)
+    setFechaHasta(null)
     setMostrarMesActual(false); 
     setSearchQuery('');
   };
+
+  //EXCEL:
+const exportarAExcel = () => {
+  // Aplico los mismos filtros que se ven en pantalla:
+  const reservasFiltradasParaExcel = reservas
+    .filter((row) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        row.internet.toLowerCase().includes(query) ||
+        row.mes.toLowerCase().includes(query) ||
+        row.nombre.toLowerCase().includes(query) ||
+        row.direccion.toLowerCase().includes(query) ||
+        row.telefono.toLowerCase().includes(query) ||
+        row.email.toLowerCase().includes(query)
+      );
+    })
+    .filter((row) => {
+      if (!row.fecha) return false;
+      const fechaReserva = dayjs(row.fecha);
+      if (!fechaReserva.isValid()) return false;
+
+      if (fechaDesde && fechaHasta) {
+        return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+      } else if (fechaDesde) {
+        return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+      } else if (fechaHasta) {
+        return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+      }
+      return true;
+    })
+    .filter((row) => {
+      if (!mostrarMesActual) return true;
+      const mesActual = dayjs().format('MMMM');
+      return dayjs(row.fecha).format('MMMM') === mesActual;
+    });
+
+  // Transformamos los datos para exportar
+  const data = reservasFiltradasParaExcel.map((reserva) => ({
+    Servicio: reserva.internet,
+    Nombre: reserva.nombre,
+    Dirección: reserva.direccion,
+    Piso: reserva.Piso,
+    Dpto: reserva.Dpto,
+    Teléfono: reserva.telefono,
+    Email: reserva.email,
+    Fecha: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+    Horario: reserva.horario,
+    Mes: reserva.mes,
+    DNI: reserva.DNI,
+  }));
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, 'Reservas');
+
+  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
+  saveAs(blob, `Reservas_${dayjs().format('DD-MM-YYYY')}.xlsx`);
+};
 
   //Tabla:
   return (
@@ -293,31 +358,45 @@ useEffect(() => {
         Reservas pendientes
       </Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: "15px" }}>
         {/*Input de búsqueda por servicio*/}
         <TextField
-          label="Buscar servicio"
+          label="Buscar"
           variant="outlined"
           size="small"
-          sx={{ width: '250px' }}
+          sx={{ width: '200px' }}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         {/*DatePicker para filtrar por fecha*/}
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            format="DD/MM/YYYY"
-            label="Filtrar por fecha"
-            value={fechaFiltro}
-            onChange={(newDate) => setFechaFiltro(newDate)}
-            renderInput={(params) => <TextField {...params} size="small" sx={{ width: '250px' }} />}
-          />
-        </LocalizationProvider>
+        <Box>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              sx={{width: "150px", marginRight: "10px"}}
+              format="DD/MM/YYYY"
+              label="Desde"
+              value={fechaDesde}
+              onChange={(newDate) => setFechaDesde(newDate)}
+              maxDate={fechaHasta}
+              renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150, mr: 2 }} />}
+            />
+            
+            <DatePicker
+              sx={{width: "150px"}}
+              format="DD/MM/YYYY"
+              label="Hasta"
+              value={fechaHasta}
+              onChange={(newDate) => setFechaHasta(newDate)}
+              minDate={fechaDesde}
+              renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
+            />
+          </LocalizationProvider>
+        </Box>
         {/*Botón para filtrar por mes*/}
         <Button
           variant="contained"
           color="primary"
-          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px', width: "170px" }}
+          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
           onClick={() => setMostrarMesActual(!mostrarMesActual)}
         >
           {mostrarMesActual ? 'Mostrar todas' : 'Mes actual'}
@@ -326,10 +405,25 @@ useEffect(() => {
         <Button
           variant="outlined"
           color="secondary"
-          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px' }}
+          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
           onClick={handleLimpiarFiltros}
         >
           Limpiar filtros
+        </Button>
+        <Button
+          variant="outlined"
+          color="success"
+          startIcon={<DownloadIcon />}
+          sx={{
+            textTransform: 'capitalize',
+            borderRadius: '50px',
+            px: 3,
+            fontFamily: 'InterTight',
+            fontSize: '14px'
+          }}
+          onClick={exportarAExcel}
+        >
+          Excel
         </Button>
       </Box>
 
@@ -353,12 +447,29 @@ useEffect(() => {
             </TableHead>
             <TableBody>
               {(reservasFiltradas.length > 0 ? reservasFiltradas : reservas)
-                .filter((row) =>
-                  row.internet.toLowerCase().includes(searchQuery.toLowerCase())
-                )
                 .filter((row) => {
-                  if (!fechaFiltro) return true;
-                  return dayjs(row.fecha).isSame(fechaFiltro, 'day');
+                  const query = searchQuery.toLowerCase();
+                  return (
+                    row.internet.toLowerCase().includes(query) ||
+                    row.mes.toLowerCase().includes(query) ||
+                    row.nombre.toLowerCase().includes(query) ||
+                    row.direccion.toLowerCase().includes(query) ||
+                    row.telefono.toLowerCase().includes(query) ||
+                    row.email.toLowerCase().includes(query)
+                  );
+                })
+                .filter((row) => {
+                  if (!row.fecha) return false; 
+                  const fechaReserva = dayjs(row.fecha); 
+                  if (!fechaReserva.isValid()) return false;
+                  if (fechaDesde && fechaHasta) {
+                    return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+                  } else if (fechaDesde) {
+                    return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+                  } else if (fechaHasta) {
+                    return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+                  }
+                  return true;
                 })
                 .filter((row) => {
                   if (!mostrarMesActual) return true; 
@@ -366,8 +477,16 @@ useEffect(() => {
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
                 .map((row) => (
-                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada}/>
-                ))}
+                  <Row
+                    key={row._id}
+                    row={row}
+                    reservasLeer={reservasLeer}
+                    handleEditClick={handleEditClick}
+                    handleDeleteClick={handleDeleteClick}
+                    handleMarkAsRealizada={handleMarkAsRealizada}
+                  />
+                ))
+              }
             </TableBody>
           </Table>
         </TableContainer>

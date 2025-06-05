@@ -2,9 +2,9 @@
 import axios from 'axios';
 
 //URL:
-const url = 'https://cooperativaback.up.railway.app';
+//const API_URL = 'https://cooperativaback.up.railway.app';
 //Producción:
-//const url = 'http://localhost:8000';
+const API_URL = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
