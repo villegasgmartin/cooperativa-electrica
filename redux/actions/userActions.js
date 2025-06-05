@@ -3,7 +3,7 @@ import axios from 'axios';
 
 //URL:
 //const url = 'https://cooperativaback.up.railway.app';
-//Producción:
+//development:
 const url = 'http://localhost:8000';
 
 // ==========================

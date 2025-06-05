@@ -2,9 +2,9 @@
 import dayjs from 'dayjs';
 
 //URL:
-const url = 'https://cooperativaback.up.railway.app';
-//Producción:
-//const url = 'http://localhost:8000';
+//const url = 'https://cooperativaback.up.railway.app';
+//Development:
+const url = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
@@ -163,7 +163,9 @@ export const deleteReserva = (reservaId, nombreUsuario) => async (dispatch) => {
 
         if (!response.ok) throw new Error('Error al eliminar la reserva');
 
-        dispatch({ type: DELETE_RESERVA_SUCCESS, payload: reservaId });
+        dispatch({ type: DELETE_RESERVA_SUCCESS, payload: { id: reservaId } });
+
+         dispatch(fetchReservas());
     } catch (error) {
         dispatch({ type: DELETE_RESERVA_FAILURE, payload: error.message });
     }

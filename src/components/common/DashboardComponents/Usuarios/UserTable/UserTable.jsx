@@ -84,12 +84,13 @@ export default function UserTable() {
   };
 
   //Función para eliminar usuarios:
-  const handleDeleteUser = () => {
-    if (userToDelete) {
-      dispatch(deleteUser(userToDelete));
-      setOpenModal(false);
-    }
-  };
+ const handleDeleteUser = () => {
+  if (userToDelete) {
+    dispatch(deleteUser(userToDelete));
+    dispatch(fetchUsers()); // recarga usuarios visibles
+    setOpenModal(false);
+  }
+};
 
 
   const handleCancelDelete = () => {

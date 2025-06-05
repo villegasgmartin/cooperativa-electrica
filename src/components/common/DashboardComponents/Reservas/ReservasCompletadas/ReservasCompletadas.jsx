@@ -235,6 +235,10 @@ export default function ReservasCompletadas() {
       setMostrarMesActual(true);
     }
   };
+
+  useEffect(() => {
+  dispatch(fetchReservasRealizadas());
+}, [dispatch]);
   
   //Funciones para eliminar con modal:
   const handleEditClick = (row) => {
@@ -257,6 +261,8 @@ export default function ReservasCompletadas() {
     dispatch(deleteReservaCompletada(reservaAEliminar._id));
     setOpenConfirmDialog(false);
     setReservaAEliminar(null);
+    dispatch(fetchReservasRealizadas()); // <-- recarga
+
   };
 
   //Cerramos modal:
