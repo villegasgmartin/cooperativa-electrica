@@ -1,6 +1,7 @@
 //Importaciones:
 import { styled } from '@mui/material/styles';
 import Fab from '@mui/material/Fab';
+import "./btnWS.css";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'; // Asegúrate de importar el ícono
 
 //JSX:
@@ -30,7 +31,7 @@ const BotonWhatsapp = () => {
     };
 
     return (
-        <StyledFab aria-label="whatsapp" onClick={handleClick}>
+        <StyledFab aria-label="whatsapp" onClick={handleClick} className='btn-ws'>
             <WhatsAppIcon />
         </StyledFab>
     );

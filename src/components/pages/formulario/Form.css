@@ -114,3 +114,45 @@
         font-size: 1.25rem;
     }
 }
+
+
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup {
+      background: linear-gradient(90deg, rgba(61, 17, 109, 1) 0%, rgba(221, 220, 223, 1) 35%, rgba(228, 228, 228, 1) 50%, rgba(224, 228, 226, 1) 64%, rgba(48, 230, 145, 1) 100%);
+  padding: 2rem;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  text-align: center;
+}
+.popup p{
+    font-size: 16px;
+    padding: 10px 0;
+     width: 100%;
+}
+
+.popup h2{
+    font-size: 32px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+.popup input{
+    width: 100%;
+    height: 50px;
+    border-radius: 30px;
+    border: none;
+    padding: 0 0 0 10px;
+}
+

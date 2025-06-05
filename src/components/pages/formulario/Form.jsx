@@ -47,7 +47,11 @@ const Form = () => {
     const [zona, setZona] = useState("");
     const inputRef = useRef(null);
     const [internetPlanURL, setInternetPlanURL] = useState('');
-    const [direccionValidada, setDireccionValidada] = useState(false)
+    const [direccionValidada, setDireccionValidada] = useState(false);
+    const [mostrarPopup, setMostrarPopup] = useState(false);
+    const [email, setEmail] = useState('');
+    const [mostrarPopupEnviado, setmostrarPopupEnviado] = useState(false)
+
 
     const onLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
@@ -190,13 +194,17 @@ const Form = () => {
             const ciudad = coordenadas.city.long_name
 
             if(ciudad != 'Mar del Plata'){
-                return alert('Servicio no disponible fuera de Mar del Plata')
+                // return alert('Servicio no disponible fuera de Mar del Plata')
+                setMostrarPopup(true);
+  return;
             }
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
                 setZona("Direccion en Zona 1");
             } else {
                 setZona("Fuera de Zona de Servicio");
+                setMostrarPopup(true);
+                return;
             }
             } catch (error) {
             setZona("Error al buscar la dirección");
@@ -277,12 +285,35 @@ const Form = () => {
                 setTerminosAceptados(false);
 
                 // Mostrar mensaje de éxito
-                setSuccessMessageOpen(true);
+                // setSuccessMessageOpen(true);
+                setmostrarPopupEnviado(true)
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
             }
         }
     };
+
+    const handleEnviarYSalir = async () => {
+    if (!email || !direccion) {
+        return alert("Por favor ingrese su email y asegúrese de haber escrito una dirección.");
+    }
+
+    const dataToSend = {
+        email,
+        direccion
+    };
+
+    try {
+        await dispatch(createReservaForm(dataToSend));
+        console.log("Datos enviados:", dataToSend);
+        setMostrarPopup(false);
+        setEmail('');
+        setDireccion('');
+    } catch (error) {
+        console.error("Error al enviar datos:", error);
+    }
+};
+
     
 
     return (
@@ -324,11 +355,84 @@ const Form = () => {
                 <div className='form-text-container'>
                     <Fade triggerOnce={true} duration={800} delay={300}>
                         <p className='form-text01'>Dejanos tus datos y te contactaremos</p>
+                        <span className="color-title01 form-text02">Formulario para nuevos Clientes</span>
                         <p className='form-text02'>
-                            Completa el siguiente formulario y uno de nuestros asesores te brindará toda la información sobre nuestros planes de Internet y TV. ¡Conéctate con el mejor servicio para tu hogar o empresa!
+                            ¡Conéctate con el mejor servicio para tu hogar o empresa!. En caso de necesitar un cambio de plan o cambio de servicio por favor comunicarse a nuestros 
+                            <a href="/contacto"> canales de comunicacion </a>
+                          
+                            
                         </p>
                     </Fade>
                 </div>
+                {mostrarPopup && (
+                    <div className="popup-overlay">
+                        <div className="popup">
+                        <h2 className='form-text01'>Su dirección está fuera de cobertura</h2>
+                        <p className='form-text02'>No contamos con planes de Internet en esa zona.</p>
+                        <p className='form-text02'>¿Desea contratar el servicio de TV?</p>
+                        <Button onClick={() => {
+                            // lógica para continuar solo con TV
+                            setMostrarPopup(false);
+                        }}
+                        variant="contained"
+                               
+                                sx={{
+                                    marginTop: "10px",
+                                    borderRadius: "25px",
+                                    backgroundColor: "#8048ff",
+                                    textTransform: "none",
+                                    fontSize: "18px",
+                                    fontWeight: "bold",
+                                    '&:hover': {
+                                        backgroundColor: "#5c32b3"
+                                    }
+                                }}
+                        >Continuar</Button>
+
+                        <p className='form-text02'>¿Desea que le avisemos cuando tengamos servicio de internet disponible en su zona?</p>
+                        <input
+                            type="email"
+                            placeholder="Ingrese su email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
+                        <Button  
+                        onClick={() => {
+                            handleEnviarYSalir()
+                            
+                            console.log('Email enviado:', email);
+                            setMostrarPopup(false);
+                        }}
+                        variant="contained"
+                               
+                                sx={{
+                                    marginTop: "10px",
+                                    borderRadius: "25px",
+                                    backgroundColor: "#8048ff",
+                                    textTransform: "none",
+                                    fontSize: "18px",
+                                    fontWeight: "bold",
+                                    '&:hover': {
+                                        backgroundColor: "#5c32b3"
+                                    }
+                                }}
+                        
+                        >Enviar y salir</Button>
+                        </div>
+                    </div>
+                    )}
+
+                {mostrarPopupEnviado && (
+                    <div className="popup-overlay">
+                        <div className="popup">
+                        <h2 className='form-text01'>Su solicitud a sido enviada</h2>
+                        <p className='form-text02'>Por favor revise su correo, te enviaremos el detalle de la instalacion</p>
+                        <p className='form-text02'>En caso de no recibir el correo, revise en Spam</p>
+                        <p className='form-text02'>Muchas gracias por confiar en nosotros</p>
+                        </div>
+                    </div>
+                    )}
+
                 <div>
                     {/*Formulario*/}
                     <Fade triggerOnce={true} duration={800} delay={300}>
