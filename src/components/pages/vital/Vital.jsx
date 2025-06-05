@@ -493,6 +493,7 @@ const Vital = () => {
         title: "Enviando...",
         text: "Tu consulta está siendo enviada.",
         showConfirmButton: false,
+        timer: 2000,
         didOpen: () => {
           Swal.showLoading();
         },
@@ -673,7 +674,7 @@ Hace tu consulta sobre los beneficios de AMI
               <TextField className='adherente-input'  label="DNI" name="dni" value={adherente.dni} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" />
               <TextField  className='adherente-input'  label="Fecha de Nacimiento" type="date" name="fechaNacimiento" value={adherente.fechaNacimiento} onChange={(e) => handleAdherenteChange(index, e)} InputLabelProps={{ shrink: true }} fullWidth margin="normal" />
               <TextField className='adherente-input'  label="Parentesco con el Titular" name="parentesco" value={adherente.parentesco} onChange={(e) => handleAdherenteChange(index, e)} select fullWidth margin="normal">
-                {["Hijo/a", "Padre/Madre", "Hermano/a", "Sobrino/a", "Abuelo/a", "Tío/a", "Nieto/a", "Yerno/Nuera", "Otro", "Ajeno", "Discapacitado", "Grupo Familiar", "Individual"].map((op) => (
+                {["Hijo/a", "Padre/Madre", "Hermano/a", "Sobrino/a", "Abuelo/a", "Tío/a", "Nieto/a", "Yerno/Nuera", "Otro", "Ajeno", "Grupo Familiar", "Individual"].map((op) => (
                   <MenuItem key={op} value={op}>{op}</MenuItem>
                 ))}
               </TextField>
