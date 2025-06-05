@@ -161,7 +161,7 @@ const Form = () => {
             const data = await response.json();
            
     
-            if (data.status === "OK") {
+             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
                 const city = data.results[0].address_components[2];
                 const address = data.results[0].formatted_address
@@ -189,8 +189,9 @@ const Form = () => {
             const ciudad = coordenadas.city.long_name
             const direccionCompleta = coordenadas.address;
 
-            if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
-                return alert('Servicio no disponible fuera de Mar del Plata')
+
+              if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
+                                return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
