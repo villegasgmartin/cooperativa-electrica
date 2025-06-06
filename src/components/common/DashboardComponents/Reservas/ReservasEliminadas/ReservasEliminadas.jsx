@@ -1,5 +1,5 @@
 // Importaciones:
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
     Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
     Collapse, IconButton, Typography, Button, TextField, useTheme
@@ -15,6 +15,7 @@ import { marcarReservaPendiente }  from '../../../../../../redux/actions/reserva
 import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
+import { fetchUserData } from '../../../../../../redux/actions/userActions';
 
 //JSX:
 export default function ReservasEliminadas() {
@@ -25,9 +26,10 @@ export default function ReservasEliminadas() {
     const [fechaDesde, setFechaDesde] = React.useState(null);
     const [fechaHasta, setFechaHasta] = React.useState(null);
     const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
-    const [reservasLeer, setReservasLeer] = React.useState(false);
+    const { nombre, reservasLeer} = useSelector((state) => state.user);
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
+    
 
     // Cargar reservas desde Redux
     React.useEffect(() => {
@@ -46,6 +48,12 @@ export default function ReservasEliminadas() {
         setMostrarMesActual(false); 
         setSearchQuery('');
     };
+
+      //Función para obtener nombre de usuario:
+    useEffect(() => {
+        dispatch(fetchUserData());
+        }, [dispatch]);
+    
 
   //EXCEL:
     const exportarAExcel = () => {
@@ -117,7 +125,8 @@ export default function ReservasEliminadas() {
                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
             </TableCell>
-            <TableCell>{row.internet}</TableCell>
+            <TableCell>{row.nombre}</TableCell>
+            <TableCell>{row.direccion.split(',')[0]}</TableCell>
             <TableCell>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
             <TableCell>{row.responsable || 'N/A'}</TableCell>
             {!reservasLeer && (
@@ -140,14 +149,17 @@ export default function ReservasEliminadas() {
                 <Box sx={{ margin: 1 }}>
                     <Typography variant="h6" gutterBottom>Detalles</Typography>
                     <ul>
-                    <li>Nombre y Apellido: {row.nombre}</li>
-                    <li>Dirección: {row.direccion}</li>
-                    {row.Piso && <li>Piso: {row.Piso}</li>}
-                    {row.Dpto && <li>Dpto: {row.Dpto}</li>}
-                    <li>Tv: {row.tv}</li>
-                    <li>Teléfono: {row.telefono}</li>
-                    <li>DNI: {row.DNI}</li>
-                    <li>Correo: {row.email}</li>
+                        <li>Servicio: {row.internet}</li>
+                        <li>Fecha de la solicitud: {row.fechaSolicitud}</li>
+                        <li>Inmueble: {row.tipo}</li>
+                        {row.Piso && <li>Piso: {row.Piso}</li>}
+                        {row.Dpto && <li>Dpto: {row.Dpto}</li>}
+                        <li>Tv: {row.tv}</li>
+                        <li>Teléfono: {row.telefono}</li>
+                        <li>DNI: {row.DNI}</li>
+                        <li>Correo: {row.email}</li>
+                        <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
+                        {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
                     </ul>
                 </Box>
                 </Collapse>
@@ -158,7 +170,13 @@ export default function ReservasEliminadas() {
     }
 
     // Filtros
-    const reservasFiltradas = reservas
+        const reservasFiltradas = reservas
+        .filter((row) => {
+                if (reservasLeer) {
+                    return row.terceriazado === true;
+                }
+                return true;
+            })
         .filter((row) => {
             const query = searchQuery.toLowerCase();
             return (
@@ -167,7 +185,8 @@ export default function ReservasEliminadas() {
             row.nombre.toLowerCase().includes(query) ||
             row.direccion.toLowerCase().includes(query) ||
             row.telefono.toLowerCase().includes(query) ||
-            row.email.toLowerCase().includes(query)
+            row.email.toLowerCase().includes(query) ||
+            row.tipo.toLowerCase().includes(query) 
             );
         })
         .filter((row) => {
@@ -232,7 +251,7 @@ export default function ReservasEliminadas() {
                 sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
                 onClick={() => setMostrarMesActual(!mostrarMesActual)}
                 >
-                {mostrarMesActual ? 'Mostrar todas' : 'Mes actual'}
+                {mostrarMesActual ? 'Todas' : 'Mes actual'}
                 </Button>
                 <Button
                 variant="outlined"
@@ -265,10 +284,13 @@ export default function ReservasEliminadas() {
                 <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
                 <TableCell />
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                    Servicio
+                    Nombre
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                    Fecha y Hora
+                    Dirección
+                </TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    Fecha del Turno
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Responsable

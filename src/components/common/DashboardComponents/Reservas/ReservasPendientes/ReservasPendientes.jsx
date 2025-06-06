@@ -24,6 +24,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Grid,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -96,7 +99,8 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     // Datos del socio
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`Fecha Solicitud: ${row.fechaFormateada}`, 10, y); y += 10;
+    doc.text(`Fecha de Solicitud: ${row.fechaSolicitud}`, 10, y); y += 10;
+    doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
     doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
     doc.text(`Tipo: ${row.tipo || 'No disponible'}   Piso: ${row.Piso || 'No disponible'}   Dpto: ${row.Dpto || 'No disponible'}`, 10, y); y += 10;
@@ -123,18 +127,25 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     const declarationText = `Declaro que los datos detallados precedentemente son totalmente ciertos y que han sido proporcionados con el fin de obtener los servicios ofrecidos por la Cooperativa en los términos y condiciones explícitas en el reverso de la presente, y a la vez me comprometo a no comercializar, subcontratar, suministrar a terceros ni enajenar en cualquier forma, el servicio solicitado. Además me comprometo a utilizar el servicio accediendo únicamente desde el domicilio declarado, y a no dar a conocer a terceros por ningún medio los datos de acceso a vuestro Servidor. Quedo a la vez notificado que, en caso de comprobarse por cualquier medio el incumplimiento de los compromisos, me será impedido el acceso al servicio en forma inmediata y sin comunicación previa de inhabilitación.`;
   
     const lines = doc.splitTextToSize(declarationText, 180);
-    doc.text(lines, 10, y); y += lines.length * 6; 
+    doc.text(lines, 10, y); y += lines.length * 5; 
   
-    doc.text('Observaciones:', 10, y); y += 10;
-    y += 20; 
-  
+  if (row.observaciones && row.observaciones.trim() !== '') {
+    doc.text('Observaciones:', 10, y);
+
+    const obsLines = doc.splitTextToSize(row.observaciones, 180);
+    y += 6; 
+    doc.text(obsLines, 10, y);
+    y += obsLines.length * 6;
+  }
+    y += 10;
     doc.text('Firma del Titular ...............................................', 10, y); y += 20;
     doc.text('Aclaración ...................................................', 10, y -10); y += 10;
     doc.text(`Fecha ....../......./........... Hora ......... : ..........`, 10, y-10); y += 10;
   
-    doc.addImage(logo1, 'PNG', 170, y - 30, 30, 25);
+    const pageHeight = doc.internal.pageSize.height;
+    doc.addImage(logo1, 'PNG', 170, pageHeight - 40, 30, 25);
 
-    doc.save(`orden-instalacion-${row.nombre.replace(/ /g, '_')}.pdf`);
+    doc.save(`Orden-Instalación-${row.nombre.replace(/ /g, '_')}.pdf`);
   };
 
 
@@ -147,9 +158,9 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
           </IconButton>
         </TableCell>
 
-        <TableCell>{row.internet}</TableCell>
+        <TableCell>{row.nombre} - {row.NumeroUsuario}</TableCell>
+        <TableCell>{row.direccion.split(',')[0]}</TableCell>
         <TableCell>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
-        <TableCell>{row.mes}</TableCell>
 
         {!reservasLeer && ( 
           <TableCell>
@@ -187,14 +198,17 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
                 Detalles
               </Typography>
               <ul>
-                <li>Nombre y Apellido: {row.nombre}</li>
-                <li>Dirección: {row.direccion}</li>
+                <li>Servicio: {row.internet}</li>
+                <li>Fecha de la solicitud: {row.fechaSolicitud}</li>
+                <li>Inmueble: {row.tipo}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
                 <li>Tv: {row.tv}</li>
                 <li>Teléfono: {row.telefono}</li>
                 <li>DNI: {row.DNI}</li>
                 <li>Correo: {row.email}</li>
+                <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
+                {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
               </ul>
             </Box>
           </Collapse>
@@ -399,7 +413,7 @@ const exportarAExcel = () => {
           sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
           onClick={() => setMostrarMesActual(!mostrarMesActual)}
         >
-          {mostrarMesActual ? 'Mostrar todas' : 'Mes actual'}
+          {mostrarMesActual ? 'Todas' : 'Mes actual'}
         </Button>
         {/*Botón para limpiar filtros*/}
         <Button
@@ -434,9 +448,9 @@ const exportarAExcel = () => {
             <TableHead>
               <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
                 <TableCell />
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Servicio</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha y Hora</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Mes</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Nombre</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Dirección</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha del Turno</TableCell>
                 {!reservasLeer && ( 
                 <>
                   <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
@@ -447,6 +461,12 @@ const exportarAExcel = () => {
             </TableHead>
             <TableBody>
               {(reservasFiltradas.length > 0 ? reservasFiltradas : reservas)
+              .filter((row) => {
+                  if (reservasLeer) {
+                    return row.terceriazado === true;
+                  }
+                  return true;
+                })
                 .filter((row) => {
                   const query = searchQuery.toLowerCase();
                   return (
@@ -455,7 +475,8 @@ const exportarAExcel = () => {
                     row.nombre.toLowerCase().includes(query) ||
                     row.direccion.toLowerCase().includes(query) ||
                     row.telefono.toLowerCase().includes(query) ||
-                    row.email.toLowerCase().includes(query)
+                    row.email.toLowerCase().includes(query) ||
+                    row.tipo.toLowerCase().includes(query) 
                   );
                 })
                 .filter((row) => {
@@ -493,43 +514,151 @@ const exportarAExcel = () => {
       </Box>
 
     {/* Modal de edición */}
-      <Modal open={openModal} onClose={handleCloseModal} sx={modalStyles}>
-        <MuiBox sx={modalBoxStyles(theme)}>
-          {selectedReserva && (
-            <>
-              <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
-              <TextField label="Nombre" fullWidth margin="normal" value={selectedReserva.nombre} onChange={(e) => setSelectedReserva({ ...selectedReserva, nombre: e.target.value })} />
-              <TextField label="Dirección" fullWidth margin="normal" value={selectedReserva.direccion} onChange={(e) => setSelectedReserva({ ...selectedReserva, direccion: e.target.value })} />
-              <TextField label="Piso" fullWidth margin="normal" value={selectedReserva.Piso} onChange={(e) => setSelectedReserva({ ...selectedReserva, Piso: e.target.value })} />
-              <TextField label="Dpto" fullWidth margin="normal" value={selectedReserva.Dpto} onChange={(e) => setSelectedReserva({ ...selectedReserva, Dpto: e.target.value })} />
-              <TextField label="Teléfono" fullWidth margin="normal" value={selectedReserva.telefono} onChange={(e) => setSelectedReserva({ ...selectedReserva, telefono: e.target.value })} />
-              <TextField label="Servicio" fullWidth margin="normal" value={selectedReserva.internet} onChange={(e) => setSelectedReserva({ ...selectedReserva, internet: e.target.value })} />
+  <Modal open={openModal} onClose={handleCloseModal} sx={modalStyles}>
+    <MuiBox sx={modalBoxStyles(theme)}>
+      {selectedReserva && (
+        <>
+          <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Nombre"
+                fullWidth
+                value={selectedReserva.nombre}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, nombre: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Número de usuario"
+                fullWidth
+                value={selectedReserva.NumeroUsuario}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, NumeroUsuario: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Dirección"
+                fullWidth
+                value={selectedReserva.direccion}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, direccion: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6} sm={4}>
+              <TextField
+                label="Piso"
+                fullWidth
+                value={selectedReserva.Piso}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, Piso: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6} sm={4}>
+              <TextField
+                label="Dpto"
+                fullWidth
+                value={selectedReserva.Dpto}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, Dpto: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                label="Teléfono"
+                fullWidth
+                value={selectedReserva.telefono}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, telefono: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Servicio"
+                fullWidth
+                value={selectedReserva.internet}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, internet: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   format="DD/MM/YYYY"
                   label="Fecha"
                   value={dayjs(selectedReserva.fecha)}
-                  onChange={(newDate) => setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })}
-                  renderInput={(params) => <TextField {...params} fullWidth margin="normal" />}
+                  onChange={(newDate) =>
+                    setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })
+                  }
+                  slotProps={{
+                    textField: { fullWidth: true },
+                  }}
                 />
               </LocalizationProvider>
-              <FormControl fullWidth margin="normal">
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
                 <InputLabel>Hora</InputLabel>
-                <Select value={selectedReserva.horario} onChange={(e) => setSelectedReserva({ ...selectedReserva, horario: e.target.value })}>
+                <Select
+                  value={selectedReserva.horario}
+                  onChange={(e) =>
+                    setSelectedReserva({ ...selectedReserva, horario: e.target.value })
+                  }
+                >
                   <MenuItem value="8-10">8:00 - 10:00</MenuItem>
                   <MenuItem value="10-12">10:00 - 12:00</MenuItem>
                   <MenuItem value="12-14">12:00 - 14:00</MenuItem>
                   <MenuItem value="14-16">14:00 - 16:00</MenuItem>
                 </Select>
               </FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                <Button variant="outlined" color="secondary" onClick={handleCloseModal}>Cancelar</Button>
-                <Button variant="contained" color="primary" onClick={handleSaveChanges}>Guardar cambios</Button>
-              </Box>
-            </>
-          )}
-        </MuiBox>
-      </Modal>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={selectedReserva.terceriazado || false}
+                    onChange={(e) =>
+                      setSelectedReserva({ ...selectedReserva, terceriazado: e.target.checked })
+                    }
+                    color="primary"
+                  />
+                }
+                label="Tercerizado"
+                sx={{ ml: 1 }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Observaciones"
+                fullWidth
+                value={selectedReserva.observaciones}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, observaciones: e.target.value })
+                }
+              />
+            </Grid>
+          </Grid>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+            <Button variant="outlined" color="secondary" onClick={handleCloseModal}>
+              Cancelar
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+              Guardar cambios
+            </Button>
+          </Box>
+        </>
+      )}
+    </MuiBox>
+</Modal>
 
       {/* Confirmación de eliminación */}
       <Dialog open={openConfirmDialog} onClose={() => setOpenConfirmDialog(false)}>
