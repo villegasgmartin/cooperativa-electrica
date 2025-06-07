@@ -46,7 +46,7 @@ import { markReservaAsRealizada } from '../../../../../../redux/actions/reservas
 import { deleteReserva } from '../../../../../../redux/actions/reservasActions';
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
 import React, { useEffect } from 'react';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -99,7 +99,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     // Datos del socio
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`Fecha de Solicitud: ${row.fechaSolicitud}`, 10, y); y += 10;
+    doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('MM/DD/YYYY')}`, 10, y);y += 10;
     doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
     doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
@@ -199,7 +199,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
               </Typography>
               <ul>
                 <li>Servicio: {row.internet}</li>
-                <li>Fecha de la solicitud: {row.fechaSolicitud}</li>
+                <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
                 <li>Inmueble: {row.tipo}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
@@ -306,10 +306,46 @@ useEffect(() => {
     setSearchQuery('');
   };
 
-  //EXCEL:
-const exportarAExcel = () => {
-  // Aplico los mismos filtros que se ven en pantalla:
-  const reservasFiltradasParaExcel = reservas
+  //Excel:
+const exportarAExcel = async () => {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Reservas');
+
+  const columnas = [
+    { header: 'NOMBRE', key: 'nombre', width: 20 },
+    { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
+    { header: 'INMUEBLE', key: 'tipo', width: 15 },
+    { header: 'PISO', key: 'piso', width: 10 },
+    { header: 'DPTO', key: 'dpto', width: 10 },
+    { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
+    { header: 'HORARIO', key: 'horario', width: 12 },
+    { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+    { header: 'SERVICIO', key: 'internet', width: 15 },
+    { header: 'TELÉFONO', key: 'telefono', width: 15 },
+    { header: 'EMAIL', key: 'email', width: 25 },
+    { header: 'DNI', key: 'dni', width: 15 },
+  ];
+
+  worksheet.columns = columnas;
+
+  // Encabezado con estilo
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: '#12824c' },
+    };
+    cell.alignment = { vertical: 'middle', horizontal: 'center' };
+    cell.border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' },
+    };
+  });
+
+  const reservasFiltradas = reservas
     .filter((row) => {
       const query = searchQuery.toLowerCase();
       return (
@@ -318,7 +354,8 @@ const exportarAExcel = () => {
         row.nombre.toLowerCase().includes(query) ||
         row.direccion.toLowerCase().includes(query) ||
         row.telefono.toLowerCase().includes(query) ||
-        row.email.toLowerCase().includes(query)
+        row.email.toLowerCase().includes(query) ||
+        row.tipo.toLowerCase().includes(query)
       );
     })
     .filter((row) => {
@@ -341,28 +378,39 @@ const exportarAExcel = () => {
       return dayjs(row.fecha).format('MMMM') === mesActual;
     });
 
-  // Transformamos los datos para exportar
-  const data = reservasFiltradasParaExcel.map((reserva) => ({
-    Servicio: reserva.internet,
-    Nombre: reserva.nombre,
-    Dirección: reserva.direccion,
-    Piso: reserva.Piso,
-    Dpto: reserva.Dpto,
-    Teléfono: reserva.telefono,
-    Email: reserva.email,
-    Fecha: dayjs(reserva.fecha).format('DD/MM/YYYY'),
-    Horario: reserva.horario,
-    Mes: reserva.mes,
-    DNI: reserva.DNI,
-  }));
+  reservasFiltradas.forEach((reserva) => {
+    worksheet.addRow({
+      nombre: reserva.nombre,
+      direccion: reserva.direccion?.split(',')[0],
+      tipo: reserva.tipo,
+      piso: reserva.Piso,
+      dpto: reserva.Dpto,
+      fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+      horario: reserva.horario,
+      fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+      internet: reserva.internet,
+      telefono: reserva.telefono,
+      email: reserva.email,
+      dni: reserva.DNI,
+    });
+  });
 
-  const worksheet = XLSX.utils.json_to_sheet(data);
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Reservas');
+  // Ajuste de estilo para todas las celdas de datos
+  worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+    row.eachCell((cell) => {
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+  });
 
-  const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-  const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-  saveAs(blob, `Reservas_${dayjs().format('DD-MM-YYYY')}.xlsx`);
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  saveAs(blob, `Reservas Pendientes${dayjs().format('DD-MM-YYYY')}.xlsx`);
 };
 
   //Tabla:

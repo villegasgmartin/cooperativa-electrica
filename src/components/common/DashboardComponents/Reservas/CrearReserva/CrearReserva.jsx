@@ -1,6 +1,6 @@
 //Importaciones:
 import React, { useState, useEffect, useRef } from 'react';
-import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert, Box, Grid, Stack } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert, Box, Grid, Stack, Dialog, DialogActions, DialogContent } from '@mui/material';
 import BasicDatePicker from '../../../../common/FormComponents/DatePicker/DatePicker';
 import { useDispatch } from 'react-redux';
 import { createReservaForm } from '../../../../../../redux/actions/formActions';
@@ -113,40 +113,6 @@ const Form = () => {
         { latitude: -38.00361, longitude: -57.55039 },
         { latitude: -37.99692, longitude: -57.5633 }
         ]
-    
-    
-
-    // const verificarCobertura = async () => {
-    //     if (!direccion) {
-    //         setCoberturaMensaje('Por favor, ingresá una dirección.');
-    //         return;
-    //     }
-    
-    //     try {
-    //         const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`);
-    //         const data = await response.json();
-    
-    //         if (data.length > 0) {
-    //             const { lat, lon } = data[0];
-    //             const latFloat = parseFloat(lat);
-    //             const lonFloat = parseFloat(lon);
-    
-    //             const dentroDeZona = isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona1) ||
-    //                                 isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona2);
-    
-    //             if (dentroDeZona) {
-    //                 setCoberturaMensaje('¡Excelente! Hay cobertura en tu zona.');
-    //             } else {
-    //                 setCoberturaMensaje('Lo sentimos, no hay cobertura en tu dirección.');
-    //             }
-    //         } else {
-    //             setCoberturaMensaje('Dirección no encontrada. Por favor, revisala.');
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         setCoberturaMensaje('Error al verificar la dirección.');
-    //     }
-    // };
     const getCoordinates = async (address) => {
 
         const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
@@ -310,73 +276,64 @@ const Form = () => {
                 <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
                     Crear Reserva
                 </Typography>
-                {mostrarPopup && (
-                    <div className="popup-overlay">
-                        <div className="popup">
-                        <h2 className='form-text01'>Su dirección está fuera de cobertura</h2>
-                        <p className='form-text02'>No contamos con planes de Internet en esa zona.</p>
-                        <p className='form-text02'>¿Desea contratar el servicio de TV?</p>
-                        <Button onClick={() => {
-                            // lógica para continuar solo con TV
-                            setMostrarPopup(false);
-                        }}
-                        variant="contained"
-                               
-                                sx={{
-                                    marginTop: "10px",
-                                    borderRadius: "25px",
-                                    backgroundColor: "#8048ff",
-                                    textTransform: "none",
-                                    fontSize: "18px",
-                                    fontWeight: "bold",
-                                    '&:hover': {
-                                        backgroundColor: "#5c32b3"
-                                    }
-                                }}
-                        >Continuar</Button>
-
-                        <p className='form-text02'>¿Desea que le avisemos cuando tengamos servicio de internet disponible en su zona?</p>
-                        <input
-                            type="email"
-                            placeholder="Ingrese su email"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                        />
-                        <Button  
-                        onClick={() => {
-                            handleEnviarYSalir()
-                            
-                            console.log('Email enviado:', email);
-                            setMostrarPopup(false);
-                        }}
-                        variant="contained"
-                               
-                                sx={{
-                                    marginTop: "10px",
-                                    borderRadius: "25px",
-                                    backgroundColor: "#8048ff",
-                                    textTransform: "none",
-                                    fontSize: "18px",
-                                    fontWeight: "bold",
-                                    '&:hover': {
-                                        backgroundColor: "#5c32b3"
-                                    }
-                                }}
-                        
-                        >Enviar y salir</Button>
-                        </div>
-                    </div>
+                    {mostrarPopup && (
+                    <Dialog
+                        open={mostrarPopup}
+                        onClose={() => setMostrarPopup(false)}
+                        fullWidth
+                        maxWidth="xs"
+                    >
+                        <DialogContent>
+                        <Typography variant="h6" align="center" sx={{ fontWeight: 'bold' }}>
+                            La dirección se encuentra fuera de la zona de cobertura
+                        </Typography>
+                        </DialogContent>
+                        <DialogActions sx={{ justifyContent: 'center' }}>
+                        <Button
+                            variant="contained"
+                            onClick={() => setMostrarPopup(false)}
+                            sx={{
+                            borderRadius: '25px',
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            px: 4,
+                            marginBottom: "20px"
+                            }}
+                        >
+                            Cerrar
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
                     )}
 
                 {mostrarPopupEnviado && (
-                    <div className="popup-overlay">
-                        <div className="popup">
-                        <h2 className='form-text01'>Su solicitud a sido enviada</h2>
-                        <p className='form-text02'>Por favor revise su correo, te enviaremos el detalle de la instalacion</p>
-                        <p className='form-text02'>En caso de no recibir el correo, revise en Spam</p>
-                        <p className='form-text02'>Muchas gracias por confiar en nosotros</p>
-                        </div>
-                    </div>
+                    <Dialog
+                        open={mostrarPopupEnviado}
+                        onClose={() => setmostrarPopupEnviado(false)}
+                        fullWidth
+                        maxWidth="xs"
+                    >
+                        <DialogContent>
+                        <Typography variant="h6" align="center" sx={{ fontWeight: 'bold'}}>
+                            La reserva fue creada con éxito
+                        </Typography>
+                        </DialogContent>
+                        <DialogActions sx={{ justifyContent: 'center' }}>
+                        <Button
+                            variant="contained"
+                            onClick={() => setmostrarPopupEnviado(false)}
+                            sx={{
+                            borderRadius: '25px',
+                            textTransform: 'none',
+                            fontWeight: 'bold',
+                            px: 4,
+                            marginBottom: "20px"
+                            }}
+                        >
+                            Cerrar
+                        </Button>
+                        </DialogActions>
+                    </Dialog>
                     )}
 
                 <div>

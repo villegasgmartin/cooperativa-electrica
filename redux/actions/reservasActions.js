@@ -165,7 +165,7 @@ export const deleteReserva = (reservaId, nombreUsuario) => async (dispatch) => {
 
         dispatch({ type: DELETE_RESERVA_SUCCESS, payload: { id: reservaId } });
 
-         dispatch(fetchReservas());
+        dispatch(fetchReservas());
     } catch (error) {
         dispatch({ type: DELETE_RESERVA_FAILURE, payload: error.message });
     }

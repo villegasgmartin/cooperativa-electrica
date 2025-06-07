@@ -41,12 +41,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchReservasRealizadas } from '../../../../../../redux/actions/reservasActions'
-import { handleMarkAsPendienteRedux } from '../../../../../../redux/actions/reservasActions'
-import { updateReservaRealizada } from '../../../../../../redux/actions/reservasActions'
-import { deleteReservaCompletada } from '../../../../../../redux/actions/reservasActions'
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
-import * as XLSX from 'xlsx';
+import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -70,7 +66,7 @@ const modalBoxStyles = (theme) => ({
   boxShadow: 24,
 });
 //PDF:
-function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsPendiente }) {
+function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsRealizada  }) {
   const [open, setOpen] = React.useState(false);
   
   const handleImprimir = () => {
@@ -98,7 +94,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
       // Datos del socio
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(10);
-      doc.text(`Fecha de Solicitud: ${row.fechaSolicitud}`, 10, y); y += 10;
+      doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('MM/DD/YYYY')}`, 10, y);y += 10;
       doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
       doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
       doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
@@ -175,7 +171,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
             <TableCell>
         <Button
           variant="contained"
-          onClick={() => handleMarkAsPendiente(row)}
+          onClick={() => handleMarkAsRealizada(row)}
           disabled={!row.estado}
           sx={{
             fontSize: "12px",
@@ -198,7 +194,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
               </Typography>
               <ul>
                 <li>Servicio: {row.internet}</li>
-                <li>Fecha de la solicitud: {row.fechaSolicitud}</li>
+                <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
                 <li>Inmueble: {row.tipo}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
@@ -233,27 +229,8 @@ export default function ReservasCompletadas() {
   const [fechaHasta, setFechaHasta] = React.useState(null);
   const { nombre, reservasLeer} = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  const { reservasRealizadas } = useSelector((state) => ({reservasRealizadas: state.reservas.realizadas,}));
 
-  //Filtrar por mes:
-  const handleMostrarMesActual = () => {
-    if (mostrarMesActual) {
-      setReservasFiltradas([]);
-      setMostrarMesActual(false);
-    } else {
-      const mesActual = dayjs().format('MMMM');
-      const reservasDelMesActual = reservas.filter((reserva) =>
-        dayjs(reserva.fecha).format('MMMM') === mesActual
-      );
-      setReservasFiltradas(reservasDelMesActual);
-      setMostrarMesActual(true);
-    }
-  };
 
-  useEffect(() => {
-  dispatch(fetchReservasRealizadas());
-}, [dispatch]);
-  
   //Funciones para eliminar con modal:
   const handleEditClick = (row) => {
     setSelectedReserva(row);
@@ -270,13 +247,21 @@ export default function ReservasCompletadas() {
       dispatch(fetchUserData());
     }, [dispatch]);
 
-  //Funcion para eliminar:
+//Funcion para eliminar: 
   const handleConfirmDelete = async () => {
-    dispatch(deleteReservaCompletada(reservaAEliminar._id));
-    setOpenConfirmDialog(false);
-    setReservaAEliminar(null);
-    dispatch(fetchReservasRealizadas()); // <-- recarga
-
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:8000/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
+        method: 'PUT',
+        headers: { 'x-token': token },
+      });
+      if (!response.ok) throw new Error('Error al eliminar');
+      setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
+      setOpenConfirmDialog(false);
+      setReservaAEliminar(null);
+    } catch (error) {
+      console.error('Error al eliminar:', error);
+    }
   };
 
   //Cerramos modal:
@@ -287,27 +272,53 @@ export default function ReservasCompletadas() {
 
   //Función para editar:
   const handleSaveChanges = async () => {
-    dispatch(updateReservaRealizada(selectedReserva));
-    setOpenModal(false);
-    setSelectedReserva(null);
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-token': token,
+        },
+        body: JSON.stringify(selectedReserva),
+      });
+
+      if (!response.ok) throw new Error('Error al actualizar la reserva');
+      setOpenModal(false);
+      setSelectedReserva(null);
+      setReservas(reservas.map((r) => r._id === selectedReserva._id ? { ...r, ...selectedReserva } : r));
+    } catch (error) {
+      console.error('Error al guardar cambios:', error);
+    }
   };
 
-  //Traemos las reservas: GET
-  useEffect(() => {
-    dispatch(fetchReservasRealizadas());
-  }, [dispatch]);
+ //Traemos las reservas: GET
+  React.useEffect(() => {
+    const fetchReservas = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch('http://localhost:8000/api/reservas/reservas-realizadas', {
+          headers: { 'x-token': token },
+        });
 
-  useEffect(() => {
-  if (reservasRealizadas && reservasRealizadas.length > 0) {
-    const reservasConFechaFormateada = reservasRealizadas.map(reserva => ({
-      ...reserva,
-      fechaFormateada: dayjs(reserva.fecha).format('DD/MM/YYYY'),
-      mes: dayjs(reserva.fecha).format('MMMM'),
-    }));
-    setReservas(reservasConFechaFormateada);
-  }
-}, [reservasRealizadas]);
-
+        if (!response.ok) throw new Error('Error al obtener las reservas');
+        const data = await response.json();
+        const reservasFormateadas = data.reservas.map((r) => {
+          const fechaObj = dayjs(r.fecha);
+          return {
+            ...r,
+            fechaFormateada: fechaObj.format('D [de] MMMM'),
+            mes: fechaObj.format('MMMM'),
+            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
+          };
+        });
+        setReservas(reservasFormateadas);
+      } catch (error) {
+        console.error('Error al cargar las reservas:', error);
+      }
+    };
+    fetchReservas();
+  }, []);
 
   //Función para limpiar los filtros
   const handleLimpiarFiltros = () => {
@@ -317,15 +328,79 @@ export default function ReservasCompletadas() {
     setSearchQuery('');
   };
 
-  //Marcar reserva como pendiente:
-  const handleMarkAsPendiente = (row) => {
-    dispatch(handleMarkAsPendienteRedux(row));
+  //Marcar como pendiente: (correjir)
+  const handleMarkAsRealizada = async (row) => {
+
+    try {
+      const token = localStorage.getItem('token');
+  
+      const updatedReserva = {
+        ...row,
+        estado: false,
+        estadoBorrado: false,
+      };
+  
+      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${row._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-token': token,
+        },
+        body: JSON.stringify(updatedReserva),
+      });
+  
+      if (!response.ok) throw new Error('Error al actualizar la reserva');
+  
+      console.log("Reserva actualizada correctamente");
+  
+      // Actualizamos la lista de reservas localmente
+      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: false } : r));
+  
+    } catch (error) {
+      console.error('Error al marcar como realizada:', error);
+    }
   };
 
-  //EXCEL:
-  const exportarAExcel = () => {
-    // Aplico los mismos filtros que se ven en pantalla:
-    const reservasFiltradasParaExcel = reservas
+    //Excel:
+  const exportarAExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Reservas');
+  
+    const columnas = [
+      { header: 'NOMBRE', key: 'nombre', width: 20 },
+      { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
+      { header: 'INMUEBLE', key: 'tipo', width: 15 },
+      { header: 'PISO', key: 'piso', width: 10 },
+      { header: 'DPTO', key: 'dpto', width: 10 },
+      { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
+      { header: 'HORARIO', key: 'horario', width: 12 },
+      { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+      { header: 'SERVICIO', key: 'internet', width: 15 },
+      { header: 'TELÉFONO', key: 'telefono', width: 15 },
+      { header: 'EMAIL', key: 'email', width: 25 },
+      { header: 'DNI', key: 'dni', width: 15 },
+    ];
+  
+    worksheet.columns = columnas;
+  
+    // Encabezado con estilo
+    worksheet.getRow(1).eachCell((cell) => {
+      cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+      cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: '#12824c' },
+      };
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+  
+    const reservasFiltradas = reservas
       .filter((row) => {
         const query = searchQuery.toLowerCase();
         return (
@@ -334,8 +409,8 @@ export default function ReservasCompletadas() {
           row.nombre.toLowerCase().includes(query) ||
           row.direccion.toLowerCase().includes(query) ||
           row.telefono.toLowerCase().includes(query) ||
-          row.email.toLowerCase().includes(query)||
-          row.tipo.toLowerCase().includes(query) 
+          row.email.toLowerCase().includes(query) ||
+          row.tipo.toLowerCase().includes(query)
         );
       })
       .filter((row) => {
@@ -358,28 +433,40 @@ export default function ReservasCompletadas() {
         return dayjs(row.fecha).format('MMMM') === mesActual;
       });
   
-    // Transformamos los datos para exportar
-    const data = reservasFiltradasParaExcel.map((reserva) => ({
-      Servicio: reserva.internet,
-      Nombre: reserva.nombre,
-      Dirección: reserva.direccion,
-      Piso: reserva.Piso,
-      Dpto: reserva.Dpto,
-      Teléfono: reserva.telefono,
-      Email: reserva.email,
-      Fecha: dayjs(reserva.fecha).format('DD/MM/YYYY'),
-      Horario: reserva.horario,
-      Mes: reserva.mes,
-      DNI: reserva.DNI,
-    }));
+    reservasFiltradas.forEach((reserva) => {
+      worksheet.addRow({
+        nombre: reserva.nombre,
+        direccion: reserva.direccion?.split(',')[0],
+        tipo: reserva.tipo,
+        piso: reserva.Piso,
+        dpto: reserva.Dpto,
+        fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+        horario: reserva.horario,
+        fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+        internet: reserva.internet,
+        telefono: reserva.telefono,
+        email: reserva.email,
+        dni: reserva.DNI,
+      });
+    });
   
-    const worksheet = XLSX.utils.json_to_sheet(data);
-    const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Reservas');
+    // Ajuste de estilo para todas las celdas de datos
+    worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+      row.eachCell((cell) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+          top: { style: 'thin' },
+          left: { style: 'thin' },
+          bottom: { style: 'thin' },
+          right: { style: 'thin' },
+        };
+      });
+    });
   
-    const excelBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, `Reservas_${dayjs().format('DD-MM-YYYY')}.xlsx`);  };
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, `Reservas Realizadas${dayjs().format('DD-MM-YYYY')}.xlsx`);
+  };
 
   //Tabla:
   return (
@@ -514,7 +601,7 @@ export default function ReservasCompletadas() {
                   return dayjs(row.fecha).format('MMMM') === mesActual;
                 })
                 .map((row) => (
-                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsPendiente={handleMarkAsPendiente} />
+                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada} />
                 ))}
             </TableBody>
           </Table>

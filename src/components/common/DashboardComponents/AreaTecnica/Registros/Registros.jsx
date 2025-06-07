@@ -30,8 +30,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import ExcelJS from 'exceljs';
 import { useDispatch, useSelector } from 'react-redux';
 import DownloadIcon from '@mui/icons-material/Download';
 import {
@@ -144,21 +144,64 @@ const limpiarFiltros = () => {
 };
 
 //Excel:
-    const exportarAExcel = () => {
+const exportarAExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Visitas');
+
+    const columnas = [
+        { header: 'FECHA', key: 'fecha', width: 15 },
+        { header: 'MOTIVO', key: 'motivo', width: 25 },
+        { header: 'DESCRIPCIÓN', key: 'descripcion', width: 50 },
+    ];
+
+    worksheet.columns = columnas;
+
+    // Estilo de encabezado
+    worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF12824C' }, // verde
+        };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+        };
+    });
+
     const datosParaExcel = registrosFiltrados.map((registro) => ({
-        Fecha: formatFecha(registro.fecha),
-        Motivo: registro.categoria,
-        Descripción: registro.descripcion,
+        fecha: formatFecha(registro.fecha),
+        motivo: registro.categoria,
+        descripcion: registro.descripcion,
     }));
 
-    const hoja = XLSX.utils.json_to_sheet(datosParaExcel);
-    const libro = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(libro, hoja, 'Visitas');
+    datosParaExcel.forEach((dato) => {
+        worksheet.addRow(dato);
+    });
 
-    const excelBuffer = XLSX.write(libro, { bookType: 'xlsx', type: 'array' });
-    const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-    saveAs(blob, 'Área Técnica.xlsx');
-};
+    // Estilo de celdas de datos
+    worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+        row.eachCell((cell) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+        };
+        });
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(blob, `Área Técnica - Pendientes ${dayjs().format('DD-MM-YYYY')}.xlsx`);
+    };
 
 return (
     <Box sx={{ width: '90%', mx: 'auto', mt: 3, mb: 6 }}>

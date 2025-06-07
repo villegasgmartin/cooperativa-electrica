@@ -19,7 +19,7 @@
 .form-text01 {
     font-family: "interTight-medium";
     color: var(--darkviolet);
-    font-size: 2.8125rem;
+    font-size: 2.5rem;
     margin-left: .625rem;
     margin-right: .625rem;
     text-align: center;
@@ -29,7 +29,7 @@
 .form-text02 {
     font-family: "interTight";
     color: black;
-    font-size: 1.5625rem;
+    font-size: 1.25rem;
     text-align: center;
     width: 50rem;
     letter-spacing: 1px;
@@ -51,6 +51,13 @@
     width: 12.5rem;
     margin: auto;
     margin-top: 1.875rem;
+}
+
+/*Span de la dirección*/
+.form-span{
+    color: var(--darkviolet);
+    font-family: "interTight";
+    margin-bottom: .3125rem;
 }
 
 /*Calendario y selector de horario*/
@@ -117,25 +124,25 @@
 
 
 .popup-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
 }
 
 .popup {
-      background: linear-gradient(90deg, rgba(61, 17, 109, 1) 0%, rgba(221, 220, 223, 1) 35%, rgba(228, 228, 228, 1) 50%, rgba(224, 228, 226, 1) 64%, rgba(48, 230, 145, 1) 100%);
-  padding: 2rem;
-  border-radius: 10px;
-  width: 90%;
-  max-width: 600px;
-  text-align: center;
+background: white;
+padding: 2rem;
+border-radius: 10px;
+width: 90%;
+max-width: 600px;
+text-align: center;
 }
 .popup p{
     font-size: 16px;
@@ -144,15 +151,9 @@
 }
 
 .popup h2{
-    font-size: 32px;
+    font-size: 30px;
     padding-bottom: 5px;
     width: 100%;
 }
-.popup input{
-    width: 100%;
-    height: 50px;
-    border-radius: 30px;
-    border: none;
-    padding: 0 0 0 10px;
-}
+
 

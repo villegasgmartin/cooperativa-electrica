@@ -30,8 +30,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import * as XLSX from 'xlsx';
 import { saveAs } from 'file-saver';
+import ExcelJS from 'exceljs';
 import DownloadIcon from '@mui/icons-material/Download';
 
 // Redux
@@ -155,23 +155,66 @@ const registrosFiltrados = React.useMemo(() => {
     setFiltroMesActual(false);
     };
 
-    //Excel:
-        const exportarAExcel = () => {
-        const datosParaExcel = registrosFiltrados.map((registro) => ({
-            Fecha: formatFecha(registro.fecha),
-            Motivo: registro.categoria,
-            Descripción: registro.descripcion,
-        }));
-    
-        const hoja = XLSX.utils.json_to_sheet(datosParaExcel);
-        const libro = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(libro, hoja, 'Visitas');
-    
-        const excelBuffer = XLSX.write(libro, { bookType: 'xlsx', type: 'array' });
-        const blob = new Blob([excelBuffer], { type: 'application/octet-stream' });
-        saveAs(blob, 'Área Técnica.xlsx');
-    };
+ //Excel:
+const exportarAExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Visitas');
 
+    // Definir columnas
+    const columnas = [
+        { header: 'FECHA', key: 'fecha', width: 18 },
+        { header: 'MOTIVO', key: 'motivo', width: 30 },
+        { header: 'DESCRIPCIÓN', key: 'descripcion', width: 50 },
+    ];
+
+    worksheet.columns = columnas;
+
+    // Estilo del encabezado
+    worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FF12824C' }, // verde oscuro
+        };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+        };
+    });
+
+    // Agregar filas de datos
+    registrosFiltrados.forEach((registro) => {
+        worksheet.addRow({
+        fecha: formatFecha(registro.fecha),
+        motivo: registro.categoria,
+        descripcion: registro.descripcion,
+        });
+    });
+
+    // Estilo para todas las celdas
+    worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+        row.eachCell((cell) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+        };
+        });
+    });
+
+    // Generar y guardar archivo
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    saveAs(blob, `Área Técnica - Realizados ${dayjs().format('DD-MM-YYYY')}.xlsx`);
+    };
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', marginTop: 3, marginBottom: '50px' }}>

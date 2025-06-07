@@ -1,4 +1,5 @@
 
+
 // Importaciones:
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -30,19 +31,15 @@ import {
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers } from '../..&../../../../../../../redux/actions/userActions';
-import { deleteUser } from '../..&../../../../../../../redux/actions/userActions';
-import { updateUser } from '../..&../../../../../../../redux/actions/userActions';
 
-//JSX:
 export default function UserTable() {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
+
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [openModal, setOpenModal] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
-  const dispatch = useDispatch();
-  const { users, loadingUsers, errorUsers } = useSelector(state => state.user);
 
   // Estados para edición
   const [openEditModal, setOpenEditModal] = useState(false);
@@ -57,11 +54,19 @@ export default function UserTable() {
     blog: false,
   });
 
-  //Función para obtener usuarios activos:
   useEffect(() => {
-    dispatch(fetchUsers());
-  }, [dispatch]);
-
+    axios.get('http://localhost:8000/api/usuarios', {
+      headers: { 'x-token': localStorage.getItem('token') }
+    })
+    .then(response => {
+      setUsers(response.data.usuarios || []);
+      setLoading(false);
+    })
+    .catch(error => {
+      console.error('Error al obtener los usuarios:', error);
+      setLoading(false);
+    });
+  }, []);
 
   const traducirRol = (rol) => {
     switch (rol) {
@@ -83,12 +88,24 @@ export default function UserTable() {
     setOpenModal(true);
   };
 
-  //Función para eliminar usuarios:
- const handleDeleteUser = () => {
+  const handleDeleteUser = async () => {
   if (userToDelete) {
-    dispatch(deleteUser(userToDelete));
-    dispatch(fetchUsers()); // recarga usuarios visibles
-    setOpenModal(false);
+    try {
+      const payload = { estado: false };
+
+      await axios.put(
+        `http://localhost:8000/api?id=${userToDelete}`,
+        payload,
+        {
+          headers: { 'x-token': localStorage.getItem('token') },
+        }
+      );
+
+      setUsers(users.filter(user => user.uid !== userToDelete));
+      setOpenModal(false);
+    } catch (error) {
+      console.error('Error al desactivar el usuario:', error);
+    }
   }
 };
 
@@ -121,10 +138,31 @@ export default function UserTable() {
     }));
   };
 
-//Función para editar usuarios:
-  const handleSaveEdit = () => {
-    dispatch(updateUser(userToEdit, editData));
-    setOpenEditModal(false);
+  const handleSaveEdit = async () => {
+    try {
+      const payload = {
+        nombre: editData.nombre,
+        telefono: editData.telefono,
+        rol: traducirRolApi(editData.rol),
+        usuarios: editData.rol === 'Administrador' ? true : editData.usuarios,
+        reservas: editData.rol === 'Administrador' ? true : editData.reservas,
+        tecnica: editData.rol === 'Administrador' ? true : editData.tecnica,
+        blog: editData.rol === 'Administrador' ? true : editData.blog,
+      };
+
+      await axios.put(`http://localhost:8000/api?id=${userToEdit}`, payload, {
+        headers: { 'x-token': localStorage.getItem('token') }
+      });
+
+      // Actualizar la tabla sin recargar
+      setUsers(prevUsers => prevUsers.map(user => 
+        user.uid === userToEdit ? { ...user, ...payload } : user
+      ));
+      
+      setOpenEditModal(false);
+    } catch (error) {
+      console.error('Error al editar el usuario:', error);
+    }
   };
 
   return (
@@ -133,7 +171,7 @@ export default function UserTable() {
         Listado de usuarios
       </Typography>
 
-      {loadingUsers? (
+      {loading ? (
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
           <CircularProgress />
           <Typography variant="h6" sx={{ marginLeft: 2 }}>

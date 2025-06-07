@@ -10,10 +10,10 @@ import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png";
 import { Helmet } from "react-helmet";
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import BasicDatePicker from '../../common/FormComponents/DatePicker/DatePicker';
-import axios from 'axios';
 import "../formulario/Form.css"
 import { useDispatch } from 'react-redux';
 import { createReservaForm } from '../../../../redux/actions/formActions';
+import { useNavigate } from 'react-router-dom'; 
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
@@ -50,8 +50,7 @@ const Form = () => {
     const [direccionValidada, setDireccionValidada] = useState(false);
     const [mostrarPopup, setMostrarPopup] = useState(false);
     const [email, setEmail] = useState('');
-    const [mostrarPopupEnviado, setmostrarPopupEnviado] = useState(false)
-
+    const navigate = useNavigate();
 
     const onLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
@@ -273,20 +272,11 @@ const Form = () => {
             //Si no hay errores, hacemos POST
             try {
                     await dispatch(createReservaForm(dataToSend));
+                    
+            setTimeout(() => {
+                navigate('/confirmación');
+            }, 1000);
 
-                // Limpiamos campos
-                setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
-                setDireccion('');
-                setFechaInstalacion(null);
-                setFranjaHoraria('');
-                setPlanInternet('');
-                setPlanTV('');
-                setTipoInmueble({ casa: false, edificio: false, ph: false });
-                setTerminosAceptados(false);
-
-                // Mostrar mensaje de éxito
-                // setSuccessMessageOpen(true);
-                setmostrarPopupEnviado(true)
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
             }
@@ -355,18 +345,22 @@ const Form = () => {
                 <div className='form-text-container'>
                     <Fade triggerOnce={true} duration={800} delay={300}>
                         <p className='form-text01'>Dejanos tus datos y te contactaremos</p>
-                        <span className="color-title01 form-text02">Formulario para nuevos Clientes</span>
                         <p className='form-text02'>
                             ¡Conéctate con el mejor servicio para tu hogar o empresa!. En caso de necesitar un cambio de plan o cambio de servicio por favor comunicarse a nuestros 
                             <a href="/contacto"> canales de comunicacion </a>
                           
                             
                         </p>
+                        <span className="color-title01 form-text02">Formulario para nuevos Clientes</span>
                     </Fade>
                 </div>
                 {mostrarPopup && (
-                    <div className="popup-overlay">
-                        <div className="popup">
+                    <div className="popup-overlay"
+                    onClick={() => setMostrarPopup(false)}
+                    >
+                        
+                        <div className="popup"
+                         onClick={(e) => e.stopPropagation()}>
                         <h2 className='form-text01'>Su dirección está fuera de cobertura</h2>
                         <p className='form-text02'>No contamos con planes de Internet en esa zona.</p>
                         <p className='form-text02'>¿Desea contratar el servicio de TV?</p>
@@ -390,11 +384,26 @@ const Form = () => {
                         >Continuar</Button>
 
                         <p className='form-text02'>¿Desea que le avisemos cuando tengamos servicio de internet disponible en su zona?</p>
-                        <input
+                        <div style={{display: "flex", flexDirection: "column"}}>
+                            <TextField
+                            variant='outlined'
+                            name="Email"
                             type="email"
                             placeholder="Ingrese su email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            sx={{
+                                    backgroundColor: "#edeaff", borderRadius: "25px",
+                                    '& .MuiOutlinedInput-root': {
+                                        borderRadius: "25px",
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#8048ff',
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: '#8048ff',
+                                    }
+                                }}
                         />
                         <Button  
                         onClick={() => {
@@ -419,20 +428,9 @@ const Form = () => {
                         
                         >Enviar y salir</Button>
                         </div>
-                    </div>
-                    )}
-
-                {mostrarPopupEnviado && (
-                    <div className="popup-overlay">
-                        <div className="popup">
-                        <h2 className='form-text01'>Su solicitud a sido enviada</h2>
-                        <p className='form-text02'>Por favor revise su correo, te enviaremos el detalle de la instalacion</p>
-                        <p className='form-text02'>En caso de no recibir el correo, revise en Spam</p>
-                        <p className='form-text02'>Muchas gracias por confiar en nosotros</p>
                         </div>
                     </div>
                     )}
-
                 <div>
                     {/*Formulario*/}
                     <Fade triggerOnce={true} duration={800} delay={300}>
@@ -513,7 +511,7 @@ const Form = () => {
                             {/*Dirección con Google Maps Autocompletado*/}
                             
                             <div style={{ width: '100%' }}>
-                            <span>*Eliga una direccion del desplegable</span>
+                            <p className='form-span'>*Debe seleccionar una dirección del listado:</p>
                                 <Autocomplete
                                     onLoad={onLoad}
                                     onPlaceChanged={onPlaceChanged}
