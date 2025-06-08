@@ -16,6 +16,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { crearTecnica } from '../../../../../../redux/actions/tecnicaActions';
 
+
 //JSX:
 export default function AgregarRegistro() {
     const [fecha, setFecha] = useState(null);

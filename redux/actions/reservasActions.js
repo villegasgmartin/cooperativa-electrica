@@ -2,9 +2,9 @@
 import dayjs from 'dayjs';
 
 //URL:
-//const url = 'https://cooperativaback.up.railway.app';
-//Development:
-const url = 'http://localhost:8000';
+const url = 'https://panel-cooperativa-back-production.up.railway.app';
+//Producción:
+//const url = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
