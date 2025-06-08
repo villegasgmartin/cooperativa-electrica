@@ -4,20 +4,27 @@ import axios from 'axios';
 
 //JSX:
 export const enviarFormularioVittal = createAsyncThunk(
-    'mutual/enviarFormularioVittal',
-    async (formData, { rejectWithValue }) => {
-        try {
-        const response = await axios.post('https://apiemail-trt0.onrender.com/email-vittal', {
-            nombre: formData.nombre,
-            correo: formData.correo,
-            mensaje: formData.mensaje,
-        });
-        return response.data;
-        } catch (error) {
-        return rejectWithValue(error.response?.data || 'Error al enviar el formulario');
-        }
+  'mutual/enviarFormularioVittal',
+  async (formData, { rejectWithValue }) => {
+    try {
+      const response = await axios.post('https://apiemail-trt0.onrender.com/email-vittal', {
+        nombre: formData.nombre,
+        dni: formData.dni,
+        fechaNacimiento: formData.fechaNacimiento,
+        telefono: formData.telefono,
+        direccion: formData.direccion,
+        numeroAsociado: formData.numeroAsociado,
+        correo: formData.correo,
+        mensaje: formData.mensaje,
+        adherentes: formData.adherentes || [], // por si viene vacío
+      });
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || 'Error al enviar el formulario');
     }
-    );
+  }
+);
+
 
     const vittalSlice = createSlice({
     name: 'vittal',

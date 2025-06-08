@@ -93,8 +93,8 @@ const Form = () => {
     //Zonas de cobertura:
     const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
-        { latitude: -38.00557, longitude: -57.57025 },
-        { latitude: -38.00703, longitude: -57.5673 },
+        { latitude: -38.00567, longitude: -57.5707 },
+        { latitude: -38.00728, longitude: -57.56752 },
         { latitude: -38.00784, longitude: -57.56786 },
         { latitude: -38.00835, longitude: -57.5669 },
         { latitude: -38.01158, longitude: -57.56949 },
@@ -116,12 +116,12 @@ const Form = () => {
 
         { latitude: -38.00503, longitude: -57.5603 },
         { latitude: -38.0143, longitude: -57.5421 },
-        { latitude: -38.00967, longitude: -57.53841 },
-        { latitude: -38.00916, longitude: -57.5394 },
+        { latitude: -38.00954, longitude: -57.5382 },
+        { latitude: -38.00904, longitude: -57.53921 },
         { latitude: -38.01214, longitude: -57.54176 },
         { latitude: -38.00662, longitude: -57.55275 },
-        { latitude: -38.00361, longitude: -57.55039 },
-        { latitude: -37.99692, longitude: -57.5633 }
+        { latitude: -38.00346, longitude: -57.55016 },
+        { latitude: -37.99683, longitude: -57.5633 }
         ]
     
     
@@ -165,12 +165,13 @@ const Form = () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            console.log(data)
+           
     
-            if (data.status === "OK") {
+             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
                 const city = data.results[0].address_components[2];
-                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city };
+                const address = data.results[0].formatted_address
+                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city, address };
             } else {
                 console.error("Error en la geocodificación:", data.status);
                 return null;
@@ -190,12 +191,14 @@ const Form = () => {
     
         try {
             const coordenadas = await getCoordinates(direccion);
-            const ciudad = coordenadas.city.long_name
 
+            const ciudad = coordenadas.city.long_name
+            const direccionCompleta = coordenadas.address;
             if(ciudad != 'Mar del Plata'){
                 // return alert('Servicio no disponible fuera de Mar del Plata')
                 setMostrarPopup(true);
   return;
+
             }
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
