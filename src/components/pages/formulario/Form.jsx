@@ -193,12 +193,9 @@ const Form = () => {
             const coordenadas = await getCoordinates(direccion);
 
             const ciudad = coordenadas.city.long_name
-            const direccionCompleta = coordenadas.address;
-            if(ciudad != 'Mar del Plata'){
-                // return alert('Servicio no disponible fuera de Mar del Plata')
-                setMostrarPopup(true);
-  return;
-
+             const direccionCompleta = coordenadas.address;
+              if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
+                return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1)) {
@@ -302,6 +299,9 @@ const Form = () => {
         setMostrarPopup(false);
         setEmail('');
         setDireccion('');
+        setTimeout(() => {
+                    window.location= '/'
+                }, 1500);
     } catch (error) {
         console.error("Error al enviar datos:", error);
     }

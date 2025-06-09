@@ -299,12 +299,12 @@
    
 }
 @media only screen and (min-width:1000px){
-    .mutual-form-container div:not(.adherente-input):first-child, div.MuiFormControl-root:not(.adherente-input):nth-child(8){
+    .mutual-form-container div:not(.adherente-input):first-child, .mutual-form-container div.MuiFormControl-root:not(.adherente-input):nth-child(8){
         width: 1000px!important;
         max-width: 1000px!important;
         margin: auto;
     }
-    .mutual-form-container div:not(.adherente-input):first-child div, div.MuiFormControl-root:not(.adherente-input):nth-child(8) div{
+    .mutual-form-container div:not(.adherente-input):first-child div, .mutual-form-container div.MuiFormControl-root:not(.adherente-input):nth-child(8) div{
         width: 1000px!important;
         max-width: 990px!important; 
         margin: auto;
