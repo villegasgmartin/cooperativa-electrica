@@ -87,25 +87,61 @@ const Form = () => {
     //Zonas de cobertura:
     const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
+        //triangulos
+        {latitude:-37.99755,longitude: -57.56412},
+        {latitude:-37.99797,longitude: -57.56561},
+        {latitude:-37.99924,longitude: -57.56533},
+        {latitude:-37.99954,longitude: -57.5669},
+        {latitude:-38.00004, longitude:-57.56688},
+        {latitude:-38.00038, longitude:-57.56753},
+        {latitude:-38.00083, longitude:-57.56755},
+        {latitude:-38.00241, longitude:-57.56784},
+        {latitude:-38.00115, longitude:-57.56818},
+        {latitude:-38.00224,longitude: -57.56908},
+        {latitude:-38.00204, longitude:-57.56951},
+        {latitude:-38.00235, longitude:-57.57002},
+        {latitude:-38.00274, longitude:-57.56945},
+        {latitude:-38.00398, longitude:-57.56913},
+        {latitude:-38.0043, longitude:-57.57072},
+
+
+
+
         { latitude: -38.00567, longitude: -57.5707 },
-        { latitude: -38.00728, longitude: -57.56752 },
-        { latitude: -38.00784, longitude: -57.56786 },
-        { latitude: -38.00835, longitude: -57.5669 },
-        { latitude: -38.01158, longitude: -57.56949 },
-        { latitude: -38.012, longitude: -57.56853 },
-        { latitude: -38.01129, longitude: -57.56785 },
-        { latitude: -38.0117, longitude: -57.567 },
-        { latitude: -38.01099, longitude: -57.56622 },
-        { latitude: -38.01139, longitude: -57.56545 },
+        //edificio dorrego
+        {latitude:-38.00685, longitude:-57.57},
+        {latitude:-38.00662, longitude:-57.56913},
+        {latitude:-38.00647, longitude:-57.56865},
+        {latitude:-38.0066,longitude: -57.56838},
 
-        { latitude: -38.013, longitude: -57.56665 },
-        { latitude: -38.01212, longitude: -57.5686 },
+        //diagonal
+        {latitude:-38.00922, longitude:-57.56767},
+        {latitude:-38.00948, longitude:57.56927},
+        {latitude:-38.01075, longitude:-57.56902},
+        {latitude:-38.01108, longitude:-57.57058},
+        {latitude:-38.01234, longitude:-57.57029},
+        {latitude:-38.0121, longitude:-57.56862},
+        {latitude:-38.01289, longitude:-57.56919},
+        
 
-        { latitude: -38.01315, longitude: -57.56943 },
+        
+     
+        
+    
+        // { latitude: -38.012, longitude: -57.56853 },
+        // { latitude: -38.01129, longitude: -57.56785 },
+        // { latitude: -38.0117, longitude: -57.567 },
+        // { latitude: -38.01099, longitude: -57.56622 },
+        // { latitude: -38.01139, longitude: -57.56545 },
+
+        // { latitude: -38.013, longitude: -57.56665 },
+        // { latitude: -38.01212, longitude: -57.5686 },
+
+        // { latitude: -38.01315, longitude: -57.56943 },
         { latitude: -38.01676, longitude: -57.56238 },
         
         { latitude: -38.01325, longitude: -57.55959 },
-        { latitude: -38.01063, longitude: -57.56476 },
+        { latitude: -38.01074, longitude: -57.56459 },
   
 
         { latitude: -38.00503, longitude: -57.5603 },
