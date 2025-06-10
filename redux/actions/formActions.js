@@ -14,6 +14,7 @@ const url = 'https://panel-cooperativa-back-production.up.railway.app';
 export const CREATE_RESERVA_REQUEST = 'CREATE_RESERVA_REQUEST';
 export const CREATE_RESERVA_SUCCESS = 'CREATE_RESERVA_SUCCESS';
 export const CREATE_RESERVA_FAILURE = 'CREATE_RESERVA_FAILURE';
+export const CREATE_RESERVA_TV = 'CREATE_RESERVA_TV';
 //Acciones para obtener los horarios disponibles:
 export const FETCH_HORARIOS_REQUEST = 'FETCH_HORARIOS_REQUEST';
 export const FETCH_HORARIOS_SUCCESS = 'FETCH_HORARIOS_SUCCESS';
@@ -32,6 +33,18 @@ export const createReservaForm = (dataToSend) => async (dispatch) => {
         });
     }
 };
+
+//Función POST para crear reservas en el formulario:
+export const createReservaTV = (dataToSend) => async (dispatch) => {
+    dispatch({ type: CREATE_RESERVA_TV });
+    try {
+        const response = await axios.post(`http://localhost:8000/api/reservas/conexion-tv`, dataToSend);
+        dispatch({ type: CREATE_RESERVA_TV, payload: response.data });
+    } catch (error) {
+       console.log(error)
+    }
+};
+
 
 //Función GET para obtener los horarios disponibles:
 export const fetchHorariosDisponibles = (fecha) => async (dispatch) => {

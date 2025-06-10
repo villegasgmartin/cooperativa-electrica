@@ -6,6 +6,7 @@ import {
     CREATE_RESERVA_REQUEST,
     CREATE_RESERVA_SUCCESS,
     CREATE_RESERVA_FAILURE,
+    
 } from '../actions/formActions';
 
 //Estado inicial:
@@ -33,7 +34,6 @@ const formReducer = (state = initialState, action) => {
         case FETCH_HORARIOS_FAILURE:
             return { ...state, loading: false, error: action.payload };
         default:
-            
         return state;
     }
 };

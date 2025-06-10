@@ -12,7 +12,7 @@ import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import BasicDatePicker from '../../common/FormComponents/DatePicker/DatePicker';
 import "../formulario/Form.css"
 import { useDispatch } from 'react-redux';
-import { createReservaForm } from '../../../../redux/actions/formActions';
+import { createReservaForm, createReservaTV } from '../../../../redux/actions/formActions';
 import { useNavigate } from 'react-router-dom'; 
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
@@ -233,9 +233,42 @@ const Form = () => {
 
     //Enviamos los datos
     const handleSubmit = async (event) => {
+        if(zona == 'Fuera de Zona de Servicio'){
+        event.preventDefault();
+        let formErrors = {};
+        if (!formData.name) formErrors.name = "Nombre es requerido";
+        if (!formData.dni) formErrors.dni = "DNI es requerido";
+        if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
+        if (!formData.email) formErrors.email = "Correo es requerido";
+          if (!terminosAceptados) formErrors.terminosAceptados = "Debes aceptar los términos";
 
-        if(internetPlan==='Fuera de Zona' && planTV==='Ninguno'){
-            return alert( 'No esta habilitado para solicitar un turno')
+           setErrors(formErrors);
+
+             if (Object.keys(formErrors).length === 0) {
+    
+            const dataToSend = {
+                DNI: formData.dni,
+                Dpto: formData.departamento,
+                Piso: formData.piso,
+                direccion,
+                tv: planTV,
+                nombre: formData.name,
+                email: formData.email,
+                telefono: formData.telefono,
+                tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+            };
+            //Si no hay errores, hacemos POST
+                try {
+                    await dispatch(createReservaTV(dataToSend));
+                    
+                setTimeout(() => {
+                    navigate('/confirmación');
+                }, 1000);
+
+                } catch (error) {
+                    console.error('Error al enviar el formulario:', error);
+                }
+            }
         } 
 
         event.preventDefault();
@@ -734,29 +767,30 @@ const Form = () => {
                                     <MenuItem value="Ninguna">Ninguna</MenuItem>
                                 </Select>
                                 ):(
-                                <Select
-                                    displayEmpty
-                                    fullWidth
-                                    id="internet-plan-select"
-                                    value={internetPlan}
-                                    onChange={handleInternetChange}
-                                    sx={{
-                                        backgroundColor: "#edeaff",
-                                        borderRadius: "25px",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderRadius: "25px",
-                                            '&.Mui-focused fieldset': {
-                                                borderColor: '#8048ff',
-                                            },
-                                        },
-                                        '& .MuiInputLabel-root.Mui-focused': {
-                                            color: '#8048ff',
-                                        }
-                                    }}
-                                    inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
-                                >
-                                    <MenuItem value="Fuera de Zona">Fuera de Zona</MenuItem>
-                                </Select>
+                                // <Select
+                                //     displayEmpty
+                                //     fullWidth
+                                //     id="internet-plan-select"
+                                //     value={internetPlan}
+                                //     onChange={handleInternetChange}
+                                //     sx={{
+                                //         backgroundColor: "#edeaff",
+                                //         borderRadius: "25px",
+                                //         '& .MuiOutlinedInput-root': {
+                                //             borderRadius: "25px",
+                                //             '&.Mui-focused fieldset': {
+                                //                 borderColor: '#8048ff',
+                                //             },
+                                //         },
+                                //         '& .MuiInputLabel-root.Mui-focused': {
+                                //             color: '#8048ff',
+                                //         }
+                                //     }}
+                                //     inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
+                                // >
+                                //     <MenuItem value="Fuera de Zona">Fuera de Zona</MenuItem>
+                                // </Select>
+                                ""
                                 )}
                             {/*Servicio de cable*/}
                             {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
@@ -841,7 +875,8 @@ const Form = () => {
                             )}
                         
                            {/*Calendario */}
-                           <div className='form-calendar'>
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                                <div className='form-calendar'>
                                 <p className='form-calendar-text'>Elegí fecha y horario para coordinar la instalación del servicio.</p>
                                 <BasicDatePicker
                                     fechaInstalacion={fechaInstalacion}
@@ -851,6 +886,12 @@ const Form = () => {
                                     tipoInmueble={Object.keys(tipoInmueble).find(key => tipoInmueble[key])}
                                 />
                             </div>
+
+
+                            ):(
+                                ""
+                            )}
+                          
                         
                         </>
 
@@ -894,7 +935,8 @@ const Form = () => {
                                 />
                             </div>
                             {/*Enviar formulario */}
-                            <div className='form-button-container'>
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+   <div className='form-button-container'>
                             <Button
                                 sx={{
                                     width: "100%",
@@ -928,6 +970,42 @@ const Form = () => {
                                 Enviar
                                 </Button>
                             </div>
+                            ):(
+   <div className='form-button-container'>
+                            <Button
+                                sx={{
+                                    width: "100%",
+                                    fontFamily: "interTight",
+                                    fontSize: "25px",
+                                    fontWeight: "bold",
+                                    letterSpacing: "1px",
+                                    borderRadius: "50px",
+                                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                                    textTransform: "none",
+                                    color: "#161616",
+                                    backgroundColor: "#30e691",
+                                    marginBottom: "20px"
+                                }}
+                                variant="contained"
+                                size="large"
+                                type='submit'
+                                disabled={
+                                    !formData.name ||
+                                    !formData.dni ||
+                                    !formData.telefono ||
+                                    !formData.email ||
+                                    !direccion ||
+                                    !Object.values(tipoInmueble).includes(true) ||
+                                    !terminosAceptados
+                                    
+                                }
+                                >
+                                Enviar
+                                </Button>
+                            </div>
+                                
+                            )}
+                         
                         </form>
                     </Fade>
                 </div>
