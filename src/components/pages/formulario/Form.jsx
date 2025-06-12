@@ -213,6 +213,26 @@ const Form = () => {
     };
     
 
+     const verificarEspana = (address)=>{
+        console.log(address)
+        const parts = address.split(',').map(p => p.trim());
+
+
+        const nombreCalle = parts[0].split(' ')[0];
+        const alturaCalle = parts[0].split(' ')[1];
+        const alturaNumero = parseInt(alturaCalle)
+        let zona;
+
+        if(nombreCalle == 'España' && alturaNumero>2200 && alturaNumero<3900){
+            zona = true
+        }else{
+            zona = false
+        }
+
+        return zona
+
+    }
+
     async function verificarCobertura(e) {
       const {casa, edificio, ph} = tipoInmueble
       if(!casa && !edificio && !ph){
@@ -224,13 +244,15 @@ const Form = () => {
 
             const ciudad = coordenadas.city.long_name
             const direccionCompleta = coordenadas.address;
+            const espana = verificarEspana(direccion);
+            console.log(espana)
 
 
               if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
                                 return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
-            if (isPointInPolygon(coordenadas, zona1)) {
+            if (isPointInPolygon(coordenadas, zona1) || espana) {
                 setZona("Direccion en Zona 1");
             } else {
                 setZona("Fuera de Zona de Servicio");
