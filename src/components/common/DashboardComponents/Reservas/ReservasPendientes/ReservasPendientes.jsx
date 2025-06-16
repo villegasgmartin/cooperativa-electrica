@@ -45,7 +45,7 @@ import { updateReserva } from '../../../../../../redux/actions/reservasActions';
 import { markReservaAsRealizada } from '../../../../../../redux/actions/reservasActions';
 import { deleteReserva } from '../../../../../../redux/actions/reservasActions';
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
@@ -234,6 +234,7 @@ export default function ReservasPendientes() {
   const dispatch = useDispatch();
   const { reservas} = useSelector((state) => state.reservas);
   const { nombre, reservasLeer} = useSelector((state) => state.user);
+  const [orden, setOrden] = useState({ campo: '', direccion: '' });
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -413,11 +414,116 @@ const exportarAExcel = async () => {
   saveAs(blob, `Reservas Pendientes${dayjs().format('DD-MM-YYYY')}.xlsx`);
 };
 
+    //Ordenar alfabeticamente y ascendente y descendente: 
+const manejarOrden = (campo) => {
+    if (orden.campo === campo) {
+        if (orden.direccion === null) {
+        setOrden({ campo, direccion: 'asc' });
+        } else if (orden.direccion === 'asc') {
+        setOrden({ campo, direccion: 'desc' });
+        } else {
+        setOrden({ campo: null, direccion: null });
+        }
+    } else {
+        setOrden({ campo, direccion: 'asc' });
+    }
+    };
+
+ // Calculamos aquí las reservas que se están mostrando
+  const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
+
+  const reservasMostradas = baseReservas
+    .filter((row) => {
+        if (reservasLeer) {
+          return row.terceriazado === true;
+        }
+        return true;
+    })
+    .filter((row) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          row.internet.toLowerCase().includes(query) ||
+          row.mes.toLowerCase().includes(query) ||
+          row.nombre.toLowerCase().includes(query) ||
+          row.direccion.toLowerCase().includes(query) ||
+          row.telefono.toLowerCase().includes(query) ||
+          row.email.toLowerCase().includes(query) ||
+          row.tipo.toLowerCase().includes(query)
+        );
+    })
+    .filter((row) => {
+        if (!row.fecha) return false; 
+        const fechaReserva = dayjs(row.fecha); 
+        if (!fechaReserva.isValid()) return false;
+        if (fechaDesde && fechaHasta) {
+          return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+        } else if (fechaDesde) {
+          return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+        } else if (fechaHasta) {
+          return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+        }
+        return true;
+    })
+    .filter((row) => {
+        if (!mostrarMesActual) return true; 
+        const mesActual = dayjs().format('MMMM');
+        return dayjs(row.fecha).format('MMMM') === mesActual;
+    });
+    let reservasOrdenadas = [...reservasMostradas];
+    if (orden.campo) {
+      reservasOrdenadas = reservasOrdenadas.sort((a, b) => {
+        if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+          const textoA = a[orden.campo]?.toLowerCase() || '';
+          const textoB = b[orden.campo]?.toLowerCase() || '';
+
+          if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+          if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+          return 0;
+        } else if (orden.campo === 'fecha') {
+          const fechaA = dayjs(a.fecha);
+          const fechaB = dayjs(b.fecha);
+
+          if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+
+          if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+          if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+          return 0;
+        }
+        return 0;
+      });
+    }
+
+    if (orden.campo) {
+  reservasOrdenadas = [...reservasMostradas].sort((a, b) => {
+    if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+      const textoA = a[orden.campo].toLowerCase();
+      const textoB = b[orden.campo].toLowerCase();
+
+      if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+      if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+      return 0;
+    } else if (orden.campo === 'fecha') {
+      const fechaA = dayjs(a.fecha);
+      const fechaB = dayjs(b.fecha);
+
+      if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+
+      if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+      if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+      return 0;
+    }
+    return 0;
+  });
+}
+
   //Tabla:
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
       <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
         Reservas pendientes
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom sx={{ fontFamily: 'InterTight', fontWeight: 'bold' }}>
+          Mostrando {reservasMostradas.length} de {reservas.length} reservas
       </Typography>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: "15px" }}>
@@ -496,9 +602,28 @@ const exportarAExcel = async () => {
             <TableHead>
               <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
                 <TableCell />
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Nombre</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Dirección</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha del Turno</TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Nombre
+                  <Button onClick={() => manejarOrden('nombre')}  sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}>
+                    {orden.campo === 'nombre' ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕') : '↕'}
+                  </Button>
+                </TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Dirección
+                  <Button onClick={() => manejarOrden('direccion')} sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}>
+                    {orden.campo === 'direccion'
+                        ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                        : '↕'}
+                  </Button>
+                </TableCell>
+                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha del Turno
+                  <Button
+                    onClick={() => manejarOrden('fecha')}
+                    sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}
+                >
+                    {orden.campo === 'fecha'
+                    ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                    : '↕'}
+                  </Button>
+                </TableCell>
                 {!reservasLeer && ( 
                 <>
                   <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
@@ -508,55 +633,17 @@ const exportarAExcel = async () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {(reservasFiltradas.length > 0 ? reservasFiltradas : reservas)
-              .filter((row) => {
-                  if (reservasLeer) {
-                    return row.terceriazado === true;
-                  }
-                  return true;
-                })
-                .filter((row) => {
-                  const query = searchQuery.toLowerCase();
-                  return (
-                    row.internet.toLowerCase().includes(query) ||
-                    row.mes.toLowerCase().includes(query) ||
-                    row.nombre.toLowerCase().includes(query) ||
-                    row.direccion.toLowerCase().includes(query) ||
-                    row.telefono.toLowerCase().includes(query) ||
-                    row.email.toLowerCase().includes(query) ||
-                    row.tipo.toLowerCase().includes(query) 
-                  );
-                })
-                .filter((row) => {
-                  if (!row.fecha) return false; 
-                  const fechaReserva = dayjs(row.fecha); 
-                  if (!fechaReserva.isValid()) return false;
-                  if (fechaDesde && fechaHasta) {
-                    return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-                  } else if (fechaDesde) {
-                    return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-                  } else if (fechaHasta) {
-                    return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-                  }
-                  return true;
-                })
-                .filter((row) => {
-                  if (!mostrarMesActual) return true; 
-                  const mesActual = dayjs().format('MMMM');
-                  return dayjs(row.fecha).format('MMMM') === mesActual;
-                })
-                .map((row) => (
-                  <Row
-                    key={row._id}
-                    row={row}
-                    reservasLeer={reservasLeer}
-                    handleEditClick={handleEditClick}
-                    handleDeleteClick={handleDeleteClick}
-                    handleMarkAsRealizada={handleMarkAsRealizada}
-                  />
-                ))
-              }
-            </TableBody>
+              {reservasOrdenadas.map((row) => (
+                <Row
+                key={row._id}
+                row={row}
+                reservasLeer={reservasLeer}
+                handleEditClick={handleEditClick}
+                handleDeleteClick={handleDeleteClick}
+                handleMarkAsRealizada={handleMarkAsRealizada}
+                />
+                ))}
+              </TableBody>
           </Table>
         </TableContainer>
       </Box>

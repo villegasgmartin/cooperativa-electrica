@@ -1,5 +1,5 @@
 // Importaciones:
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
     Collapse, IconButton, Typography, Button, TextField, useTheme
@@ -29,7 +29,7 @@ export default function ReservasEliminadas() {
     const { nombre, reservasLeer} = useSelector((state) => state.user);
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
-    
+    const [orden, setOrden] = useState({ campo: '', direccion: '' });
 
     // Cargar reservas desde Redux
     React.useEffect(() => {
@@ -162,6 +162,21 @@ export default function ReservasEliminadas() {
     saveAs(blob, `Reservas Eliminadas${dayjs().format('DD-MM-YYYY')}.xlsx`);
     };
 
+    //Ordenar alfabeticamente y ascendente y descendente: 
+const manejarOrden = (campo) => {
+    if (orden.campo === campo) {
+        if (orden.direccion === null) {
+        setOrden({ campo, direccion: 'asc' });
+        } else if (orden.direccion === 'asc') {
+        setOrden({ campo, direccion: 'desc' });
+        } else {
+        setOrden({ campo: null, direccion: null });
+        }
+    } else {
+        setOrden({ campo, direccion: 'asc' });
+    }
+    };
+
     // Tabla
     function Row({ row }) {
         const [open, setOpen] = React.useState(false);
@@ -252,11 +267,39 @@ export default function ReservasEliminadas() {
             return true;
         })
         .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'));
+        let reservasOrdenadas = reservasFiltradas;
+            if (orden.campo) {
+            reservasOrdenadas = [...reservasFiltradas].sort((a, b) => {
+                if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+                // Orden alfabético
+                const textoA = a[orden.campo].toLowerCase();
+                const textoB = b[orden.campo].toLowerCase();
 
-    return (
+                if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+                if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+                return 0;
+                } else if (orden.campo === 'fecha') {
+                // Orden por fecha con dayjs
+                const fechaA = dayjs(a.fecha);
+                const fechaB = dayjs(b.fecha);
+
+                if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+
+                if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+                if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+                return 0;
+                }
+                return 0;
+            });
+        }
+
+        return (
         <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: "50px" }}>
         <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
             Reservas Eliminadas
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom sx={{ fontFamily: 'InterTight', fontWeight: 'bold' }}>
+            Mostrando {reservasFiltradas.length} de {reservas.length} reservas
         </Typography>
 
         {/* FILTROS */}
@@ -334,12 +377,28 @@ export default function ReservasEliminadas() {
                 <TableCell />
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Nombre
+                    <Button onClick={() => manejarOrden('nombre')}  sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}>
+                        {orden.campo === 'nombre' ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕') : '↕'}
+                    </Button>
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Dirección
+                    <Button onClick={() => manejarOrden('direccion')} sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}>
+                        {orden.campo === 'direccion'
+                            ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                            : '↕'}
+                    </Button>
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Fecha del Turno
+                        <Button
+                            onClick={() => manejarOrden('fecha')}
+                            sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}
+                        >
+                            {orden.campo === 'fecha'
+                            ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                            : '↕'}
+                        </Button>
                 </TableCell>
                 <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Responsable
@@ -357,7 +416,7 @@ export default function ReservasEliminadas() {
                 ) : errorEliminadas ? (
                 <TableRow><TableCell colSpan={5}>Error al cargar las reservas.</TableCell></TableRow>
                 ) : (
-                reservasFiltradas.map((row) => (
+                reservasOrdenadas.map((row) => (
                     <Row key={row._id} row={row} reservasLeer={reservasLeer} />
                 ))
                 )}
