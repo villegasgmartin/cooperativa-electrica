@@ -189,12 +189,13 @@ const manejarOrden = (campo) => {
                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
             </TableCell>
-            <TableCell>{row.nombre}</TableCell>
-            <TableCell>{row.direccion.split(',')[0]}</TableCell>
-            <TableCell>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
-            <TableCell>{row.responsable || 'N/A'}</TableCell>
+            <TableCell align='center'>{row.nombre}</TableCell>
+            <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
+            <TableCell align='center'>{dayjs(row.fechaSolicitud).format('M/D/YYYY')}</TableCell>
+            <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
+            <TableCell align='center'>{row.responsable || 'N/A'}</TableCell>
             {!reservasLeer && (
-                <TableCell>
+                <TableCell align='center'>
                 <Button
                     variant="contained"
                     size="small"
@@ -269,29 +270,36 @@ const manejarOrden = (campo) => {
         .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'));
         let reservasOrdenadas = reservasFiltradas;
             if (orden.campo) {
-            reservasOrdenadas = [...reservasFiltradas].sort((a, b) => {
-                if (orden.campo === 'nombre' || orden.campo === 'direccion') {
-                // Orden alfabético
-                const textoA = a[orden.campo].toLowerCase();
-                const textoB = b[orden.campo].toLowerCase();
-
-                if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
-                if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
-                return 0;
-                } else if (orden.campo === 'fecha') {
-                // Orden por fecha con dayjs
-                const fechaA = dayjs(a.fecha);
-                const fechaB = dayjs(b.fecha);
-
-                if (!fechaA.isValid() || !fechaB.isValid()) return 0;
-
-                if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
-                if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
-                return 0;
+                reservasOrdenadas = [...reservasFiltradas].sort((a, b) => {
+                    if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+                    const textoA = a[orden.campo].toLowerCase();
+                    const textoB = b[orden.campo].toLowerCase();
+                
+                    if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+                    if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+                    return 0;
+                    } else if (orden.campo === 'fecha') {
+                    const fechaA = dayjs(a.fecha);
+                    const fechaB = dayjs(b.fecha);
+                
+                    if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+                
+                    if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+                    if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+                    return 0;
+                    } else if (orden.campo === 'fechaSolicitud') {
+                    const fechaA = dayjs(a.fechaSolicitud);
+                    const fechaB = dayjs(b.fechaSolicitud);
+                
+                    if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+                
+                    if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+                    if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+                    return 0;
+                    }
+                    return 0;
+                });
                 }
-                return 0;
-            });
-        }
 
         return (
         <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: "50px" }}>
@@ -375,36 +383,79 @@ const manejarOrden = (campo) => {
             <TableHead>
                 <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
                 <TableCell />
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                    Nombre
-                    <Button onClick={() => manejarOrden('nombre')}  sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Nombre
+                        <Button
+                        onClick={() => manejarOrden('nombre')}
+                        sx={{ minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main',  ml:"2px" }}
+                        >
                         {orden.campo === 'nombre' ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕') : '↕'}
-                    </Button>
+                        </Button>
+                    </Box>
                 </TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                    Dirección
-                    <Button onClick={() => manejarOrden('direccion')} sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Dirección
+                        <Button
+                        onClick={() => manejarOrden('direccion')}
+                        sx={{minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px"  }}
+                        >
                         {orden.campo === 'direccion'
                             ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
                             : '↕'}
-                    </Button>
+                        </Button>
+                    </Box>
                 </TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                    Fecha del Turno
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Solicitud
                         <Button
-                            onClick={() => manejarOrden('fecha')}
-                            sx={{ ml: 1, minWidth: '20px', padding: '2px', fontSize: '0.75rem', color: isLight ? '#fff' : 'primary.main' }}
+                        onClick={() => manejarOrden('fechaSolicitud')}
+                        sx={{  minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px" }}
                         >
-                            {orden.campo === 'fecha'
+                        {orden.campo === 'fechaSolicitud'
                             ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
                             : '↕'}
                         </Button>
+                    </Box>
                 </TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                <TableCell
+                    align="center"
+                    sx={{
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        color: isLight ? '#fff' : 'primary.main',
+                        py: 2
+                    }}
+                    >
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Turno
+                        <Button
+                        onClick={() => manejarOrden('fecha')}
+                        sx={{
+                            ml: "2px",
+                            minWidth: '20px',
+                            padding: '2px',
+                            fontSize: '20px',
+                            color: isLight ? '#fff' : 'primary.main'
+                        }}
+                        >
+                        {orden.campo === 'fecha'
+                            ? orden.direccion === 'asc'
+                            ? '↑'
+                            : orden.direccion === 'desc'
+                            ? '↓'
+                            : '↕'
+                            : '↕'}
+                        </Button>
+                    </Box>
+                </TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Responsable
                 </TableCell>
                 {!reservasLeer && (
-                    <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
                     Marcar Pendiente
                     </TableCell>
                 )}
