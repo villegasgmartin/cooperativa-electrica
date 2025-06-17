@@ -99,7 +99,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     // Datos del socio
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud, 'YYYY-MM-DDTHH:mm:ss.SSSZ').format('MM/DD/YYYY')}`, 10, y);y += 10;
+    doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud).format('M/D/YYYY')}`, 10, y);y += 10;
     doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
     doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
