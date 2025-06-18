@@ -29,7 +29,7 @@ import Login from "./components/pages/login/Login.jsx";
 import NewPassword from "./components/pages/newPassword/NewPassword.jsx";
 import PreguntasNave from "./components/pages/preguntasNave/PreguntasNave.jsx";
 import OcultaVittal from "./components/pages/oculta-vittal/Oculta-Vittal.jsx";
-
+import Success from "./components/pages/success/Success.jsx";
 
 // Componente separado para manejar rutas y lógica
 function AppContent() {
@@ -66,6 +66,7 @@ function AppContent() {
         <Route path="/nave" element={<Nave />} />
         <Route path="/preguntas-nave" element={<PreguntasNave />} />
         <Route path="/formulario" element={<Form />} />
+        <Route path="/confirmación" element={<Success />} />
         <Route path="/promo-asociado-nave" element={<Oculta />} />
         <Route path="/vittal-promo" element={<OcultaVittal />} />
 

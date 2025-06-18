@@ -1,13 +1,14 @@
 //Importaciones:
-import * as React from 'react';
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import 'dayjs/locale/es';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchHorariosDisponibles } from '../../../../../redux/actions/formActions';
 
 //JSX:
 dayjs.locale({
@@ -24,35 +25,39 @@ dayjs.locale({
 
 dayjs.locale('es-custom');
 
-export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion, franjaHoraria, setFranjaHoraria, tipoInmueble }) {
-    const [horariosDisponibles, setHorariosDisponibles] = React.useState([]);
+export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion, franjaHoraria, setFranjaHoraria, tipoInmueble , sinEstilo = false}) {
+    const dispatch = useDispatch();
+    const { horariosDisponibles, loading, error } = useSelector((state) => state.form);
+
     
     // Establecemos el número de días a bloquear según el tipo de inmueble
     const diasBloqueados = tipoInmueble === 'edificio' ? 5 : tipoInmueble === 'casa' || tipoInmueble === 'ph' ? 2 : 0;
 
-    const estilos = {
+    const estilos = sinEstilo
+    ? {}
+    : {
         backgroundColor: "#edeaff",
         borderRadius: "25px",
         '& .MuiOutlinedInput-root': {
             borderRadius: "25px",
             backgroundColor: "#edeaff",
             '& fieldset': {
-                borderColor: '#ccc',
+            borderColor: '#ccc',
             },
             '&:hover fieldset': {
-                borderColor: '#8048ff', 
+            borderColor: '#8048ff',
             },
             '&.Mui-focused fieldset': {
-                borderColor: '#8048ff', 
+            borderColor: '#8048ff',
             },
         },
         '& .MuiInputLabel-root': {
-            color: '#161616', 
+            color: '#161616',
         },
         '& .MuiInputLabel-root.Mui-focused': {
-            color: '#8048ff', 
-        }
-    };
+            color: '#8048ff',
+        },
+        };
 
     // Función para calcular días hábiles
     const calcularDiasHabiles = (fechaInicio, diasAHabilitar) => {
@@ -79,22 +84,12 @@ export default function BasicDatePicker({ fechaInstalacion, setFechaInstalacion,
         return date.isBefore(disableFrom, 'day') || date.day() === 0 || date.day() === 6;
     };
 
-    const fetchHorariosDisponibles = async (fecha) => {
-        try {
-            const response = await axios.get('https://cooperativaback.up.railway.app/api/reservas/horarios-disponibles', {
-                params: { fecha: dayjs(fecha).format('YYYY-MM-DD') }
-            });
-
-            if (response.data.horariosDisponibles) {
-                setHorariosDisponibles(response.data.horariosDisponibles);
-            } else {
-                setHorariosDisponibles([]);
-            }
-        } catch (error) {
-            console.error('Error al obtener los horarios disponibles:', error);
-            setHorariosDisponibles([]);
+useEffect(() => {
+        if (fechaInstalacion) {
+        const fechaFormateada = dayjs(fechaInstalacion).format('YYYY-MM-DD');
+        dispatch(fetchHorariosDisponibles(fechaFormateada));
         }
-    };
+    }, [fechaInstalacion, dispatch]);
 
     const handleDateChange = (newValue) => {
         setFechaInstalacion(newValue);

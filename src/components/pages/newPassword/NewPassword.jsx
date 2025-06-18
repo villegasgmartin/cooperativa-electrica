@@ -1,4 +1,3 @@
-// Importaciones:
 import React, { useState } from 'react';
 import axios from 'axios';
 import {
@@ -8,13 +7,15 @@ import {
     Snackbar,
     Alert,
     Typography,
-    Paper
+    Paper,
+    IconButton,
+    InputAdornment
 } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import "../newPassword/NewPassword.css";
 
-//JSX:
 export default function NewPassword() {
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token');
@@ -22,6 +23,8 @@ export default function NewPassword() {
 
     const [newPassword, setNewPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
@@ -110,25 +113,26 @@ export default function NewPassword() {
 
                     <TextField
                         label="Nueva contraseña"
-                        type="password"
+                        type={showPassword ? 'text' : 'password'}
                         variant="outlined"
                         fullWidth
                         InputLabelProps={{ style: { color: '#ccc' } }}
-                        InputProps={{ style: { color: 'white' } }}
+                        InputProps={{
+                            style: { color: 'white' },
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                                        {showPassword ? <VisibilityOff sx={{ color: '#ccc' }}/> : <Visibility sx={{ color: '#ccc' }}/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         sx={{
-                            '& label.Mui-focused': {
-                                color: '#2eed8d',
-                            },
+                            '& label.Mui-focused': { color: '#2eed8d' },
                             '& .MuiOutlinedInput-root': {
-                                '& fieldset': {
-                                    borderColor: 'white',
-                                },
-                                '&:hover fieldset': {
-                                    borderColor: 'white',
-                                },
-                                '&.Mui-focused fieldset': {
-                                    borderColor: '#2eed8d',
-                                },
+                                '& fieldset': { borderColor: 'white' },
+                                '&:hover fieldset': { borderColor: 'white' },
+                                '&.Mui-focused fieldset': { borderColor: '#2eed8d' },
                             },
                         }}
                         value={newPassword}
@@ -137,25 +141,26 @@ export default function NewPassword() {
 
                     <TextField
                         label="Confirmar nueva contraseña"
-                        type="password"
+                        type={showConfirmPassword ? 'text' : 'password'}
                         variant="outlined"
                         fullWidth
                         InputLabelProps={{ style: { color: '#ccc' } }}
-                        InputProps={{ style: { color: 'white' } }}
+                        InputProps={{
+                            style: { color: 'white' },
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={() => setShowConfirmPassword(!showConfirmPassword)} edge="end">
+                                        {showConfirmPassword ? <VisibilityOff  sx={{ color: '#ccc' }}/> : <Visibility sx={{ color: '#ccc' }}/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                         sx={{
-                            '& label.Mui-focused': {
-                                color: '#2eed8d',
-                            },
+                            '& label.Mui-focused': { color: '#2eed8d' },
                             '& .MuiOutlinedInput-root': {
-                                '& fieldset': {
-                                    borderColor: 'white',
-                                },
-                                '&:hover fieldset': {
-                                    borderColor: 'white',
-                                },
-                                '&.Mui-focused fieldset': {
-                                    borderColor: '#2eed8d',
-                                },
+                                '& fieldset': { borderColor: 'white' },
+                                '&:hover fieldset': { borderColor: 'white' },
+                                '&.Mui-focused fieldset': { borderColor: '#2eed8d' },
                             },
                         }}
                         value={confirmPassword}
@@ -172,9 +177,7 @@ export default function NewPassword() {
                             borderRadius: '50px',
                             fontWeight: 'bold',
                             fontSize: '16px',
-                            '&:hover': {
-                                backgroundColor: '#2ed483'
-                            }
+                            '&:hover': { backgroundColor: '#2ed483' }
                         }}
                         onClick={handleSubmit}
                     >

@@ -14,9 +14,9 @@ import {
 } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchAllBlogs, updateBlog, deleteBlog } from '../../../../../../redux/actions/blogActions';
 
-// JSX:
 const styleModal = {
     position: 'absolute',
     top: '50%',
@@ -29,8 +29,11 @@ const styleModal = {
     p: 4,
 };
 
+//JSX:
 export default function BlogGestor() {
-    const [blogs, setBlogs] = useState([]);
+    const dispatch = useDispatch();
+    const { allBlogs: blogs } = useSelector((state) => state.blogs);
+
     const [modalEliminar, setModalEliminar] = useState(false);
     const [modalEditar, setModalEditar] = useState(false);
     const [blogSeleccionado, setBlogSeleccionado] = useState(null);
@@ -38,58 +41,36 @@ export default function BlogGestor() {
     const [subtituloEditado, setSubtituloEditado] = useState('');
     const [descripcionEditada, setDescripcionEditada] = useState('');
 
-    const obtenerBlogs = async () => {
-        try {
-            const response = await axios.get('https://cooperativaback.up.railway.app/api/blog/blogs', {
-                headers: {
-                    'x-token': localStorage.getItem('token'),
-                },
-            });
-            setBlogs(response.data.blogs);
-        } catch (error) {
-            console.error('Error al obtener blogs:', error);
-        }
-    };
-
+    //Traemos los blogs:
     useEffect(() => {
-        obtenerBlogs();
-    }, []);
+        dispatch(fetchAllBlogs());
+    }, [dispatch]);
 
-    const handleEliminar = async () => {
-        try {
-            await axios.delete(`https://cooperativaback.up.railway.app/api/blog/borrar-blog?id=${blogSeleccionado._id}`, {
-                headers: {
-                    'x-token': localStorage.getItem('token'),
-                },
-            });
+    //Eliminar blogs:
+    const handleEliminar = () => {
+        if (blogSeleccionado?._id) {
+            dispatch(deleteBlog(blogSeleccionado._id));
             setModalEliminar(false);
-            obtenerBlogs();
-        } catch (error) {
-            console.error('Error al eliminar el blog:', error);
         }
     };
 
+    //Editar blogs:
     const handleEditar = async () => {
+    if (blogSeleccionado?._id) {
+        const updatedData = {
+            titulo: tituloEditado,
+            subtitulo: subtituloEditado,
+            descripcion: descripcionEditada,
+        };
         try {
-            await axios.put(
-                `https://cooperativaback.up.railway.app/api/blog/actualizar-blog?id=${blogSeleccionado._id}`,
-                {
-                    titulo: tituloEditado,
-                    subtitulo: subtituloEditado,
-                    descripcion: descripcionEditada,
-                },
-                {
-                    headers: {
-                        'x-token': localStorage.getItem('token'),
-                    },
-                }
-            );
+            await dispatch(updateBlog(blogSeleccionado._id, updatedData));
+            dispatch(fetchAllBlogs()); 
             setModalEditar(false);
-            obtenerBlogs();
         } catch (error) {
             console.error('Error al editar el blog:', error);
         }
-    };
+    }
+};
 
     const abrirModalEliminar = (blog) => {
         setBlogSeleccionado(blog);
@@ -118,7 +99,7 @@ export default function BlogGestor() {
                                 <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 1 }}>
                                     {blog.titulo}
                                 </Typography>
-                                {blog.subtitulo && ( 
+                                {blog.subtitulo && (
                                     <Typography variant="body2" sx={{ fontStyle: 'italic', mb: 1 }}>
                                         {blog.subtitulo}
                                     </Typography>

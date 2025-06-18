@@ -1,5 +1,4 @@
 //Importaciones:
-import * as React from 'react';
 import {
   Box,
   Collapse,
@@ -25,6 +24,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Grid,
+  FormControlLabel,
+  Switch,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -37,7 +39,17 @@ import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchReservas } from '../../../../../../redux/actions/reservasActions';
+import { updateReserva } from '../../../../../../redux/actions/reservasActions';
+import { markReservaAsRealizada } from '../../../../../../redux/actions/reservasActions';
+import { deleteReserva } from '../../../../../../redux/actions/reservasActions';
+import { fetchUserData } from '../../../../../../redux/actions/userActions';
+import React, { useEffect, useState } from 'react';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import DownloadIcon from '@mui/icons-material/Download';
+
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
@@ -87,7 +99,8 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     // Datos del socio
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`Fecha Solicitud: ${row.fechaFormateada}`, 10, y); y += 10;
+    doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud).format('M/D/YYYY')}`, 10, y);y += 10;
+    doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
     doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
     doc.text(`Tipo: ${row.tipo || 'No disponible'}   Piso: ${row.Piso || 'No disponible'}   Dpto: ${row.Dpto || 'No disponible'}`, 10, y); y += 10;
@@ -114,19 +127,27 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     const declarationText = `Declaro que los datos detallados precedentemente son totalmente ciertos y que han sido proporcionados con el fin de obtener los servicios ofrecidos por la Cooperativa en los términos y condiciones explícitas en el reverso de la presente, y a la vez me comprometo a no comercializar, subcontratar, suministrar a terceros ni enajenar en cualquier forma, el servicio solicitado. Además me comprometo a utilizar el servicio accediendo únicamente desde el domicilio declarado, y a no dar a conocer a terceros por ningún medio los datos de acceso a vuestro Servidor. Quedo a la vez notificado que, en caso de comprobarse por cualquier medio el incumplimiento de los compromisos, me será impedido el acceso al servicio en forma inmediata y sin comunicación previa de inhabilitación.`;
   
     const lines = doc.splitTextToSize(declarationText, 180);
-    doc.text(lines, 10, y); y += lines.length * 6; 
+    doc.text(lines, 10, y); y += lines.length * 5; 
   
-    doc.text('Observaciones:', 10, y); y += 10;
-    y += 20; 
-  
+  if (row.observaciones && row.observaciones.trim() !== '') {
+    doc.text('Observaciones:', 10, y);
+
+    const obsLines = doc.splitTextToSize(row.observaciones, 180);
+    y += 6; 
+    doc.text(obsLines, 10, y);
+    y += obsLines.length * 6;
+  }
+    y += 10;
     doc.text('Firma del Titular ...............................................', 10, y); y += 20;
     doc.text('Aclaración ...................................................', 10, y -10); y += 10;
     doc.text(`Fecha ....../......./........... Hora ......... : ..........`, 10, y-10); y += 10;
   
-    doc.addImage(logo1, 'PNG', 170, y - 30, 30, 25);
+    const pageHeight = doc.internal.pageSize.height;
+    doc.addImage(logo1, 'PNG', 170, pageHeight - 40, 30, 25);
 
-    doc.save(`orden-instalacion-${row.nombre.replace(/ /g, '_')}.pdf`);
+    doc.save(`Orden-Instalación-${row.nombre.replace(/ /g, '_')}.pdf`);
   };
+
 
   return (
     <>
@@ -137,12 +158,13 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
           </IconButton>
         </TableCell>
 
-        <TableCell>{row.internet}</TableCell>
-        <TableCell>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
-        <TableCell>{row.mes}</TableCell>
+        <TableCell align='center'>{row.nombre} - {row.NumeroUsuario}</TableCell>
+        <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
+        <TableCell align='center'>{dayjs(row.fechaSolicitud).format('M/D/YYYY')}</TableCell>
+        <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
 
         {!reservasLeer && ( 
-          <TableCell>
+          <TableCell align='center'>
             <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
               <EditIcon />
             </IconButton>
@@ -156,7 +178,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
         )}
 
         {!reservasLeer && ( 
-          <TableCell>
+          <TableCell align='center'>
             <Button
               variant="contained"
               onClick={() => handleMarkAsRealizada(row)}
@@ -177,14 +199,17 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
                 Detalles
               </Typography>
               <ul>
-                <li>Nombre y Apellido: {row.nombre}</li>
-                <li>Dirección: {row.direccion}</li>
+                <li>Servicio: {row.internet}</li>
+                <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
+                <li>Inmueble: {row.tipo}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
                 <li>Tv: {row.tv}</li>
                 <li>Teléfono: {row.telefono}</li>
                 <li>DNI: {row.DNI}</li>
                 <li>Correo: {row.email}</li>
+                <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
+                {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
               </ul>
             </Box>
           </Collapse>
@@ -197,7 +222,6 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
 export default function ReservasPendientes() {
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
-  const [reservas, setReservas] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
   const [selectedReserva, setSelectedReserva] = React.useState(null);
   const [reservaAEliminar, setReservaAEliminar] = React.useState(null);
@@ -205,9 +229,13 @@ export default function ReservasPendientes() {
   const [reservasFiltradas, setReservasFiltradas] = React.useState([]);
   const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
   const [searchQuery, setSearchQuery] = React.useState('');
-  const [fechaFiltro, setFechaFiltro] = React.useState(null);
+  const [fechaDesde, setFechaDesde] = React.useState(null);
+  const [fechaHasta, setFechaHasta] = React.useState(null);
   const [nombreUsuario, setNombreUsuario] = React.useState('');
-  const [reservasLeer, setReservasLeer] = React.useState(false);
+  const dispatch = useDispatch();
+  const { reservas} = useSelector((state) => state.reservas);
+  const { nombre, reservasLeer} = useSelector((state) => state.user);
+  const [orden, setOrden] = useState({ campo: '', direccion: '' });
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -236,58 +264,17 @@ export default function ReservasPendientes() {
   };
 
   //Función para obtener nombre de usuario:
-  React.useEffect(() => {
-  const fetchUserData = async () => {
-    try {
-      const userId = localStorage.getItem('userId');
-      const token = localStorage.getItem('token');
-
-      if (!userId || !token) {
-        console.error('No se encontró el userId o token en localStorage');
-        return;
-      }
-
-      const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
-        headers: {
-          'x-token': token,
-        },
-      });
-      setNombreUsuario(data.nombre);
-      setReservasLeer(data.reservasLeer ?? false);
-    } catch (error) {
-      console.error('Error al obtener el perfil del usuario:', error);
-    }
-  };
-
-  fetchUserData();
-}, []);
-
+useEffect(() => {
+    dispatch(fetchUserData());
+  }, [dispatch]);
 
   //Funcion para eliminar:
-  const handleConfirmDelete = async () => {
-  try {
-    const token = localStorage.getItem('token');
+const handleConfirmDelete = () => {
+  if (!reservaAEliminar) return;
 
-    const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${reservaAEliminar._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-      },
-      body: JSON.stringify({
-        estadoBorrado: true,
-        responsable: nombreUsuario,
-      }),
-    });
-
-    if (!response.ok) throw new Error('Error al actualizar el estado');
-
-    setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
-    setOpenConfirmDialog(false);
-    setReservaAEliminar(null);
-  } catch (error) {
-    console.error('Error al marcar como borrado:', error);
-  }
+  dispatch(deleteReserva(reservaAEliminar._id, nombreUsuario));
+  setOpenConfirmDialog(false);
+  setReservaAEliminar(null);
 };
 
   //Cerramos modal:
@@ -297,108 +284,247 @@ export default function ReservasPendientes() {
   };
 
   //Función para marcar la reserva como realizada
-  const handleMarkAsRealizada = async (row) => {
-
-    try {
-      const token = localStorage.getItem('token');
-  
-      const updatedReserva = {
-        ...row,
-        estado: true,
-      };
-  
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': token,
-        },
-        body: JSON.stringify(updatedReserva),
-      });
-  
-      if (!response.ok) throw new Error('Error al actualizar la reserva');
-  
-      console.log("Reserva actualizada correctamente");
-  
-      // Actualizamos la lista de reservas localmente
-      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: true } : r));
-  
-    } catch (error) {
-      console.error('Error al marcar como realizada:', error);
-    }
-  };
-    
-
-// Función para editar:
-const handleSaveChanges = async () => {
-  try {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-      },
-      body: JSON.stringify(selectedReserva),
-    });
-
-    if (!response.ok) throw new Error('Error al actualizar la reserva');
-
-    setOpenModal(false);
-    setSelectedReserva(null);
-
-    setReservas(reservas.map((r) =>
-      r._id === selectedReserva._id
-        ? {
-            ...r,
-            ...selectedReserva,
-            fechaFormateada: dayjs(selectedReserva.fecha).format('DD/MM'),
-            mes: dayjs(selectedReserva.fecha).format('MMMM'),
-          }
-        : r
-    ));
-  } catch (error) {
-    console.error('Error al guardar cambios:', error);
-  }
+const handleMarkAsRealizada = (row) => {
+  dispatch(markReservaAsRealizada(row));
 };
 
-  //Traemos las reservas: GET
-  React.useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas', {
-          headers: { 'x-token': token },
-        });
+// Función para editar:
+const handleSaveChanges = () => {
+  dispatch(updateReserva(selectedReserva));
+  setOpenModal(false);
+  setSelectedReserva(null);
+};
 
-        if (!response.ok) throw new Error('Error al obtener las reservas');
-        const data = await response.json();
-        const reservasFormateadas = data.reservas
-          .filter(r => r.estadoBorrado === false) 
-          .map((r) => {
-            const fechaObj = dayjs(r.fecha);
-            return {
-              ...r,
-              fechaFormateada: fechaObj.format('D [de] MMMM'),
-              mes: fechaObj.format('MMMM'),
-              horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
-            };
-          });
-        setReservas(reservasFormateadas);
-      } catch (error) {
-        console.error('Error al cargar las reservas:', error);
-      }
-    };
-    fetchReservas();
-  }, []);
-
+//Traemos las reservas: GET
+useEffect(() => {
+    dispatch(fetchReservas());
+  }, [dispatch]);
 
   //Función para limpiar los filtros
   const handleLimpiarFiltros = () => {
-    setFechaFiltro(null); 
+    setFechaDesde(null)
+    setFechaHasta(null)
     setMostrarMesActual(false); 
     setSearchQuery('');
   };
+
+  //Excel:
+const exportarAExcel = async () => {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Reservas');
+
+  const columnas = [
+    { header: 'NOMBRE', key: 'nombre', width: 20 },
+    { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
+    { header: 'INMUEBLE', key: 'tipo', width: 15 },
+    { header: 'PISO', key: 'piso', width: 10 },
+    { header: 'DPTO', key: 'dpto', width: 10 },
+    { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
+    { header: 'HORARIO', key: 'horario', width: 12 },
+    { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+    { header: 'SERVICIO', key: 'internet', width: 15 },
+    { header: 'TELÉFONO', key: 'telefono', width: 15 },
+    { header: 'EMAIL', key: 'email', width: 25 },
+    { header: 'DNI', key: 'dni', width: 15 },
+  ];
+
+  worksheet.columns = columnas;
+
+  // Encabezado con estilo
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: '#12824c' },
+    };
+    cell.alignment = { vertical: 'middle', horizontal: 'center' };
+    cell.border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' },
+    };
+  });
+
+  const reservasFiltradas = reservas
+    .filter((row) => {
+      const query = searchQuery.toLowerCase();
+      return (
+        row.internet.toLowerCase().includes(query) ||
+        row.mes.toLowerCase().includes(query) ||
+        row.nombre.toLowerCase().includes(query) ||
+        row.direccion.toLowerCase().includes(query) ||
+        row.telefono.toLowerCase().includes(query) ||
+        row.email.toLowerCase().includes(query) ||
+        row.tipo.toLowerCase().includes(query)
+      );
+    })
+    .filter((row) => {
+      if (!row.fecha) return false;
+      const fechaReserva = dayjs(row.fecha);
+      if (!fechaReserva.isValid()) return false;
+
+      if (fechaDesde && fechaHasta) {
+        return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+      } else if (fechaDesde) {
+        return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+      } else if (fechaHasta) {
+        return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+      }
+      return true;
+    })
+    .filter((row) => {
+      if (!mostrarMesActual) return true;
+      const mesActual = dayjs().format('MMMM');
+      return dayjs(row.fecha).format('MMMM') === mesActual;
+    });
+
+  reservasFiltradas.forEach((reserva) => {
+    worksheet.addRow({
+      nombre: reserva.nombre,
+      direccion: reserva.direccion?.split(',')[0],
+      tipo: reserva.tipo,
+      piso: reserva.Piso,
+      dpto: reserva.Dpto,
+      fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+      horario: reserva.horario,
+      fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+      internet: reserva.internet,
+      telefono: reserva.telefono,
+      email: reserva.email,
+      dni: reserva.DNI,
+    });
+  });
+
+  // Ajuste de estilo para todas las celdas de datos
+  worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+    row.eachCell((cell) => {
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+  });
+
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  saveAs(blob, `Reservas Pendientes${dayjs().format('DD-MM-YYYY')}.xlsx`);
+};
+
+  //Ordenar alfabeticamente y ascendente y descendente: 
+  const manejarOrden = (campo) => {
+      if (orden.campo === campo) {
+          if (orden.direccion === null) {
+          setOrden({ campo, direccion: 'asc' });
+          } else if (orden.direccion === 'asc') {
+          setOrden({ campo, direccion: 'desc' });
+          } else {
+          setOrden({ campo: null, direccion: null });
+          }
+      } else {
+          setOrden({ campo, direccion: 'asc' });
+      }
+      };
+
+ // Calculamos aquí las reservas que se están mostrando
+  const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
+
+  const reservasMostradas = baseReservas
+    .filter((row) => {
+        if (reservasLeer) {
+          return row.terceriazado === true;
+        }
+        return true;
+    })
+    .filter((row) => {
+        const query = searchQuery.toLowerCase();
+        return (
+          row.internet.toLowerCase().includes(query) ||
+          row.mes.toLowerCase().includes(query) ||
+          row.nombre.toLowerCase().includes(query) ||
+          row.direccion.toLowerCase().includes(query) ||
+          row.telefono.toLowerCase().includes(query) ||
+          row.email.toLowerCase().includes(query) ||
+          row.tipo.toLowerCase().includes(query)
+        );
+    })
+    .filter((row) => {
+        if (!row.fecha) return false; 
+        const fechaReserva = dayjs(row.fecha); 
+        if (!fechaReserva.isValid()) return false;
+        if (fechaDesde && fechaHasta) {
+          return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+        } else if (fechaDesde) {
+          return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+        } else if (fechaHasta) {
+          return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+        }
+        return true;
+    })
+    .filter((row) => {
+        if (!mostrarMesActual) return true; 
+        const mesActual = dayjs().format('MMMM');
+        return dayjs(row.fecha).format('MMMM') === mesActual;
+    });
+    let reservasOrdenadas = [...reservasMostradas];
+    if (orden.campo) {
+      reservasOrdenadas = reservasOrdenadas.sort((a, b) => {
+        if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+          const textoA = a[orden.campo]?.toLowerCase() || '';
+          const textoB = b[orden.campo]?.toLowerCase() || '';
+
+          if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+          if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+          return 0;
+        } else if (orden.campo === 'fecha') {
+          const fechaA = dayjs(a.fecha);
+          const fechaB = dayjs(b.fecha);
+
+          if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+
+          if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+          if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+          return 0;
+        }
+        return 0;
+      });
+    }
+
+if (orden.campo) {
+  reservasOrdenadas = [...reservasMostradas].sort((a, b) => {
+    if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+      const textoA = a[orden.campo].toLowerCase();
+      const textoB = b[orden.campo].toLowerCase();
+
+      if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+      if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+      return 0;
+    } else if (orden.campo === 'fecha') {
+      const fechaA = dayjs(a.fecha);
+      const fechaB = dayjs(b.fecha);
+
+      if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+
+      if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+      if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+      return 0;
+    } else if (orden.campo === 'fechaSolicitud') {
+      const fechaA = dayjs(a.fechaSolicitud);
+      const fechaB = dayjs(b.fechaSolicitud);
+
+      if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+
+      if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+      if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+      return 0;
+    }
+    return 0;
+  });
+}
 
   //Tabla:
   return (
@@ -406,44 +532,76 @@ const handleSaveChanges = async () => {
       <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
         Reservas pendientes
       </Typography>
+      <Typography variant="subtitle1" gutterBottom sx={{ fontFamily: 'InterTight', fontWeight: 'bold' }}>
+          Mostrando {reservasMostradas.length} de {reservas.length} reservas
+      </Typography>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: "15px" }}>
         {/*Input de búsqueda por servicio*/}
         <TextField
-          label="Buscar servicio"
+          label="Buscar"
           variant="outlined"
           size="small"
-          sx={{ width: '250px' }}
+          sx={{ width: '200px' }}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
         {/*DatePicker para filtrar por fecha*/}
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DatePicker
-            format="DD/MM/YYYY"
-            label="Filtrar por fecha"
-            value={fechaFiltro}
-            onChange={(newDate) => setFechaFiltro(newDate)}
-            renderInput={(params) => <TextField {...params} size="small" sx={{ width: '250px' }} />}
-          />
-        </LocalizationProvider>
+        <Box>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              sx={{width: "150px", marginRight: "10px"}}
+              format="DD/MM/YYYY"
+              label="Desde"
+              value={fechaDesde}
+              onChange={(newDate) => setFechaDesde(newDate)}
+              maxDate={fechaHasta}
+              renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150, mr: 2 }} />}
+            />
+            
+            <DatePicker
+              sx={{width: "150px"}}
+              format="DD/MM/YYYY"
+              label="Hasta"
+              value={fechaHasta}
+              onChange={(newDate) => setFechaHasta(newDate)}
+              minDate={fechaDesde}
+              renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
+            />
+          </LocalizationProvider>
+        </Box>
         {/*Botón para filtrar por mes*/}
         <Button
           variant="contained"
           color="primary"
-          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px', width: "170px" }}
+          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
           onClick={() => setMostrarMesActual(!mostrarMesActual)}
         >
-          {mostrarMesActual ? 'Mostrar todas' : 'Mes actual'}
+          {mostrarMesActual ? 'Todas' : 'Mes actual'}
         </Button>
         {/*Botón para limpiar filtros*/}
         <Button
           variant="outlined"
           color="secondary"
-          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px' }}
+          sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
           onClick={handleLimpiarFiltros}
         >
           Limpiar filtros
+        </Button>
+        <Button
+          variant="outlined"
+          color="success"
+          startIcon={<DownloadIcon />}
+          sx={{
+            textTransform: 'capitalize',
+            borderRadius: '50px',
+            px: 3,
+            fontFamily: 'InterTight',
+            fontSize: '14px'
+          }}
+          onClick={exportarAExcel}
+        >
+          Excel
         </Button>
       </Box>
 
@@ -454,77 +612,244 @@ const handleSaveChanges = async () => {
             <TableHead>
               <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
                 <TableCell />
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Servicio</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Fecha y Hora</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Mes</TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                  <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                    Nombre
+                    <Button
+                      onClick={() => manejarOrden('nombre')}
+                      sx={{ minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main',  ml:"2px" }}
+                    >
+                      {orden.campo === 'nombre' ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕') : '↕'}
+                    </Button>
+                  </Box>
+                </TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                  <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                    Dirección
+                    <Button
+                      onClick={() => manejarOrden('direccion')}
+                      sx={{minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px"  }}
+                    >
+                      {orden.campo === 'direccion'
+                        ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                        : '↕'}
+                    </Button>
+                  </Box>
+                </TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                  <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                    Solicitud
+                    <Button
+                      onClick={() => manejarOrden('fechaSolicitud')}
+                      sx={{  minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px" }}
+                    >
+                      {orden.campo === 'fechaSolicitud'
+                        ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                        : '↕'}
+                    </Button>
+                  </Box>
+                </TableCell>
+                <TableCell
+                  align="center"
+                  sx={{
+                    fontWeight: 'bold',
+                    fontSize: '1rem',
+                    color: isLight ? '#fff' : 'primary.main',
+                    py: 2
+                  }}
+                >
+                  <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                    Turno
+                    <Button
+                      onClick={() => manejarOrden('fecha')}
+                      sx={{
+                        ml: "2px",
+                        minWidth: '20px',
+                        padding: '2px',
+                        fontSize: '20px',
+                        color: isLight ? '#fff' : 'primary.main'
+                      }}
+                    >
+                      {orden.campo === 'fecha'
+                        ? orden.direccion === 'asc'
+                          ? '↑'
+                          : orden.direccion === 'desc'
+                          ? '↓'
+                          : '↕'
+                        : '↕'}
+                    </Button>
+                  </Box>
+                </TableCell>
                 {!reservasLeer && ( 
                 <>
-                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
-                  <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Realizada</TableCell>
+                  <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
+                  <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Realizada</TableCell>
                 </>
               )}
               </TableRow>
             </TableHead>
             <TableBody>
-              {(reservasFiltradas.length > 0 ? reservasFiltradas : reservas)
-                .filter((row) =>
-                  row.internet.toLowerCase().includes(searchQuery.toLowerCase())
-                )
-                .filter((row) => {
-                  if (!fechaFiltro) return true;
-                  return dayjs(row.fecha).isSame(fechaFiltro, 'day');
-                })
-                .filter((row) => {
-                  if (!mostrarMesActual) return true; 
-                  const mesActual = dayjs().format('MMMM');
-                  return dayjs(row.fecha).format('MMMM') === mesActual;
-                })
-                .map((row) => (
-                  <Row key={row._id} row={row} reservasLeer={reservasLeer}  handleEditClick={handleEditClick} handleDeleteClick={handleDeleteClick} handleMarkAsRealizada={handleMarkAsRealizada}/>
+              {reservasOrdenadas.map((row) => (
+                <Row
+                key={row._id}
+                row={row}
+                reservasLeer={reservasLeer}
+                handleEditClick={handleEditClick}
+                handleDeleteClick={handleDeleteClick}
+                handleMarkAsRealizada={handleMarkAsRealizada}
+                />
                 ))}
-            </TableBody>
+              </TableBody>
           </Table>
         </TableContainer>
       </Box>
 
     {/* Modal de edición */}
-      <Modal open={openModal} onClose={handleCloseModal} sx={modalStyles}>
-        <MuiBox sx={modalBoxStyles(theme)}>
-          {selectedReserva && (
-            <>
-              <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
-              <TextField label="Nombre" fullWidth margin="normal" value={selectedReserva.nombre} onChange={(e) => setSelectedReserva({ ...selectedReserva, nombre: e.target.value })} />
-              <TextField label="Dirección" fullWidth margin="normal" value={selectedReserva.direccion} onChange={(e) => setSelectedReserva({ ...selectedReserva, direccion: e.target.value })} />
-              <TextField label="Piso" fullWidth margin="normal" value={selectedReserva.Piso} onChange={(e) => setSelectedReserva({ ...selectedReserva, Piso: e.target.value })} />
-              <TextField label="Dpto" fullWidth margin="normal" value={selectedReserva.Dpto} onChange={(e) => setSelectedReserva({ ...selectedReserva, Dpto: e.target.value })} />
-              <TextField label="Teléfono" fullWidth margin="normal" value={selectedReserva.telefono} onChange={(e) => setSelectedReserva({ ...selectedReserva, telefono: e.target.value })} />
-              <TextField label="Servicio" fullWidth margin="normal" value={selectedReserva.internet} onChange={(e) => setSelectedReserva({ ...selectedReserva, internet: e.target.value })} />
+  <Modal open={openModal} onClose={handleCloseModal} sx={modalStyles}>
+    <MuiBox sx={modalBoxStyles(theme)}>
+      {selectedReserva && (
+        <>
+          <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Nombre"
+                fullWidth
+                value={selectedReserva.nombre}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, nombre: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Número de usuario"
+                fullWidth
+                value={selectedReserva.NumeroUsuario}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, NumeroUsuario: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Dirección"
+                fullWidth
+                value={selectedReserva.direccion}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, direccion: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6} sm={4}>
+              <TextField
+                label="Piso"
+                fullWidth
+                value={selectedReserva.Piso}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, Piso: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6} sm={4}>
+              <TextField
+                label="Dpto"
+                fullWidth
+                value={selectedReserva.Dpto}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, Dpto: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={4}>
+              <TextField
+                label="Teléfono"
+                fullWidth
+                value={selectedReserva.telefono}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, telefono: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Servicio"
+                fullWidth
+                value={selectedReserva.internet}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, internet: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker
                   format="DD/MM/YYYY"
                   label="Fecha"
                   value={dayjs(selectedReserva.fecha)}
-                  onChange={(newDate) => setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })}
-                  renderInput={(params) => <TextField {...params} fullWidth margin="normal" />}
+                  onChange={(newDate) =>
+                    setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })
+                  }
+                  slotProps={{
+                    textField: { fullWidth: true },
+                  }}
                 />
               </LocalizationProvider>
-              <FormControl fullWidth margin="normal">
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth>
                 <InputLabel>Hora</InputLabel>
-                <Select value={selectedReserva.horario} onChange={(e) => setSelectedReserva({ ...selectedReserva, horario: e.target.value })}>
+                <Select
+                  value={selectedReserva.horario}
+                  onChange={(e) =>
+                    setSelectedReserva({ ...selectedReserva, horario: e.target.value })
+                  }
+                >
                   <MenuItem value="8-10">8:00 - 10:00</MenuItem>
                   <MenuItem value="10-12">10:00 - 12:00</MenuItem>
                   <MenuItem value="12-14">12:00 - 14:00</MenuItem>
                   <MenuItem value="14-16">14:00 - 16:00</MenuItem>
                 </Select>
               </FormControl>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2 }}>
-                <Button variant="outlined" color="secondary" onClick={handleCloseModal}>Cancelar</Button>
-                <Button variant="contained" color="primary" onClick={handleSaveChanges}>Guardar cambios</Button>
-              </Box>
-            </>
-          )}
-        </MuiBox>
-      </Modal>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={selectedReserva.terceriazado || false}
+                    onChange={(e) =>
+                      setSelectedReserva({ ...selectedReserva, terceriazado: e.target.checked })
+                    }
+                    color="primary"
+                  />
+                }
+                label="Tercerizado"
+                sx={{ ml: 1 }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Observaciones"
+                fullWidth
+                value={selectedReserva.observaciones}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, observaciones: e.target.value })
+                }
+              />
+            </Grid>
+          </Grid>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
+            <Button variant="outlined" color="secondary" onClick={handleCloseModal}>
+              Cancelar
+            </Button>
+            <Button variant="contained" color="primary" onClick={handleSaveChanges}>
+              Guardar cambios
+            </Button>
+          </Box>
+        </>
+      )}
+    </MuiBox>
+</Modal>
 
       {/* Confirmación de eliminación */}
       <Dialog open={openConfirmDialog} onClose={() => setOpenConfirmDialog(false)}>

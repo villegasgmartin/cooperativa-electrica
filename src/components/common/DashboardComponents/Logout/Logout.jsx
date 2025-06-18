@@ -1,14 +1,16 @@
 // Importaciones:
 import { Box, Button, Divider, Tooltip, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
-import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../../../redux/actions/authActions';
 
 // JSX:
 const Logout = () => {
     const [showText, setShowText] = useState(true);
     const [openModal, setOpenModal] = useState(false); 
     const containerRef = useRef();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const observer = new ResizeObserver(([entry]) => {
@@ -31,28 +33,15 @@ const Logout = () => {
         setOpenModal(true);
     };
 
-    const handleLogoutConfirm = async () => {
-        try {
-        const token = localStorage.getItem('token');
-
-        await axios.get('https://cooperativaback.up.railway.app/api/auth/logout', {
-            headers: {
-            'x-token': token,
-            },
-        });
-
-        localStorage.removeItem('token');
-        window.location.href = '/login';
-        } catch (error) {
-        console.error('Error al cerrar sesión:', error);
-        }
-
-        setOpenModal(false); 
+    const handleLogoutConfirm = () => {
+    dispatch(logout());
+    setOpenModal(false);
     };
 
     const handleLogoutCancel = () => {
-        setOpenModal(false); 
+    setOpenModal(false);
     };
+
 
     return (
         <Box ref={containerRef} sx={{ p: 2, overflow: 'hidden' }}>

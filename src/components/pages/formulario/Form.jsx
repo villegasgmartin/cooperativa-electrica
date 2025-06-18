@@ -10,14 +10,17 @@ import LogoNave from "../../../assets/images/logos/logo-nave-blanco.png";
 import { Helmet } from "react-helmet";
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import BasicDatePicker from '../../common/FormComponents/DatePicker/DatePicker';
-import axios from 'axios';
 import "../formulario/Form.css"
+import { useDispatch } from 'react-redux';
+import { createReservaForm, createReservaTV } from '../../../../redux/actions/formActions';
+import { useNavigate } from 'react-router-dom'; 
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
 
 //JSX:
 const Form = () => {
+    const dispatch = useDispatch();
     const [autocomplete, setAutocomplete] = useState(null);
     const [fechaInstalacion, setFechaInstalacion] = useState(null); 
     const [franjaHoraria, setFranjaHoraria] = useState('');
@@ -44,7 +47,10 @@ const Form = () => {
     const [zona, setZona] = useState("");
     const inputRef = useRef(null);
     const [internetPlanURL, setInternetPlanURL] = useState('');
-    const [direccionValidada, setDireccionValidada] = useState(false)
+    const [direccionValidada, setDireccionValidada] = useState(false);
+    const [mostrarPopup, setMostrarPopup] = useState(false);
+    const [email, setEmail] = useState('');
+    const navigate = useNavigate();
 
     const onLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
@@ -248,14 +254,17 @@ const Form = () => {
             console.log(espana)
 
 
+
               if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
-                                return alert('Servicio no disponible fuera de Mar del Plata')
+                return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1) || espana) {
                 setZona("Direccion en Zona 1");
             } else {
                 setZona("Fuera de Zona de Servicio");
+                setMostrarPopup(true);
+                return;
             }
             } catch (error) {
             setZona("Error al buscar la dirección");
@@ -285,9 +294,42 @@ const Form = () => {
 
     //Enviamos los datos
     const handleSubmit = async (event) => {
+        if(zona == 'Fuera de Zona de Servicio'){
+        event.preventDefault();
+        let formErrors = {};
+        if (!formData.name) formErrors.name = "Nombre es requerido";
+        if (!formData.dni) formErrors.dni = "DNI es requerido";
+        if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
+        if (!formData.email) formErrors.email = "Correo es requerido";
+          if (!terminosAceptados) formErrors.terminosAceptados = "Debes aceptar los términos";
 
-        if(internetPlan==='Fuera de Zona' && planTV==='Ninguno'){
-            return alert( 'No esta habilitado para solicitar un turno')
+           setErrors(formErrors);
+
+             if (Object.keys(formErrors).length === 0) {
+    
+            const dataToSend = {
+                DNI: formData.dni,
+                Dpto: formData.departamento,
+                Piso: formData.piso,
+                direccion,
+                tv: planTV,
+                nombre: formData.name,
+                email: formData.email,
+                telefono: formData.telefono,
+                tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+            };
+            //Si no hay errores, hacemos POST
+                try {
+                    await dispatch(createReservaTV(dataToSend));
+                    
+                setTimeout(() => {
+                    navigate('/confirmación');
+                }, 1000);
+
+                } catch (error) {
+                    console.error('Error al enviar el formulario:', error);
+                }
+            }
         } 
 
         event.preventDefault();
@@ -323,28 +365,42 @@ const Form = () => {
             };
             //Si no hay errores, hacemos POST
             try {
-                const response = await axios.post(
-                    'https://cooperativaback.up.railway.app/api/reservas/crear-reserva',
-                    dataToSend
-                );
+                    await dispatch(createReservaForm(dataToSend));
+                    
+            setTimeout(() => {
+                navigate('/confirmación');
+            }, 1000);
 
-                // Limpiamos campos
-                setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
-                setDireccion('');
-                setFechaInstalacion(null);
-                setFranjaHoraria('');
-                setPlanInternet('');
-                setPlanTV('');
-                setTipoInmueble({ casa: false, edificio: false, ph: false });
-                setTerminosAceptados(false);
-
-                // Mostrar mensaje de éxito
-                setSuccessMessageOpen(true);
             } catch (error) {
                 console.error('Error al enviar el formulario:', error);
             }
         }
     };
+
+    const handleEnviarYSalir = async () => {
+    if (!email || !direccion) {
+        return alert("Por favor ingrese su email y asegúrese de haber escrito una dirección.");
+    }
+
+    const dataToSend = {
+        email,
+        direccion
+    };
+
+    try {
+        await dispatch(createReservaForm(dataToSend));
+        console.log("Datos enviados:", dataToSend);
+        setMostrarPopup(false);
+        setEmail('');
+        setDireccion('');
+        setTimeout(() => {
+                    window.location= '/'
+                }, 1500);
+    } catch (error) {
+        console.error("Error al enviar datos:", error);
+    }
+};
+
     
 
     return (
@@ -387,10 +443,91 @@ const Form = () => {
                     <Fade triggerOnce={true} duration={800} delay={300}>
                         <p className='form-text01'>Dejanos tus datos y te contactaremos</p>
                         <p className='form-text02'>
-                            Completa el siguiente formulario y uno de nuestros asesores te brindará toda la información sobre nuestros planes de Internet y TV. ¡Conéctate con el mejor servicio para tu hogar o empresa!
+                            ¡Conéctate con el mejor servicio para tu hogar o empresa!. En caso de necesitar un cambio de plan o cambio de servicio por favor comunicarse a nuestros 
+                            <a href="/contacto"> canales de comunicacion </a>
+                          
+                            
                         </p>
+                        <span className="color-title01 form-text02">Formulario para nuevos Clientes</span>
                     </Fade>
                 </div>
+                {mostrarPopup && (
+                    <div className="popup-overlay"
+                    onClick={() => setMostrarPopup(false)}
+                    >
+                        
+                        <div className="popup"
+                         onClick={(e) => e.stopPropagation()}>
+                        <h2 className='form-text01'>Su dirección está fuera de cobertura</h2>
+                        <p className='form-text02'>No contamos con planes de Internet en esa zona.</p>
+                        <p className='form-text02'>¿Desea contratar el servicio de TV?</p>
+                        <Button onClick={() => {
+                            // lógica para continuar solo con TV
+                            setMostrarPopup(false);
+                        }}
+                        variant="contained"
+                               
+                                sx={{
+                                    marginTop: "10px",
+                                    borderRadius: "25px",
+                                    backgroundColor: "#8048ff",
+                                    textTransform: "none",
+                                    fontSize: "18px",
+                                    fontWeight: "bold",
+                                    '&:hover': {
+                                        backgroundColor: "#5c32b3"
+                                    }
+                                }}
+                        >Continuar</Button>
+
+                        <p className='form-text02'>¿Desea que le avisemos cuando tengamos servicio de internet disponible en su zona?</p>
+                        <div style={{display: "flex", flexDirection: "column"}}>
+                            <TextField
+                            variant='outlined'
+                            name="Email"
+                            type="email"
+                            placeholder="Ingrese su email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            sx={{
+                                    backgroundColor: "#edeaff", borderRadius: "25px",
+                                    '& .MuiOutlinedInput-root': {
+                                        borderRadius: "25px",
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#8048ff',
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: '#8048ff',
+                                    }
+                                }}
+                        />
+                        <Button  
+                        onClick={() => {
+                            handleEnviarYSalir()
+                            
+                            console.log('Email enviado:', email);
+                            setMostrarPopup(false);
+                        }}
+                        variant="contained"
+                               
+                                sx={{
+                                    marginTop: "10px",
+                                    borderRadius: "25px",
+                                    backgroundColor: "#8048ff",
+                                    textTransform: "none",
+                                    fontSize: "18px",
+                                    fontWeight: "bold",
+                                    '&:hover': {
+                                        backgroundColor: "#5c32b3"
+                                    }
+                                }}
+                        
+                        >Enviar y salir</Button>
+                        </div>
+                        </div>
+                    </div>
+                    )}
                 <div>
                     {/*Formulario*/}
                     <Fade triggerOnce={true} duration={800} delay={300}>
@@ -471,7 +608,7 @@ const Form = () => {
                             {/*Dirección con Google Maps Autocompletado*/}
                             
                             <div style={{ width: '100%' }}>
-                            <span>*Eliga una direccion del desplegable</span>
+                            <p className='form-span'>*Debe seleccionar una dirección del listado:</p>
                                 <Autocomplete
                                     onLoad={onLoad}
                                     onPlaceChanged={onPlaceChanged}
@@ -691,29 +828,30 @@ const Form = () => {
                                     <MenuItem value="Ninguna">Ninguna</MenuItem>
                                 </Select>
                                 ):(
-                                <Select
-                                    displayEmpty
-                                    fullWidth
-                                    id="internet-plan-select"
-                                    value={internetPlan}
-                                    onChange={handleInternetChange}
-                                    sx={{
-                                        backgroundColor: "#edeaff",
-                                        borderRadius: "25px",
-                                        '& .MuiOutlinedInput-root': {
-                                            borderRadius: "25px",
-                                            '&.Mui-focused fieldset': {
-                                                borderColor: '#8048ff',
-                                            },
-                                        },
-                                        '& .MuiInputLabel-root.Mui-focused': {
-                                            color: '#8048ff',
-                                        }
-                                    }}
-                                    inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
-                                >
-                                    <MenuItem value="Fuera de Zona">Fuera de Zona</MenuItem>
-                                </Select>
+                                // <Select
+                                //     displayEmpty
+                                //     fullWidth
+                                //     id="internet-plan-select"
+                                //     value={internetPlan}
+                                //     onChange={handleInternetChange}
+                                //     sx={{
+                                //         backgroundColor: "#edeaff",
+                                //         borderRadius: "25px",
+                                //         '& .MuiOutlinedInput-root': {
+                                //             borderRadius: "25px",
+                                //             '&.Mui-focused fieldset': {
+                                //                 borderColor: '#8048ff',
+                                //             },
+                                //         },
+                                //         '& .MuiInputLabel-root.Mui-focused': {
+                                //             color: '#8048ff',
+                                //         }
+                                //     }}
+                                //     inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
+                                // >
+                                //     <MenuItem value="Fuera de Zona">Fuera de Zona</MenuItem>
+                                // </Select>
+                                ""
                                 )}
                             {/*Servicio de cable*/}
                             {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
@@ -798,7 +936,8 @@ const Form = () => {
                             )}
                         
                            {/*Calendario */}
-                           <div className='form-calendar'>
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                                <div className='form-calendar'>
                                 <p className='form-calendar-text'>Elegí fecha y horario para coordinar la instalación del servicio.</p>
                                 <BasicDatePicker
                                     fechaInstalacion={fechaInstalacion}
@@ -808,6 +947,12 @@ const Form = () => {
                                     tipoInmueble={Object.keys(tipoInmueble).find(key => tipoInmueble[key])}
                                 />
                             </div>
+
+
+                            ):(
+                                ""
+                            )}
+                          
                         
                         </>
 
@@ -851,7 +996,8 @@ const Form = () => {
                                 />
                             </div>
                             {/*Enviar formulario */}
-                            <div className='form-button-container'>
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+   <div className='form-button-container'>
                             <Button
                                 sx={{
                                     width: "100%",
@@ -885,6 +1031,42 @@ const Form = () => {
                                 Enviar
                                 </Button>
                             </div>
+                            ):(
+   <div className='form-button-container'>
+                            <Button
+                                sx={{
+                                    width: "100%",
+                                    fontFamily: "interTight",
+                                    fontSize: "25px",
+                                    fontWeight: "bold",
+                                    letterSpacing: "1px",
+                                    borderRadius: "50px",
+                                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                                    textTransform: "none",
+                                    color: "#161616",
+                                    backgroundColor: "#30e691",
+                                    marginBottom: "20px"
+                                }}
+                                variant="contained"
+                                size="large"
+                                type='submit'
+                                disabled={
+                                    !formData.name ||
+                                    !formData.dni ||
+                                    !formData.telefono ||
+                                    !formData.email ||
+                                    !direccion ||
+                                    !Object.values(tipoInmueble).includes(true) ||
+                                    !terminosAceptados
+                                    
+                                }
+                                >
+                                Enviar
+                                </Button>
+                            </div>
+                                
+                            )}
+                         
                         </form>
                     </Fade>
                 </div>

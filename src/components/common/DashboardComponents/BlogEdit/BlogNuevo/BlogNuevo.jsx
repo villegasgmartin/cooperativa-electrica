@@ -1,10 +1,11 @@
 //Importaciones:
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Typography, TextField, Button, IconButton } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 import CloseIcon from '@mui/icons-material/Close';
-import axios from 'axios';
 import { useTheme, alpha } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { createBlog } from '../../../../../../redux/actions/blogActions';
 
 //JSX:
 export default function BlogNuevo() {
@@ -12,62 +13,45 @@ export default function BlogNuevo() {
     const [subtitulo, setSubtitulo] = useState('');
     const [texto, setTexto] = useState('');
     const [imagenes, setImagenes] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [success, setSuccess] = useState(false);
-    const [error, setError] = useState(null);
 
+    const dispatch = useDispatch();
     const theme = useTheme();
+
+    // Extraemos el estado del store Redux
+    const { createBlogLoading, createBlogError, createBlogSuccess } = useSelector(state => state.blogs);
 
     const handleImagenesChange = (event) => {
         const nuevasImagenes = Array.from(event.target.files);
-        setImagenes((prev) => [...prev, ...nuevasImagenes]);
+        setImagenes(prev => [...prev, ...nuevasImagenes]);
         event.target.value = null;
     };
 
     const handleRemoveImage = (indexToRemove) => {
-        setImagenes((prev) => prev.filter((_, index) => index !== indexToRemove));
+        setImagenes(prev => prev.filter((_, index) => index !== indexToRemove));
     };
 
-    const handleSubmit = async () => {
-        setLoading(true);
-        setSuccess(false);
-        setError(null);
-
+    const handleSubmit = () => {
         const formData = new FormData();
         formData.append('titulo', titulo);
         formData.append('subtitulo', subtitulo);
         formData.append('descripcion', texto);
-        imagenes.forEach((imagen) => {
+        imagenes.forEach(imagen => {
             formData.append('imagenes', imagen);
         });
 
-        try {
-            const response = await axios.post(
-                'https://cooperativaback.up.railway.app/api/blog/crear-blog',
-                formData,
-                {
-                    headers: {
-                        'x-token': localStorage.getItem('token'),
-                        'Content-Type': 'multipart/form-data',
-                    },
-                }
-            );
+        dispatch(createBlog(formData));
+    };
 
-            console.log('Publicación creada:', response.data);
+    const isFormValid = titulo.trim() && texto.trim() && imagenes.length > 0;
+
+    useEffect(() => {
+        if (createBlogSuccess) {
             setTitulo('');
             setSubtitulo('');
             setTexto('');
             setImagenes([]);
-            setSuccess(true);
-        } catch (err) {
-            console.error('Error al crear la publicación:', err);
-            setError('Hubo un error al crear la publicación.');
-        } finally {
-            setLoading(false);
         }
-    };
-
-    const isFormValid = titulo.trim() && texto.trim() && imagenes.length > 0;
+    }, [createBlogSuccess]);
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', mt: 3 }}>
@@ -140,7 +124,7 @@ export default function BlogNuevo() {
                     variant="contained"
                     color="success"
                     onClick={handleSubmit}
-                    disabled={loading || !isFormValid}
+                    disabled={createBlogLoading || !isFormValid}
                     sx={{
                         mb: 2,
                         textTransform: 'capitalize',
@@ -150,7 +134,7 @@ export default function BlogNuevo() {
                         fontSize: "17px",
                     }}
                 >
-                    {loading ? 'Creando...' : 'Crear Publicación'}
+                    {createBlogLoading ? 'Creando...' : 'Crear Publicación'}
                 </Button>
             </Box>
 
@@ -195,15 +179,15 @@ export default function BlogNuevo() {
                 </>
             )}
 
-            {success && (
+            {createBlogSuccess && (
                 <Typography color="success.main" sx={{ mt: 2 }}>
                     Publicación creada exitosamente.
                 </Typography>
             )}
 
-            {error && (
+            {createBlogError && (
                 <Typography color="error" sx={{ mt: 2 }}>
-                    {error}
+                    {createBlogError}
                 </Typography>
             )}
         </Box>

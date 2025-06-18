@@ -1,30 +1,25 @@
-//Importaciones:
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+// Importaciones:
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
+import { fetchAllBlogs } from '../../../../redux/actions/blogActions';
 import "../blog/Blog.css";
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
 import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
-import axios from 'axios';
 
-//JSX:
+// JSX:
 const Blog = () => {
   const dispatch = useDispatch();
-  const [blogs, setBlogs] = useState([]);
+  
+  // Seleccionamos el estado de Redux
+  const { allBlogs, loading, error } = useSelector(state => state.blogs);
 
+  //Traemos los blogs:
   useEffect(() => {
     dispatch(setTitle('Blog'));
-
-    // Traer blogs desde la base de datos
-    axios.get('https://cooperativaback.up.railway.app/api/blog/blogs')
-      .then((response) => {
-        setBlogs(response.data.blogs || []);
-      })
-      .catch((error) => {
-        console.error("Error al cargar los blogs:", error);
-      });
+    dispatch(fetchAllBlogs());
   }, [dispatch]);
 
   return (
@@ -39,18 +34,21 @@ const Blog = () => {
         </h2>
       </Fade>
 
+      {loading && <p>Cargando blogs...</p>}
+      {error && <p style={{ color: 'red' }}>Error al cargar blogs: {error}</p>}
+
       {/* Contenedor principal de los blogs */}
       <div className='blog-container'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-          {blogs.reverse().map((blog) => (
+          {[...allBlogs].reverse().map((blog) => (
             <div key={blog._id} className='blog-subcontainer'>
               <Link to={`/blog/${blog.path}`}>
                 <div className='blog-image-container'>
-                    <img
-                        src={blog.imagenes[0]?.url}
-                        alt={`imagen de ${blog.titulo}`}
-                        className='blog-image'
-                    />
+                  <img
+                    src={blog.imagenes[0]?.url}
+                    alt={`imagen de ${blog.titulo}`}
+                    className='blog-image'
+                  />
                 </div>
               </Link>
               <Link to={`/blog/${blog._id}`} style={{ textDecoration: "none" }}>
@@ -58,9 +56,9 @@ const Blog = () => {
               </Link>
             </div>
           ))}
-
         </Fade>
       </div>
+
       <BotonWhatsapp />
     </section>
   );

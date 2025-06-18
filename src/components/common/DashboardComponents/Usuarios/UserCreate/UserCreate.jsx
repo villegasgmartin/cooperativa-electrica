@@ -1,6 +1,5 @@
 // Importaciones:
 import * as React from 'react';
-import axios from 'axios';
 import {
   Box,
   TextField,
@@ -15,6 +14,8 @@ import {
   Alert,
   CircularProgress
 } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { createUser } from '../../../../../../redux/actions/userActions';
 
 // JSX:
 export default function UserCreate() {
@@ -31,10 +32,8 @@ export default function UserCreate() {
     tecnica: false
   });
 
-  const [loading, setLoading] = React.useState(false);
-  const [success, setSuccess] = React.useState(false);
-  const [error, setError] = React.useState(null);
-
+  const { loading, success, error } = useSelector(state => state.user.createUser);
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -82,14 +81,9 @@ export default function UserCreate() {
     });
   };
 
-  const handleSubmit = async (e) => {
+  //Función para crear usuarios:
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setSuccess(false);
-    setError(null);
-
-    const token = localStorage.getItem('token');
-    const headers = { 'x-token': token };
 
     const payload = {
       nombre: formData.nombre,
@@ -104,26 +98,20 @@ export default function UserCreate() {
       tecnica: formData.rol === 'USER_ADMIN' ? true : formData.tecnica,
     };
 
-    try {
-      await axios.post('https://cooperativaback.up.railway.app/api/login', payload, { headers });
-      setSuccess(true);
-      setFormData({
-        nombre: '',
-        correo: '',
-        password: '',
-        telefono: '',
-        rol: '',
-        reservas: false,
-        reservasLeer: false,
-        blog: false,
-        usuarios: false,
-        tecnica: false,
-      });
-    } catch (err) {
-      setError('Error al crear el usuario. Verificá los datos.');
-    } finally {
-      setLoading(false);
-    }
+    dispatch(createUser(payload));
+
+    setFormData({
+      nombre: '',
+      correo: '',
+      password: '',
+      telefono: '',
+      rol: '',
+      reservas: false,
+      reservasLeer: false,
+      blog: false,
+      usuarios: false,
+      tecnica: false,
+    });
   };
 
   return (

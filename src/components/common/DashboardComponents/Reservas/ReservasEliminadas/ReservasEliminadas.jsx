@@ -1,251 +1,479 @@
-//Importaciones:
-import React from 'react';
+// Importaciones:
+import React, { useEffect, useState } from 'react';
 import {
-Box,
-Table,
-TableBody,
-TableCell,
-TableContainer,
-TableHead,
-TableRow,
-Paper,
-Collapse,
-IconButton,
-Typography,
-Button,
-TextField,
-useTheme
+    Box, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper,
+    Collapse, IconButton, Typography, Button, TextField, useTheme
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import dayjs from 'dayjs';
-import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchReservasEliminadas } from '../../../../../../redux/actions/reservasActions';
+import { marcarReservaPendiente }  from '../../../../../../redux/actions/reservasActions';
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import DownloadIcon from '@mui/icons-material/Download';
+import { fetchUserData } from '../../../../../../redux/actions/userActions';
 
 //JSX:
 export default function ReservasEliminadas() {
-const [reservas, setReservas] = React.useState([]);
-const [searchQuery, setSearchQuery] = React.useState('');
-const [fechaFiltro, setFechaFiltro] = React.useState(null);
-const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
-const [reservasLeer, setReservasLeer] = React.useState(false);
-const theme = useTheme();
-const isLight = theme.palette.mode === 'light';
+    const dispatch = useDispatch();
+    const { reservasEliminadas: reservas, loadingEliminadas, errorEliminadas } = useSelector(state => state.reservas);
 
-//Función para traer las reservas eliminadas
-React.useEffect(() => {
-    const fetchReservas = async () => {
-    try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas', {
-        headers: { 'x-token': token },
-        });
+    const [searchQuery, setSearchQuery] = React.useState('');
+    const [fechaDesde, setFechaDesde] = React.useState(null);
+    const [fechaHasta, setFechaHasta] = React.useState(null);
+    const [mostrarMesActual, setMostrarMesActual] = React.useState(false);
+    const { nombre, reservasLeer} = useSelector((state) => state.user);
+    const theme = useTheme();
+    const isLight = theme.palette.mode === 'light';
+    const [orden, setOrden] = useState({ campo: '', direccion: '' });
 
-        if (!response.ok) throw new Error('Error al obtener las reservas');
-        const data = await response.json();
-        const reservasFormateadas = data.reservas
-        .filter(r => r.estadoBorrado === true)
-        .map((r) => {
-            const fechaObj = dayjs(r.fecha);
-            return {
-            ...r,
-            fechaFormateada: fechaObj.format('D [de] MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
-            mes: fechaObj.format('MMMM'),
-            };
-        });
-        setReservas(reservasFormateadas);
-    } catch (error) {
-        console.error('Error al cargar las reservas:', error);
-    }
+    // Cargar reservas desde Redux
+    React.useEffect(() => {
+        dispatch(fetchReservasEliminadas());
+    }, [dispatch]);
+
+    // Función para marcar como pendiente una reserva eliminada
+    const handleMarcarPendiente = (reserva) => {
+        dispatch(marcarReservaPendiente(reserva._id));
     };
-    fetchReservas();
-}, []);
 
-//Función para marcar como pendiente una reserva eliminada
-const handleMarcarPendiente = async (reserva) => {
-    try {
-    const token = localStorage.getItem('token');
-    const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${reserva._id}`, {
-        method: 'PUT',
-        headers: {
-        'Content-Type': 'application/json',
-        'x-token': token,
-        },
-        body: JSON.stringify({ estadoBorrado: false }),
+  //Función para limpiar los filtros
+    const handleLimpiarFiltros = () => {
+        setFechaDesde(null)
+        setFechaHasta(null)
+        setMostrarMesActual(false); 
+        setSearchQuery('');
+    };
+
+      //Función para obtener nombre de usuario:
+    useEffect(() => {
+        dispatch(fetchUserData());
+        }, [dispatch]);
+    
+
+  //Excel:
+    const exportarAExcel = async () => {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Reservas');
+
+    const columnas = [
+        { header: 'NOMBRE', key: 'nombre', width: 20 },
+        { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
+        { header: 'INMUEBLE', key: 'tipo', width: 15 },
+        { header: 'PISO', key: 'piso', width: 10 },
+        { header: 'DPTO', key: 'dpto', width: 10 },
+        { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
+        { header: 'HORARIO', key: 'horario', width: 12 },
+        { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+        { header: 'SERVICIO', key: 'internet', width: 15 },
+        { header: 'TELÉFONO', key: 'telefono', width: 15 },
+        { header: 'EMAIL', key: 'email', width: 25 },
+        { header: 'DNI', key: 'dni', width: 15 },
+    ];
+
+    worksheet.columns = columnas;
+
+    // Encabezado con estilo
+    worksheet.getRow(1).eachCell((cell) => {
+        cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+        cell.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: '#12824c' },
+        };
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+        };
     });
 
-    if (!response.ok) throw new Error('Error al actualizar el estado');
+    const reservasFiltradas = reservas
+        .filter((row) => {
+        const query = searchQuery.toLowerCase();
+        return (
+            row.internet.toLowerCase().includes(query) ||
+            row.mes.toLowerCase().includes(query) ||
+            row.nombre.toLowerCase().includes(query) ||
+            row.direccion.toLowerCase().includes(query) ||
+            row.telefono.toLowerCase().includes(query) ||
+            row.email.toLowerCase().includes(query) ||
+            row.tipo.toLowerCase().includes(query)
+        );
+        })
+        .filter((row) => {
+        if (!row.fecha) return false;
+        const fechaReserva = dayjs(row.fecha);
+        if (!fechaReserva.isValid()) return false;
 
-    setReservas((prev) => prev.filter(r => r._id !== reserva._id));
-    } catch (error) {
-    console.error('Error al marcar como pendiente:', error);
-    }
-};
-
-//Función para obtener los datos del usuario:
-React.useEffect(() => {
-    const fetchUserData = async () => {
-        try {
-        const userId = localStorage.getItem('userId');
-        const token = localStorage.getItem('token');
-
-        if (!userId || !token) {
-            console.error('No se encontró el userId o token en localStorage');
-            return;
+        if (fechaDesde && fechaHasta) {
+            return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+        } else if (fechaDesde) {
+            return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+        } else if (fechaHasta) {
+            return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
         }
-
-        const { data } = await axios.get(`https://cooperativaback.up.railway.app/api/perfil?id=${userId}`, {
-            headers: {
-            'x-token': token,
-            },
+        return true;
+        })
+        .filter((row) => {
+        if (!mostrarMesActual) return true;
+        const mesActual = dayjs().format('MMMM');
+        return dayjs(row.fecha).format('MMMM') === mesActual;
         });
-        setReservasLeer(data.reservasLeer ?? false);
-        } catch (error) {
-        console.error('Error al obtener el perfil del usuario:', error);
-        }
+
+    reservasFiltradas.forEach((reserva) => {
+        worksheet.addRow({
+        nombre: reserva.nombre,
+        direccion: reserva.direccion?.split(',')[0],
+        tipo: reserva.tipo,
+        piso: reserva.Piso,
+        dpto: reserva.Dpto,
+        fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+        horario: reserva.horario,
+        fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+        internet: reserva.internet,
+        telefono: reserva.telefono,
+        email: reserva.email,
+        dni: reserva.DNI,
+        });
+    });
+
+    // Ajuste de estilo para todas las celdas de datos
+    worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+        row.eachCell((cell) => {
+        cell.alignment = { vertical: 'middle', horizontal: 'center' };
+        cell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' },
+        };
+        });
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, `Reservas Eliminadas${dayjs().format('DD-MM-YYYY')}.xlsx`);
     };
 
-    fetchUserData();
-}, []);
+    //Ordenar alfabeticamente y ascendente y descendente: 
+const manejarOrden = (campo) => {
+    if (orden.campo === campo) {
+        if (orden.direccion === null) {
+        setOrden({ campo, direccion: 'asc' });
+        } else if (orden.direccion === 'asc') {
+        setOrden({ campo, direccion: 'desc' });
+        } else {
+        setOrden({ campo: null, direccion: null });
+        }
+    } else {
+        setOrden({ campo, direccion: 'asc' });
+    }
+    };
 
-const handleLimpiarFiltros = () => {
-    setSearchQuery('');
-    setFechaFiltro(null);
-    setMostrarMesActual(false);
-};
+    // Tabla
+    function Row({ row }) {
+        const [open, setOpen] = React.useState(false);
 
-//Tabla
-function Row({ row }) {
-    const [open, setOpen] = React.useState(false);
-
-    return (
-    <>
-        <TableRow>
-        <TableCell>
-            <IconButton size="small" onClick={() => setOpen(!open)}>
-            {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-            </IconButton>
-        </TableCell>
-        <TableCell>{row.internet}</TableCell>
-        <TableCell>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
-        <TableCell>{row.responsable || 'N/A'}</TableCell>
-        {!reservasLeer && ( 
-        <TableCell>
-            <Button
-            variant="contained"
-            size="small"
-            sx={{ fontSize: '12px' }}
-            onClick={() => handleMarcarPendiente(row)}
-            >
-            Pendiente
-            </Button>
-        </TableCell>
-        )}
-        </TableRow>
-
-        <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
-            <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-                <Typography variant="h6" gutterBottom>Detalles</Typography>
-                <ul>
-                <li>Nombre y Apellido: {row.nombre}</li>
-                <li>Dirección: {row.direccion}</li>
-                {row.Piso && <li>Piso: {row.Piso}</li>}
-                {row.Dpto && <li>Dpto: {row.Dpto}</li>}
-                <li>Tv: {row.tv}</li>
-                <li>Teléfono: {row.telefono}</li>
-                <li>DNI: {row.DNI}</li>
-                <li>Correo: {row.email}</li>
-                </ul>
-            </Box>
-            </Collapse>
-        </TableCell>
-        </TableRow>
-    </>
-    );
-}
-
-//Filtros
-const reservasFiltradas = reservas
-    .filter((row) => row.internet.toLowerCase().includes(searchQuery.toLowerCase()))
-    .filter((row) => !fechaFiltro || dayjs(row.fecha).isSame(fechaFiltro, 'day'))
-    .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'));
-
-return (
-    <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: "50px" }}>
-    <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
-        Reservas Eliminadas
-    </Typography>
-
-    {/* FILTROS */}
-    <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 2 }}>
-        <TextField
-        label="Buscar servicio"
-        variant="outlined"
-        size="small"
-        sx={{ width: '250px' }}
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DatePicker
-            format="DD/MM/YYYY"
-            label="Filtrar por fecha"
-            value={fechaFiltro}
-            onChange={(newDate) => setFechaFiltro(newDate)}
-            renderInput={(params) => <TextField {...params} size="small" sx={{ width: '250px' }} />}
-        />
-        </LocalizationProvider>
-        <Button
-        variant="contained"
-        color="primary"
-        sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px', width: "170px" }}
-        onClick={() => setMostrarMesActual(!mostrarMesActual)}
-        >
-        {mostrarMesActual ? 'Mostrar todas' : 'Mes actual'}
-        </Button>
-        <Button
-        variant="outlined"
-        color="secondary"
-        sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '16px' }}
-        onClick={handleLimpiarFiltros}
-        >
-        Limpiar filtros
-        </Button>
-    </Box>
-
-    {/* TABLA */}
-    <TableContainer component={Paper}>
-        <Table aria-label="tabla reservas eliminadas">
-        <TableHead>
-            <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
-            <TableCell />
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                Servicio
+        return (
+        <>
+            <TableRow>
+            <TableCell>
+                <IconButton size="small" onClick={() => setOpen(!open)}>
+                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                </IconButton>
             </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                Fecha y Hora
-            </TableCell>
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                Responsable
-            </TableCell>
-            {!reservasLeer && ( 
-            <TableCell sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
-                Marcar Pendiente
-            </TableCell>
+            <TableCell align='center'>{row.nombre}</TableCell>
+            <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
+            <TableCell align='center'>{dayjs(row.fechaSolicitud).format('M/D/YYYY')}</TableCell>
+            <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
+            <TableCell align='center'>{row.responsable || 'N/A'}</TableCell>
+            {!reservasLeer && (
+                <TableCell align='center'>
+                <Button
+                    variant="contained"
+                    size="small"
+                    sx={{ fontSize: '12px' }}
+                    onClick={() => handleMarcarPendiente(row)}
+                >
+                    Pendiente
+                </Button>
+                </TableCell>
             )}
             </TableRow>
-        </TableHead>
-        <TableBody>
-            {reservasFiltradas.map((row) => (
-            <Row key={row._id} row={row} reservasLeer={reservasLeer} />
-            ))}
-        </TableBody>
-        </Table>
-    </TableContainer>
-    </Box>
-);
+
+            <TableRow>
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
+                <Collapse in={open} timeout="auto" unmountOnExit>
+                <Box sx={{ margin: 1 }}>
+                    <Typography variant="h6" gutterBottom>Detalles</Typography>
+                    <ul>
+                        <li>Servicio: {row.internet}</li>
+                        <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
+                        <li>Inmueble: {row.tipo}</li>
+                        {row.Piso && <li>Piso: {row.Piso}</li>}
+                        {row.Dpto && <li>Dpto: {row.Dpto}</li>}
+                        <li>Tv: {row.tv}</li>
+                        <li>Teléfono: {row.telefono}</li>
+                        <li>DNI: {row.DNI}</li>
+                        <li>Correo: {row.email}</li>
+                        <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
+                        {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
+                    </ul>
+                </Box>
+                </Collapse>
+            </TableCell>
+            </TableRow>
+        </>
+        );
+    }
+
+    // Filtros
+        const reservasFiltradas = reservas
+        .filter((row) => {
+                if (reservasLeer) {
+                    return row.terceriazado === true;
+                }
+                return true;
+            })
+        .filter((row) => {
+            const query = searchQuery.toLowerCase();
+            return (
+            row.internet.toLowerCase().includes(query) ||
+            row.mes.toLowerCase().includes(query) ||
+            row.nombre.toLowerCase().includes(query) ||
+            row.direccion.toLowerCase().includes(query) ||
+            row.telefono.toLowerCase().includes(query) ||
+            row.email.toLowerCase().includes(query) ||
+            row.tipo.toLowerCase().includes(query) 
+            );
+        })
+        .filter((row) => {
+            if (!row.fecha) return false; 
+            const fechaReserva = dayjs(row.fecha); 
+            if (!fechaReserva.isValid()) return false;
+            if (fechaDesde && fechaHasta) {
+            return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+            } else if (fechaDesde) {
+            return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+            } else if (fechaHasta) {
+            return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+            }
+            return true;
+        })
+        .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'));
+        let reservasOrdenadas = reservasFiltradas;
+            if (orden.campo) {
+                reservasOrdenadas = [...reservasFiltradas].sort((a, b) => {
+                    if (orden.campo === 'nombre' || orden.campo === 'direccion') {
+                    const textoA = a[orden.campo].toLowerCase();
+                    const textoB = b[orden.campo].toLowerCase();
+                
+                    if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
+                    if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
+                    return 0;
+                    } else if (orden.campo === 'fecha') {
+                    const fechaA = dayjs(a.fecha);
+                    const fechaB = dayjs(b.fecha);
+                
+                    if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+                
+                    if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+                    if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+                    return 0;
+                    } else if (orden.campo === 'fechaSolicitud') {
+                    const fechaA = dayjs(a.fechaSolicitud);
+                    const fechaB = dayjs(b.fechaSolicitud);
+                
+                    if (!fechaA.isValid() || !fechaB.isValid()) return 0;
+                
+                    if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
+                    if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
+                    return 0;
+                    }
+                    return 0;
+                });
+                }
+
+        return (
+        <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: "50px" }}>
+        <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
+            Reservas Eliminadas
+        </Typography>
+        <Typography variant="subtitle1" gutterBottom sx={{ fontFamily: 'InterTight', fontWeight: 'bold' }}>
+            Mostrando {reservasFiltradas.length} de {reservas.length} reservas
+        </Typography>
+
+        {/* FILTROS */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: "15px" }}>
+            <TextField
+            label="Buscar"
+            variant="outlined"
+            size="small"
+            sx={{ width: '200px' }}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            {/*DatePicker para filtrar por fecha*/}
+            <Box>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                    sx={{width: "150px", marginRight: "10px"}}
+                    format="DD/MM/YYYY"
+                    label="Desde"
+                    value={fechaDesde}
+                    onChange={(newDate) => setFechaDesde(newDate)}
+                    maxDate={fechaHasta}
+                    renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150, mr: 2 }} />}
+                />
+                
+                <DatePicker
+                    sx={{width: "150px"}}
+                    format="DD/MM/YYYY"
+                    label="Hasta"
+                    value={fechaHasta}
+                    onChange={(newDate) => setFechaHasta(newDate)}
+                    minDate={fechaDesde}
+                    renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
+                />
+                </LocalizationProvider>
+            </Box>
+            {/*Botón para filtrar por mes*/}
+            <Button
+                variant="contained"
+                color="primary"
+                sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+                onClick={() => setMostrarMesActual(!mostrarMesActual)}
+                >
+                {mostrarMesActual ? 'Todas' : 'Mes actual'}
+                </Button>
+                <Button
+                variant="outlined"
+                color="secondary"
+                sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+                onClick={handleLimpiarFiltros}
+                >
+                Limpiar filtros
+            </Button>
+            <Button
+                variant="outlined"
+                color="success"
+                startIcon={<DownloadIcon />}
+                sx={{
+                textTransform: 'capitalize',
+                borderRadius: '50px',
+                px: 3,
+                fontFamily: 'InterTight',
+                fontSize: '14px'
+                }}
+                onClick={exportarAExcel}
+            >
+                Excel
+            </Button>
+        </Box>
+        {/* TABLA */}
+        <TableContainer component={Paper}>
+            <Table aria-label="tabla reservas eliminadas">
+            <TableHead>
+                <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
+                <TableCell />
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Nombre
+                        <Button
+                        onClick={() => manejarOrden('nombre')}
+                        sx={{ minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main',  ml:"2px" }}
+                        >
+                        {orden.campo === 'nombre' ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕') : '↕'}
+                        </Button>
+                    </Box>
+                </TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Dirección
+                        <Button
+                        onClick={() => manejarOrden('direccion')}
+                        sx={{minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px"  }}
+                        >
+                        {orden.campo === 'direccion'
+                            ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                            : '↕'}
+                        </Button>
+                    </Box>
+                </TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Solicitud
+                        <Button
+                        onClick={() => manejarOrden('fechaSolicitud')}
+                        sx={{  minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px" }}
+                        >
+                        {orden.campo === 'fechaSolicitud'
+                            ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                            : '↕'}
+                        </Button>
+                    </Box>
+                </TableCell>
+                <TableCell
+                    align="center"
+                    sx={{
+                        fontWeight: 'bold',
+                        fontSize: '1rem',
+                        color: isLight ? '#fff' : 'primary.main',
+                        py: 2
+                    }}
+                    >
+                    <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                        Turno
+                        <Button
+                        onClick={() => manejarOrden('fecha')}
+                        sx={{
+                            ml: "2px",
+                            minWidth: '20px',
+                            padding: '2px',
+                            fontSize: '20px',
+                            color: isLight ? '#fff' : 'primary.main'
+                        }}
+                        >
+                        {orden.campo === 'fecha'
+                            ? orden.direccion === 'asc'
+                            ? '↑'
+                            : orden.direccion === 'desc'
+                            ? '↓'
+                            : '↕'
+                            : '↕'}
+                        </Button>
+                    </Box>
+                </TableCell>
+                <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    Responsable
+                </TableCell>
+                {!reservasLeer && (
+                    <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>
+                    Marcar Pendiente
+                    </TableCell>
+                )}
+                </TableRow>
+            </TableHead>
+            <TableBody>
+                {loadingEliminadas ? (
+                <TableRow><TableCell colSpan={5}>Cargando...</TableCell></TableRow>
+                ) : errorEliminadas ? (
+                <TableRow><TableCell colSpan={5}>Error al cargar las reservas.</TableCell></TableRow>
+                ) : (
+                reservasOrdenadas.map((row) => (
+                    <Row key={row._id} row={row} reservasLeer={reservasLeer} />
+                ))
+                )}
+            </TableBody>
+            </Table>
+        </TableContainer>
+        </Box>
+    );
 }

@@ -1,0 +1,39 @@
+.btn-ws {
+  position: fixed; /* o relative, según tu caso */
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.btn-ws::before {
+  content: '¿Necesitas Ayuda?';
+  white-space: pre-line; 
+  position: absolute;
+  bottom: 60px;
+  right: 0;
+  background: rgba(255,255,255,0.7);
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 20px;
+  white-space: nowrap;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* "Colita" de la burbuja */
+.btn-ws::after {
+  content: '';
+  position: absolute;
+  bottom: 36px;
+  right: 20px;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: rgba(255,255,255,0.7);
+}
+.btn-ws:hover:before{
+    background: #fff;
+}
+.btn-ws:hover:after{
+     border-top-color: #fff;
+}

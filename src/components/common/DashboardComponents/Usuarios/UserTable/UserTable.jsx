@@ -1,4 +1,5 @@
 
+
 // Importaciones:
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -54,7 +55,7 @@ export default function UserTable() {
   });
 
   useEffect(() => {
-    axios.get('https://cooperativaback.up.railway.app/api/usuarios', {
+    axios.get('https://panel-cooperativa-back-production.up.railway.app/api/usuarios', {
       headers: { 'x-token': localStorage.getItem('token') }
     })
     .then(response => {
@@ -93,7 +94,7 @@ export default function UserTable() {
       const payload = { estado: false };
 
       await axios.put(
-        `https://cooperativaback.up.railway.app/api?id=${userToDelete}`,
+        `https://panel-cooperativa-back-production.up.railway.app/api?id=${userToDelete}`,
         payload,
         {
           headers: { 'x-token': localStorage.getItem('token') },
@@ -149,7 +150,7 @@ export default function UserTable() {
         blog: editData.rol === 'Administrador' ? true : editData.blog,
       };
 
-      await axios.put(`https://cooperativaback.up.railway.app/api?id=${userToEdit}`, payload, {
+      await axios.put(`https://panel-cooperativa-back-production.up.railway.app/api?id=${userToEdit}`, payload, {
         headers: { 'x-token': localStorage.getItem('token') }
       });
 

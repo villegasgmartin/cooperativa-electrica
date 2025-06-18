@@ -1,33 +1,25 @@
-//Importaciones:
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchBlogs } from '../../../../../redux/actions/blogActions';
 import { Link } from 'react-router-dom';
 import { Fade } from 'react-awesome-reveal';
-import axios from 'axios';
-import "./HomeBlog2.css";
 import { Button } from '@mui/material';
+import "./HomeBlog2.css";
 
-//JSX:
 const HomeBlog2 = () => {
-  const [blogs, setBlogs] = useState([]);
+  const dispatch = useDispatch();
+  const { blogs, loading, error } = useSelector(state => state.blogs);
 
+  //Traemos los blogs con redux:
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const response = await axios.get('https://cooperativaback.up.railway.app/api/blog/blogs');
-        const todosLosBlogs = response.data.blogs || [];
-  
-        // Ordenar por _id (más nuevo primero) y tomar los 3 primeros
-        const blogsOrdenados = todosLosBlogs.sort((a, b) =>
-          b._id.localeCompare(a._id)
-        );
-  
-        setBlogs(blogsOrdenados.slice(0, 3));
-      } catch (error) {
-        console.error('Error al obtener los blogs:', error);
-      }
-    };
-    fetchBlogs();
-  }, []);
+    dispatch(fetchBlogs());
+  }, [dispatch]);
+
+  if (loading) return <p>Cargando blogs...</p>;
+  if (error) return <p>Error al cargar blogs: {error}</p>;
+
+  // Ordenar y tomar solo los 3 primeros
+  const blogsOrdenados = [...blogs].sort((a, b) => b._id.localeCompare(a._id)).slice(0, 3);
 
   return (
     <section className='homeBlog-main-container'>
@@ -42,9 +34,8 @@ const HomeBlog2 = () => {
         </p>
       </Fade>
       <div className='homeBlog-noticiasContainer'>
-
         <Fade cascade={true} duration={800} triggerOnce={true}>
-          {blogs.map((blog, index) => (
+          {blogsOrdenados.map((blog, index) => (
             <div key={blog._id} className={`homeBlog-noticia noticia-0${index + 1}`}>
               <Link to={`/blog/${blog.path}`}>
                 <div className='homeBlog-img-container'>
@@ -58,7 +49,6 @@ const HomeBlog2 = () => {
               <Link className='link-blog' to={`/blog/${blog._id}/${encodeURIComponent(blog.titulo)}`} style={{ textDecoration: 'none' }}>
                 <h3 className='HomeBlog-noticiaTitle'>{blog.titulo}</h3>
               </Link>
-
             </div>
           ))}
         </Fade>
@@ -66,7 +56,7 @@ const HomeBlog2 = () => {
       <div className='homeBlog-buttonContainer'>
         <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <Link to={"/blog"}>
-          <Button sx={{ 
+            <Button sx={{
               width: "100%",
               height: "100%",
               fontFamily: "interTight",
@@ -76,14 +66,14 @@ const HomeBlog2 = () => {
               borderRadius: "50px",
               boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
               textTransform: "none",
-              color:"black",
+              color: "black",
               backgroundColor: "#2eed8d",
-              }} 
-              variant='contained' 
+            }}
+              variant='contained'
               size='large'
-          >
+            >
               Ver más
-          </Button>
+            </Button>
           </Link>
         </Fade>
       </div>
