@@ -53,26 +53,10 @@ export default function ReservasTabs() {
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', mt: 4 }}>
-            <Typography
-                variant="h4"
-                gutterBottom
-                sx={{
-                    fontFamily: "interTight",
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    textDecoration: 'none',
-                    color: 'inherit',
-                    '&:hover': {
-                        color: 'primary.main',
-                        transform: 'scale(1.1)',
-                    }
-                }}
-                component={Link}
-                to="/reservas"
-                target="_blank"
-            >
-                Reservas
-            </Typography>
+        <Typography variant="h4" gutterBottom sx={{fontFamily: "InterTight"}}>
+            Reservas
+        </Typography>
+
 
             <Tabs value={value} onChange={handleChange} aria-label="Tabs de reservas">
                 <Tab label="Pendientes" sx={{ textTransform: "capitalize", fontFamily: "interTight", fontSize: "17px" }} />

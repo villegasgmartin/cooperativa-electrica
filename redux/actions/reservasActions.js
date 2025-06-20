@@ -2,9 +2,9 @@
 import dayjs from 'dayjs';
 
 //URL:
-const url = 'https://panel-cooperativa-back-production.up.railway.app';
+//const url = 'https://panel-cooperativa-back-production.up.railway.app';
 //Producción:
-//const url = 'http://localhost:8000';
+const url = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
@@ -68,7 +68,7 @@ export const fetchReservas = () => async (dispatch) => {
             ...r,
             fechaFormateada: fechaObj.format('D [de] MMMM'),
             mes: fechaObj.format('MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
+            //horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
             };
         });
 

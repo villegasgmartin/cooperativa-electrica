@@ -136,7 +136,9 @@ export default function ReservasEliminadas() {
         dpto: reserva.Dpto,
         fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
         horario: reserva.horario,
-        fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+        fechaSolicitud: reserva.fechaSolicitud 
+            ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
+            : 'No disponible',
         internet: reserva.internet,
         telefono: reserva.telefono,
         email: reserva.email,
@@ -191,7 +193,11 @@ const manejarOrden = (campo) => {
             </TableCell>
             <TableCell align='center'>{row.nombre}</TableCell>
             <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
-            <TableCell align='center'>{dayjs(row.fechaSolicitud).format('M/D/YYYY')}</TableCell>
+            <TableCell align='center'>
+                {row.fechaSolicitud
+                ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+                : 'No disponible'}
+            </TableCell>
             <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
             <TableCell align='center'>{row.responsable || 'N/A'}</TableCell>
             {!reservasLeer && (
@@ -215,7 +221,9 @@ const manejarOrden = (campo) => {
                     <Typography variant="h6" gutterBottom>Detalles</Typography>
                     <ul>
                         <li>Servicio: {row.internet}</li>
-                        <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
+                        <li>Fecha de la solicitud: {row.fechaSolicitud
+                            ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+                            : 'No disponible'}</li>
                         <li>Inmueble: {row.tipo}</li>
                         {row.Piso && <li>Piso: {row.Piso}</li>}
                         {row.Dpto && <li>Dpto: {row.Dpto}</li>}

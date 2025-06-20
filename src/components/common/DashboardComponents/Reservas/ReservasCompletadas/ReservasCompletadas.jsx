@@ -45,6 +45,7 @@ import { fetchUserData } from '../../../../../../redux/actions/userActions';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -94,7 +95,10 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
       // Datos del socio
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(10);
-      doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud).format('M/D/YYYY')}`, 10, y);y += 10;
+      doc.text(`Fecha de Solicitud: ${
+        row.fechaSolicitud
+        ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
+        : 'No disponible'}`,10,y);y += 10;
       doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
       doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
       doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
@@ -153,7 +157,11 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
         </TableCell>
         <TableCell align='center'>{row.nombre} - {row.NumeroUsuario}</TableCell>
         <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
-        <TableCell align='center'>{dayjs(row.fechaSolicitud).format('M/D/YYYY')}</TableCell>
+                <TableCell align='center'>
+                  {row.fechaSolicitud
+                    ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+                    : 'No disponible'}
+                </TableCell>
         <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
 
         {!reservasLeer && ( 
@@ -195,7 +203,9 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
               </Typography>
               <ul>
                 <li>Servicio: {row.internet}</li>
-                <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
+                <li>Fecha de la solicitud: {row.fechaSolicitud
+                  ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+                  : 'No disponible'}</li>                
                 <li>Inmueble: {row.tipo}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
@@ -252,7 +262,7 @@ export default function ReservasCompletadas() {
   const handleConfirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
+      const response = await fetch(`http://localhost:8000/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
         method: 'PUT',
         headers: { 'x-token': token },
       });
@@ -275,7 +285,7 @@ export default function ReservasCompletadas() {
   const handleSaveChanges = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
+      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -298,7 +308,7 @@ export default function ReservasCompletadas() {
     const fetchReservas = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://panel-cooperativa-back-production.up.railway.app/api/reservas/reservas-realizadas', {
+        const response = await fetch('http://localhost:8000/api/reservas/reservas-realizadas', {
           headers: { 'x-token': token },
         });
 
@@ -341,7 +351,7 @@ export default function ReservasCompletadas() {
         estadoBorrado: false,
       };
   
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
+      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${row._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -443,7 +453,9 @@ export default function ReservasCompletadas() {
         dpto: reserva.Dpto,
         fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
         horario: reserva.horario,
-        fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+          fechaSolicitud: reserva.fechaSolicitud 
+            ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
+            : 'No disponible',
         internet: reserva.internet,
         telefono: reserva.telefono,
         email: reserva.email,
@@ -484,91 +496,63 @@ const manejarOrden = (campo) => {
     }
     };
 
- // Calculamos aquí las reservas que se están mostrando
-  const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
+// Calculamos aquí las reservas que se están mostrando
+const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
 
-  const reservasMostradas = baseReservas
-    .filter((row) => {
-        if (reservasLeer) {
-          return row.terceriazado === true;
-        }
-        return true;
-    })
-    .filter((row) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          row.internet.toLowerCase().includes(query) ||
-          row.mes.toLowerCase().includes(query) ||
-          row.nombre.toLowerCase().includes(query) ||
-          row.direccion.toLowerCase().includes(query) ||
-          row.telefono.toLowerCase().includes(query) ||
-          row.email.toLowerCase().includes(query) ||
-          row.tipo.toLowerCase().includes(query)
-        );
-    })
-    .filter((row) => {
-        if (!row.fecha) return false; 
-        const fechaReserva = dayjs(row.fecha); 
-        if (!fechaReserva.isValid()) return false;
-        if (fechaDesde && fechaHasta) {
-          return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-        } else if (fechaDesde) {
-          return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-        } else if (fechaHasta) {
-          return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-        }
-        return true;
-    })
-    .filter((row) => {
-        if (!mostrarMesActual) return true; 
-        const mesActual = dayjs().format('MMMM');
-        return dayjs(row.fecha).format('MMMM') === mesActual;
-    });
-    let reservasOrdenadas = [...reservasMostradas];
-    if (orden.campo) {
-      reservasOrdenadas = reservasOrdenadas.sort((a, b) => {
-        if (orden.campo === 'nombre' || orden.campo === 'direccion') {
-          const textoA = a[orden.campo]?.toLowerCase() || '';
-          const textoB = b[orden.campo]?.toLowerCase() || '';
-
-          if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
-          if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
-          return 0;
-        } else if (orden.campo === 'fecha') {
-          const fechaA = dayjs(a.fecha);
-          const fechaB = dayjs(b.fecha);
-
-          if (!fechaA.isValid() || !fechaB.isValid()) return 0;
-
-          if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
-          if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
-          return 0;
-        }
-        return 0;
-      });
+const reservasMostradas = baseReservas
+  .filter((row) => {
+    if (reservasLeer) {
+      return row.terceriazado === true;
     }
+    return true;
+  })
+  .filter((row) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      row.internet.toLowerCase().includes(query) ||
+      row.mes.toLowerCase().includes(query) ||
+      row.nombre.toLowerCase().includes(query) ||
+      row.direccion.toLowerCase().includes(query) ||
+      row.telefono.toLowerCase().includes(query) ||
+      row.email.toLowerCase().includes(query) ||
+      row.tipo.toLowerCase().includes(query)
+    );
+  })
+  .filter((row) => {
+    if (!row.fecha) return false;
+    const fechaReserva = dayjs(row.fecha);
+    if (!fechaReserva.isValid()) return false;
+    if (fechaDesde && fechaHasta) {
+      return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+    } else if (fechaDesde) {
+      return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+    } else if (fechaHasta) {
+      return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+    }
+    return true;
+  })
+  .filter((row) => {
+    if (!mostrarMesActual) return true;
+    const mesActual = dayjs().format('MMMM');
+    return dayjs(row.fecha).format('MMMM') === mesActual;
+  });
+
+let reservasOrdenadas = [...reservasMostradas];
 
 if (orden.campo) {
-  reservasOrdenadas = [...reservasMostradas].sort((a, b) => {
+  reservasOrdenadas.sort((a, b) => {
     if (orden.campo === 'nombre' || orden.campo === 'direccion') {
-      const textoA = a[orden.campo].toLowerCase();
-      const textoB = b[orden.campo].toLowerCase();
+      const textoA = (a[orden.campo] || '').toLowerCase();
+      const textoB = (b[orden.campo] || '').toLowerCase();
 
       if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
       if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
       return 0;
-    } else if (orden.campo === 'fecha') {
-      const fechaA = dayjs(a.fecha);
-      const fechaB = dayjs(b.fecha);
-
-      if (!fechaA.isValid() || !fechaB.isValid()) return 0;
-
-      if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
-      if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
-      return 0;
-    } else if (orden.campo === 'fechaSolicitud') {
-      const fechaA = dayjs(a.fechaSolicitud);
-      const fechaB = dayjs(b.fechaSolicitud);
+    } 
+    
+    if (orden.campo === 'fecha' || orden.campo === 'fechaSolicitud') {
+      const fechaA = dayjs(a[orden.campo]);
+      const fechaB = dayjs(b[orden.campo]);
 
       if (!fechaA.isValid() || !fechaB.isValid()) return 0;
 
@@ -576,9 +560,11 @@ if (orden.campo) {
       if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
       return 0;
     }
+
     return 0;
   });
 }
+
 
   //Tabla:
   return (
@@ -737,12 +723,14 @@ if (orden.campo) {
                 {!reservasLeer && ( 
                 <>
                   <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Gestión</TableCell>
-                  <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Realizada</TableCell>
+                  <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '1rem', color: isLight ? '#fff' : 'primary.main', py: 2 }}>Marcar Pendiente</TableCell>
                 </>
               )}
               </TableRow>
             </TableHead>
             <TableBody>
+                            {console.log('RESERVAS QUE LLEGAN A LA TABLA:', reservasOrdenadas)}
+
               {reservasOrdenadas.map((row) => (
                 <Row
                 key={row._id}

@@ -99,7 +99,10 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     // Datos del socio
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`Fecha de Solicitud: ${dayjs(row.fechaSolicitud).format('M/D/YYYY')}`, 10, y);y += 10;
+    doc.text(`Fecha de Solicitud: ${
+      row.fechaSolicitud
+      ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
+      : 'No disponible'}`,10,y);y += 10;
     doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
     doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
@@ -160,7 +163,11 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
 
         <TableCell align='center'>{row.nombre} - {row.NumeroUsuario}</TableCell>
         <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
-        <TableCell align='center'>{dayjs(row.fechaSolicitud).format('M/D/YYYY')}</TableCell>
+        <TableCell align='center'>
+          {row.fechaSolicitud
+            ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+            : 'No disponible'}
+        </TableCell>
         <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
 
         {!reservasLeer && ( 
@@ -200,7 +207,9 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
               </Typography>
               <ul>
                 <li>Servicio: {row.internet}</li>
-                <li>Fecha de la solicitud: {dayjs(row.fechaSolicitud).format('M/D/YYYY')}</li>
+                <li>Fecha de la solicitud: {row.fechaSolicitud
+                  ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+                  : 'No disponible'}</li>
                 <li>Inmueble: {row.tipo}</li>
                 {row.Piso && <li>Piso: {row.Piso}</li>}
                 {row.Dpto && <li>Dpto: {row.Dpto}</li>}
@@ -389,7 +398,9 @@ const exportarAExcel = async () => {
       dpto: reserva.Dpto,
       fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
       horario: reserva.horario,
-      fechaSolicitud: dayjs(reserva.fechaSolicitud).format('MM/DD/YYYY'),
+      fechaSolicitud: reserva.fechaSolicitud 
+        ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
+        : 'No disponible',
       internet: reserva.internet,
       telefono: reserva.telefono,
       email: reserva.email,
@@ -443,7 +454,7 @@ const exportarAExcel = async () => {
     .filter((row) => {
         const query = searchQuery.toLowerCase();
         return (
-          row.internet.toLowerCase().includes(query) ||
+          row.internet.includes(query) ||
           row.mes.toLowerCase().includes(query) ||
           row.nombre.toLowerCase().includes(query) ||
           row.direccion.toLowerCase().includes(query) ||
