@@ -2,9 +2,12 @@
 import dayjs from 'dayjs';
 
 //URL:
-const url = 'https://cooperativaback.up.railway.app';
+
+//const url = 'https://cooperativaback.up.railway.app';
+
+
 //Producción:
-//const url = 'http://localhost:8000';
+const url = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
@@ -68,7 +71,6 @@ export const fetchReservas = () => async (dispatch) => {
             ...r,
             fechaFormateada: fechaObj.format('D [de] MMMM'),
             mes: fechaObj.format('MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
             };
         });
 
@@ -185,13 +187,13 @@ export const fetchReservasRealizadas = () => {
         if (!response.ok) throw new Error('Error al obtener las reservas');
 
         const data = await response.json();
+        console.log(data)
         const reservasFormateadas = data.reservas.map((r) => {
             const fechaObj = dayjs(r.fecha);
             return {
             ...r,
             fechaFormateada: fechaObj.format('D [de] MMMM'),
             mes: fechaObj.format('MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
             };
         });
         
@@ -230,7 +232,6 @@ export const fetchReservasEliminadas = () => {
                         ...r,
                         fechaFormateada: fechaObj.format('D [de] MMMM'),
                         mes: fechaObj.format('MMMM'),
-                        horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
                     };
                 });
 
