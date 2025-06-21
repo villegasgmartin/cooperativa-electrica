@@ -108,7 +108,7 @@ export default function ReservasEliminadas() {
         );
         })
         .filter((row) => {
-        if (!row.fecha) return false;
+        if (!row.fecha) return true;
         const fechaReserva = dayjs(row.fecha);
         if (!fechaReserva.isValid()) return false;
 
@@ -198,7 +198,11 @@ const manejarOrden = (campo) => {
                 ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
                 : 'No disponible'}
             </TableCell>
-            <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
+            <TableCell align="center">
+                {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'No disponible'}
+                <br />
+                {row.horario ? row.horario : 'No disponible'}
+            </TableCell>
             <TableCell align='center'>{row.responsable || 'N/A'}</TableCell>
             {!reservasLeer && (
                 <TableCell align='center'>
@@ -263,7 +267,7 @@ const manejarOrden = (campo) => {
             );
         })
         .filter((row) => {
-            if (!row.fecha) return false; 
+            if (!row.fecha) return true; 
             const fechaReserva = dayjs(row.fecha); 
             if (!fechaReserva.isValid()) return false;
             if (fechaDesde && fechaHasta) {

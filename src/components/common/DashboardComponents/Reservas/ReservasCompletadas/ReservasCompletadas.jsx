@@ -45,7 +45,6 @@ import { fetchUserData } from '../../../../../../redux/actions/userActions';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -162,7 +161,11 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
                     ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
                     : 'No disponible'}
                 </TableCell>
-        <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
+                <TableCell align="center">
+                  {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'No disponible'}
+                  <br />
+                  {row.horario ? row.horario : 'No disponible'}
+                </TableCell>
 
         {!reservasLeer && ( 
           <>
@@ -320,7 +323,6 @@ export default function ReservasCompletadas() {
             ...r,
             fechaFormateada: fechaObj.format('D [de] MMMM'),
             mes: fechaObj.format('MMMM'),
-            horarioFormateado: `${r.horario.replace('-', 'hs a')}`,
           };
         });
         setReservas(reservasFormateadas);
@@ -425,7 +427,7 @@ export default function ReservasCompletadas() {
         );
       })
       .filter((row) => {
-        if (!row.fecha) return false;
+        if (!row.fecha) return true;
         const fechaReserva = dayjs(row.fecha);
         if (!fechaReserva.isValid()) return false;
   
@@ -519,7 +521,7 @@ const reservasMostradas = baseReservas
     );
   })
   .filter((row) => {
-    if (!row.fecha) return false;
+    if (!row.fecha) return true;
     const fechaReserva = dayjs(row.fecha);
     if (!fechaReserva.isValid()) return false;
     if (fechaDesde && fechaHasta) {
@@ -729,8 +731,6 @@ if (orden.campo) {
               </TableRow>
             </TableHead>
             <TableBody>
-                            {console.log('RESERVAS QUE LLEGAN A LA TABLA:', reservasOrdenadas)}
-
               {reservasOrdenadas.map((row) => (
                 <Row
                 key={row._id}

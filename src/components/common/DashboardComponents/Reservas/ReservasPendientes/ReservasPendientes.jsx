@@ -168,7 +168,11 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
             ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
             : 'No disponible'}
         </TableCell>
-        <TableCell align='center'>{`${row.fechaFormateada} - ${row.horario} hs`}</TableCell>
+        <TableCell align="center">
+          {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'No disponible'}
+          <br />
+          {row.horario ? row.horario : 'No disponible'}
+        </TableCell>
 
         {!reservasLeer && ( 
           <TableCell align='center'>
@@ -370,7 +374,7 @@ const exportarAExcel = async () => {
       );
     })
     .filter((row) => {
-      if (!row.fecha) return false;
+      if (!row.fecha) return true;
       const fechaReserva = dayjs(row.fecha);
       if (!fechaReserva.isValid()) return false;
 
@@ -464,7 +468,7 @@ const exportarAExcel = async () => {
         );
     })
     .filter((row) => {
-        if (!row.fecha) return false; 
+        if (!row.fecha) return true; 
         const fechaReserva = dayjs(row.fecha); 
         if (!fechaReserva.isValid()) return false;
         if (fechaDesde && fechaHasta) {
