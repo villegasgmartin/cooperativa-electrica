@@ -265,7 +265,7 @@ export default function ReservasCompletadas() {
   const handleConfirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
+      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
         method: 'PUT',
         headers: { 'x-token': token },
       });
@@ -288,7 +288,7 @@ export default function ReservasCompletadas() {
   const handleSaveChanges = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
+      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -311,7 +311,7 @@ export default function ReservasCompletadas() {
     const fetchReservas = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://panel-cooperativa-back-production.up.railway.app/api/reservas/reservas-realizadas', {
+        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas-realizadas', {
           headers: { 'x-token': token },
         });
 
@@ -353,7 +353,7 @@ export default function ReservasCompletadas() {
         estadoBorrado: false,
       };
   
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
+      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -731,6 +731,7 @@ if (orden.campo) {
               </TableRow>
             </TableHead>
             <TableBody>
+             
               {reservasOrdenadas.map((row) => (
                 <Row
                 key={row._id}
