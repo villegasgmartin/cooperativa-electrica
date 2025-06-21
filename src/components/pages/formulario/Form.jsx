@@ -294,7 +294,7 @@ const Form = () => {
 
     //Enviamos los datos
     const handleSubmit = async (event) => {
-        if(zona == 'Fuera de Zona de Servicio'){
+        if(zona == 'Fuera de Zona de Servicio' || internetPlan == 'Ninguna'){
         event.preventDefault();
         let formErrors = {};
         if (!formData.name) formErrors.name = "Nombre es requerido";
@@ -854,7 +854,7 @@ const Form = () => {
                                 ""
                                 )}
                             {/*Servicio de cable*/}
-                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
                                     <Select
                                     fullWidth
                                     value={planTV}
@@ -936,7 +936,7 @@ const Form = () => {
                             )}
                         
                            {/*Calendario */}
-                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
                                 <div className='form-calendar'>
                                 <p className='form-calendar-text'>Elegí fecha y horario para coordinar la instalación del servicio.</p>
                                 <BasicDatePicker
@@ -996,7 +996,7 @@ const Form = () => {
                                 />
                             </div>
                             {/*Enviar formulario */}
-                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                            {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
    <div className='form-button-container'>
                             <Button
                                 sx={{
