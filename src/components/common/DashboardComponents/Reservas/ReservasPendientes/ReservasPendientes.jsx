@@ -104,7 +104,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
       ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
       : 'No disponible'}`,10,y);y += 10;
     doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
-    doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
+    doc.text(`Nombre y Apellido: ${row.nombre} - ${row.NumeroUsuario}`, 10, y); y += 10;
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
     doc.text(`Tipo: ${row.tipo || 'No disponible'}   Piso: ${row.Piso || 'No disponible'}   Dpto: ${row.Dpto || 'No disponible'}`, 10, y); y += 10;
     doc.text(`Teléfono: ${row.telefono}`, 10, y); y += 10;
