@@ -848,10 +848,10 @@ if (orden.campo) {
                       setSelectedReserva({ ...selectedReserva, horario: e.target.value })
                     }
                   >
-                    <MenuItem value="8-10">8:00 - 10:00</MenuItem>
-                    <MenuItem value="10-12">10:00 - 12:00</MenuItem>
-                    <MenuItem value="12-14">12:00 - 14:00</MenuItem>
-                    <MenuItem value="14-16">14:00 - 16:00</MenuItem>
+                    <MenuItem value="8:00 a 10:00">8:00 - 10:00</MenuItem>
+                    <MenuItem value="10:00 a 12:00">10:00 - 12:00</MenuItem>
+                    <MenuItem value="12:00 a 14:00">12:00 - 14:00</MenuItem>
+                    <MenuItem value="14:00 a 16:00">14:00 - 16:00</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
