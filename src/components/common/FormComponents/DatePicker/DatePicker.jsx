@@ -101,7 +101,7 @@ useEffect(() => {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer components={['DatePicker']}>
+            <DemoContainer components={['DatePicker']} sx={{marginBottom:2}}>
                 <DatePicker
                     format="DD/MM/YYYY"
                     label="Fecha de instalación"
