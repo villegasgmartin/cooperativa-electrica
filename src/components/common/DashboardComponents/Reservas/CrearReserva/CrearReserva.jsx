@@ -4,6 +4,7 @@ import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, 
 import BasicDatePicker from '../../../../common/FormComponents/DatePicker/DatePicker';
 import { useDispatch } from 'react-redux';
 import { createReservaForm } from '../../../../../../redux/actions/formActions';
+import { createReservaTV } from '../../../../../../redux/actions/formActions';
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
@@ -70,7 +71,7 @@ const Form = () => {
         }, []);
 
         useEffect(() => {
-           
+
             if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
                 
                 setInternetPlanURL("Fuera de Zona");
@@ -83,7 +84,6 @@ const Form = () => {
     //Zonas de cobertura:
    const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
-        //triangulos
         {latitude:-37.99755,longitude: -57.56412},
         {latitude:-37.99797,longitude: -57.56561},
         {latitude:-37.99924,longitude: -57.56533},
@@ -99,18 +99,11 @@ const Form = () => {
         {latitude:-38.00274, longitude:-57.56945},
         {latitude:-38.00398, longitude:-57.56913},
         {latitude:-38.0043, longitude:-57.57072},
-
-
-
-
         { latitude: -38.00567, longitude: -57.5707 },
-        //edificio dorrego
         {latitude:-38.00685, longitude:-57.57},
         {latitude:-38.00662, longitude:-57.56913},
         {latitude:-38.00647, longitude:-57.56865},
         {latitude:-38.0066,longitude: -57.56838},
-
-        //diagonal
         {latitude:-38.00922, longitude:-57.56767},
         {latitude:-38.00948, longitude:57.56927},
         {latitude:-38.01075, longitude:-57.56902},
@@ -118,28 +111,9 @@ const Form = () => {
         {latitude:-38.01234, longitude:-57.57029},
         {latitude:-38.0121, longitude:-57.56862},
         {latitude:-38.01289, longitude:-57.56919},
-        
-
-        
-     
-        
-    
-        // { latitude: -38.012, longitude: -57.56853 },
-        // { latitude: -38.01129, longitude: -57.56785 },
-        // { latitude: -38.0117, longitude: -57.567 },
-        // { latitude: -38.01099, longitude: -57.56622 },
-        // { latitude: -38.01139, longitude: -57.56545 },
-
-        // { latitude: -38.013, longitude: -57.56665 },
-        // { latitude: -38.01212, longitude: -57.5686 },
-
-        // { latitude: -38.01315, longitude: -57.56943 },
         { latitude: -38.01676, longitude: -57.56238 },
-        
         { latitude: -38.01325, longitude: -57.55959 },
         { latitude: -38.01074, longitude: -57.56459 },
-  
-
         { latitude: -38.00503, longitude: -57.5603 },
         { latitude: -38.0143, longitude: -57.5421 },
         { latitude: -38.00954, longitude: -57.5382 },
@@ -149,6 +123,7 @@ const Form = () => {
         { latitude: -38.00346, longitude: -57.55016 },
         { latitude: -37.99683, longitude: -57.5633 }
         ]
+
     const getCoordinates = async (address) => {
 
         const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
@@ -157,12 +132,12 @@ const Form = () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
-            console.log(data)
     
             if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
                 const city = data.results[0].address_components[2];
-                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city };
+                const address = data.results[0].formatted_address
+                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city, address };
             } else {
                 console.error("Error en la geocodificación:", data.status);
                 return null;
@@ -173,24 +148,43 @@ const Form = () => {
         }
     };
     
+    
+        const verificarEspana = (address)=>{
+        console.log(address)
+        const parts = address.split(',').map(p => p.trim());
+
+
+        const nombreCalle = parts[0].split(' ')[0];
+        const alturaCalle = parts[0].split(' ')[1];
+        const alturaNumero = parseInt(alturaCalle)
+        let zona;
+
+        if(nombreCalle == 'España' && alturaNumero>2200 && alturaNumero<3900){
+            zona = true
+        }else{
+            zona = false
+        }
+
+        return zona
+
+    }
 
     async function verificarCobertura(e) {
-      const {casa, edificio, ph} = tipoInmueble
-      if(!casa && !edificio && !ph){
-        return alert('Elija un tipo de inmueble')
-      }
+        const {casa, edificio, ph} = tipoInmueble
+        if(!casa && !edificio && !ph){
+            return alert('Elija un tipo de inmueble')
+        }
     
         try {
             const coordenadas = await getCoordinates(direccion);
             const ciudad = coordenadas.city.long_name
-
-            if(ciudad != 'Mar del Plata'){
-                // return alert('Servicio no disponible fuera de Mar del Plata')
-                setMostrarPopup(true);
-  return;
+            const direccionCompleta = coordenadas.address;
+            const espana = verificarEspana(direccion);
+            if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
+                return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
-            if (isPointInPolygon(coordenadas, zona1)) {
+            if (isPointInPolygon(coordenadas, zona1) || espana) {
                 setZona("Direccion en Zona 1");
             } else {
                 setZona("Fuera de Zona de Servicio");
@@ -223,87 +217,124 @@ const Form = () => {
         setInternetPlan(event.target.value);
     };
 
-    //Enviamos los datos
-    const handleSubmit = async (event) => {
-
-        if(internetPlan==='Fuera de Zona' && planTV==='Ninguno'){
-            return alert( 'No esta habilitado para solicitar un turno')
-        } 
-
-        event.preventDefault();
+     //Enviamos los datos
+        const handleSubmit = async (event) => {
+            if(zona == 'Fuera de Zona de Servicio' || internetPlan == 'Ninguna'){
+            event.preventDefault();
+            let formErrors = {};
+            if (!formData.name) formErrors.name = "Nombre es requerido";
+            if (!formData.dni) formErrors.dni = "DNI es requerido";
+            if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
+            if (!formData.email) formErrors.email = "Correo es requerido";
+    
+            setErrors(formErrors);
+    
+            if (Object.keys(formErrors).length === 0) {
         
-        //Validaciones
-        let formErrors = {};
-        if (!formData.name) formErrors.name = "Nombre es requerido";
-        if (!formData.dni) formErrors.dni = "DNI es requerido";
-        if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
-        if (!formData.email) formErrors.email = "Correo es requerido";
-        if (!fechaInstalacion) formErrors.fechaInstalacion = "Elegí una fecha";
-        if (!franjaHoraria) formErrors.franjaHoraria = "Elegí un horario";
+                const dataToSend = {
+                    DNI: formData.dni,
+                    Dpto: formData.departamento,
+                    Piso: formData.piso,
+                    direccion,
+                    tv: planTV,
+                    nombre: formData.name,
+                    email: formData.email,
+                    telefono: formData.telefono,
+                    tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+                };
+                    try {
+                        await dispatch(createReservaTV(dataToSend));
+                        
+                    // Limpiamos campos
+                        setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
+                        setDireccion('');
+                        setFechaInstalacion(null);
+                        setFranjaHoraria('');
+                        setPlanInternet('');
+                        setPlanTV('');
+                        setTipoInmueble({ casa: false, edificio: false, ph: false });
 
-        setErrors(formErrors);
-    
-        if (Object.keys(formErrors).length === 0) {
-            const isoFecha = new Date(fechaInstalacion).toISOString();
-    
-            const dataToSend = {
-                DNI: formData.dni,
-                Dpto: formData.departamento,
-                Piso: formData.piso,
-                direccion,
-                fecha: isoFecha,
-                horario: franjaHoraria,
-                internet: internetPlan,
-                tv: planTV,
-                nombre: formData.name,
-                email: formData.email,
-                telefono: formData.telefono,
-                tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+                        // Mostrar mensaje de éxito
+                        setmostrarPopupEnviado(true)
+                    } catch (error) {
+                        console.error('Error al enviar el formulario:', error);
+                    }
+                }
             };
-            //Si no hay errores, hacemos POST
-            try {
-                    await dispatch(createReservaForm(dataToSend));
+    
+            event.preventDefault();
+            
+            //Validaciones
+            let formErrors = {};
+            if (!formData.name) formErrors.name = "Nombre es requerido";
+            if (!formData.dni) formErrors.dni = "DNI es requerido";
+            if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
+            if (!formData.email) formErrors.email = "Correo es requerido";
+            if (!fechaInstalacion) formErrors.fechaInstalacion = "Elegí una fecha";
+            if (!franjaHoraria) formErrors.franjaHoraria = "Elegí un horario";  
+            
+            setErrors(formErrors);
+        
+            if (Object.keys(formErrors).length === 0) {
+                const isoFecha = new Date(fechaInstalacion).toISOString();
+        
+                const dataToSend = {
+                    DNI: formData.dni,
+                    Dpto: formData.departamento,
+                    Piso: formData.piso,
+                    direccion,
+                    fecha: isoFecha,
+                    horario: franjaHoraria,
+                    internet: internetPlan,
+                    tv: planTV,
+                    nombre: formData.name,
+                    email: formData.email,
+                    telefono: formData.telefono,
+                    tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+                };
+                //Si no hay errores, hacemos POST
+                try {
+                        await dispatch(createReservaForm(dataToSend));
 
-                // Limpiamos campos
-                setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
-                setDireccion('');
-                setFechaInstalacion(null);
-                setFranjaHoraria('');
-                setPlanInternet('');
-                setPlanTV('');
-                setTipoInmueble({ casa: false, edificio: false, ph: false });
+                    // Limpiamos campos
+                    setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
+                    setDireccion('');
+                    setFechaInstalacion(null);
+                    setFranjaHoraria('');
+                    setPlanInternet('');
+                    setPlanTV('');
+                    setTipoInmueble({ casa: false, edificio: false, ph: false });
 
-                // Mostrar mensaje de éxito
-                // setSuccessMessageOpen(true);
-                setmostrarPopupEnviado(true)
-            } catch (error) {
-                console.error('Error al enviar el formulario:', error);
+                    // Mostrar mensaje de éxito
+                    setmostrarPopupEnviado(true)
+                } catch (error) {
+                    console.error('Error al enviar el formulario:', error);
+                }
             }
+        };
+    
+        const handleEnviarYSalir = async () => {
+        if (!email || !direccion) {
+            return alert("Por favor ingrese su email y asegúrese de haber escrito una dirección.");
+        }
+    
+        const dataToSend = {
+            email,
+            direccion
+        };
+    
+        try {
+            await dispatch(createReservaForm(dataToSend));
+            setMostrarPopup(false);
+            setEmail('');
+            setDireccion('');
+            setTimeout(() => {
+                        window.location= '/'
+                    }, 1500);
+        } catch (error) {
+            console.error("Error al enviar datos:", error);
         }
     };
-
-    const handleEnviarYSalir = async () => {
-    if (!email || !direccion) {
-        return alert("Por favor ingrese su email y asegúrese de haber escrito una dirección.");
-    }
-
-    const dataToSend = {
-        email,
-        direccion
-    };
-
-    try {
-        await dispatch(createReservaForm(dataToSend));
-        console.log("Datos enviados:", dataToSend);
-        setMostrarPopup(false);
-        setEmail('');
-        setDireccion('');
-    } catch (error) {
-        console.error("Error al enviar datos:", error);
-    }
-};
-
-    
 
     return (
         <>
@@ -601,7 +632,8 @@ const Form = () => {
                     </Select>
                     )}
                     {/*Calendario */}
-                    <div>
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                        <div>
                         <BasicDatePicker
                             fechaInstalacion={fechaInstalacion}
                             setFechaInstalacion={setFechaInstalacion}
@@ -611,28 +643,51 @@ const Form = () => {
                             sinEstilo={true}
                         />
                     </div>
+                    ):(
+                        ""
+                    )}
                 </>
                     ):("")}
                     {/*Enviar formulario */}
-                    <div  style={{display: "flex", justifyContent: "center", marginTop: "30px"}}>
-                        <Button
-                            variant="contained"
-                            size="large"
-                            type='submit'
-                            disabled={
-                                !formData.name ||
-                                !formData.dni ||
-                                !formData.telefono ||
-                                !formData.email ||
-                                !direccion ||
-                                !fechaInstalacion ||
-                                !franjaHoraria ||
-                                !Object.values(tipoInmueble).includes(true)
-                            }
-                            >
-                            Enviar
-                        </Button>
-                    </div>
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                        <div style={{display: "flex", justifyContent: "center", marginTop: "30px"}}>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                type='submit'
+                                disabled={
+                                    !formData.name ||
+                                    !formData.dni ||
+                                    !formData.telefono ||
+                                    !formData.email ||
+                                    !direccion ||
+                                    !fechaInstalacion ||
+                                    !franjaHoraria ||
+                                    !Object.values(tipoInmueble).includes(true)
+                                }
+                                >
+                                Enviar
+                                </Button>
+                        </div>
+                    ):(
+                        <div style={{display: "flex", justifyContent: "center", marginTop: "30px"}}>
+                            <Button
+                                variant="contained"
+                                size="large"
+                                type='submit'
+                                disabled={
+                                    !formData.name ||
+                                    !formData.dni ||
+                                    !formData.telefono ||
+                                    !formData.email ||
+                                    !direccion ||
+                                    !Object.values(tipoInmueble).includes(true)
+                                }
+                                >
+                                Enviar
+                            </Button>
+                        </div>
+                    )}
                     </Stack>
                 </Box>
                 </div>

@@ -35,7 +35,7 @@ export const createReservaForm = (dataToSend) => async (dispatch) => {
     }
 };
 
-//Función POST para crear reservas en el formulario:
+//Función POST para crear reservas TV en el formulario:
 export const createReservaTV = (dataToSend) => async (dispatch) => {
     dispatch({ type: CREATE_RESERVA_TV });
     try {
@@ -45,7 +45,6 @@ export const createReservaTV = (dataToSend) => async (dispatch) => {
         console.log(error)
     }
 };
-
 
 //Función GET para obtener los horarios disponibles:
 export const fetchHorariosDisponibles = (fecha) => async (dispatch) => {

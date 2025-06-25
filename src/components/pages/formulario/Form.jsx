@@ -80,7 +80,6 @@ const Form = () => {
         }, []);
 
         useEffect(() => {
-           
             if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
                 
                 setInternetPlanURL("Fuera de Zona");
@@ -93,7 +92,6 @@ const Form = () => {
     //Zonas de cobertura:
     const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
-        //triangulos
         {latitude:-37.99755,longitude: -57.56412},
         {latitude:-37.99797,longitude: -57.56561},
         {latitude:-37.99924,longitude: -57.56533},
@@ -109,18 +107,11 @@ const Form = () => {
         {latitude:-38.00274, longitude:-57.56945},
         {latitude:-38.00398, longitude:-57.56913},
         {latitude:-38.0043, longitude:-57.57072},
-
-
-
-
         { latitude: -38.00567, longitude: -57.5707 },
-        //edificio dorrego
         {latitude:-38.00685, longitude:-57.57},
         {latitude:-38.00662, longitude:-57.56913},
         {latitude:-38.00647, longitude:-57.56865},
         {latitude:-38.0066,longitude: -57.56838},
-
-        //diagonal
         {latitude:-38.00922, longitude:-57.56767},
         {latitude:-38.00948, longitude:57.56927},
         {latitude:-38.01075, longitude:-57.56902},
@@ -128,28 +119,9 @@ const Form = () => {
         {latitude:-38.01234, longitude:-57.57029},
         {latitude:-38.0121, longitude:-57.56862},
         {latitude:-38.01289, longitude:-57.56919},
-        
-
-        
-     
-        
-    
-        // { latitude: -38.012, longitude: -57.56853 },
-        // { latitude: -38.01129, longitude: -57.56785 },
-        // { latitude: -38.0117, longitude: -57.567 },
-        // { latitude: -38.01099, longitude: -57.56622 },
-        // { latitude: -38.01139, longitude: -57.56545 },
-
-        // { latitude: -38.013, longitude: -57.56665 },
-        // { latitude: -38.01212, longitude: -57.5686 },
-
-        // { latitude: -38.01315, longitude: -57.56943 },
         { latitude: -38.01676, longitude: -57.56238 },
-        
         { latitude: -38.01325, longitude: -57.55959 },
         { latitude: -38.01074, longitude: -57.56459 },
-  
-
         { latitude: -38.00503, longitude: -57.5603 },
         { latitude: -38.0143, longitude: -57.5421 },
         { latitude: -38.00954, longitude: -57.5382 },
@@ -159,40 +131,7 @@ const Form = () => {
         { latitude: -38.00346, longitude: -57.55016 },
         { latitude: -37.99683, longitude: -57.5633 }
         ]
-    
-    
 
-    // const verificarCobertura = async () => {
-    //     if (!direccion) {
-    //         setCoberturaMensaje('Por favor, ingresá una dirección.');
-    //         return;
-    //     }
-    
-    //     try {
-    //         const response = await fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(direccion)}`);
-    //         const data = await response.json();
-    
-    //         if (data.length > 0) {
-    //             const { lat, lon } = data[0];
-    //             const latFloat = parseFloat(lat);
-    //             const lonFloat = parseFloat(lon);
-    
-    //             const dentroDeZona = isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona1) ||
-    //                                 isPointInPolygon({ lat: latFloat, lng: lonFloat }, zona2);
-    
-    //             if (dentroDeZona) {
-    //                 setCoberturaMensaje('¡Excelente! Hay cobertura en tu zona.');
-    //             } else {
-    //                 setCoberturaMensaje('Lo sentimos, no hay cobertura en tu dirección.');
-    //             }
-    //         } else {
-    //             setCoberturaMensaje('Dirección no encontrada. Por favor, revisala.');
-    //         }
-    //     } catch (error) {
-    //         console.error(error);
-    //         setCoberturaMensaje('Error al verificar la dirección.');
-    //     }
-    // };
     const getCoordinates = async (address) => {
 
         const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
@@ -201,9 +140,8 @@ const Form = () => {
         try {
             const response = await fetch(url);
             const data = await response.json();
-           
     
-             if (data.status === "OK") {
+            if (data.status === "OK") {
                 const { lat, lng } = data.results[0].geometry.location;
                 const city = data.results[0].address_components[2];
                 const address = data.results[0].formatted_address
@@ -219,7 +157,7 @@ const Form = () => {
     };
     
 
-     const verificarEspana = (address)=>{
+    const verificarEspana = (address)=>{
         console.log(address)
         const parts = address.split(',').map(p => p.trim());
 
@@ -240,22 +178,17 @@ const Form = () => {
     }
 
     async function verificarCobertura(e) {
-      const {casa, edificio, ph} = tipoInmueble
-      if(!casa && !edificio && !ph){
+        const {casa, edificio, ph} = tipoInmueble
+        if(!casa && !edificio && !ph){
         return alert('Elija un tipo de inmueble')
-      }
+        }
     
         try {
             const coordenadas = await getCoordinates(direccion);
-
             const ciudad = coordenadas.city.long_name
             const direccionCompleta = coordenadas.address;
             const espana = verificarEspana(direccion);
-            console.log(espana)
-
-
-
-              if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
+            if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
                 return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
@@ -301,11 +234,11 @@ const Form = () => {
         if (!formData.dni) formErrors.dni = "DNI es requerido";
         if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
         if (!formData.email) formErrors.email = "Correo es requerido";
-          if (!terminosAceptados) formErrors.terminosAceptados = "Debes aceptar los términos";
+        if (!terminosAceptados) formErrors.terminosAceptados = "Debes aceptar los términos";
 
-           setErrors(formErrors);
+        setErrors(formErrors);
 
-             if (Object.keys(formErrors).length === 0) {
+        if (Object.keys(formErrors).length === 0) {
     
             const dataToSend = {
                 DNI: formData.dni,
