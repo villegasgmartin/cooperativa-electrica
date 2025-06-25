@@ -15,10 +15,6 @@ import {
   Button,
   Modal,
   Box as MuiBox,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Dialog,
   DialogActions,
   DialogContent,
@@ -65,6 +61,7 @@ const modalBoxStyles = (theme) => ({
   width: 400,
   boxShadow: 24,
 });
+
 //PDF:
 function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsRealizada  }) {
   const [open, setOpen] = React.useState(false);
@@ -162,9 +159,9 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
                     : 'No disponible'}
                 </TableCell>
                 <TableCell align="center">
-                  {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'No disponible'}
+                  {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
                   <br />
-                  {row.horario ? row.horario : 'No disponible'}
+                  {row.horario ? row.horario : ''}
                 </TableCell>
 
         {!reservasLeer && ( 
@@ -245,12 +242,13 @@ export default function ReservasCompletadas() {
   const dispatch = useDispatch();
     const [orden, setOrden] = useState({ campo: '', direccion: '' });
 
-  //Funciones para eliminar con modal:
+  //Funciones para editar: con modal:
   const handleEditClick = (row) => {
     setSelectedReserva(row);
     setOpenModal(true);
   };
 
+  //Función para eliminar con modal.
   const handleDeleteClick = (row) => {
     setReservaAEliminar(row);
     setOpenConfirmDialog(true);
@@ -822,37 +820,6 @@ if (orden.campo) {
                     setSelectedReserva({ ...selectedReserva, internet: e.target.value })
                   }
                 />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    format="DD/MM/YYYY"
-                    label="Fecha"
-                    value={dayjs(selectedReserva.fecha)}
-                    onChange={(newDate) =>
-                      setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })
-                    }
-                    slotProps={{
-                      textField: { fullWidth: true },
-                    }}
-                  />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <InputLabel>Hora</InputLabel>
-                  <Select
-                    value={selectedReserva.horario}
-                    onChange={(e) =>
-                      setSelectedReserva({ ...selectedReserva, horario: e.target.value })
-                    }
-                  >
-                    <MenuItem value="8-10">8:00 - 10:00</MenuItem>
-                    <MenuItem value="10-12">10:00 - 12:00</MenuItem>
-                    <MenuItem value="12-14">12:00 - 14:00</MenuItem>
-                    <MenuItem value="14-16">14:00 - 16:00</MenuItem>
-                  </Select>
-                </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControlLabel
