@@ -553,7 +553,7 @@ const Form = () => {
                 {direccionValidada?(
                 <>
                     {/* Servicio de internet */}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
                         <Select
                             displayEmpty
                             fullWidth
@@ -569,19 +569,10 @@ const Form = () => {
                             <MenuItem value="Ninguna">Ninguna</MenuItem>
                         </Select>
                         ):(
-                        <Select
-                            displayEmpty
-                            fullWidth
-                            id="internet-plan-select"
-                            value={internetPlan}
-                            onChange={handleInternetChange}
-                            inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
-                        >
-                            <MenuItem value="Fuera de Zona">Fuera de Zona</MenuItem>
-                        </Select>
+                        ""
                         )}
                     {/*Servicio de cable*/}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
                             <Select
                             fullWidth
                             value={planTV}
@@ -632,7 +623,7 @@ const Form = () => {
                     </Select>
                     )}
                     {/*Calendario */}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
                         <div>
                         <BasicDatePicker
                             fechaInstalacion={fechaInstalacion}
@@ -649,7 +640,7 @@ const Form = () => {
                 </>
                     ):("")}
                     {/*Enviar formulario */}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1'?(
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
                         <div style={{display: "flex", justifyContent: "center", marginTop: "30px"}}>
                             <Button
                                 variant="contained"
