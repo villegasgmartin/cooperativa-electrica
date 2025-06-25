@@ -15,10 +15,6 @@ import {
   Button,
   Modal,
   Box as MuiBox,
-  Select,
-  MenuItem,
-  InputLabel,
-  FormControl,
   Dialog,
   DialogActions,
   DialogContent,
@@ -49,6 +45,7 @@ import React, { useEffect, useState } from 'react';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
+import BasicDatePicker from '../../../FormComponents/DatePicker/DatePicker';
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -169,9 +166,9 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
             : 'No disponible'}
         </TableCell>
         <TableCell align="center">
-          {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'No disponible'}
+          {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
           <br />
-          {row.horario ? row.horario : 'No disponible'}
+          {row.horario ? row.horario : ''}
         </TableCell>
 
         {!reservasLeer && ( 
@@ -796,36 +793,28 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                  format="DD/MM/YYYY"
-                  label="Fecha"
-                  value={dayjs(selectedReserva.fecha)}
-                  onChange={(newDate) =>
-                    setSelectedReserva({ ...selectedReserva, fecha: newDate.toISOString() })
-                  }
-                  slotProps={{
-                    textField: { fullWidth: true },
-                  }}
-                />
-              </LocalizationProvider>
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel>Hora</InputLabel>
-                <Select
-                  value={selectedReserva.horario}
-                  onChange={(e) =>
-                    setSelectedReserva({ ...selectedReserva, horario: e.target.value })
-                  }
-                >
-                  <MenuItem value="8:00 a 10:00">8:00 - 10:00</MenuItem>
-                  <MenuItem value="10:00 a 12:00">10:00 - 12:00</MenuItem>
-                  <MenuItem value="12:00 a 14:00">12:00 - 14:00</MenuItem>
-                  <MenuItem value="14:00 a 16:00">14:00 - 16:00</MenuItem>
-                </Select>
-              </FormControl>
+
+            <Grid item xs={12}>
+              <BasicDatePicker
+                sinEstilo={true}
+                fechaInstalacion={dayjs(selectedReserva?.fecha || null)}
+                setFechaInstalacion={(nuevaFecha) =>
+                  setSelectedReserva((prev) => ({
+                    ...prev,
+                    fecha: nuevaFecha,
+                    horario: '',
+                  }))
+                }
+                franjaHoraria={selectedReserva?.horario || ''}
+                setFranjaHoraria={(nuevoHorario) =>
+                  setSelectedReserva((prev) => ({
+                    ...prev,
+                    horario: nuevoHorario,
+                  }))
+                }
+                tipoInmueble={selectedReserva?.tipo?.toLowerCase()}
+              />
+
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControlLabel

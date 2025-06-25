@@ -165,19 +165,19 @@ export default function ReservasEliminadas() {
     };
 
     //Ordenar alfabeticamente y ascendente y descendente: 
-const manejarOrden = (campo) => {
-    if (orden.campo === campo) {
-        if (orden.direccion === null) {
-        setOrden({ campo, direccion: 'asc' });
-        } else if (orden.direccion === 'asc') {
-        setOrden({ campo, direccion: 'desc' });
+    const manejarOrden = (campo) => {
+        if (orden.campo === campo) {
+            if (orden.direccion === null) {
+            setOrden({ campo, direccion: 'asc' });
+            } else if (orden.direccion === 'asc') {
+            setOrden({ campo, direccion: 'desc' });
+            } else {
+            setOrden({ campo: null, direccion: null });
+            }
         } else {
-        setOrden({ campo: null, direccion: null });
+            setOrden({ campo, direccion: 'asc' });
         }
-    } else {
-        setOrden({ campo, direccion: 'asc' });
-    }
-    };
+        };
 
     // Tabla
     function Row({ row }) {
@@ -199,9 +199,9 @@ const manejarOrden = (campo) => {
                 : 'No disponible'}
             </TableCell>
             <TableCell align="center">
-                {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'No disponible'}
+                {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
                 <br />
-                {row.horario ? row.horario : 'No disponible'}
+                {row.horario ? row.horario : ''}
             </TableCell>
             <TableCell align='center'>{row.responsable || 'N/A'}</TableCell>
             {!reservasLeer && (

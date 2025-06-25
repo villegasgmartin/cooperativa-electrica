@@ -42,7 +42,7 @@ export const createReservaTV = (dataToSend) => async (dispatch) => {
         const response = await axios.post(`${url}/api/reservas/conexion-tv`, dataToSend);
         dispatch({ type: CREATE_RESERVA_TV, payload: response.data });
     } catch (error) {
-       console.log(error)
+        console.log(error)
     }
 };
 
