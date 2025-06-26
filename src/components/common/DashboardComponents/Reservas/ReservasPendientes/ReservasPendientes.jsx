@@ -793,6 +793,16 @@ if (orden.campo) {
                 }
               />
             </Grid>
+             <Grid item xs={12} sm={6}>
+              <TextField
+                label="TV"
+                fullWidth
+                value={selectedReserva.tv}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, tv: e.target.value })
+                }
+              />
+            </Grid>
 
             <Grid item xs={12}>
               <BasicDatePicker
