@@ -46,6 +46,7 @@ import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
 import BasicDatePicker from '../../../FormComponents/DatePicker/DatePicker';
+import FechaPersonalizada from '../FechaPersonalizada/FechaPersonalizada';
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -242,6 +243,7 @@ export default function ReservasPendientes() {
   const [fechaDesde, setFechaDesde] = React.useState(null);
   const [fechaHasta, setFechaHasta] = React.useState(null);
   const [nombreUsuario, setNombreUsuario] = React.useState('');
+  const [usoHorarioPersonalizado, setUsoHorarioPersonalizado] = React.useState(false);
   const dispatch = useDispatch();
   const { reservas} = useSelector((state) => state.reservas);
   const { nombre, reservasLeer} = useSelector((state) => state.user);
@@ -793,7 +795,7 @@ if (orden.campo) {
                 }
               />
             </Grid>
-             <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 label="TV"
                 fullWidth
@@ -805,26 +807,56 @@ if (orden.campo) {
             </Grid>
 
             <Grid item xs={12}>
-              <BasicDatePicker
-                sinEstilo={true}
-                fechaInstalacion={dayjs(selectedReserva?.fecha || null)}
-                setFechaInstalacion={(nuevaFecha) =>
-                  setSelectedReserva((prev) => ({
-                    ...prev,
-                    fecha: nuevaFecha,
-                    horario: '',
-                  }))
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={usoHorarioPersonalizado}
+                    onChange={(e) => setUsoHorarioPersonalizado(e.target.checked)}
+                    color="primary"
+                  />
                 }
-                franjaHoraria={selectedReserva?.horario || ''}
-                setFranjaHoraria={(nuevoHorario) =>
-                  setSelectedReserva((prev) => ({
-                    ...prev,
-                    horario: nuevoHorario,
-                  }))
-                }
-                tipoInmueble={selectedReserva?.tipo?.toLowerCase()}
+                label={usoHorarioPersonalizado ? 'Horario Personalizado' : 'Horario Estándar'}
               />
 
+              {usoHorarioPersonalizado ? (
+                <FechaPersonalizada
+                  fechaInstalacion={dayjs(selectedReserva?.fecha || null)}
+                  setFechaInstalacion={(nuevaFecha) =>
+                    setSelectedReserva((prev) => ({
+                      ...prev,
+                      fecha: nuevaFecha,
+                      horario: '',
+                    }))
+                  }
+                  franjaHoraria={selectedReserva?.horario || ''}
+                  setFranjaHoraria={(nuevoHorario) =>
+                    setSelectedReserva((prev) => ({
+                      ...prev,
+                      horario: nuevoHorario,
+                    }))
+                  }
+                />
+              ) : (
+                <BasicDatePicker
+                  sinEstilo={true}
+                  fechaInstalacion={dayjs(selectedReserva?.fecha || null)}
+                  setFechaInstalacion={(nuevaFecha) =>
+                    setSelectedReserva((prev) => ({
+                      ...prev,
+                      fecha: nuevaFecha,
+                      horario: '',
+                    }))
+                  }
+                  franjaHoraria={selectedReserva?.horario || ''}
+                  setFranjaHoraria={(nuevoHorario) =>
+                    setSelectedReserva((prev) => ({
+                      ...prev,
+                      horario: nuevoHorario,
+                    }))
+                  }
+                  tipoInmueble={selectedReserva?.tipo?.toLowerCase()}
+                />
+              )}
             </Grid>
             <Grid item xs={12} sm={6}>
               <FormControlLabel

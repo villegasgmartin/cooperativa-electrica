@@ -1,6 +1,6 @@
 //Importaciones:
 import React, { useState, useEffect, useRef } from 'react';
-import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert, Box, Grid, Stack, Dialog, DialogActions, DialogContent } from '@mui/material';
+import { TextField, Button, Select, MenuItem, FormControlLabel, Checkbox, Link, Typography,  Snackbar, Alert, Box, Grid, Stack, Dialog, DialogActions, DialogContent, Switch } from '@mui/material';
 import BasicDatePicker from '../../../../common/FormComponents/DatePicker/DatePicker';
 import { useDispatch } from 'react-redux';
 import { createReservaForm } from '../../../../../../redux/actions/formActions';
@@ -8,6 +8,7 @@ import { createReservaTV } from '../../../../../../redux/actions/formActions';
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
+import FechaPersonalizada from '../FechaPersonalizada/FechaPersonalizada';
 
 //JSX:
 const Form = () => {
@@ -41,6 +42,7 @@ const Form = () => {
     const [mostrarPopup, setMostrarPopup] = useState(false);
     const [email, setEmail] = useState('');
     const [mostrarPopupEnviado, setmostrarPopupEnviado] = useState(false)
+    const [usoHorarioPersonalizado, setUsoHorarioPersonalizado] = useState(false);
 
 
     const onLoad = (autocompleteInstance) => {
@@ -82,7 +84,7 @@ const Form = () => {
         }, [zona]);
 
     //Zonas de cobertura:
-   const zona1 = [
+    const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
         {latitude:-37.99755,longitude: -57.56412},
         {latitude:-37.99797,longitude: -57.56561},
@@ -623,8 +625,28 @@ const Form = () => {
                     </Select>
                     )}
                     {/*Calendario */}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
-                        <div>
+                    {(zona ?? '').trim() === '' || ((zona ?? '').trim() === 'Direccion en Zona 1' && internetPlan !== 'Ninguna') ? (
+                    <>
+                        <FormControlLabel
+                        control={
+                            <Switch
+                            checked={usoHorarioPersonalizado}
+                            onChange={(e) => setUsoHorarioPersonalizado(e.target.checked)}
+                            color="primary"
+                            />
+                        }
+                        label={usoHorarioPersonalizado ? "Horario personalizado" : "Horario estándar"}
+                        sx={{ mt: 2 }}
+                        />
+
+                        {usoHorarioPersonalizado ? (
+                        <FechaPersonalizada
+                            fechaInstalacion={fechaInstalacion}
+                            setFechaInstalacion={setFechaInstalacion}
+                            franjaHoraria={franjaHoraria}
+                            setFranjaHoraria={setFranjaHoraria}
+                        />
+                        ) : (
                         <BasicDatePicker
                             fechaInstalacion={fechaInstalacion}
                             setFechaInstalacion={setFechaInstalacion}
@@ -633,11 +655,10 @@ const Form = () => {
                             tipoInmueble={Object.keys(tipoInmueble).find(key => tipoInmueble[key])}
                             sinEstilo={true}
                         />
-                    </div>
-                    ):(
-                        ""
-                    )}
-                </>
+                        )}
+                    </>
+                    ) : ""}
+                    </>
                     ):("")}
                     {/*Enviar formulario */}
                     {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
