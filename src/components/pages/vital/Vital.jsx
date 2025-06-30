@@ -12,7 +12,6 @@ import LocalPhoneTwoToneIcon from '@mui/icons-material/LocalPhoneTwoTone';
 import NavBar from '../../common/layout/navBar/NavBar';
 import LogoVittal from "../../../assets/images/logos/vittal-logo.png"
 import {Helmet} from "react-helmet"
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import { enviarFormularioVittal } from '../../../store/vittalSlice';
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -321,7 +320,6 @@ Hace tu consulta sobre los beneficios de AMI
             </Typography>
           </Box>
         </Modal>
-        <BotonWhatsapp />
       </section>
       <Footer />
     </>

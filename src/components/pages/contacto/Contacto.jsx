@@ -10,7 +10,6 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { Fade } from 'react-awesome-reveal';
 import {Helmet} from "react-helmet"
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 // JSX:
 const Contacto = () => {
@@ -289,7 +288,6 @@ const Contacto = () => {
           </div>
         </div>
       </Fade>
-      <BotonWhatsapp/>
     </section>
   );
   };

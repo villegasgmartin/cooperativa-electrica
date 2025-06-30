@@ -6,7 +6,6 @@ import { Grid, Box, Paper, Button, IconButton, CircularProgress } from '@mui/mat
 import { Fade } from 'react-awesome-reveal';
 import { CSSTransition } from 'react-transition-group';
 import { getBlogByPath } from '../../../../redux/actions/blogActions';
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import NavBar from '../../common/layout/navBar/NavBar';
 import Footer from '../../common/layout/footer/Footer';
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';
@@ -109,7 +108,6 @@ function BlogNoticia1() {
             ))}
           </Grid>
           <Box sx={{ mt: 4 }}>
-            <BotonWhatsapp />
           </Box>
         </Box>
 
@@ -180,7 +178,6 @@ function BlogNoticia1() {
           </div>
         </CSSTransition>
       </section>
-
       <Footer />
     </>
   );

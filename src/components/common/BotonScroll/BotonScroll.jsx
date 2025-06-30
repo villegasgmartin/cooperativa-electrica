@@ -1,5 +1,4 @@
 //Importaciones:
-import React from 'react';
 import { Fab } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
@@ -20,10 +19,10 @@ function BotonScroll() {
             onClick={scrollToTop}
             sx={{
                 position: 'fixed',
-                bottom: '20px',
-                right: '100px',
-                width: "60px",
-                height: "60px",
+                bottom: 20,
+                right: 24,
+                width: 60,
+                height: 60,
                 backgroundColor: '#3d116d', 
                 '&:hover': {
                     backgroundColor: '#8048ff',

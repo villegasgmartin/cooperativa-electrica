@@ -9,7 +9,6 @@ import image03 from "../../../assets/images/comunicados/comunicados03.jpg"
 import image04 from "../../../assets/images/comunicados/comunicados04.jpg"
 import { Fade } from "react-awesome-reveal";
 import {Helmet} from "react-helmet"
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const Comunicados = () => {
@@ -89,7 +88,6 @@ const Comunicados = () => {
           </div>
         </Fade>
       </div>
-      <BotonWhatsapp/>
     </section>
 
   );

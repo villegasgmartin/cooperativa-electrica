@@ -7,7 +7,6 @@ import Footer from "../../common/layout/footer/Footer";
 // import ModalHome from "../../../assets/images/oferta300MB.jpg"
 /*import { useState, useEffect } from "react"*/
 import "../home/Home.css"
-import BotonWhatsapp from "../../common/BotonWhatsapp/BotonWhatsapp";
 // import { useEffect, useState } from "react";
 // import { Link } from "react-router";
 // import { Button } from "@mui/material";
@@ -71,13 +70,11 @@ const Home = () => {
             </div>
             </div>
         )} */}
-           
             <HomePortada2/>
             <HomeServices3/>
             <HomeGuardia2/>
             <HomeBlog2/>
             <Footer/>
-            <BotonWhatsapp/>
         </div>
     )
 }

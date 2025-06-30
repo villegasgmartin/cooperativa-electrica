@@ -8,7 +8,7 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp'; // Asegúrate de import
 const StyledFab = styled(Fab)(({ theme }) => ({
     position: 'fixed',
     bottom: 20,
-    right: 24,
+    right: 100,
     width: 60,
     height: 60,
     backgroundColor: '#12824c',

@@ -10,7 +10,6 @@ import "../preguntas/Preguntas.css";
 import { Fade } from 'react-awesome-reveal';
 import { Helmet } from "react-helmet";
 import { Link } from 'react-router-dom';
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 
 //JSX:
@@ -319,7 +318,6 @@ const Preguntas = () => {
                         Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. <br/>Muchas gracias.</p>
                     </div>
                 </Fade>
-                <BotonWhatsapp/>
         </section>
     );
 };

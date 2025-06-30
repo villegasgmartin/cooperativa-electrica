@@ -7,7 +7,6 @@ import "../blog/Blog.css";
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 // JSX:
 const Blog = () => {
@@ -58,8 +57,6 @@ const Blog = () => {
           ))}
         </Fade>
       </div>
-
-      <BotonWhatsapp />
     </section>
   );
 };

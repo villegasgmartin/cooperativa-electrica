@@ -13,7 +13,6 @@ import PreguntasNaveVideos from "../../common/PreguntasNaveComponents/preguntasN
 import { Link } from "react-router-dom";
 import { Button } from '@mui/material';
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
 //JSX:
 const PreguntasNave = () => {

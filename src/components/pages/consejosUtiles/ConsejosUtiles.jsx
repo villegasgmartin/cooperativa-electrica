@@ -12,7 +12,6 @@ import Image03 from "../../../assets/images/consejos/consejo-03.jpg"
 import Image04 from "../../../assets/images/consejos/consejo-04.jpg"
 import Image05 from "../../../assets/images/consejos/consejo-05.jpg"
 import {Helmet} from "react-helmet"
-import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 
 //JSX:
 const ConsejosUtiles = () => {
@@ -97,7 +96,6 @@ const ConsejosUtiles = () => {
               </div>
           </div>
         </Fade>
-        <BotonWhatsapp/>
     </section>
   );
 };
