@@ -251,7 +251,7 @@ const Preguntas = () => {
                         <Accordion>
                             <AccordionSummary><p><span>13- </span>¿CÓMO REALIZO UNA DENUNCIA POR ROBO DE ENERGÍA?</p></AccordionSummary>
                             <AccordionDetails>
-                                <p>La conexión ilegal representa un grave peligro de muerte, no solo para el que la realiza, sino también para su familia y vecinos. Además, es un delito penado por la ley. Una conexión ilegal afecta la calidad de servicio de quién está vinculado a la COOPERATIVA legalmente produciendo variaciones de tensión. Denunciar a quién comete una conexión ilegal estará protegiendo su vida, a su familia y a sus bienes. Por favor, comuníquese con nuestra Sede Administrativa al teléfono (0223) 495-1411/ 493-5777.</p>
+                                <p>La conexión ilegal representa un grave peligro de muerte, no solo para el que la realiza, sino también para su familia y vecinos. Además, es un delito penado por la ley. Una conexión ilegal afecta la calidad de servicio de quién está vinculado a la COOPERATIVA legalmente produciendo variaciones de tensión. Denunciar a quién comete una conexión ilegal estará protegiendo su vida, a su familia y a sus bienes. Por favor, comuníquese con nuestra Sede Administrativa.</p>
                             </AccordionDetails>
                         </Accordion>
                         <Accordion

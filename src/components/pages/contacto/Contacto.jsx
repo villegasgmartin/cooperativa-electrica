@@ -99,7 +99,7 @@ const Contacto = () => {
               <div className='contacto-mensaje-electrica'>
                 <h3 className='contacto-number'>Guardia técnica Servicio Eléctrico</h3>
                 <p className='contacto-mensaje'>Solo para EMERGENCIAS (Corresponde a casos de Personas Electrodependientes)</p>
-                <h3 className='contacto-number'>0800-3330357</h3>
+                {/* <h3 className='contacto-number'>0800-3330357</h3> */}
               </div>
             </Fade>
             <Fade triggerOnce={true} duration={800} delay={300} direction='right'>
