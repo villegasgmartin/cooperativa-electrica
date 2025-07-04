@@ -745,6 +745,26 @@ if (orden.campo) {
                 }
               />
             </Grid>
+              <Grid item xs={12} sm={6}>
+              <TextField
+                label="DNI"
+                fullWidth
+                value={selectedReserva.DNI}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, DNI: e.target.value })
+                }
+              />
+            </Grid>
+                 <Grid item xs={12} sm={6}>
+              <TextField
+                label="Email"
+                fullWidth
+                value={selectedReserva.email}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, email: e.target.value })
+                }
+              />
+            </Grid>
             <Grid item xs={12}>
               <TextField
                 label="Dirección"

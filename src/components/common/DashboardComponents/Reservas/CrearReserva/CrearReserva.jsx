@@ -84,7 +84,7 @@ const Form = () => {
         }, [zona]);
 
     //Zonas de cobertura:
-    const zona1 = [
+     const zona1 = [
         { latitude: -37.99692, longitude: -57.5633 },
         {latitude:-37.99755,longitude: -57.56412},
         {latitude:-37.99797,longitude: -57.56561},
@@ -107,7 +107,7 @@ const Form = () => {
         {latitude:-38.00647, longitude:-57.56865},
         {latitude:-38.0066,longitude: -57.56838},
         {latitude:-38.00922, longitude:-57.56767},
-        {latitude:-38.00948, longitude:57.56927},
+        {latitude:-38.00948, longitude:-57.56927},
         {latitude:-38.01075, longitude:-57.56902},
         {latitude:-38.01108, longitude:-57.57058},
         {latitude:-38.01234, longitude:-57.57029},
@@ -116,14 +116,14 @@ const Form = () => {
         { latitude: -38.01676, longitude: -57.56238 },
         { latitude: -38.01325, longitude: -57.55959 },
         { latitude: -38.01074, longitude: -57.56459 },
-        { latitude: -38.00503, longitude: -57.5603 },
+        { latitude: -38.00521, longitude: -57.56009 },
         { latitude: -38.0143, longitude: -57.5421 },
         { latitude: -38.00954, longitude: -57.5382 },
         { latitude: -38.00904, longitude: -57.53921 },
-        { latitude: -38.01214, longitude: -57.54176 },
-        { latitude: -38.00662, longitude: -57.55275 },
+        { latitude: -38.01209, longitude: -57.54165 },
+        { latitude: -38.00653, longitude: -57.55264 },
         { latitude: -38.00346, longitude: -57.55016 },
-        { latitude: -37.99683, longitude: -57.5633 }
+        { latitude: -37.99692, longitude: -57.5633 }
         ]
 
     const getCoordinates = async (address) => {
