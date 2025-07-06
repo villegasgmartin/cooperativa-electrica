@@ -29,6 +29,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import PersonIcon from '@mui/icons-material/Person';
 import { useTheme } from '@mui/material/styles';
 import jsPDF from 'jspdf';
 import dayjs from 'dayjs';
@@ -96,7 +97,10 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
         ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
         : 'No disponible'}`,10,y);y += 10;
       doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
-      doc.text(`Nombre y Apellido: ${row.nombre}`, 10, y); y += 10;
+
+      const nombreCompleto = row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre;
+      doc.text(`Nombre y Apellido: ${nombreCompleto} - ${row.NumeroUsuario}`, 10, y);y += 10;
+
       doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
       doc.text(`Tipo: ${row.tipo || 'No disponible'}   Piso: ${row.Piso || 'No disponible'}   Dpto: ${row.Dpto || 'No disponible'}`, 10, y); y += 10;
       doc.text(`Teléfono: ${row.telefono}`, 10, y); y += 10;
@@ -140,7 +144,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
       const pageHeight = doc.internal.pageSize.height;
       doc.addImage(logo1, 'PNG', 170, pageHeight - 40, 30, 25);
   
-      doc.save(`Orden-Instalación-${row.nombre.replace(/ /g, '_')}.pdf`);
+    doc.save(`Orden-Instalación-${nombreCompleto.replace(/ /g, '_')}.pdf`);
     };
 
   return (
@@ -151,7 +155,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell align='center'>{row.nombre} - {row.NumeroUsuario}</TableCell>
+        <TableCell align='center'>{(row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre)} - {row.NumeroUsuario}</TableCell>
         <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
                 <TableCell align='center'>
                   {row.fechaSolicitud
@@ -167,10 +171,13 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
         {!reservasLeer && ( 
           <>
           <TableCell align='center'>
-              <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
+            <IconButton  size="small" sx={{ mr: "1px" }}>
+              <PersonIcon />
+            </IconButton>
+              <IconButton color="primary" size="small" sx={{ mr: "1px" }} onClick={() => handleEditClick(row)}>
                 <EditIcon />
               </IconButton>
-              <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
+              <IconButton color="secondary" size="small" sx={{ mr: "1px" }} onClick={() => handleDeleteClick(row)}>
                 <DeleteIcon />
               </IconButton>
               <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
@@ -202,19 +209,19 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
                 Detalles
               </Typography>
               <ul>
-                <li>Servicio: {row.internet}</li>
-                <li>Fecha de la solicitud: {row.fechaSolicitud
+                <li><strong>Servicio:</strong> {row.internet}</li>
+                <li><strong>Fecha de la solicitud:</strong> {row.fechaSolicitud
                   ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
-                  : 'No disponible'}</li>                
-                <li>Inmueble: {row.tipo}</li>
-                {row.Piso && <li>Piso: {row.Piso}</li>}
-                {row.Dpto && <li>Dpto: {row.Dpto}</li>}
-                <li>Tv: {row.tv}</li>
-                <li>Teléfono: {row.telefono}</li>
-                <li>DNI: {row.DNI}</li>
-                <li>Correo: {row.email}</li>
-                <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
-                {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
+                  : 'No disponible'}</li>
+                <li><strong>Inmueble:</strong> {row.tipo}</li>
+                {row.Piso && <li><strong>Piso:</strong> {row.Piso}</li>}
+                {row.Dpto && <li><strong>Dpto:</strong> {row.Dpto}</li>}
+                <li><strong>Tv:</strong> {row.tv}</li>
+                <li><strong>Teléfono:</strong> {row.telefono}</li>
+                <li><strong>DNI:</strong> {row.DNI}</li>
+                <li><strong>Correo:</strong> {row.email}</li>
+                <li><strong>Tercerizado:</strong> {row.terceriazado ? 'Sí' : 'No'}</li>
+                {row.observaciones && <li><strong>Observaciones:</strong> {row.observaciones}</li>}
               </ul>
             </Box>
           </Collapse>
@@ -263,7 +270,7 @@ export default function ReservasCompletadas() {
   const handleConfirmDelete = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
+      const response = await fetch(`http://localhost:8000/api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
         method: 'PUT',
         headers: { 'x-token': token },
       });
@@ -286,7 +293,7 @@ export default function ReservasCompletadas() {
   const handleSaveChanges = async () => {
     try {
       const token = localStorage.getItem('token');
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
+      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -309,7 +316,7 @@ export default function ReservasCompletadas() {
     const fetchReservas = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas-realizadas', {
+        const response = await fetch('http://localhost:8000/api/reservas/reservas-realizadas', {
           headers: { 'x-token': token },
         });
 
@@ -351,7 +358,7 @@ export default function ReservasCompletadas() {
         estadoBorrado: false,
       };
   
-      const response = await fetch(`https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
+      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${row._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -372,28 +379,28 @@ export default function ReservasCompletadas() {
     }
   };
 
-    //Excel:
+ //Excel:
   const exportarAExcel = async () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Reservas');
-  
+
     const columnas = [
-      { header: 'NOMBRE', key: 'nombre', width: 20 },
+      { header: 'NOMBRE Y APELLIDO', key: 'nombre', width: 25 },
       { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
-      { header: 'INMUEBLE', key: 'tipo', width: 15 },
-      { header: 'PISO', key: 'piso', width: 10 },
-      { header: 'DPTO', key: 'dpto', width: 10 },
+      { header: 'INMUEBLE', key: 'tipo', width: 11 },
+      { header: 'PISO', key: 'piso', width: 7 },
+      { header: 'DPTO', key: 'dpto', width: 7 },
       { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
-      { header: 'HORARIO', key: 'horario', width: 12 },
-      { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+      { header: 'HORARIO', key: 'horario', width: 15 },
+      { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 25 },
       { header: 'SERVICIO', key: 'internet', width: 15 },
       { header: 'TELÉFONO', key: 'telefono', width: 15 },
-      { header: 'EMAIL', key: 'email', width: 25 },
-      { header: 'DNI', key: 'dni', width: 15 },
+      { header: 'EMAIL', key: 'email', width: 30 },
+      { header: 'DNI', key: 'dni', width: 13 },
     ];
-  
+
     worksheet.columns = columnas;
-  
+
     // Encabezado con estilo
     worksheet.getRow(1).eachCell((cell) => {
       cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
@@ -410,25 +417,26 @@ export default function ReservasCompletadas() {
         right: { style: 'thin' },
       };
     });
-  
+
     const reservasFiltradas = reservas
       .filter((row) => {
         const query = searchQuery.toLowerCase();
         return (
-          row.internet.toLowerCase().includes(query) ||
-          row.mes.toLowerCase().includes(query) ||
-          row.nombre.toLowerCase().includes(query) ||
-          row.direccion.toLowerCase().includes(query) ||
-          row.telefono.toLowerCase().includes(query) ||
-          row.email.toLowerCase().includes(query) ||
-          row.tipo.toLowerCase().includes(query)
+          row.internet?.toLowerCase().includes(query) ||
+          row.mes?.toLowerCase().includes(query) ||
+          row.nombre?.toLowerCase().includes(query) ||
+          row.apellido?.toLowerCase().includes(query) ||
+          row.direccion?.toLowerCase().includes(query) ||
+          row.telefono?.toLowerCase().includes(query) ||
+          row.email?.toLowerCase().includes(query) ||
+          row.tipo?.toLowerCase().includes(query)
         );
       })
       .filter((row) => {
         if (!row.fecha) return true;
         const fechaReserva = dayjs(row.fecha);
         if (!fechaReserva.isValid()) return false;
-  
+
         if (fechaDesde && fechaHasta) {
           return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
         } else if (fechaDesde) {
@@ -443,26 +451,26 @@ export default function ReservasCompletadas() {
         const mesActual = dayjs().format('MMMM');
         return dayjs(row.fecha).format('MMMM') === mesActual;
       });
-  
+
     reservasFiltradas.forEach((reserva) => {
       worksheet.addRow({
-        nombre: reserva.nombre,
+        nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
         direccion: reserva.direccion?.split(',')[0],
         tipo: reserva.tipo,
         piso: reserva.Piso,
         dpto: reserva.Dpto,
         fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
         horario: reserva.horario,
-          fechaSolicitud: reserva.fechaSolicitud 
-            ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
-            : 'No disponible',
+        fechaSolicitud: reserva.fechaSolicitud 
+          ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
+          : 'No disponible',
         internet: reserva.internet,
         telefono: reserva.telefono,
         email: reserva.email,
         dni: reserva.DNI,
       });
     });
-  
+
     // Ajuste de estilo para todas las celdas de datos
     worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
       row.eachCell((cell) => {
@@ -475,7 +483,7 @@ export default function ReservasCompletadas() {
         };
       });
     });
-  
+
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     saveAs(blob, `Reservas Realizadas${dayjs().format('DD-MM-YYYY')}.xlsx`);
@@ -509,13 +517,14 @@ const reservasMostradas = baseReservas
   .filter((row) => {
     const query = searchQuery.toLowerCase();
     return (
-      row.internet.toLowerCase().includes(query) ||
-      row.mes.toLowerCase().includes(query) ||
-      row.nombre.toLowerCase().includes(query) ||
-      row.direccion.toLowerCase().includes(query) ||
-      row.telefono.toLowerCase().includes(query) ||
-      row.email.toLowerCase().includes(query) ||
-      row.tipo.toLowerCase().includes(query)
+      row.internet?.toLowerCase().includes(query) ||
+      row.mes?.toLowerCase().includes(query) ||
+      row.nombre?.toLowerCase().includes(query) ||
+      row.apellido?.toLowerCase().includes(query) ||
+      row.direccion?.toLowerCase().includes(query) ||
+      row.telefono?.toLowerCase().includes(query) ||
+      row.email?.toLowerCase().includes(query) ||
+      row.tipo?.toLowerCase().includes(query)
     );
   })
   .filter((row) => {
@@ -729,7 +738,6 @@ if (orden.campo) {
               </TableRow>
             </TableHead>
             <TableBody>
-             
               {reservasOrdenadas.map((row) => (
                 <Row
                 key={row._id}
@@ -751,7 +759,7 @@ if (orden.campo) {
         {selectedReserva && (
           <>
             <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
-            <Grid container spacing={2}>
+            <Grid container spacing={1}>
               <Grid item xs={12} sm={6}>
                 <TextField
                   label="Nombre"
@@ -764,11 +772,41 @@ if (orden.campo) {
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
+                  label="Apellido"
+                  fullWidth
+                  value={selectedReserva.apellido || ''}
+                  onChange={(e) =>
+                    setSelectedReserva({ ...selectedReserva, apellido: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
                   label="Número de usuario"
                   fullWidth
                   value={selectedReserva.NumeroUsuario}
                   onChange={(e) =>
                     setSelectedReserva({ ...selectedReserva, NumeroUsuario: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  label="DNI"
+                  fullWidth
+                  value={selectedReserva.DNI}
+                  onChange={(e) =>
+                    setSelectedReserva({ ...selectedReserva, DNI: e.target.value })
+                  }
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="Correo"
+                  fullWidth
+                  value={selectedReserva.email}
+                  onChange={(e) =>
+                    setSelectedReserva({ ...selectedReserva, email: e.target.value })
                   }
                 />
               </Grid>

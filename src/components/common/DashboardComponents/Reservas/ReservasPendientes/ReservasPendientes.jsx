@@ -27,6 +27,7 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditIcon from '@mui/icons-material/Edit';
+import PersonIcon from '@mui/icons-material/Person';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { useTheme } from '@mui/material/styles';
@@ -47,9 +48,8 @@ import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
 import BasicDatePicker from '../../../FormComponents/DatePicker/DatePicker';
 import FechaPersonalizada from '../FechaPersonalizada/FechaPersonalizada';
-
-//Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
+import { crearUsuarioBCM } from '../../../../../../redux/actions/reservasActions';
 
 //JSX;
 //Estilo de modales:
@@ -68,10 +68,10 @@ const modalBoxStyles = (theme) => ({
   boxShadow: 24,
 });
 
-//PDF:
-function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , reservasLeer}) {
+function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , reservasLeer, handleCrearUsuario}) {
   const [open, setOpen] = React.useState(false);
   
+  //PDF:
   const handleImprimir = () => {
     const doc = new jsPDF();
   
@@ -102,7 +102,10 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
       ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
       : 'No disponible'}`,10,y);y += 10;
     doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
-    doc.text(`Nombre y Apellido: ${row.nombre} - ${row.NumeroUsuario}`, 10, y); y += 10;
+
+    const nombreCompleto = row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre;
+    doc.text(`Nombre y Apellido: ${nombreCompleto} - ${row.NumeroUsuario}`, 10, y);y += 10;
+
     doc.text(`Dirección: ${row.direccion}`, 10, y); y += 10;
     doc.text(`Tipo: ${row.tipo || 'No disponible'}   Piso: ${row.Piso || 'No disponible'}   Dpto: ${row.Dpto || 'No disponible'}`, 10, y); y += 10;
     doc.text(`Teléfono: ${row.telefono}`, 10, y); y += 10;
@@ -146,7 +149,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     const pageHeight = doc.internal.pageSize.height;
     doc.addImage(logo1, 'PNG', 170, pageHeight - 40, 30, 25);
 
-    doc.save(`Orden-Instalación-${row.nombre.replace(/ /g, '_')}.pdf`);
+    doc.save(`Orden-Instalación-${nombreCompleto.replace(/ /g, '_')}.pdf`);
   };
 
 
@@ -158,8 +161,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-
-        <TableCell align='center'>{row.nombre} - {row.NumeroUsuario}</TableCell>
+        <TableCell align='center'>{(row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre)} - {row.NumeroUsuario}</TableCell>
         <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
         <TableCell align='center'>
           {row.fechaSolicitud
@@ -174,10 +176,13 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
 
         {!reservasLeer && ( 
           <TableCell align='center'>
-            <IconButton color="primary" size="small" sx={{ mr: 1 }} onClick={() => handleEditClick(row)}>
+            <IconButton  size="small" sx={{ mr: "1px" }} onClick={() => handleCrearUsuario(row)} title="Crear usuario">
+              <PersonIcon />
+            </IconButton>
+            <IconButton color="primary" size="small" sx={{ mr: "1px" }} onClick={() => handleEditClick(row)}>
               <EditIcon />
             </IconButton>
-            <IconButton color="secondary" size="small" sx={{ mr: 1 }} onClick={() => handleDeleteClick(row)}>
+            <IconButton color="secondary" size="small" sx={{ mr: "1px" }} onClick={() => handleDeleteClick(row)}>
               <DeleteIcon />
             </IconButton>
             <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
@@ -208,19 +213,19 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
                 Detalles
               </Typography>
               <ul>
-                <li>Servicio: {row.internet}</li>
-                <li>Fecha de la solicitud: {row.fechaSolicitud
+                <li><strong>Servicio:</strong> {row.internet}</li>
+                <li><strong>Fecha de la solicitud:</strong> {row.fechaSolicitud
                   ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
                   : 'No disponible'}</li>
-                <li>Inmueble: {row.tipo}</li>
-                {row.Piso && <li>Piso: {row.Piso}</li>}
-                {row.Dpto && <li>Dpto: {row.Dpto}</li>}
-                <li>Tv: {row.tv}</li>
-                <li>Teléfono: {row.telefono}</li>
-                <li>DNI: {row.DNI}</li>
-                <li>Correo: {row.email}</li>
-                <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
-                {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
+                <li><strong>Inmueble:</strong> {row.tipo}</li>
+                {row.Piso && <li><strong>Piso:</strong> {row.Piso}</li>}
+                {row.Dpto && <li><strong>Dpto:</strong> {row.Dpto}</li>}
+                <li><strong>Tv:</strong> {row.tv}</li>
+                <li><strong>Teléfono:</strong> {row.telefono}</li>
+                <li><strong>DNI:</strong> {row.DNI}</li>
+                <li><strong>Correo:</strong> {row.email}</li>
+                <li><strong>Tercerizado:</strong> {row.terceriazado ? 'Sí' : 'No'}</li>
+                {row.observaciones && <li><strong>Observaciones:</strong> {row.observaciones}</li>}
               </ul>
             </Box>
           </Collapse>
@@ -320,24 +325,29 @@ useEffect(() => {
     setSearchQuery('');
   };
 
+  //Función para crear usuario en BCM:
+const handleCrearUsuario = (row) => {
+  dispatch(crearUsuarioBCM(row));
+};
+
   //Excel:
 const exportarAExcel = async () => {
   const workbook = new ExcelJS.Workbook();
   const worksheet = workbook.addWorksheet('Reservas');
 
   const columnas = [
-    { header: 'NOMBRE', key: 'nombre', width: 20 },
+    { header: 'NOMBRE Y APELLIDO', key: 'nombre', width: 25 },
     { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
-    { header: 'INMUEBLE', key: 'tipo', width: 15 },
-    { header: 'PISO', key: 'piso', width: 10 },
-    { header: 'DPTO', key: 'dpto', width: 10 },
+    { header: 'INMUEBLE', key: 'tipo', width: 11 },
+    { header: 'PISO', key: 'piso', width: 7 },
+    { header: 'DPTO', key: 'dpto', width: 7 },
     { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
-    { header: 'HORARIO', key: 'horario', width: 12 },
-    { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+    { header: 'HORARIO', key: 'horario', width: 15 },
+    { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 25 },
     { header: 'SERVICIO', key: 'internet', width: 15 },
     { header: 'TELÉFONO', key: 'telefono', width: 15 },
-    { header: 'EMAIL', key: 'email', width: 25 },
-    { header: 'DNI', key: 'dni', width: 15 },
+    { header: 'EMAIL', key: 'email', width: 30 },
+    { header: 'DNI', key: 'dni', width: 13 },
   ];
 
   worksheet.columns = columnas;
@@ -363,13 +373,14 @@ const exportarAExcel = async () => {
     .filter((row) => {
       const query = searchQuery.toLowerCase();
       return (
-        row.internet.toLowerCase().includes(query) ||
-        row.mes.toLowerCase().includes(query) ||
-        row.nombre.toLowerCase().includes(query) ||
-        row.direccion.toLowerCase().includes(query) ||
-        row.telefono.toLowerCase().includes(query) ||
-        row.email.toLowerCase().includes(query) ||
-        row.tipo.toLowerCase().includes(query)
+        row.internet?.toLowerCase().includes(query) ||
+        row.mes?.toLowerCase().includes(query) ||
+        row.nombre?.toLowerCase().includes(query) ||
+        row.apellido?.toLowerCase().includes(query) ||
+        row.direccion?.toLowerCase().includes(query) ||
+        row.telefono?.toLowerCase().includes(query) ||
+        row.email?.toLowerCase().includes(query) ||
+        row.tipo?.toLowerCase().includes(query)
       );
     })
     .filter((row) => {
@@ -394,7 +405,7 @@ const exportarAExcel = async () => {
 
   reservasFiltradas.forEach((reserva) => {
     worksheet.addRow({
-      nombre: reserva.nombre,
+      nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
       direccion: reserva.direccion?.split(',')[0],
       tipo: reserva.tipo,
       piso: reserva.Piso,
@@ -455,16 +466,17 @@ const exportarAExcel = async () => {
         return true;
     })
     .filter((row) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          row.internet.includes(query) ||
-          row.mes.toLowerCase().includes(query) ||
-          row.nombre.toLowerCase().includes(query) ||
-          row.direccion.toLowerCase().includes(query) ||
-          row.telefono.toLowerCase().includes(query) ||
-          row.email.toLowerCase().includes(query) ||
-          row.tipo.toLowerCase().includes(query)
-        );
+      const query = searchQuery.toLowerCase();
+      return (
+        row.internet?.toLowerCase().includes(query) ||
+        row.mes?.toLowerCase().includes(query) ||
+        row.nombre?.toLowerCase().includes(query) ||
+        row.apellido?.toLowerCase().includes(query) ||
+        row.direccion?.toLowerCase().includes(query) ||
+        row.telefono?.toLowerCase().includes(query) ||
+        row.email?.toLowerCase().includes(query) ||
+        row.tipo?.toLowerCase().includes(query)
+      );
     })
     .filter((row) => {
         if (!row.fecha) return true; 
@@ -711,6 +723,7 @@ if (orden.campo) {
                 handleEditClick={handleEditClick}
                 handleDeleteClick={handleDeleteClick}
                 handleMarkAsRealizada={handleMarkAsRealizada}
+                handleCrearUsuario={handleCrearUsuario}
                 />
                 ))}
               </TableBody>
@@ -724,8 +737,8 @@ if (orden.campo) {
       {selectedReserva && (
         <>
           <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={1.5}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 label="Nombre"
                 fullWidth
@@ -735,7 +748,17 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
+              <TextField
+                label="Apellido"
+                fullWidth
+                value={selectedReserva.apellido || ''}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, apellido: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6} sm={6}>
               <TextField
                 label="Número de usuario"
                 fullWidth
@@ -745,7 +768,27 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6} sm={6}>
+              <TextField
+                label="DNI"
+                fullWidth
+                value={selectedReserva.DNI}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, DNI: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Correo"
+                fullWidth
+                value={selectedReserva.email}
+                onChange={(e) =>
+                  setSelectedReserva({ ...selectedReserva, email: e.target.value })
+                }
+              />
+            </Grid>
+            <Grid item xs={6}>
               <TextField
                 label="Dirección"
                 fullWidth
@@ -775,7 +818,7 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={6} sm={4}>
               <TextField
                 label="Teléfono"
                 fullWidth
@@ -785,7 +828,7 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 label="Servicio"
                 fullWidth
@@ -795,7 +838,7 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 label="TV"
                 fullWidth
@@ -805,7 +848,6 @@ if (orden.campo) {
                 }
               />
             </Grid>
-
             <Grid item xs={12}>
               <FormControlLabel
                 control={
@@ -813,11 +855,11 @@ if (orden.campo) {
                     checked={usoHorarioPersonalizado}
                     onChange={(e) => setUsoHorarioPersonalizado(e.target.checked)}
                     color="primary"
+                    sx={{ ml: 1 }}
                   />
                 }
                 label={usoHorarioPersonalizado ? 'Horario Personalizado' : 'Horario Estándar'}
               />
-
               {usoHorarioPersonalizado ? (
                 <FechaPersonalizada
                   fechaInstalacion={dayjs(selectedReserva?.fecha || null)}

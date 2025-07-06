@@ -225,6 +225,7 @@ const Form = () => {
             event.preventDefault();
             let formErrors = {};
             if (!formData.name) formErrors.name = "Nombre es requerido";
+            if (!formData.apellido) formErrors.apellido = "Apellido es requerido";
             if (!formData.dni) formErrors.dni = "DNI es requerido";
             if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
             if (!formData.email) formErrors.email = "Correo es requerido";
@@ -240,6 +241,7 @@ const Form = () => {
                     direccion,
                     tv: planTV,
                     nombre: formData.name,
+                    apellido: formData.apellido,
                     email: formData.email,
                     telefono: formData.telefono,
                     tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
@@ -248,7 +250,7 @@ const Form = () => {
                         await dispatch(createReservaTV(dataToSend));
                         
                     // Limpiamos campos
-                        setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
+                        setFormData({ name: '', apellido: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
                         setDireccion('');
                         setFechaInstalacion(null);
                         setFranjaHoraria('');
@@ -269,6 +271,7 @@ const Form = () => {
             //Validaciones
             let formErrors = {};
             if (!formData.name) formErrors.name = "Nombre es requerido";
+            if (!formData.apellido) formErrors.apellido = "Apellido es requerido";
             if (!formData.dni) formErrors.dni = "DNI es requerido";
             if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
             if (!formData.email) formErrors.email = "Correo es requerido";
@@ -290,6 +293,7 @@ const Form = () => {
                     internet: internetPlan,
                     tv: planTV,
                     nombre: formData.name,
+                    apellido: formData.apellido,
                     email: formData.email,
                     telefono: formData.telefono,
                     tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
@@ -299,7 +303,7 @@ const Form = () => {
                         await dispatch(createReservaForm(dataToSend));
 
                     // Limpiamos campos
-                    setFormData({ name: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
+                    setFormData({ name: '', apellido: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
                     setDireccion('');
                     setFechaInstalacion(null);
                     setFranjaHoraria('');
@@ -409,9 +413,9 @@ const Form = () => {
                 {/*Formulario*/}
                 <Box onSubmit={handleSubmit} component="form" sx={{ p: 2 , marginBottom: "50px"}}>
                     <Stack spacing={2}>
-                    {/*Nombre y apellido*/}
+                    {/*Nombre*/}
                     <TextField
-                        label="Nombre y apellido"
+                        label="Nombre"
                         variant="outlined"
                         fullWidth
                         id='name-input'
@@ -421,7 +425,19 @@ const Form = () => {
                         onChange={handleInputChange}
                         error={!!errors.name}
                         helperText={errors.name}
-                        
+                    />
+                    {/*Apellido*/}
+                    <TextField
+                        label="Apellido"
+                        variant="outlined"
+                        fullWidth
+                        id='apellido-input'
+                        required
+                        name="apellido"
+                        value={formData.apellido}
+                        onChange={handleInputChange}
+                        error={!!errors.apellido}
+                        helperText={errors.apellido}
                     />
                     {/*DNI*/}
                     <TextField
@@ -669,6 +685,7 @@ const Form = () => {
                                 type='submit'
                                 disabled={
                                     !formData.name ||
+                                    !formData.apellido ||
                                     !formData.dni ||
                                     !formData.telefono ||
                                     !formData.email ||
@@ -689,6 +706,7 @@ const Form = () => {
                                 type='submit'
                                 disabled={
                                     !formData.name ||
+                                    !formData.apellido ||
                                     !formData.dni ||
                                     !formData.telefono ||
                                     !formData.email ||
