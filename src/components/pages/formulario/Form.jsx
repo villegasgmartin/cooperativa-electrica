@@ -37,6 +37,7 @@ const Form = () => {
     });
     const [formData, setFormData] = useState({
         name: '',
+        apellido: "",
         dni: '',
         telefono: '',
         email: '',
@@ -233,6 +234,7 @@ const Form = () => {
         event.preventDefault();
         let formErrors = {};
         if (!formData.name) formErrors.name = "Nombre es requerido";
+        if (!formData.apellido) formErrors.apellido = "Apellido es requerido";
         if (!formData.dni) formErrors.dni = "DNI es requerido";
         if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
         if (!formData.email) formErrors.email = "Correo es requerido";
@@ -249,6 +251,7 @@ const Form = () => {
                 direccion,
                 tv: planTV,
                 nombre: formData.name,
+                apellido: formData.apellido,
                 email: formData.email,
                 telefono: formData.telefono,
                 tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
@@ -272,6 +275,7 @@ const Form = () => {
         //Validaciones
         let formErrors = {};
         if (!formData.name) formErrors.name = "Nombre es requerido";
+        if (!formData.apellido) formErrors.apellido = "Apellido es requerido";
         if (!formData.dni) formErrors.dni = "DNI es requerido";
         if (!formData.telefono) formErrors.telefono = "Teléfono es requerido";
         if (!formData.email) formErrors.email = "Correo es requerido";
@@ -294,6 +298,7 @@ const Form = () => {
                 internet: internetPlan,
                 tv: planTV,
                 nombre: formData.name,
+                apellido: formData.apellido,
                 email: formData.email,
                 telefono: formData.telefono,
                 tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
@@ -467,9 +472,9 @@ const Form = () => {
                     {/*Formulario*/}
                     <Fade triggerOnce={true} duration={800} delay={300}>
                         <form className='form-container' onSubmit={handleSubmit}>
-                            {/*Nombre y apellido*/}
+                            {/*Nombre*/}
                             <TextField
-                                label="Nombre y apellido"
+                                label="Nombre"
                                 variant="outlined"
                                 fullWidth
                                 id='name-input'
@@ -479,6 +484,31 @@ const Form = () => {
                                 onChange={handleInputChange}
                                 error={!!errors.name}
                                 helperText={errors.name}
+                                sx={{
+                                    backgroundColor: "#edeaff", borderRadius: "25px",
+                                    '& .MuiOutlinedInput-root': {
+                                        borderRadius: "25px",
+                                        '&.Mui-focused fieldset': {
+                                            borderColor: '#8048ff',
+                                        },
+                                    },
+                                    '& .MuiInputLabel-root.Mui-focused': {
+                                        color: '#8048ff',
+                                    }
+                                }}
+                            />
+                            {/*Apellido*/}
+                            <TextField
+                                label="Apellido"
+                                variant="outlined"
+                                fullWidth
+                                id='apellido-input'
+                                required
+                                name="apellido"
+                                value={formData.apellido}
+                                onChange={handleInputChange}
+                                error={!!errors.apellido}
+                                helperText={errors.apellido}
                                 sx={{
                                     backgroundColor: "#edeaff", borderRadius: "25px",
                                     '& .MuiOutlinedInput-root': {
@@ -932,7 +962,7 @@ const Form = () => {
                             </div>
                             {/*Enviar formulario */}
                             {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
-   <div className='form-button-container'>
+                        <div className='form-button-container'>
                             <Button
                                 sx={{
                                     width: "100%",
@@ -952,6 +982,7 @@ const Form = () => {
                                 type='submit'
                                 disabled={
                                     !formData.name ||
+                                    !formData.apellido ||
                                     !formData.dni ||
                                     !formData.telefono ||
                                     !formData.email ||
@@ -967,7 +998,7 @@ const Form = () => {
                                 </Button>
                             </div>
                             ):(
-   <div className='form-button-container'>
+                    <div className='form-button-container'>
                             <Button
                                 sx={{
                                     width: "100%",
@@ -987,6 +1018,7 @@ const Form = () => {
                                 type='submit'
                                 disabled={
                                     !formData.name ||
+                                    !formData.apellido ||
                                     !formData.dni ||
                                     !formData.telefono ||
                                     !formData.email ||

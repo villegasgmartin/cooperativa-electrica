@@ -55,7 +55,8 @@ export default function UserTable() {
   });
 
   useEffect(() => {
-    axios.get('https://panel-cooperativa-back-production.up.railway.app/api/usuarios', {
+
+    axios.get('http://localhost:8000/api/usuarios', {
       headers: { 'x-token': localStorage.getItem('token') }
     })
     .then(response => {
@@ -94,7 +95,7 @@ export default function UserTable() {
       const payload = { estado: false };
 
       await axios.put(
-        `https://panel-cooperativa-back-production.up.railway.app/api?id=${userToDelete}`,
+        `http://localhost:8000/api?id=${userToDelete}`,
         payload,
         {
           headers: { 'x-token': localStorage.getItem('token') },
@@ -150,7 +151,8 @@ export default function UserTable() {
         blog: editData.rol === 'Administrador' ? true : editData.blog,
       };
 
-      await axios.put(`https://panel-cooperativa-back-production.up.railway.app/api?id=${userToEdit}`, payload, {
+
+      await axios.put(`http://localhost:8000/api?id=${userToEdit}`, payload, {
         headers: { 'x-token': localStorage.getItem('token') }
       });
 

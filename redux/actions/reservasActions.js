@@ -3,11 +3,13 @@ import dayjs from 'dayjs';
 
 //URL:
 
-const url = 'https://panel-cooperativa-back-production.up.railway.app';
+
+//const url = 'https://panel-cooperativa-back-production.up.railway.app';
+
 
 
 //Producción:
-//const url = 'http://localhost:8000';
+const url = 'http://localhost:8000';
 
 // ==========================
 // Tipos de acciones
@@ -359,4 +361,46 @@ export const deleteReservaCompletada = (id) => async (dispatch) => {
         dispatch({ type: DELETE_RESERVA_COMPLETADA_FAILURE, payload: error.message });
     }
 };
+
+//Función POST para cargar usuario en BCM:
+export const crearUsuarioBCM = (row) => {
+    return async (dispatch) => {
+        try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            alert('Token no encontrado. Iniciá sesión nuevamente.');
+            return;
+        }
+
+        const payload = {
+            nombre: row.nombre,
+            apellido: row.apellido || '',
+            dni: row.DNI,
+            telefono1: row.telefono,
+            email: row.email || '',
+            domicilio: row.direccion
+        };
+
+        const response = await fetch(`${url}/api/reservas/new-user?reserva=${row._id}`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'x-token': token
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData?.msg || 'Error al crear el usuario');
+        }
+
+        alert('✅ Usuario creado correctamente');
+        dispatch(fetchReservas());
+
+        } catch (error) {
+        alert(error.message || 'Hubo un error al crear el usuario');
+        }
+    };
+    };
 
