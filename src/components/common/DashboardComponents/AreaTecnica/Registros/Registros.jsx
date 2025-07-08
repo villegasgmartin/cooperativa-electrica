@@ -158,7 +158,7 @@ return (
         <TableCell align="center">
         {registro.apellido
             ? `${registro.nombre} ${registro.apellido}`
-            : registro.nombre} - {registro.NumeroUsuario} - {' '}
+            : registro.nombre} - {registro.NumeroUsuario}
         </TableCell>
         <TableCell align="center">{registro.categoria}</TableCell>
         <TableCell align="center">
@@ -202,7 +202,7 @@ return (
                     : registro.nombre}
                 </li>
                 <li>
-                <strong>Número de usuario:</strong> {registro.NumeroUsuario}
+                <strong>Número de usuario:</strong> {registro?.NumeroUsuario || 'No disponible'}
                 </li>
                 <li>
                 <strong>Motivo de visita:</strong> {registro.categoria}

@@ -1,4 +1,4 @@
-// RegistrosCompletados completo con filas expandibles y lógica funcional
+// RImportaciones:
 import * as React from 'react';
 import {
     Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead,
@@ -27,6 +27,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import jsPDF from 'jspdf';
 import logo1 from '../../../../../assets/images/logos/logo-pdf.png';
 
+//JSX:
 function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
     const [open, setOpen] = React.useState(false);
 
@@ -131,7 +132,7 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
                 <TableCell align="center">
                     {registro.apellido
                         ? `${registro.nombre} ${registro.apellido}`
-                        : registro.nombre} - {registro.NumeroUsuario} - {' '}
+                        : registro.nombre} - {registro.NumeroUsuario}
                 </TableCell>
                 <TableCell align="center">{registro.categoria}</TableCell>
                 <TableCell align="center">
@@ -161,7 +162,7 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
                             </Typography>
                             <ul>
                                 <li><strong>Nombre y Apellido:</strong> {registro.apellido ? `${registro.nombre} ${registro.apellido}` : registro.nombre}</li>
-                                <li><strong>Número de usuario:</strong> {registro.NumeroUsuario}</li>
+                                <li><strong>Número de usuario:</strong> {registro?.NumeroUsuario || 'No disponible'}</li>
                                 <li><strong>Motivo de visita:</strong> {registro.categoria}</li>
                                 <li><strong>Observaciones:</strong> {registro.descripcion}</li>
                             </ul>

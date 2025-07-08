@@ -23,6 +23,8 @@ import {
   Grid,
   FormControlLabel,
   Switch,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -253,6 +255,9 @@ export default function ReservasPendientes() {
   const { reservas} = useSelector((state) => state.reservas);
   const { nombre, reservasLeer} = useSelector((state) => state.user);
   const [orden, setOrden] = useState({ campo: '', direccion: '' });
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMsg, setSnackbarMsg] = useState('');
+  const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -326,9 +331,19 @@ useEffect(() => {
   };
 
   //Función para crear usuario en BCM:
-const handleCrearUsuario = (row) => {
-  dispatch(crearUsuarioBCM(row));
+const handleCrearUsuario = async (row) => {
+  const result = await dispatch(crearUsuarioBCM(row));
+
+  if (result.success) {
+    setSnackbarMsg('✅ Usuario creado correctamente');
+    setSnackbarSeverity('success');
+  } else {
+    setSnackbarMsg(result.message);
+    setSnackbarSeverity('error');
+  }
+  setOpenSnackbar(true);
 };
+
 
   //Excel:
 const exportarAExcel = async () => {
@@ -733,7 +748,14 @@ if (orden.campo) {
 
     {/* Modal de edición */}
   <Modal open={openModal} onClose={handleCloseModal} sx={modalStyles}>
-    <MuiBox sx={modalBoxStyles(theme)}>
+    <MuiBox
+          sx={{
+            ...modalBoxStyles(theme),
+            maxHeight: '85vh',
+            overflowY: 'auto',
+            paddingRight: 2
+          }}
+        >
       {selectedReserva && (
         <>
           <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
@@ -848,14 +870,29 @@ if (orden.campo) {
                 }
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={selectedReserva.terceriazado || false}
+                    onChange={(e) =>
+                      setSelectedReserva({ ...selectedReserva, terceriazado: e.target.checked })
+                    }
+                    color="primary"
+                  />
+                }
+                label="Tercerizado"
+                sx={{ ml: 1 }}
+              />
+            </Grid>
+            <Grid item xs={12} >
               <FormControlLabel
                 control={
                   <Switch
                     checked={usoHorarioPersonalizado}
                     onChange={(e) => setUsoHorarioPersonalizado(e.target.checked)}
                     color="primary"
-                    sx={{ ml: 1 }}
+                    sx={{ ml: 2 }}
                   />
                 }
                 label={usoHorarioPersonalizado ? 'Horario Personalizado' : 'Horario Estándar'}
@@ -900,21 +937,6 @@ if (orden.campo) {
                 />
               )}
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={selectedReserva.terceriazado || false}
-                    onChange={(e) =>
-                      setSelectedReserva({ ...selectedReserva, terceriazado: e.target.checked })
-                    }
-                    color="primary"
-                  />
-                }
-                label="Tercerizado"
-                sx={{ ml: 1 }}
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 label="Observaciones"
@@ -952,6 +974,21 @@ if (orden.campo) {
           <Button onClick={handleConfirmDelete} color="error">Eliminar</Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+  open={openSnackbar}
+  autoHideDuration={3000}
+  onClose={() => setOpenSnackbar(false)}
+  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+>
+  <Alert
+    onClose={() => setOpenSnackbar(false)}
+    severity={snackbarSeverity}
+    sx={{ width: '100%' }}
+    variant="filled"
+  >
+    {snackbarMsg}
+  </Alert>
+</Snackbar>
     </Box>
   );
 }

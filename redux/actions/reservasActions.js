@@ -366,8 +366,7 @@ export const crearUsuarioBCM = (row) => {
         try {
         const token = localStorage.getItem('token');
         if (!token) {
-            alert('Token no encontrado. Iniciá sesión nuevamente.');
-            return;
+            throw new Error('Token no encontrado. Iniciá sesión nuevamente.');
         }
 
         const payload = {
@@ -393,12 +392,11 @@ export const crearUsuarioBCM = (row) => {
             throw new Error(errorData?.msg || 'Error al crear el usuario');
         }
 
-        alert('✅ Usuario creado correctamente');
         dispatch(fetchReservas());
+        return { success: true };
 
         } catch (error) {
-        alert(error.message || 'Hubo un error al crear el usuario');
+        return { success: false, message: error.message || 'Hubo un error al crear el usuario' };
         }
     };
     };
-
