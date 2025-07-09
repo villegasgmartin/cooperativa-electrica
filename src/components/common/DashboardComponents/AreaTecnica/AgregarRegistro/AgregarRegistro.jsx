@@ -18,7 +18,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useDispatch, useSelector } from 'react-redux';
 import { crearTecnica, buscarUsuarioPorNumero } from '../../../../../../redux/actions/tecnicaActions';
 
-// JSX:
+//JSX:
 export default function AgregarRegistro() {
     const [fecha, setFecha] = useState(null);
     const [categoria, setCategoria] = useState('');
@@ -28,6 +28,9 @@ export default function AgregarRegistro() {
     const [mostrarSuccess, setMostrarSuccess] = useState(false);
     const [motivoCustom, setMotivoCustom] = useState('');
     const [intentoDeGuardado, setIntentoDeGuardado] = useState(false);
+    const [nombre, setNombre] = useState('');
+    const [apellido, setApellido] = useState('');
+    const [direccion, setDireccion] = useState('');
 
     const dispatch = useDispatch();
 
@@ -42,7 +45,7 @@ export default function AgregarRegistro() {
         loadingUsuario
     } = tecnicaState;
 
-    // Resetear campos tras éxito:
+    // Resetear campos tras éxito
     useEffect(() => {
         if (success) {
             setFecha(null);
@@ -50,10 +53,22 @@ export default function AgregarRegistro() {
             setDescripcion('');
             setNumeroUsuario('');
             setHora('');
+            setNombre('');
+            setApellido('');
+            setDireccion('');
         }
     }, [success]);
 
-    // Lanzar búsqueda de usuario por número
+    // Actualizar campos cuando se encuentra el usuario
+    useEffect(() => {
+        if (usuario) {
+            setNombre(usuario.nombre || '');
+            setApellido(usuario.apellido || '');
+            setDireccion(usuario.direccion || '');
+        }
+    }, [usuario]);
+
+    // Buscar usuario por número
     useEffect(() => {
         if (numeroUsuario.trim() === '') return;
         const handler = setTimeout(() => {
@@ -62,7 +77,7 @@ export default function AgregarRegistro() {
         return () => clearTimeout(handler);
     }, [numeroUsuario, dispatch]);
 
-    // Mostrar mensaje de éxito por 3s
+    // Mostrar mensaje de éxito temporal
     useEffect(() => {
         if (success) {
             setMostrarSuccess(true);
@@ -71,24 +86,23 @@ export default function AgregarRegistro() {
         }
     }, [success]);
 
-    // Función para guardar registro:
+    // Guardar registro
     const handleGuardar = () => {
         setIntentoDeGuardado(true);
-        if (!fecha || (!categoria && !motivoCustom)  || !descripcion || !hora || !numeroUsuario || notFound) return;
+        if (!fecha || (!categoria && !motivoCustom) || !descripcion || !hora) return;
 
         dispatch(crearTecnica({
             fecha: fecha.toISOString(),
             hora,
-            categoria: motivoCustom || categoria, 
+            categoria: motivoCustom || categoria,
             descripcion,
-            NumeroUsuario: numeroUsuario,
-            nombre: usuario?.nombre || '',
-            apellido: usuario?.apellido || '',
-            direccion: usuario?.direccion || '',
+            NumeroUsuario: numeroUsuario || '',
+            nombre,
+            apellido,
+            direccion,
             motivoCustom: motivoCustom || '',
         }));
     };
-
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', mt: 3 }}>
@@ -127,24 +141,24 @@ export default function AgregarRegistro() {
 
                 <TextField
                     label="Nombre"
-                    value={usuario?.nombre || ''}
-                    onChange={() => {}}
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
                     sx={{ width: { xs: '100%', md: 200 } }}
                 />
 
                 <TextField
                     label="Apellido"
-                    value={usuario?.apellido || ''}
-                    onChange={() => {}}
+                    value={apellido}
+                    onChange={(e) => setApellido(e.target.value)}
                     sx={{ width: { xs: '100%', md: 200 } }}
                 />
 
                 <TextField
                     label="Dirección"
-                    value={(usuario?.direccion?.split(',')[0] || '').trim()}
-                    onChange={() => {}}
+                    value={(direccion?.split(',')[0] || '').trim()}
+                    onChange={(e) => setDireccion(e.target.value)}
                     sx={{ width: { xs: '100%', md: 300 } }}
-                    />
+                />
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2, flexWrap: 'wrap' }}>
@@ -177,8 +191,9 @@ export default function AgregarRegistro() {
                         onChange={(e) => {
                             setCategoria(e.target.value);
                             setMotivoCustom('');
-                        }}        disabled={!!motivoCustom}
-                            >
+                        }}
+                        disabled={!!motivoCustom}
+                    >
                         <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
                         <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
                         <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
@@ -226,10 +241,8 @@ export default function AgregarRegistro() {
                     !fecha ||
                     !hora ||
                     (!categoria && !motivoCustom) ||
-                    !descripcion ||
-                    !numeroUsuario ||
-                    notFound
-                            }
+                    !descripcion
+                }
             >
                 Guardar
             </Button>
@@ -239,7 +252,6 @@ export default function AgregarRegistro() {
                     Registro guardado correctamente.
                 </Typography>
             )}
-
 
             {error && (
                 <Typography color="error" sx={{ mt: 2 }}>
