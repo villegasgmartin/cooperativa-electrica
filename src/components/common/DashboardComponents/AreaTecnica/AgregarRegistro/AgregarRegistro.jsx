@@ -62,9 +62,10 @@ export default function AgregarRegistro() {
     // Actualizar campos cuando se encuentra el usuario
     useEffect(() => {
         if (usuario) {
-            setNombre(usuario.nombre || '');
-            setApellido(usuario.apellido || '');
-            setDireccion(usuario.direccion || '');
+            
+            setNombre(usuario.NOMBRE || '');
+            setApellido(usuario.APELLIDO || '');
+            setDireccion(usuario.DOMICILIO || '');
         }
     }, [usuario]);
 

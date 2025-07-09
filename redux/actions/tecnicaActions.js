@@ -182,7 +182,7 @@ export const buscarUsuarioPorNumero = (numeroUsuario) => async (dispatch) => {
 
         dispatch({
         type: BUSCAR_USUARIO_SUCCESS,
-        payload: data[0],
+        payload: data,
         });
     } catch (error) {
         dispatch({
