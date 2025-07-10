@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../laboratorio/Laboratorio.css"
-import LabImage01 from "../../../assets/images/laboratorio/laboratorio01.jpg"
-import LabImage02 from "../../../assets/images/laboratorio/laboratorio02.jpg"
-import LabImage03 from "../../../assets/images/laboratorio/laboratorio03.jpg"
-import LabImage04 from "../../../assets/images/laboratorio/laboratorio04.jpg"
+import LabImage01 from "../../../assets/images/laboratorio/laboratorio01.webp"
+import LabImage02 from "../../../assets/images/laboratorio/laboratorio02.webp"
+import LabImage03 from "../../../assets/images/laboratorio/laboratorio03.webp"
+import LabImage04 from "../../../assets/images/laboratorio/laboratorio04.webp"
 import { Fade } from 'react-awesome-reveal';
 import {Helmet} from "react-helmet"
 

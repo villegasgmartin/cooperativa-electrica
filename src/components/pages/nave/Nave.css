@@ -1,7 +1,7 @@
 /*Header*/
 .header-nave-container{
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-    url("../../../assets//images//headers/header-nave.png"); 
+    url("../../../assets//images//headers/header-nave.webp"); 
     background-size: cover;
     background-position: center 55%;
     height: 25.625rem;

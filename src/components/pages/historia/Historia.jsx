@@ -5,8 +5,8 @@ import { setTitle } from '../../../store/titleSlice';
 import "../historia/Historia.css"
 import HistoriaAcordeon from '../../common/HistoriaComponents/historiaAcordeon/HistoriaAcordeon';
 import { Fade } from 'react-awesome-reveal';
-import Image01 from "../../../assets/images/historia/historia-01.jpg"
-import Image02 from "../../../assets/images/historia/historia-02.jpg"
+import Image01 from "../../../assets/images/historia/historia-01.webp"
+import Image02 from "../../../assets/images/historia/historia-02.webp"
 import {Helmet} from "react-helmet"
 
 //JSX:

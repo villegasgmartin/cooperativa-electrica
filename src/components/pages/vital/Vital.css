@@ -1,7 +1,7 @@
 /*Header*/
 .header-mutual-container{
     background:linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
-    url("../../../assets//images//headers/header-vittal.jpg"); 
+    url("../../../assets//images//headers/header-vittal.webp"); 
     background-size: cover;
     background-position: top;
     height: 25.625rem;

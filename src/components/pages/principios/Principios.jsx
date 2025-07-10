@@ -4,9 +4,9 @@ import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../principios/Principios.css"
 import { Fade } from "react-awesome-reveal";
-import Image01 from "../../../assets/images/principios/principios-01.jpg"
-import Image02 from "../../../assets/images/principios/principios-02.jpg"
-import Image03 from "../../../assets/images/principios/principios-03.jpg"
+import Image01 from "../../../assets/images/principios/principios-01.webp"
+import Image02 from "../../../assets/images/principios/principios-02.webp"
+import Image03 from "../../../assets/images/principios/principios-03.webp"
 import {Helmet} from "react-helmet"
 
 //JSX:

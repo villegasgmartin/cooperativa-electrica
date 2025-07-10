@@ -6,11 +6,11 @@ import "../consejosUtiles/ConsejosUtiles.css"
 import { Button } from '@mui/material';
 import { Fade } from 'react-awesome-reveal';
 import { Link } from 'react-router-dom';
-import Image01 from "../../../assets/images/consejos/consejo-01.jpg"
-import Image02 from "../../../assets/images/consejos/consejo-02.jpg"
-import Image03 from "../../../assets/images/consejos/consejo-03.jpg"
-import Image04 from "../../../assets/images/consejos/consejo-04.jpg"
-import Image05 from "../../../assets/images/consejos/consejo-05.jpg"
+import Image01 from "../../../assets/images/consejos/consejo-01.webp"
+import Image02 from "../../../assets/images/consejos/consejo-02.webp"
+import Image03 from "../../../assets/images/consejos/consejo-03.webp"
+import Image04 from "../../../assets/images/consejos/consejo-04.webp"
+import Image05 from "../../../assets/images/consejos/consejo-05.webp"
 import {Helmet} from "react-helmet"
 
 //JSX:

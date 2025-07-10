@@ -6,12 +6,12 @@ import "../objetivos/Objetivos.css"
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import { Fade } from 'react-awesome-reveal';
-import Image01 from "../../../assets/images/objetivos/objetivos-01.avif"
-import Image02 from "../../../assets/images/objetivos/objetivos-02.avif"
-import Image03 from "../../../assets/images/objetivos/objetivos-03.avif"
-import Image04 from "../../../assets/images/objetivos/objetivos-04.jpg"
-import Image05 from "../../../assets/images/objetivos/objetivos-05.avif"
-import Image06 from "../../../assets/images/objetivos/objetivos-06.jpg"
+import Image01 from "../../../assets/images/objetivos/objetivos-01.webp"
+import Image02 from "../../../assets/images/objetivos/objetivos-02.webp"
+import Image03 from "../../../assets/images/objetivos/objetivos-03.webp"
+import Image04 from "../../../assets/images/objetivos/objetivos-04.webp"
+import Image05 from "../../../assets/images/objetivos/objetivos-05.webp"
+import Image06 from "../../../assets/images/objetivos/objetivos-06.webp"
 import {Helmet} from "react-helmet"
 
 //JSX:
