@@ -34,9 +34,7 @@ const Footer = () => {
             <div className="footer-info-container">
                 <div>
                     <h4 className="footer-info-title">TELEFONOS:</h4>
-                    <p className="footer-info">Momentáneamente los teléfonos de servicio eléctrico se encuentran fuera de funcionamiento por motivos ajenos a la cooperativa. Contactarse a <a href="mailto=omercial@coopelectmdp.com.ar" style={{textDecoration: "none", color:"#fff"}}>comercial@coopelectmdp.com.ar</a></p>
-                
-                    {/* <a href="tel:08003330357" style={{textDecoration: "none"}}><p className="footer-info">0800-333-0357</p></a> */}
+                    <a href="tel:08003330357" style={{textDecoration: "none"}}><p className="footer-info">0800-333-0357</p></a>
                 </div>
                 <div>
                     <h4 className="footer-info-title">INTERNET NAVE:</h4>

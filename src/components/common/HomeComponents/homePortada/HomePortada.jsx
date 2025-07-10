@@ -21,10 +21,10 @@ return (
                     <LocationOnTwoToneIcon sx={{ color: "white" }} />
                     <h4 className="homePortada-contactosText">20 de Septiembre 2638, Mar del Plata</h4>
                 </a>
-                {/* <a href="tel:08003330357" className="homePortada-contactos" id="homePortada-tel">
+                <a href="tel:08003330357" className="homePortada-contactos" id="homePortada-tel">
                     <LocalPhoneTwoToneIcon sx={{ color: "white" }} />
                     <h4 className="homePortada-contactosText">0800-333-0357</h4>
-                </a> */}
+                </a>
             </div>
             <NavBar/>
             <motion.div

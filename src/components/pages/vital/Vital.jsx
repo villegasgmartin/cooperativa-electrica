@@ -152,9 +152,9 @@ const Vital = () => {
           </div>
           <div className="header-contactos" id="homePortada-tel">
             <LocalPhoneTwoToneIcon sx={{ color: "white" }} />
-            {/* <h4 className="header-contactosText">
+            <h4 className="header-contactosText">
               0800-333-0357 / (0223) 495-1411
-            </h4> */}
+            </h4>
           </div>
         </div>
         <div className="navbarPages-container">
