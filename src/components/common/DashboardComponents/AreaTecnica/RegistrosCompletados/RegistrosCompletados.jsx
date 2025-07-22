@@ -25,7 +25,7 @@ import {
 } from '../../../../../../redux/actions/tecnicaActions';
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import jsPDF from 'jspdf';
-import logo1 from '../../../../../assets/images/logos/logo-pdf.png';
+import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
 //JSX:
 function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
@@ -66,7 +66,7 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
         doc.setFontSize(10);
         doc.text(`Fecha de Solicitud: ${
             registro.fechaSolicitud
-            ? dayjs(registro.fechaSolicitud).format('D/M/YYYY')
+            ? registro.fechaSolicitud
             : 'No disponible'}`, 10, y); y += 10;
         doc.text(`Fecha del Turno: ${dayjs(registro.fecha).format('DD/MM/YYYY')}, ${registro.hora} hs`, 10, y);
         y += 10;
@@ -114,7 +114,7 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
         doc.text(`Fecha ....../......./........... Hora ......... : ..........`, 10, y);
     
         const pageHeight = doc.internal.pageSize.height;
-        doc.addImage(logo1, 'PNG', 160, pageHeight - 50, 40, 35);
+        doc.addImage(logo1, 'PNG', 160, pageHeight - 40, 30, 25);
     
         doc.save(`Área-Técnica-Realizados ${nombreCompleto.replace(/ /g, '_')}.pdf`);
         };
@@ -126,6 +126,12 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
                     <IconButton onClick={() => setOpen(!open)}>
                         {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                     </IconButton>
+                </TableCell>
+                <TableCell align="center">
+                    {
+                    registro.fechaSolicitud
+                    ? registro.fechaSolicitud
+                    : 'No disponible'}
                 </TableCell>
                 <TableCell align="center">{formatFecha(registro.fecha)} - {registro.hora} hs</TableCell>
                 <TableCell align="center">{registro.direccion?.split(',')[0]}</TableCell>
@@ -193,6 +199,8 @@ export default function RegistrosCompletados() {
     const [fechaHasta, setFechaHasta] = React.useState(null);
     const [nombreEditado, setNombreEditado] = React.useState('');
     const [apellidoEditado, setApellidoEditado] = React.useState('');
+    const [numeroUsuarioEditado, setNumeroUsuarioEditado] = React.useState('');
+    const [fechaSolicitudEditada, setFechaSolicitudEditada] = React.useState('');
     const [horaEditada, setHoraEditada] = React.useState('');
     const [direccionEditada, setDireccionEditada] = React.useState('');
     const [filtroMotivo, setFiltroMotivo] = React.useState('');
@@ -217,9 +225,11 @@ export default function RegistrosCompletados() {
             editarRegistro(registroEditar._id, {
                 descripcion: descripcionEditada,
                 categoria: categoriaEditada,
+                NumeroUsuario: numeroUsuarioEditado,
                 fecha: fechaEditada ? fechaEditada.toISOString() : null,
                 nombre: nombreEditado,
                 apellido: apellidoEditado,
+                fechaSolicitud: fechaSolicitudEditada,
                 hora: horaEditada,
                 direccion: direccionEditada,
             })
@@ -270,6 +280,7 @@ const manejarOrden = (campo) => {
                 registro.hora?.toLowerCase().includes(query) ||
                 registro.direccion?.toLowerCase().includes(query) ||
                 registro.nombre?.toLowerCase().includes(query) ||
+                registro.fechaSolicitud?.toLowerCase().includes(query) ||
                 registro.apellido?.toLowerCase().includes(query) ||
                 registro.NumeroUsuario?.toString().toLowerCase().includes(query);
     
@@ -291,28 +302,48 @@ const manejarOrden = (campo) => {
             return true;
         });
     
-        if (orden.campo) {
-            resultado = [...resultado].sort((a, b) => {
-                let valA, valB;
-    
-                if (orden.campo === 'turno') {
-                    // Orden por fecha
-                    valA = new Date(a.fecha);
-                    valB = new Date(b.fecha);
-                } else if (orden.campo === 'direccion') {
-                    valA = a.direccion?.toLowerCase() || '';
-                    valB = b.direccion?.toLowerCase() || '';
-                } else if (orden.campo === 'usuario') {
-                    // Orden por nombre completo concatenado
-                    valA = (a.nombre + ' ' + (a.apellido || '')).toLowerCase();
-                    valB = (b.nombre + ' ' + (b.apellido || '')).toLowerCase();
-                }
-    
-                if (valA < valB) return orden.direccion === 'asc' ? -1 : 1;
-                if (valA > valB) return orden.direccion === 'asc' ? 1 : -1;
-                return 0;
-            });
+    if (orden.campo) {
+    resultado = [...resultado].sort((a, b) => {
+        let valA, valB;
+
+        if (orden.campo === 'turno') {
+        valA = new Date(a.fecha);
+        valB = new Date(b.fecha);
+        } else if (orden.campo === 'direccion') {
+        valA = a.direccion?.toLowerCase() || '';
+        valB = b.direccion?.toLowerCase() || '';
+        } else if (orden.campo === 'usuario') {
+        valA = (a.nombre + ' ' + (a.apellido || '')).toLowerCase();
+        valB = (b.nombre + ' ' + (b.apellido || '')).toLowerCase();
+        } else if (orden.campo === 'solicitud') {
+        // Función para convertir DD/MM/YYYY o valores inválidos a Date
+        const parseFecha = (fechaStr) => {
+            if (
+            !fechaStr || 
+            fechaStr === 'No disponible' || 
+            typeof fechaStr !== 'string' || 
+            !fechaStr.includes('/')
+            ) {
+            return new Date(0);
+            }
+            const [dia, mes, anio] = fechaStr.split('/');
+            if (
+            isNaN(dia) || isNaN(mes) || isNaN(anio) ||
+            dia.length !== 2 || mes.length !== 2 || anio.length !== 4
+            ) {
+            return new Date(0);
+            }
+            return new Date(`${anio}-${mes}-${dia}`);
+        };
+        valA = parseFecha(a.fechaSolicitud);
+        valB = parseFecha(b.fechaSolicitud);
         }
+
+        if (valA < valB) return orden.direccion === 'asc' ? -1 : 1;
+        if (valA > valB) return orden.direccion === 'asc' ? 1 : -1;
+        return 0;
+    });
+    }
     
         return resultado;
     }, [registros, searchQuery, fechaDesde, fechaHasta, filtroMotivo, orden]);
@@ -323,6 +354,7 @@ const exportarAExcel = async () => {
     const worksheet = workbook.addWorksheet('Visitas');
 
     const columnas = [
+        { header: 'FECHA DE SOLICITUD', key: 'solicitud', width: 20 },
         { header: 'FECHA DE TURNO', key: 'turno', width: 18 },
         { header: 'HORARIO', key: 'horario', width: 15 },
         { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
@@ -357,6 +389,7 @@ const exportarAExcel = async () => {
         : registro.nombre;
 
         return {
+        solicitud: registro.fechaSolicitud || 'No disponible',
         turno: formatFecha(registro.fecha),
         horario: registro.hora,
         direccion: registro.direccion?.split(',')[0] || '' ,
@@ -440,6 +473,26 @@ const exportarAExcel = async () => {
                         <TableRow sx={{ backgroundColor: isLight ? '#30E691' : 'inherit' }}>
                             <TableCell />
                             <TableCell
+                                align="center"
+                                sx={{
+                                fontWeight: 'bold',
+                                fontSize: '1rem',
+                                color: isLight ? '#fff' : 'primary.main',
+                                }}
+                            >
+                                <Box sx={{ display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' }}>
+                                    Solicitud
+                                    <Button
+                                        onClick={() => manejarOrden('solicitud')}
+                                        sx={{  minWidth: '20px', padding: '2px', fontSize: '20px', color: isLight ? '#fff' : 'primary.main', ml:"2px" }}
+                                    >
+                                        {orden.campo === 'solicitud' 
+                                        ? (orden.direccion === 'asc' ? '↑' : orden.direccion === 'desc' ? '↓' : '↕')
+                                        : '↕'}
+                                    </Button>
+                                </Box>
+                            </TableCell>
+                            <TableCell
                                             align="center"
                                             sx={{
                                             fontWeight: 'bold',
@@ -518,10 +571,12 @@ const exportarAExcel = async () => {
                                         setNombreEditado(reg.nombre || '');
                                         setApellidoEditado(reg.apellido || '');
                                         setHoraEditada(reg.hora || '');
+                                        setFechaSolicitudEditada(reg.fechaSolicitud || '');
                                         setDireccionEditada(reg.direccion || '');
                                         setDescripcionEditada(reg.descripcion);
                                         setCategoriaEditada(reg.categoria);
                                         setFechaEditada(dayjs(reg.fecha));
+                                        setNumeroUsuarioEditado(reg.NumeroUsuario || '');
                                         setOpenEditar(true);
                                     }}
                                     onEliminar={(reg) => {
@@ -567,10 +622,27 @@ const exportarAExcel = async () => {
                             />
                         </Box>
 
+                        <Box sx={{ display: 'flex', gap: 2, mb: 2, mt:1 }}>
+                            <TextField
+                            label="Número de Usuario"
+                            value={numeroUsuarioEditado}
+                            onChange={(e) => setNumeroUsuarioEditado(e.target.value)}
+                            fullWidth
+                            sx={{ flex: 1 }}
+                            />
+                            <TextField
+                            label="Fecha de Solicitud"
+                            value={fechaSolicitudEditada}
+                            onChange={(e) => setFechaSolicitudEditada(e.target.value)}
+                            fullWidth
+                            sx={{ flex: 1 }}
+                            />
+                        </Box>
+
                         <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
                             <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker
-                                label="Fecha"
+                                label="Fecha del Turno"
                                 value={fechaEditada}
                                 onChange={(newVal) => setFechaEditada(newVal)}
                                 slotProps={{ textField: { fullWidth: true } }}
@@ -578,7 +650,7 @@ const exportarAExcel = async () => {
                             </LocalizationProvider>
 
                             <TextField
-                            label="Hora"
+                            label="Horario del Turno"
                             value={horaEditada}
                             onChange={(e) => setHoraEditada(e.target.value)}
                             placeholder="Ej: 10:00"

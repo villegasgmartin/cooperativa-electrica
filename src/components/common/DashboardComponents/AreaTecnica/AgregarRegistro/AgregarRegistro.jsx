@@ -31,6 +31,7 @@ export default function AgregarRegistro() {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [direccion, setDireccion] = useState('');
+    const [fechaSolicitud, setFechaSolicitud] = useState('');
 
     const dispatch = useDispatch();
 
@@ -55,6 +56,7 @@ export default function AgregarRegistro() {
             setHora('');
             setNombre('');
             setApellido('');
+            setFechaSolicitud('');
             setDireccion('');
         }
     }, [success]);
@@ -62,7 +64,6 @@ export default function AgregarRegistro() {
     // Actualizar campos cuando se encuentra el usuario
     useEffect(() => {
         if (usuario) {
-            
             setNombre(usuario.NOMBRE || '');
             setApellido(usuario.APELLIDO || '');
             setDireccion(usuario.DOMICILIO || '');
@@ -100,6 +101,7 @@ export default function AgregarRegistro() {
             NumeroUsuario: numeroUsuario || '',
             nombre,
             apellido,
+            fechaSolicitud,
             direccion,
             motivoCustom: motivoCustom || '',
         }));
@@ -156,16 +158,23 @@ export default function AgregarRegistro() {
 
                 <TextField
                     label="Dirección"
-                    value={(direccion?.split(',')[0] || '').trim()}
+                    value={direccion}
                     onChange={(e) => setDireccion(e.target.value)}
                     sx={{ width: { xs: '100%', md: 300 } }}
                 />
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2, flexWrap: 'wrap' }}>
+                <TextField
+                    label="Fecha de solicitud"
+                    value={fechaSolicitud}
+                    onChange={(e) => setFechaSolicitud(e.target.value)}
+                    sx={{ width: { xs: '100%', md: 300 } }}
+                />
+
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                        label="Fecha"
+                        label="Fecha de visita"
                         value={fecha}
                         onChange={(newValue) => setFecha(newValue)}
                         format="DD/MM/YYYY"
@@ -241,6 +250,7 @@ export default function AgregarRegistro() {
                     loading ||
                     !fecha ||
                     !hora ||
+                    !fechaSolicitud ||
                     (!categoria && !motivoCustom) ||
                     !descripcion
                 }

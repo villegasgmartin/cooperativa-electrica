@@ -13,6 +13,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import { Helmet } from 'react-helmet';
 import logo from '../../../assets/images/logos/logo-dashboard.png';
 import { CircularProgress, Box } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 // Redux imports:
 import { useDispatch, useSelector } from 'react-redux';
@@ -99,6 +100,7 @@ function Dashboard(props) {
   // Redux hooks:
   const dispatch = useDispatch();
   const { user, loading, error } = useSelector(state => state.user);
+  const navigate = useNavigate();
 
   // Estado local para navegación:
   const [navigation, setNavigation] = React.useState([]);
@@ -107,6 +109,20 @@ function Dashboard(props) {
   useEffect(() => {
     dispatch(fetchUserProfile());
   }, [dispatch]);
+
+  // Redirigir a login si el token es inválido o expiró:
+  React.useEffect(() => {
+    if (
+      error?.includes('Token no válido') ||
+      error?.includes('Token Invalido') ||
+      error?.includes('usuario no existe') ||
+      error?.includes('usuario con estado')
+    ) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('userId');
+      navigate('/login');
+    }
+  }, [error, navigate]);
 
   // Cuando cambia el usuario en Redux, actualizamos navegación:
   React.useEffect(() => {

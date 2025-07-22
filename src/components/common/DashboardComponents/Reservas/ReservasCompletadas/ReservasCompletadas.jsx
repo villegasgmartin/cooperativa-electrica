@@ -42,6 +42,9 @@ import { fetchUserData } from '../../../../../../redux/actions/userActions';
 import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
+import { deleteReservaCompletada } from '../../../../../../redux/actions/reservasActions';
+import { updateReservaRealizada } from '../../../../../../redux/actions/reservasActions';
+import { handleMarkAsPendienteRedux } from '../../../../../../redux/actions/reservasActions';
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -266,16 +269,15 @@ export default function ReservasCompletadas() {
       dispatch(fetchUserData());
     }, [dispatch]);
 
-//Funcion para eliminar: 
+  //Funcion para eliminar: 
   const handleConfirmDelete = async () => {
+    if (!reservaAEliminar) return;
+
     try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app//api/reservas/borrar-reserva?id=${reservaAEliminar._id}`, {
-        method: 'PUT',
-        headers: { 'x-token': token },
-      });
-      if (!response.ok) throw new Error('Error al eliminar');
-      setReservas(reservas.filter(r => r._id !== reservaAEliminar._id));
+      await dispatch(deleteReservaCompletada(reservaAEliminar._id));
+
+      setReservas(prev => prev.filter(r => r._id !== reservaAEliminar._id));
+
       setOpenConfirmDialog(false);
       setReservaAEliminar(null);
     } catch (error) {
@@ -291,27 +293,23 @@ export default function ReservasCompletadas() {
 
   //Función para editar:
   const handleSaveChanges = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://localhost:8000/api/reservas/actualizar-reserva?id=${selectedReserva._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': token,
-        },
-        body: JSON.stringify(selectedReserva),
-      });
+    if (!selectedReserva) return;
 
-      if (!response.ok) throw new Error('Error al actualizar la reserva');
+    try {
+      await dispatch(updateReservaRealizada(selectedReserva));
+
+      setReservas(prev =>
+        prev.map((r) => r._id === selectedReserva._id ? { ...r, ...selectedReserva } : r)
+      );
+
       setOpenModal(false);
       setSelectedReserva(null);
-      setReservas(reservas.map((r) => r._id === selectedReserva._id ? { ...r, ...selectedReserva } : r));
     } catch (error) {
       console.error('Error al guardar cambios:', error);
     }
   };
 
- //Traemos las reservas: GET
+ //Traemos las reservas: GET a corregir
   React.useEffect(() => {
     const fetchReservas = async () => {
       try {
@@ -346,34 +344,16 @@ export default function ReservasCompletadas() {
     setSearchQuery('');
   };
 
-  //Marcar como pendiente: (correjir)
-  const handleMarkAsRealizada = async (row) => {
-
+  //Marcar como pendiente:
+  const handleMarkAsPendiente = async (row) => {
     try {
-      const token = localStorage.getItem('token');
-  
-      const updatedReserva = {
-        ...row,
-        estado: false,
-        estadoBorrado: false,
-      };
-  
-      const response = await fetch(`https://panel-cooperativa-back-production.up.railway.app/api/reservas/actualizar-reserva?id=${row._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-token': token,
-        },
-        body: JSON.stringify(updatedReserva),
-      });
-  
-      if (!response.ok) throw new Error('Error al actualizar la reserva');
-  
+      await dispatch(handleMarkAsPendienteRedux(row));
+
+      setReservas(prev =>
+        prev.map(r => r._id === row._id ? { ...r, estado: false } : r)
+      );
+
       console.log("Reserva actualizada correctamente");
-  
-      // Actualizamos la lista de reservas localmente
-      setReservas(reservas.map(r => r._id === row._id ? { ...r, estado: false } : r));
-  
     } catch (error) {
       console.error('Error al marcar como realizada:', error);
     }
@@ -745,7 +725,7 @@ if (orden.campo) {
                 reservasLeer={reservasLeer}
                 handleEditClick={handleEditClick}
                 handleDeleteClick={handleDeleteClick}
-                handleMarkAsRealizada={handleMarkAsRealizada}
+                handleMarkAsRealizada={handleMarkAsPendiente}
                 />
                 ))}
               </TableBody>
