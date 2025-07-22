@@ -85,7 +85,7 @@ const formatFecha = (fecha) =>
     doc.setFontSize(10);
     doc.text(`Fecha de Solicitud: ${
         registro.fechaSolicitud
-        ? registro.fechaSolicitud
+        ? dayjs(registro.fechaSolicitud).format('DD/MM/YYYY')
         : 'No disponible'}`, 10, y); y += 10;
     doc.text(`Fecha del Turno: ${dayjs(registro.fecha).format('DD/MM/YYYY')}, ${registro.hora} hs`, 10, y);
     y += 10;
@@ -154,7 +154,7 @@ return (
         <TableCell align="center">
             {
             registro.fechaSolicitud
-            ? registro.fechaSolicitud
+            ? formatFecha(registro.fechaSolicitud)
             : 'No disponible'}
         </TableCell>
         <TableCell align="center">
@@ -241,7 +241,7 @@ const [fechaDesde, setFechaDesde] = React.useState(null);
 const [fechaHasta, setFechaHasta] = React.useState(null);
 const [nombreEditado, setNombreEditado] = React.useState('');
 const [apellidoEditado, setApellidoEditado] = React.useState('');
-const [fechaSolicitudEditada, setFechaSolicitudEditada] = React.useState('');
+const [fechaSolicitudEditada, setFechaSolicitudEditada] = React.useState(null);
 const [horaEditada, setHoraEditada] = React.useState('');
 const [numeroUsuarioEditado, setNumeroUsuarioEditado] = React.useState('');
 const [direccionEditada, setDireccionEditada] = React.useState('');
@@ -272,7 +272,7 @@ const handleEditar = async () => {
     apellido: apellidoEditado,
     hora: horaEditada,
     direccion: direccionEditada,
-    fechaSolicitud: fechaSolicitudEditada,
+    fechaSolicitud: fechaSolicitudEditada.toISOString(),
     descripcion: descripcionEditada,
     categoria: categoriaEditada,
     fecha: fechaEditada.toISOString(),
@@ -440,7 +440,7 @@ const exportarAExcel = async () => {
         : registro.nombre;
 
         return {
-        solicitud: registro.fechaSolicitud || 'No disponible',
+        solicitud: formatFecha(registro.fechaSolicitud) || 'No disponible',
         turno: formatFecha(registro.fecha),
         horario: registro.hora,
         direccion: registro.direccion?.split(',')[0] || '' ,
@@ -705,7 +705,7 @@ return (
                     setRegistroEditar(reg);
                     setNombreEditado(reg.nombre || '');
                     setApellidoEditado(reg.apellido || '');
-                    setFechaSolicitudEditada(reg.fechaSolicitud || '');
+                    setFechaSolicitudEditada(dayjs(reg.fechaSolicitud));
                     setHoraEditada(reg.hora || '');
                     setDireccionEditada(reg.direccion || '');
                     setDescripcionEditada(reg.descripcion);
@@ -761,20 +761,29 @@ return (
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, mb: 2, mt:1 }}>
-                <TextField
+                 <TextField
                 label="Número de Usuario"
                 value={numeroUsuarioEditado}
                 onChange={(e) => setNumeroUsuarioEditado(e.target.value)}
                 fullWidth
                 sx={{ flex: 1 }}
                 />
-                <TextField
+                {/* <TextField
                 label="Fecha de Solicitud"
                 value={fechaSolicitudEditada}
                 onChange={(e) => setFechaSolicitudEditada(e.target.value)}
                 fullWidth
                 sx={{ flex: 1 }}
+                /> */}
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                    label="Fecha de Solicitud"
+                    value={fechaSolicitudEditada}
+                    onChange={(newVal) => setFechaSolicitudEditada(newVal)}
+                    slotProps={{ textField: { fullWidth: 1 } }}
                 />
+                </LocalizationProvider>
+               
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>

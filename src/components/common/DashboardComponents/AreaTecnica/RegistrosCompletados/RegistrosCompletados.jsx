@@ -130,7 +130,7 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
                 <TableCell align="center">
                     {
                     registro.fechaSolicitud
-                    ? registro.fechaSolicitud
+                    ? formatFecha(registro.fechaSolicitud)
                     : 'No disponible'}
                 </TableCell>
                 <TableCell align="center">{formatFecha(registro.fecha)} - {registro.hora} hs</TableCell>
@@ -200,7 +200,7 @@ export default function RegistrosCompletados() {
     const [nombreEditado, setNombreEditado] = React.useState('');
     const [apellidoEditado, setApellidoEditado] = React.useState('');
     const [numeroUsuarioEditado, setNumeroUsuarioEditado] = React.useState('');
-    const [fechaSolicitudEditada, setFechaSolicitudEditada] = React.useState('');
+    const [fechaSolicitudEditada, setFechaSolicitudEditada] = React.useState(null);
     const [horaEditada, setHoraEditada] = React.useState('');
     const [direccionEditada, setDireccionEditada] = React.useState('');
     const [filtroMotivo, setFiltroMotivo] = React.useState('');
@@ -229,7 +229,7 @@ export default function RegistrosCompletados() {
                 fecha: fechaEditada ? fechaEditada.toISOString() : null,
                 nombre: nombreEditado,
                 apellido: apellidoEditado,
-                fechaSolicitud: fechaSolicitudEditada,
+                fechaSolicitud: fechaSolicitudEditada ? fechaSolicitudEditada.toISOString() : null,
                 hora: horaEditada,
                 direccion: direccionEditada,
             })
@@ -389,7 +389,7 @@ const exportarAExcel = async () => {
         : registro.nombre;
 
         return {
-        solicitud: registro.fechaSolicitud || 'No disponible',
+        solicitud: formatFecha(registro.fechaSolicitud) || 'No disponible',
         turno: formatFecha(registro.fecha),
         horario: registro.hora,
         direccion: registro.direccion?.split(',')[0] || '' ,
@@ -571,7 +571,7 @@ const exportarAExcel = async () => {
                                         setNombreEditado(reg.nombre || '');
                                         setApellidoEditado(reg.apellido || '');
                                         setHoraEditada(reg.hora || '');
-                                        setFechaSolicitudEditada(reg.fechaSolicitud || '');
+                                        setFechaSolicitudEditada(dayjs(reg.fechaSolicitud)) || null;
                                         setDireccionEditada(reg.direccion || '');
                                         setDescripcionEditada(reg.descripcion);
                                         setCategoriaEditada(reg.categoria);
@@ -630,13 +630,21 @@ const exportarAExcel = async () => {
                             fullWidth
                             sx={{ flex: 1 }}
                             />
-                            <TextField
+                            {/* <TextField
                             label="Fecha de Solicitud"
                             value={fechaSolicitudEditada}
                             onChange={(e) => setFechaSolicitudEditada(e.target.value)}
                             fullWidth
                             sx={{ flex: 1 }}
+                            /> */}
+                             <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DatePicker
+                                  label="Fecha de Solicitud"
+                                value={fechaSolicitudEditada}
+                                onChange={(newVal) => setFechaSolicitudEditada(newVal)}
+                                slotProps={{ textField: { fullWidth: 1 } }}
                             />
+                            </LocalizationProvider>
                         </Box>
 
                         <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>

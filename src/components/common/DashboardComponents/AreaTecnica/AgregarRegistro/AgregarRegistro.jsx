@@ -31,7 +31,7 @@ export default function AgregarRegistro() {
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
     const [direccion, setDireccion] = useState('');
-    const [fechaSolicitud, setFechaSolicitud] = useState('');
+    const [fechaSolicitud, setFechaSolicitud] = useState(null);
 
     const dispatch = useDispatch();
 
@@ -56,7 +56,7 @@ export default function AgregarRegistro() {
             setHora('');
             setNombre('');
             setApellido('');
-            setFechaSolicitud('');
+            setFechaSolicitud(null);
             setDireccion('');
         }
     }, [success]);
@@ -101,7 +101,7 @@ export default function AgregarRegistro() {
             NumeroUsuario: numeroUsuario || '',
             nombre,
             apellido,
-            fechaSolicitud,
+            fechaSolicitud:fechaSolicitud.toISOString(),
             direccion,
             motivoCustom: motivoCustom || '',
         }));
@@ -165,22 +165,22 @@ export default function AgregarRegistro() {
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center', mb: 2, flexWrap: 'wrap' }}>
-                <TextField
-                    label="Fecha de solicitud"
-                    value={fechaSolicitud}
-                    onChange={(e) => setFechaSolicitud(e.target.value)}
-                    sx={{ width: { xs: '100%', md: 300 } }}
-                />
-
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker
-                        label="Fecha de visita"
-                        value={fecha}
-                        onChange={(newValue) => setFecha(newValue)}
-                        format="DD/MM/YYYY"
-                        sx={{ width: { xs: '100%', sm: 200 } }}
-                    />
-                </LocalizationProvider>
+             <LocalizationProvider dateAdapter={AdapterDayjs}>
+  <DatePicker
+    label="Fecha de solicitud"
+    value={fechaSolicitud}
+    onChange={(newValue) => setFechaSolicitud(newValue)}
+    format="DD/MM/YYYY"
+    sx={{ width: { xs: '100%', sm: 200 } }}
+  />
+  <DatePicker
+    label="Fecha de visita"
+    value={fecha}
+    onChange={(newValue) => setFecha(newValue)}
+    format="DD/MM/YYYY"
+    sx={{ width: { xs: '100%', sm: 200 } }}
+  />
+</LocalizationProvider>
 
                 <TextField
                     label="Hora"
