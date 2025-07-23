@@ -90,3 +90,7 @@ background: linear-gradient(159deg, rgba(61,17,109,1) 0%, rgba(217,220,221,1) 40
         font-size: 1.25rem;
     }
 }
+
+h3.contacto-number a{
+    color:#fff;
+}

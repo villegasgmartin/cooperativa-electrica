@@ -62,6 +62,9 @@ const Footer = () => {
                             <a href="tel:2235351358" style={{ textDecoration: "none" }}>
                                 <p className="footer-info">223 535-1358</p>
                             </a>
+                            <a href="https://wa.link/583s3n" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                            <p className="footer-info">223 540-543</p></a>
+
                         </div>
                         <div>
                             <h4 className="footer-info-title">BIBLIOTECA:</h4>

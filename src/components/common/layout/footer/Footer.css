@@ -53,6 +53,9 @@
     margin-top: .3125rem;
     font-size: .9375rem;
 }
+a:hover{
+    cursor:pointer
+}
 
 /*Hover*/
 .copyright-link:hover{

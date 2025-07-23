@@ -318,6 +318,14 @@ const Preguntas = () => {
                         Recuerde enviar el comprobante de pago por mail indicando el N° de asociado, como indican las instrucciones. <br/>Muchas gracias.</p>
                     </div>
                 </Fade>
+                   <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+                    <div className='preguntas-usuarios-text'>
+                        <h3 className='preguntas-usuarios-title'>Canal de comunicacion</h3>
+                        <p className='preguntas-usuarios-description'>Contacta a nuestro nueval canal de Whatsapp</p>
+                        <h3 className='contacto-number'><a href="https://wa.link/583s3n" target="_blank" rel="noopener noreferrer"> 223 540-5430</a></h3>
+                    </div>
+                </Fade>
+                
         </section>
     );
 };

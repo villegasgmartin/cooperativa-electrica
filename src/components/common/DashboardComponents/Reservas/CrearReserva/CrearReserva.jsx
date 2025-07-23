@@ -609,7 +609,7 @@ const Form = () => {
                                 value="Pack adicional"
                                 disabled={planInternet === 'Ninguno'}
                             >
-                                Pack TV adicional $5999
+                                Pack TV adicional $8000
                             </MenuItem>
                             <MenuItem
                                 value="Ninguno"
