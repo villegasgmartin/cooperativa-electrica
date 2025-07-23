@@ -314,7 +314,7 @@ export default function ReservasCompletadas() {
     const fetchReservas = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8000/api/reservas/reservas-realizadas', {
+        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas-realizadas', {
           headers: { 'x-token': token },
         });
 

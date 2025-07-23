@@ -1,7 +1,7 @@
 // Importaciones
 import axios from 'axios';
 //URL:
-const url = 'https://panel-cooperativa-back-production.up.railway.app';
+const url = 'https://cooperativaback.up.railway.app';
 //Producción:
 //const url = 'http://localhost:8000';
 
