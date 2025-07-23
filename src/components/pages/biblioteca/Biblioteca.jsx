@@ -5,7 +5,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import "../biblioteca/Biblioteca.css"
 import { Fade } from 'react-awesome-reveal';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import Image01 from "../../../assets/images/biblioteca/biblioteca-01.jpg"
+import Image01 from "../../../assets/images/biblioteca/biblioteca-01.webp"
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Footer from '../../common/layout/footer/Footer';
 import LocationOnTwoToneIcon from '@mui/icons-material/LocationOnTwoTone';

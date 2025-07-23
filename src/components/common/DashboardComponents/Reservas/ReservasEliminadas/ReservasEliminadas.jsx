@@ -55,24 +55,24 @@ export default function ReservasEliminadas() {
         }, [dispatch]);
     
 
-  //Excel:
-    const exportarAExcel = async () => {
+ //Excel:
+const exportarAExcel = async () => {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('Reservas');
 
     const columnas = [
-        { header: 'NOMBRE', key: 'nombre', width: 20 },
+        { header: 'NOMBRE Y APELLIDO', key: 'nombre', width: 25 },
         { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
-        { header: 'INMUEBLE', key: 'tipo', width: 15 },
-        { header: 'PISO', key: 'piso', width: 10 },
-        { header: 'DPTO', key: 'dpto', width: 10 },
+        { header: 'INMUEBLE', key: 'tipo', width: 11 },
+        { header: 'PISO', key: 'piso', width: 7 },
+        { header: 'DPTO', key: 'dpto', width: 7 },
         { header: 'FECHA DE TURNO', key: 'fechaTurno', width: 18 },
-        { header: 'HORARIO', key: 'horario', width: 12 },
-        { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 20 },
+        { header: 'HORARIO', key: 'horario', width: 15 },
+        { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 25 },
         { header: 'SERVICIO', key: 'internet', width: 15 },
         { header: 'TELÉFONO', key: 'telefono', width: 15 },
-        { header: 'EMAIL', key: 'email', width: 25 },
-        { header: 'DNI', key: 'dni', width: 15 },
+        { header: 'EMAIL', key: 'email', width: 30 },
+        { header: 'DNI', key: 'dni', width: 13 },
     ];
 
     worksheet.columns = columnas;
@@ -98,13 +98,14 @@ export default function ReservasEliminadas() {
         .filter((row) => {
         const query = searchQuery.toLowerCase();
         return (
-            row.internet.toLowerCase().includes(query) ||
-            row.mes.toLowerCase().includes(query) ||
-            row.nombre.toLowerCase().includes(query) ||
-            row.direccion.toLowerCase().includes(query) ||
-            row.telefono.toLowerCase().includes(query) ||
-            row.email.toLowerCase().includes(query) ||
-            row.tipo.toLowerCase().includes(query)
+            row.internet?.toLowerCase().includes(query) ||
+            row.mes?.toLowerCase().includes(query) ||
+            row.nombre?.toLowerCase().includes(query) ||
+            row.apellido?.toLowerCase().includes(query) ||
+            row.direccion?.toLowerCase().includes(query) ||
+            row.telefono?.toLowerCase().includes(query) ||
+            row.email?.toLowerCase().includes(query) ||
+            row.tipo?.toLowerCase().includes(query)
         );
         })
         .filter((row) => {
@@ -129,7 +130,7 @@ export default function ReservasEliminadas() {
 
     reservasFiltradas.forEach((reserva) => {
         worksheet.addRow({
-        nombre: reserva.nombre,
+        nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
         direccion: reserva.direccion?.split(',')[0],
         tipo: reserva.tipo,
         piso: reserva.Piso,
@@ -161,7 +162,7 @@ export default function ReservasEliminadas() {
 
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(blob, `Reservas Eliminadas${dayjs().format('DD-MM-YYYY')}.xlsx`);
+    saveAs(blob, `Reservas Pendientes${dayjs().format('DD-MM-YYYY')}.xlsx`);
     };
 
     //Ordenar alfabeticamente y ascendente y descendente: 
@@ -191,7 +192,7 @@ export default function ReservasEliminadas() {
                 {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
                 </IconButton>
             </TableCell>
-            <TableCell align='center'>{row.nombre}</TableCell>
+            <TableCell align='center'>{(row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre)} - {row.NumeroUsuario}</TableCell>
             <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
             <TableCell align='center'>
                 {row.fechaSolicitud
@@ -224,21 +225,21 @@ export default function ReservasEliminadas() {
                 <Box sx={{ margin: 1 }}>
                     <Typography variant="h6" gutterBottom>Detalles</Typography>
                     <ul>
-                        <li>Servicio: {row.internet}</li>
-                        <li>Fecha de la solicitud: {row.fechaSolicitud
+                        <li><strong>Servicio:</strong> {row.internet}</li>
+                        <li><strong>Fecha de la solicitud:</strong> {row.fechaSolicitud
                             ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
                             : 'No disponible'}</li>
-                        <li>Inmueble: {row.tipo}</li>
-                        {row.Piso && <li>Piso: {row.Piso}</li>}
-                        {row.Dpto && <li>Dpto: {row.Dpto}</li>}
-                        <li>Tv: {row.tv}</li>
-                        <li>Teléfono: {row.telefono}</li>
-                        <li>DNI: {row.DNI}</li>
-                        <li>Correo: {row.email}</li>
-                        <li>Tercerizado: {row.terceriazado ? 'Sí' : 'No'}</li>
-                        {row.observaciones && <li>Observaciones: {row.observaciones}</li>}
+                        <li><strong>Inmueble:</strong> {row.tipo}</li>
+                        {row.Piso && <li><strong>Piso:</strong> {row.Piso}</li>}
+                        {row.Dpto && <li><strong>Dpto:</strong> {row.Dpto}</li>}
+                        <li><strong>Tv:</strong> {row.tv}</li>
+                        <li><strong>Teléfono:</strong> {row.telefono}</li>
+                        <li><strong>DNI:</strong> {row.DNI}</li>
+                        <li><strong>Correo:</strong> {row.email}</li>
+                        <li><strong>Tercerizado:</strong> {row.terceriazado ? 'Sí' : 'No'}</li>
+                        {row.observaciones && <li><strong>Observaciones:</strong> {row.observaciones}</li>}
                     </ul>
-                </Box>
+                    </Box>
                 </Collapse>
             </TableCell>
             </TableRow>
@@ -257,15 +258,16 @@ export default function ReservasEliminadas() {
         .filter((row) => {
             const query = searchQuery.toLowerCase();
             return (
-            row.internet.toLowerCase().includes(query) ||
-            row.mes.toLowerCase().includes(query) ||
-            row.nombre.toLowerCase().includes(query) ||
-            row.direccion.toLowerCase().includes(query) ||
-            row.telefono.toLowerCase().includes(query) ||
-            row.email.toLowerCase().includes(query) ||
-            row.tipo.toLowerCase().includes(query) 
+                row.internet?.toLowerCase().includes(query) ||
+                row.mes?.toLowerCase().includes(query) ||
+                row.nombre?.toLowerCase().includes(query) ||
+                row.apellido?.toLowerCase().includes(query) ||
+                row.direccion?.toLowerCase().includes(query) ||
+                row.telefono?.toLowerCase().includes(query) ||
+                row.email?.toLowerCase().includes(query) ||
+                row.tipo?.toLowerCase().includes(query)
             );
-        })
+            })
         .filter((row) => {
             if (!row.fecha) return true; 
             const fechaReserva = dayjs(row.fecha); 

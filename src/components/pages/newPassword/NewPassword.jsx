@@ -45,7 +45,7 @@ export default function NewPassword() {
         }
 
         try {
-            await axios.put(`https://cooperativaback.up.railway.app/api/auth/actualizar-clave?token=${token}`, {
+            await axios.put(`https://panel-cooperativa-back-production.up.railway.app//api/auth/actualizar-clave?token=${token}`, {
                 password: newPassword
             });
 

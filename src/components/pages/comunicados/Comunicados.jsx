@@ -3,10 +3,10 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setTitle } from '../../../store/titleSlice';
 import "../comunicados/Comunicados.css"
-import image01 from "../../../assets/images/comunicados/comunicados01.jpg"
-import image02 from "../../../assets/images/comunicados/comunicados02.jpeg"
-import image03 from "../../../assets/images/comunicados/comunicados03.jpg"
-import image04 from "../../../assets/images/comunicados/comunicados04.jpg"
+import image01 from "../../../assets/images/comunicados/comunicados01.webp"
+import image02 from "../../../assets/images/comunicados/comunicados02.webp"
+import image03 from "../../../assets/images/comunicados/comunicados03.webp"
+import image04 from "../../../assets/images/comunicados/comunicados04.webp"
 import { Fade } from "react-awesome-reveal";
 import {Helmet} from "react-helmet"
 

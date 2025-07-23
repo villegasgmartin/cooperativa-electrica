@@ -11,6 +11,9 @@ import {
     EDITAR_REGISTRO,
     MARCAR_REALIZADA,
     MARCAR_PENDIENTE,
+    BUSCAR_USUARIO_REQUEST,
+    BUSCAR_USUARIO_SUCCESS,
+    BUSCAR_USUARIO_FAIL,
 } from '../actions/tecnicaActions';
 
 // Estado inicial:
@@ -21,6 +24,8 @@ const initialState = {
     data: null,
     registros: [],
     completados: [],
+    usuario: null,
+    notFound: false
 };
 
 // Reducer:
@@ -34,6 +39,7 @@ const tecnicaReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
+                loadingUsuario: false,
                 success: true,
                 data: action.payload,
                 registros: [...state.registros, action.payload.tecnica],
@@ -101,6 +107,14 @@ const tecnicaReducer = (state = initialState, action) => {
                         completados: state.completados.filter(reg => reg._id !== action.payload),
                         registros: pendiente ? [...state.registros, { ...pendiente, estado: false }] : state.registros,
                     };
+
+        // Obtener datos de usuario por su número:
+                case BUSCAR_USUARIO_REQUEST:
+                    return { ...state, loadingUsuario: true, error: null, notFound: false };
+            case BUSCAR_USUARIO_SUCCESS:
+                return { ...state, loadingUsuario: false, usuario: action.payload, error: null, notFound: false };
+            case BUSCAR_USUARIO_FAIL:
+                return { ...state, loadingUsuario: false, usuario: null, error: action.payload, notFound: true };
 
         default:
             return state;

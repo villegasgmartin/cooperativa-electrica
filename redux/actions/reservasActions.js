@@ -3,7 +3,7 @@ import dayjs from 'dayjs';
 
 //URL:
 
-const url = 'https://cooperativaback.up.railway.app';
+const url = 'https://panel-cooperativa-back-production.up.railway.app';
 
 
 //Producción:
@@ -173,7 +173,7 @@ export const deleteReserva = (reservaId, nombreUsuario) => async (dispatch) => {
     }
 };
 
-//Función GET para obtener reservas realizadas:
+//Función GET para obtener reservas realizadas:( a corregir)
 export const fetchReservasRealizadas = () => {
     return async (dispatch) => {
         dispatch({ type: FETCH_RESERVAS_REALIZADAS_REQUEST });
@@ -360,3 +360,43 @@ export const deleteReservaCompletada = (id) => async (dispatch) => {
     }
 };
 
+//Función POST para cargar usuario en BCM:
+export const crearUsuarioBCM = (row) => {
+    return async (dispatch) => {
+        try {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            throw new Error('Token no encontrado. Iniciá sesión nuevamente.');
+        }
+
+        const payload = {
+            nombre: row.nombre,
+            apellido: row.apellido || '',
+            dni: row.DNI,
+            telefono1: row.telefono,
+            email: row.email || '',
+            domicilio: row.direccion
+        };
+
+        const response = await fetch(`${url}/api/reservas/new-user?reserva=${row._id}`, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'x-token': token
+            },
+            body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData?.msg || 'Error al crear el usuario');
+        }
+
+        dispatch(fetchReservas());
+        return { success: true };
+
+        } catch (error) {
+        return { success: false, message: error.message || 'Hubo un error al crear el usuario' };
+        }
+    };
+    };

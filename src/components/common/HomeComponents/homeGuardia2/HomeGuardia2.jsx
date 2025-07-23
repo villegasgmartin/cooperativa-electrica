@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { Fade } from "react-awesome-reveal";
 import "./HomeGuardia2.css";
 import { Link } from "react-router-dom";
-import Image01 from "../../../../assets/images/inicio/servicio-electrico.jpg"
+import Image01 from "../../../../assets/images/inicio/servicio-electrico.webp"
 
 //JSX:
 const HomeGuardia2 = () => {

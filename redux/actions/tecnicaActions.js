@@ -1,8 +1,7 @@
 // Importaciones
 import axios from 'axios';
-
 //URL:
-const url = 'https://cooperativaback.up.railway.app';
+const url = 'https://panel-cooperativa-back-production.up.railway.app';
 //Producción:
 //const url = 'http://localhost:8000';
 
@@ -21,6 +20,11 @@ export const OBTENER_REGISTROS_REQUEST = 'OBTENER_REGISTROS_REQUEST';
 export const OBTENER_REGISTROS_SUCCESS = 'OBTENER_REGISTROS_SUCCESS';
 export const OBTENER_REGISTROS_FAILURE = 'OBTENER_REGISTROS_FAILURE';
 
+//Obtener usuario por su número:
+export const BUSCAR_USUARIO_REQUEST = 'BUSCAR_USUARIO_REQUEST';
+export const BUSCAR_USUARIO_SUCCESS = 'BUSCAR_USUARIO_SUCCESS';
+export const BUSCAR_USUARIO_FAIL = 'BUSCAR_USUARIO_FAIL';
+
 // Eliminar registro:
 export const ELIMINAR_REGISTRO = 'ELIMINAR_REGISTRO';
 
@@ -34,7 +38,7 @@ export const MARCAR_PENDIENTE = 'MARCAR_PENDIENTE';
 
 
 // Crear visita pendiente:
-export const crearTecnica = (fecha, categoria, descripcion) => async (dispatch) => {
+export const crearTecnica = (datos) => async (dispatch) => {
     try {
         dispatch({ type: CREAR_TECNICA_REQUEST });
 
@@ -43,7 +47,7 @@ export const crearTecnica = (fecha, categoria, descripcion) => async (dispatch) 
 
         const response = await axios.post(
             `${url}/api/tecnica/crear-tecnica`,
-            { fecha, categoria, descripcion },
+            datos,
             { headers }
         );
 
@@ -154,5 +158,36 @@ export const marcarRegistroPendiente = (registro) => async (dispatch) => {
         dispatch(obtenerRegistrosCompletados());
     } catch (error) {
         console.error('Error al marcar como pendiente:', error);
+    }
+};
+
+//Obtener datos de usuario con su número:
+export const buscarUsuarioPorNumero = (numeroUsuario) => async (dispatch) => {
+    try {
+        dispatch({ type: BUSCAR_USUARIO_REQUEST });
+
+        const token = localStorage.getItem('token');
+        const config = {
+        headers: { 'x-token': token }
+        };
+
+        const { data } = await axios.get(
+        `${url}/api/reservas/get-reserva-por-usuarioID?usuario=${numeroUsuario}`,
+        config
+        );
+
+        if (!data || data.length === 0) {
+        throw new Error('Usuario no encontrado');
+        }
+
+        dispatch({
+        type: BUSCAR_USUARIO_SUCCESS,
+        payload: data,
+        });
+    } catch (error) {
+        dispatch({
+        type: BUSCAR_USUARIO_FAIL,
+        payload: error.response?.data?.msg || error.message || 'Error al buscar usuario',
+        });
     }
 };
