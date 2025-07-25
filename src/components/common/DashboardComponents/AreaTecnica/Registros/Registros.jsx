@@ -58,85 +58,108 @@ const formatFecha = (fecha) =>
     });
 
 //PDF:
-    const handleImprimir = () => {
-    const doc = new jsPDF();
+        const handleImprimir = () => {
+        const doc = new jsPDF();
+    
+        // Título 
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(16);
+        doc.text('Cooperativa de Provisión de Electricidad,', 105, 20, { align: 'center' });
+        doc.text('Servicios Públicos y Vivienda de Mar del Plata Ltda.', 105, 30, { align: 'center' });
+    
+        // Subtítulo 
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.text('20 de Septiembre 2638 Whatsapp 2235376973', 105, 40, { align: 'center' });
+    
+        let y = 50;
+    
+        // Título de la sección
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text(`ÁREA TÉCNICA - ${registro.categoria}`, 10, y);
+        y += 12;
+    
+        // Datos del socio
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
 
-    // Título 
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(16);
-    doc.text('Cooperativa de Provisión de Electricidad,', 105, 20, { align: 'center' });
-    doc.text('Servicios Públicos y Vivienda de Mar del Plata Ltda.', 105, 30, { align: 'center' });
-
-    // Subtítulo 
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text('20 de Septiembre 2638 Whatsapp 2235376973', 105, 40, { align: 'center' });
-
-    let y = 50;
-
-    // Título de la sección
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text(`ÁREA TÉCNICA - ${registro.categoria}`, 10, y);
-    y += 12;
-
-    // Datos del socio
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text(`Fecha de Solicitud: ${
-        registro.fechaSolicitud
+        const fechaSolicitud = registro.fechaSolicitud
         ? dayjs(registro.fechaSolicitud).format('DD/MM/YYYY')
-        : 'No disponible'}`, 10, y); y += 10;
-    doc.text(`Fecha del Turno: ${dayjs(registro.fecha).format('DD/MM/YYYY')}, ${registro.hora} hs`, 10, y);
-    y += 10;
+        : 'No disponible';
+        doc.text(`Fecha de Solicitud: ${fechaSolicitud}`, 10, y);
+        y += 10;
 
-    const nombreCompleto = registro.apellido ? `${registro.nombre} ${registro.apellido}` : registro.nombre;
-    doc.text(`Nombre y Apellido: ${nombreCompleto} - ${registro.NumeroUsuario}`, 10, y); y += 10;
+        const fechaTurno = registro.fecha
+        ? dayjs(registro.fecha).format('DD/MM/YYYY')
+        : 'No disponible';
+        const horaTurno = registro.hora ? `, ${registro.hora} hs` : '';
 
-    doc.text(`Dirección: ${registro.direccion}`, 10, y); y += 10;
-    doc.text(`Tipo: ${registro.tipo || 'No disponible'}   Piso: ${registro.Piso || 'No disponible'}   Dpto: ${registro.Dpto || 'No disponible'}`, 10, y); y += 10;
-    //doc.text(`Teléfono: ${registro.telefono}`, 10, y); y += 10;
-    //doc.text(`D.N.I.: ${registro.DNI}`, 10, y); y += 10;
-    doc.text('C.U.I.T.: ', 10, y); y += 10;
-    //doc.text(`Email: ${registro.email}`, 10, y); y += 10;
+        doc.text(`Fecha del Turno: ${fechaTurno}${horaTurno}`, 10, y);
+        y += 10;
 
-    // Datos del servicio solicitado
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(12);
-    doc.text('DATOS DEL SERVICIO SOLICITADO', 10, y);
-    y += 12;
+        const nombre = registro.nombre?.trim();
+        const apellido = registro.apellido?.trim();
 
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.text(`Motivo de visita: ${registro.categoria || 'No disponible'}`, 10, y); y += 10;
-    //doc.text(`Plataforma digital: ${registro.tv || 'No disponible'}`, 10, y); y += 10;
-    //doc.text(`Fecha y horario de conexión elegido: ${registro.fechaFormateada} - ${registro.horario}`, 10, y); y += 10;
+        const nombreCompleto = nombre && apellido
+        ? `${nombre} ${apellido}`
+        : nombre || apellido || 'No disponible';
 
-    // Declaración
-    const declarationText = `Declaro que los datos detallados precedentemente son totalmente ciertos y que han sido proporcionados con el fin de obtener los servicios ofrecidos por la Cooperativa en los términos y condiciones explícitas en el reverso de la presente, y a la vez me comprometo a no comercializar, subcontratar, suministrar a terceros ni enajenar en cualquier forma, el servicio solicitado. Además me comprometo a utilizar el servicio accediendo únicamente desde el domicilio declarado, y a no dar a conocer a terceros por ningún medio los datos de acceso a vuestro Servidor. Quedo a la vez notificado que, en caso de comprobarse por cualquier medio el incumplimiento de los compromisos, me será impedido el acceso al servicio en forma inmediata y sin comunicación previa de inhabilitación.`;
+        const numeroUsuario = registro.NumeroUsuario?.toString().trim();
+        const textoFinal = numeroUsuario
+        ? `Nombre y Apellido: ${nombreCompleto} - ${numeroUsuario}`
+        : `Nombre y Apellido: ${nombreCompleto}`;
 
-    const lines = doc.splitTextToSize(declarationText, 180);
-    doc.text(lines, 10, y);
-    y += lines.length * 5;
+        doc.text(textoFinal, 10, y);
+        y += 10;
 
-        if (registro.descripcion && registro.descripcion.trim() !== '') {
-        doc.text('Observaciones:', 10, y);
-        const obsLines = doc.splitTextToSize(registro.descripcion, 180);
-        y += 6;
-        doc.text(obsLines, 10, y);
-        y += obsLines.length * 6;
-    }
-
-    y += 10;
-    doc.text('Firma del Titular ...............................................', 10, y); y += 20;
-    doc.text('Aclaración ...................................................', 10, y - 10);
-    doc.text(`Fecha ....../......./........... Hora ......... : ..........`, 10, y);
-
-    const pageHeight = doc.internal.pageSize.height;
-    doc.addImage(logo1, 'PNG', 160, pageHeight - 40, 30, 25);
-
-    doc.save(`Área-Técnica-Pendientes ${nombreCompleto.replace(/ /g, '_')}.pdf`);
-    };
+        
+        const direccion = registro.direccion?.trim() || 'No disponible';
+        doc.text(`Dirección: ${direccion}`, 10, y);
+        y += 10;
+        doc.text(`Tipo: ${registro.tipo || 'No disponible'}   Piso: ${registro.Piso || 'No disponible'}   Dpto: ${registro.Dpto || 'No disponible'}`, 10, y); y += 10;
+        //doc.text(`Teléfono: ${registro.telefono}`, 10, y); y += 10;
+        //doc.text(`D.N.I.: ${registro.DNI}`, 10, y); y += 10;
+        doc.text('C.U.I.T.: ', 10, y); y += 10;
+        //doc.text(`Email: ${registro.email}`, 10, y); y += 10;
+    
+        // Datos del servicio solicitado
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(12);
+        doc.text('DATOS DEL SERVICIO SOLICITADO', 10, y);
+        y += 12;
+    
+        doc.setFont('helvetica', 'normal');
+        doc.setFontSize(10);
+        doc.text(`Motivo de visita: ${registro.categoria || 'No disponible'}`, 10, y); y += 10;
+        //doc.text(`Plataforma digital: ${registro.tv || 'No disponible'}`, 10, y); y += 10;
+        //doc.text(`Fecha y horario de conexión elegido: ${registro.fechaFormateada} - ${registro.horario}`, 10, y); y += 10;
+    
+        // Declaración
+        const declarationText = `Declaro que los datos detallados precedentemente son totalmente ciertos y que han sido proporcionados con el fin de obtener los servicios ofrecidos por la Cooperativa en los términos y condiciones explícitas en el reverso de la presente, y a la vez me comprometo a no comercializar, subcontratar, suministrar a terceros ni enajenar en cualquier forma, el servicio solicitado. Además me comprometo a utilizar el servicio accediendo únicamente desde el domicilio declarado, y a no dar a conocer a terceros por ningún medio los datos de acceso a vuestro Servidor. Quedo a la vez notificado que, en caso de comprobarse por cualquier medio el incumplimiento de los compromisos, me será impedido el acceso al servicio en forma inmediata y sin comunicación previa de inhabilitación.`;
+    
+        const lines = doc.splitTextToSize(declarationText, 180);
+        doc.text(lines, 10, y);
+        y += lines.length * 5;
+    
+            if (registro.descripcion && registro.descripcion.trim() !== '') {
+            doc.text('Observaciones:', 10, y);
+            const obsLines = doc.splitTextToSize(registro.descripcion, 180);
+            y += 6;
+            doc.text(obsLines, 10, y);
+            y += obsLines.length * 6;
+        }
+    
+        y += 10;
+        doc.text('Firma del Titular ...............................................', 10, y); y += 20;
+        doc.text('Aclaración ...................................................', 10, y - 10);
+        doc.text(`Fecha ....../......./........... Hora ......... : ..........`, 10, y);
+    
+        const pageHeight = doc.internal.pageSize.height;
+        doc.addImage(logo1, 'PNG', 160, pageHeight - 40, 30, 25);
+    
+        doc.save('Área-Técnica-Pendientes.pdf');
+        };
 
 
 return (
@@ -160,7 +183,11 @@ return (
         <TableCell align="center">
         {formatFecha(registro.fecha)} - {registro.hora} hs
         </TableCell>
-        <TableCell align="center">{registro.direccion?.split(',')[0]}</TableCell>
+        <TableCell align="center">
+            {registro.direccion?.trim()
+                ? registro.direccion.split(',')[0]
+                : 'No disponible'}
+        </TableCell>
         <TableCell align="center">
         {registro.apellido
             ? `${registro.nombre} ${registro.apellido}`
@@ -203,9 +230,10 @@ return (
             </Typography>
             <ul>
                 <li>
-                <strong>Nombre y Apellido:</strong> {registro.apellido
-                    ? `${registro.nombre} ${registro.apellido}`
-                    : registro.nombre}
+                <strong>Nombre y Apellido:</strong>{' '}
+                {registro.nombre?.trim() || registro.apellido?.trim()
+                    ? [registro.nombre, registro.apellido].filter(Boolean).join(' ')
+                    : 'No disponible'}
                 </li>
                 <li>
                 <strong>Número de usuario:</strong> {registro?.NumeroUsuario || 'No disponible'}
@@ -346,49 +374,31 @@ const registrosFiltrados = React.useMemo(() => {
     });
 
     if (orden.campo) {
-    resultado = [...resultado].sort((a, b) => {
-        let valA, valB;
+        resultado = [...resultado].sort((a, b) => {
+            let valA, valB;
 
-        if (orden.campo === 'turno') {
-        valA = new Date(a.fecha);
-        valB = new Date(b.fecha);
-        } else if (orden.campo === 'direccion') {
-        valA = a.direccion?.toLowerCase() || '';
-        valB = b.direccion?.toLowerCase() || '';
-        } else if (orden.campo === 'usuario') {
-        valA = (a.nombre + ' ' + (a.apellido || '')).toLowerCase();
-        valB = (b.nombre + ' ' + (b.apellido || '')).toLowerCase();
-        } else if (orden.campo === 'solicitud') {
-        // Función para convertir DD/MM/YYYY o valores inválidos a Date
-        const parseFecha = (fechaStr) => {
-            if (
-            !fechaStr || 
-            fechaStr === 'No disponible' || 
-            typeof fechaStr !== 'string' || 
-            !fechaStr.includes('/')
-            ) {
-            return new Date(0);
+            if (orden.campo === 'turno') {
+            valA = a.fecha ? new Date(a.fecha) : new Date(0);
+            valB = b.fecha ? new Date(b.fecha) : new Date(0);
+            } else if (orden.campo === 'direccion') {
+            valA = a.direccion?.toLowerCase() || '';
+            valB = b.direccion?.toLowerCase() || '';
+            } else if (orden.campo === 'usuario') {
+            valA = (a.nombre + ' ' + (a.apellido || '')).toLowerCase();
+            valB = (b.nombre + ' ' + (b.apellido || '')).toLowerCase();
+            } else if (orden.campo === 'solicitud') {
+            valA = a.fechaSolicitud ? new Date(a.fechaSolicitud) : new Date(0);
+            valB = b.fechaSolicitud ? new Date(b.fechaSolicitud) : new Date(0);
             }
-            const [dia, mes, anio] = fechaStr.split('/');
-            if (
-            isNaN(dia) || isNaN(mes) || isNaN(anio) ||
-            dia.length !== 2 || mes.length !== 2 || anio.length !== 4
-            ) {
-            return new Date(0);
-            }
-            return new Date(`${anio}-${mes}-${dia}`);
-        };
-        valA = parseFecha(a.fechaSolicitud);
-        valB = parseFecha(b.fechaSolicitud);
-        }
 
-        if (valA < valB) return orden.direccion === 'asc' ? -1 : 1;
-        if (valA > valB) return orden.direccion === 'asc' ? 1 : -1;
-        return 0;
-    });
+            if (valA < valB) return orden.direccion === 'asc' ? -1 : 1;
+            if (valA > valB) return orden.direccion === 'asc' ? 1 : -1;
+            return 0;
+        });
     }
 
-    return resultado;
+return resultado;
+
 }, [registros, searchQuery, fechaDesde, fechaHasta, filtroMotivo, orden]);
 
 //Función para limpiar filtros:
@@ -761,29 +771,23 @@ return (
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, mb: 2, mt:1 }}>
-                 <TextField
+                <TextField
                 label="Número de Usuario"
                 value={numeroUsuarioEditado}
                 onChange={(e) => setNumeroUsuarioEditado(e.target.value)}
                 fullWidth
                 sx={{ flex: 1 }}
                 />
-                {/* <TextField
-                label="Fecha de Solicitud"
-                value={fechaSolicitudEditada}
-                onChange={(e) => setFechaSolicitudEditada(e.target.value)}
-                fullWidth
-                sx={{ flex: 1 }}
-                /> */}
+
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker
-                    label="Fecha de Solicitud"
-                    value={fechaSolicitudEditada}
-                    onChange={(newVal) => setFechaSolicitudEditada(newVal)}
-                    slotProps={{ textField: { fullWidth: 1 } }}
-                />
+                    <DatePicker
+                        label="Fecha de Solicitud"
+                        value={fechaSolicitudEditada}
+                        onChange={(newVal) => setFechaSolicitudEditada(newVal)}
+                        slotProps={{ textField: { fullWidth: 1 } }}
+                        format="DD/MM/YYYY"
+                    />
                 </LocalizationProvider>
-               
             </Box>
 
             <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
@@ -793,6 +797,7 @@ return (
                     value={fechaEditada}
                     onChange={(newVal) => setFechaEditada(newVal)}
                     slotProps={{ textField: { fullWidth: true } }}
+                    format="DD/MM/YYYY"
                 />
                 </LocalizationProvider>
 
