@@ -30,6 +30,7 @@ import NewPassword from "./components/pages/newPassword/NewPassword.jsx";
 import PreguntasNave from "./components/pages/preguntasNave/PreguntasNave.jsx";
 import OcultaVittal from "./components/pages/oculta-vittal/Oculta-Vittal.jsx";
 import Success from "./components/pages/success/Success.jsx";
+import Captacion from "./components/pages/web-captacion/captacion.jsx";
 
 // Componente separado para manejar rutas y lógica
 function AppContent() {
@@ -69,7 +70,7 @@ function AppContent() {
         <Route path="/confirmación" element={<Success />} />
         <Route path="/promo-asociado-nave" element={<Oculta />} />
         <Route path="/vittal-promo" element={<OcultaVittal />} />
-
+        <Route path='/nave-edificios' element={<Captacion/>} />
       </Routes>
 
       {location.pathname !== "/dashboard" && location.pathname !== "/login" && location.pathname !== "/actualizar-clave" && <BotonScroll />}

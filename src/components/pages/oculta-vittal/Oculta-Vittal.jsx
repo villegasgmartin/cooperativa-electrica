@@ -44,7 +44,7 @@ const OcultaVittal = () => {
       </header>
           <div className="descuento-container">
       <div className="descuento-texto">
-        <img className="vittal-img" src="https://res.cloudinary.com/dj3akdhb9/image/upload/v1747814104/cooperativa/FOLLETO_VITTAL_1__page-0001_tel738.jpg" alt="" />
+        <img className="vittal-img" src="https://res.cloudinary.com/dhmrxjxzx/image/upload/v1753656521/FOLLETO_VITTAL_page-0001_u8alb8.jpg" alt="" />
       </div>
 
       <div className="descuento-botones">
