@@ -352,6 +352,7 @@ const exportarAExcel = async () => {
 
   const columnas = [
     { header: 'NOMBRE Y APELLIDO', key: 'nombre', width: 25 },
+     { header: 'NUMERO DE USUARIO', key: 'NumeroUsuario', width: 25 },
     { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
     { header: 'INMUEBLE', key: 'tipo', width: 11 },
     { header: 'PISO', key: 'piso', width: 7 },
@@ -395,7 +396,8 @@ const exportarAExcel = async () => {
         row.direccion?.toLowerCase().includes(query) ||
         row.telefono?.toLowerCase().includes(query) ||
         row.email?.toLowerCase().includes(query) ||
-        row.tipo?.toLowerCase().includes(query)
+        row.tipo?.toLowerCase().includes(query) ||
+        row.NumeroUsuario?.toLowerCase().includes(query)
       );
     })
     .filter((row) => {
@@ -421,6 +423,7 @@ const exportarAExcel = async () => {
   reservasFiltradas.forEach((reserva) => {
     worksheet.addRow({
       nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
+      NumeroUsuario: reserva.NumeroUsuario,
       direccion: reserva.direccion?.split(',')[0],
       tipo: reserva.tipo,
       piso: reserva.Piso,
