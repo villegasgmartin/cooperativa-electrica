@@ -437,7 +437,7 @@ export default function ReservasCompletadas() {
     reservasFiltradas.forEach((reserva) => {
       worksheet.addRow({
         nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
-        NumeroUsuario: reserva.NumeroUsuario,
+NumeroUsuario: isNaN(Number(reserva.NumeroUsuario)) ? null : Number(reserva.NumeroUsuario),
         direccion: reserva.direccion?.split(',')[0],
         tipo: reserva.tipo,
         piso: reserva.Piso,
