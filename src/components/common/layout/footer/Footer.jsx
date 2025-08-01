@@ -53,7 +53,7 @@ const Footer = () => {
                         </div>
                         <div>
                             <h4 className="footer-info-title">GUARDIA SERVICIO ELÉCTRICO:</h4>
-                            <a href="tel:2235353648" style={{ textDecoration: "none" }}>
+                            {/* <a href="tel:2235353648" style={{ textDecoration: "none" }}>
                                 <p className="footer-info">223 535-3648</p>
                             </a>
                             <a href="tel:2235354042" style={{ textDecoration: "none" }}>
@@ -61,9 +61,9 @@ const Footer = () => {
                             </a>
                             <a href="tel:2235351358" style={{ textDecoration: "none" }}>
                                 <p className="footer-info">223 535-1358</p>
-                            </a>
+                            </a> */}
                             <a href="https://wa.link/583s3n" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
-                            <p className="footer-info">223 540-543</p></a>
+                            <p className="footer-info">223 540-5430</p></a>
 
                         </div>
                         <div>
