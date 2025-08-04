@@ -370,6 +370,7 @@ const exportarAExcel = async () => {
         { header: 'NOMBRE Y APELLIDO', key: 'nombreApellido', width: 25 },
         { header: 'USUARIO', key: 'numeroUsuario', width: 15 },
         { header: 'MOTIVO DE VISITA', key: 'motivo', width: 30 },
+        { header: 'OBSERVACION', key: 'observacion', width: 40 },
     ];
 
     worksheet.columns = columnas;
@@ -405,6 +406,7 @@ const exportarAExcel = async () => {
         nombreApellido,
         numeroUsuario: registro.NumeroUsuario || '',
         motivo: registro.categoria || '',
+        observacion: registro.descripcion || ''
         };
     });
 

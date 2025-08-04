@@ -364,6 +364,7 @@ const exportarAExcel = async () => {
     { header: 'TELÉFONO', key: 'telefono', width: 15 },
     { header: 'EMAIL', key: 'email', width: 30 },
     { header: 'DNI', key: 'dni', width: 13 },
+    { header: 'OBSERVACIONES', key: 'observaciones', width: 35 },
   ];
 
   worksheet.columns = columnas;
@@ -397,7 +398,8 @@ const exportarAExcel = async () => {
         row.telefono?.toLowerCase().includes(query) ||
         row.email?.toLowerCase().includes(query) ||
         row.tipo?.toLowerCase().includes(query) ||
-        row.NumeroUsuario?.toLowerCase().includes(query)
+        row.NumeroUsuario?.toLowerCase().includes(query) || 
+        row.observaciones?.toLowerCase().includes(query)
       );
     })
     .filter((row) => {
@@ -437,6 +439,7 @@ NumeroUsuario: isNaN(Number(reserva.NumeroUsuario)) ? null : Number(reserva.Nume
       telefono: reserva.telefono,
       email: reserva.email,
       dni: reserva.DNI,
+      observaciones: reserva.observaciones
     });
   });
 

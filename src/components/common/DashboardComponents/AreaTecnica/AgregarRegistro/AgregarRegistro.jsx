@@ -214,6 +214,10 @@ export default function AgregarRegistro() {
                         <MenuItem value="Cambio de titularidad">Cambio de titularidad</MenuItem>
                         <MenuItem value="Cambio de domicilio">Cambio de domicilio</MenuItem>
                         <MenuItem value="Tarea programada">Tarea programada</MenuItem>
+                        <MenuItem value="Wifi adicional">Wifi adicional</MenuItem>
+                        <MenuItem value="Reclamo TV">Reclamo TV</MenuItem>
+                        <MenuItem value="HBO">HBO</MenuItem>
+                        <MenuItem value="TV adicional">TV adicional</MenuItem>
                         <MenuItem value=""><em>--- Borrar selección ---</em></MenuItem>
                     </Select>
                 </FormControl>
