@@ -352,7 +352,7 @@ const exportarAExcel = async () => {
 
   const columnas = [
     { header: 'NOMBRE Y APELLIDO', key: 'nombre', width: 25 },
-     { header: 'NUMERO DE USUARIO', key: 'NumeroUsuario', width: 25 },
+    { header: 'NUMERO DE USUARIO', key: 'NumeroUsuario', width: 25 },
     { header: 'DIRECCIÓN', key: 'direccion', width: 25 },
     { header: 'INMUEBLE', key: 'tipo', width: 11 },
     { header: 'PISO', key: 'piso', width: 7 },
@@ -403,8 +403,12 @@ const exportarAExcel = async () => {
       );
     })
     .filter((row) => {
-      if (!row.fecha) return true;
-      const fechaReserva = dayjs(row.fecha);
+      const tieneFiltroFecha = fechaDesde || fechaHasta;
+      if (!row.fecha) {
+        return !tieneFiltroFecha;
+      }
+
+      const fechaReserva = dayjs(row.fecha); 
       if (!fechaReserva.isValid()) return false;
 
       if (fechaDesde && fechaHasta) {
@@ -414,6 +418,7 @@ const exportarAExcel = async () => {
       } else if (fechaHasta) {
         return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
       }
+
       return true;
     })
     .filter((row) => {
@@ -425,7 +430,7 @@ const exportarAExcel = async () => {
   reservasFiltradas.forEach((reserva) => {
     worksheet.addRow({
       nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
-NumeroUsuario: isNaN(Number(reserva.NumeroUsuario)) ? null : Number(reserva.NumeroUsuario),
+      NumeroUsuario: isNaN(Number(reserva.NumeroUsuario)) ? null : Number(reserva.NumeroUsuario),
       direccion: reserva.direccion?.split(',')[0],
       tipo: reserva.tipo,
       piso: reserva.Piso,
@@ -500,17 +505,23 @@ NumeroUsuario: isNaN(Number(reserva.NumeroUsuario)) ? null : Number(reserva.Nume
       );
     })
     .filter((row) => {
-        if (!row.fecha) return true; 
-        const fechaReserva = dayjs(row.fecha); 
-        if (!fechaReserva.isValid()) return false;
-        if (fechaDesde && fechaHasta) {
-          return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-        } else if (fechaDesde) {
-          return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-        } else if (fechaHasta) {
-          return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-        }
-        return true;
+      const tieneFiltroFecha = fechaDesde || fechaHasta;
+      if (!row.fecha) {
+        return !tieneFiltroFecha;
+      }
+
+      const fechaReserva = dayjs(row.fecha); 
+      if (!fechaReserva.isValid()) return false;
+
+      if (fechaDesde && fechaHasta) {
+        return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+      } else if (fechaDesde) {
+        return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+      } else if (fechaHasta) {
+        return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+      }
+
+      return true;
     })
     .filter((row) => {
         if (!mostrarMesActual) return true; 

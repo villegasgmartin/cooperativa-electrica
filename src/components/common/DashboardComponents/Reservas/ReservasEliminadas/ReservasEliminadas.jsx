@@ -109,18 +109,23 @@ const exportarAExcel = async () => {
         );
         })
         .filter((row) => {
-        if (!row.fecha) return true;
-        const fechaReserva = dayjs(row.fecha);
-        if (!fechaReserva.isValid()) return false;
+            const tieneFiltroFecha = fechaDesde || fechaHasta;
+            if (!row.fecha) {
+                return !tieneFiltroFecha;
+            }
 
-        if (fechaDesde && fechaHasta) {
-            return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-        } else if (fechaDesde) {
-            return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-        } else if (fechaHasta) {
-            return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-        }
-        return true;
+            const fechaReserva = dayjs(row.fecha); 
+            if (!fechaReserva.isValid()) return false;
+
+            if (fechaDesde && fechaHasta) {
+                return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+            } else if (fechaDesde) {
+                return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+            } else if (fechaHasta) {
+                return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+            }
+
+            return true;
         })
         .filter((row) => {
         if (!mostrarMesActual) return true;
@@ -269,18 +274,24 @@ const exportarAExcel = async () => {
             );
             })
         .filter((row) => {
-            if (!row.fecha) return true; 
+            const tieneFiltroFecha = fechaDesde || fechaHasta;
+            if (!row.fecha) {
+                return !tieneFiltroFecha;
+            }
+
             const fechaReserva = dayjs(row.fecha); 
             if (!fechaReserva.isValid()) return false;
+
             if (fechaDesde && fechaHasta) {
-            return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
+                return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
             } else if (fechaDesde) {
-            return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
+                return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
             } else if (fechaHasta) {
-            return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
+                return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
             }
+
             return true;
-        })
+            })
         .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'));
         let reservasOrdenadas = reservasFiltradas;
             if (orden.campo) {
