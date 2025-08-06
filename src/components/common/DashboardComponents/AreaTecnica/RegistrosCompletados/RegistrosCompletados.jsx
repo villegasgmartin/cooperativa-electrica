@@ -469,7 +469,7 @@ const exportarAExcel = async () => {
                          <MenuItem value="Wifi adicional">Wifi adicional</MenuItem>
                         <MenuItem value="Reclamo TV">Reclamo TV</MenuItem>
                         <MenuItem value="HBO">HBO</MenuItem>
-                        <MenuItem value="TV adicional">TV adicional</MenuItem>
+                        <MenuItem value="TV adicional">TV adicional</MenuItem> 
                     </Select>
                 </FormControl>
                 <Box>
