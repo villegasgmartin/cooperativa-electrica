@@ -208,7 +208,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
       </TableRow>
 
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom>
@@ -584,7 +584,7 @@ if (orden.campo) {
   });
 }
 
-  //Tabla:
+  //Contenido:
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
       <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>

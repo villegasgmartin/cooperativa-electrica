@@ -29,10 +29,6 @@ export const MARK_RESERVA_REALIZADA_FAILURE = 'MARK_RESERVA_REALIZADA_FAILURE';
 export const DELETE_RESERVA_REQUEST = 'DELETE_RESERVA_REQUEST';
 export const DELETE_RESERVA_SUCCESS = 'DELETE_RESERVA_SUCCESS';
 export const DELETE_RESERVA_FAILURE = 'DELETE_RESERVA_FAILURE';
-//Acciones para obtener reservas realizadas:
-export const FETCH_RESERVAS_REALIZADAS_REQUEST = 'FETCH_RESERVAS_REALIZADAS_REQUEST';
-export const FETCH_RESERVAS_REALIZADAS_SUCCESS = 'FETCH_RESERVAS_REALIZADAS_SUCCESS';
-export const FETCH_RESERVAS_REALIZADAS_FAIL = 'FETCH_RESERVAS_REALIZADAS_FAIL';
 // Acciones para obtener reservas eliminadas:
 export const FETCH_RESERVAS_ELIMINADAS_REQUEST = 'FETCH_RESERVAS_ELIMINADAS_REQUEST';
 export const FETCH_RESERVAS_ELIMINADAS_SUCCESS = 'FETCH_RESERVAS_ELIMINADAS_SUCCESS';
@@ -49,6 +45,10 @@ export const HANDLE_MARK_AS_PENDIENTE_FAILURE = 'HANDLE_MARK_AS_PENDIENTE_FAILUR
 export const DELETE_RESERVA_COMPLETADA_REQUEST = 'DELETE_RESERVA_COMPLETADA_REQUEST';
 export const DELETE_RESERVA_COMPLETADA_SUCCESS = 'DELETE_RESERVA_COMPLETADA_SUCCESS';
 export const DELETE_RESERVA_COMPLETADA_FAILURE = 'DELETE_RESERVA_COMPLETADA_FAILURE';
+//Acciones para obtener reservas realizadas:
+export const GET_RESERVAS_REALIZADAS_REQUEST = 'GET_RESERVAS_REALIZADAS_REQUEST';
+export const GET_RESERVAS_REALIZADAS_SUCCESS = 'GET_RESERVAS_REALIZADAS_SUCCESS';
+export const GET_RESERVAS_REALIZADAS_FAILURE = 'GET_RESERVAS_REALIZADAS_FAILURE';
 
 //Función GET para obtener resrevas pendientes:
 export const fetchReservas = () => async (dispatch) => {
@@ -171,43 +171,6 @@ export const deleteReserva = (reservaId, nombreUsuario) => async (dispatch) => {
     } catch (error) {
         dispatch({ type: DELETE_RESERVA_FAILURE, payload: error.message });
     }
-};
-
-//Función GET para obtener reservas realizadas:( a corregir)
-export const fetchReservasRealizadas = () => {
-    return async (dispatch) => {
-        dispatch({ type: FETCH_RESERVAS_REALIZADAS_REQUEST });
-
-        try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${url}/api/reservas/reservas-realizadas`, {
-            headers: { 'x-token': token },
-        });
-
-        if (!response.ok) throw new Error('Error al obtener las reservas');
-
-        const data = await response.json();
-        console.log(data)
-        const reservasFormateadas = data.reservas.map((r) => {
-            const fechaObj = dayjs(r.fecha);
-            return {
-            ...r,
-            fechaFormateada: fechaObj.format('D [de] MMMM'),
-            mes: fechaObj.format('MMMM'),
-            };
-        });
-        
-        dispatch({
-            type: FETCH_RESERVAS_REALIZADAS_SUCCESS,
-            payload: reservasFormateadas,
-        });
-        } catch (error) {
-        dispatch({
-            type: FETCH_RESERVAS_REALIZADAS_FAIL,
-            payload: error.message || 'Error desconocido',
-        });
-        }
-    };
 };
 
 // Función GET para obtener reservas eliminadas:
@@ -399,4 +362,33 @@ export const crearUsuarioBCM = (row) => {
         return { success: false, message: error.message || 'Hubo un error al crear el usuario' };
         }
     };
+    };
+
+// Función GET para obtener reservas realizadas:
+export const fetchReservasRealizadas = () => async (dispatch) => {
+    dispatch({ type: GET_RESERVAS_REALIZADAS_REQUEST });
+
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${url}/api/reservas/reservas-realizadas`, {
+        headers: { 'x-token': token },
+        });
+
+        if (!response.ok) throw new Error('Error al obtener las reservas realizadas');
+
+        const data = await response.json();
+
+        const reservasFormateadas = data.reservas.map((r) => {
+        const fechaObj = dayjs(r.fecha);
+        return {
+            ...r,
+            fechaFormateada: fechaObj.format('D [de] MMMM'),
+            mes: fechaObj.format('MMMM'),
+        };
+        });
+
+        dispatch({ type: GET_RESERVAS_REALIZADAS_SUCCESS, payload: reservasFormateadas });
+    } catch (error) {
+        dispatch({ type: GET_RESERVAS_REALIZADAS_FAILURE, payload: error.message });
+    }
     };

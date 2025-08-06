@@ -22,18 +22,6 @@ export const FETCH_USERDATA_FAILURE = 'FETCH_USERDATA_FAILURE';
 export const CREATE_USER_REQUEST = 'CREATE_USER_REQUEST';
 export const CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS';
 export const CREATE_USER_FAIL = 'CREATE_USER_FAIL';
-//Acciones para ontener la lista de usuarios activos:
-export const FETCH_USERS_REQUEST = 'FETCH_USERS_REQUEST';
-export const FETCH_USERS_SUCCESS = 'FETCH_USERS_SUCCESS';
-export const FETCH_USERS_FAIL = 'FETCH_USERS_FAIL';
-//Acciones para dar de baja un usuario:
-export const DELETE_USER_REQUEST = 'DELETE_USER_REQUEST';
-export const DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS';
-export const DELETE_USER_FAIL = 'DELETE_USER_FAIL';
-//Acciones para editar usuarios:
-export const UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST';
-export const UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS';
-export const UPDATE_USER_FAIL = 'UPDATE_USER_FAIL';
 //Acciones para obtener usuarios inactivos:
 export const FETCH_INACTIVE_USERS_REQUEST = 'FETCH_INACTIVE_USERS_REQUEST';
 export const FETCH_INACTIVE_USERS_SUCCESS = 'FETCH_INACTIVE_USERS_SUCCESS';
@@ -42,6 +30,18 @@ export const FETCH_INACTIVE_USERS_FAIL = 'FETCH_INACTIVE_USERS_FAIL';
 export const REACTIVATE_USER_REQUEST = 'REACTIVATE_USER_REQUEST';
 export const REACTIVATE_USER_SUCCESS = 'REACTIVATE_USER_SUCCESS';
 export const REACTIVATE_USER_FAIL = 'REACTIVATE_USER_FAIL';
+// Acciones para obtener todos los usuarios activos:
+export const FETCH_ACTIVE_USERS_REQUEST = 'FETCH_ACTIVE_USERS_REQUEST';
+export const FETCH_ACTIVE_USERS_SUCCESS = 'FETCH_ACTIVE_USERS_SUCCESS';
+export const FETCH_ACTIVE_USERS_FAIL = 'FETCH_ACTIVE_USERS_FAIL';
+//Acciones para desactuvar usuarios activos:
+export const DEACTIVATE_USER_REQUEST = 'DEACTIVATE_USER_REQUEST';
+export const DEACTIVATE_USER_SUCCESS = 'DEACTIVATE_USER_SUCCESS';
+export const DEACTIVATE_USER_FAIL = 'DEACTIVATE_USER_FAIL';
+//Acciones para editar usuarios:
+export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
+export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
+export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 
 //Función GET para traer usuario por ID:
 export const fetchUserProfile = () => {
@@ -122,78 +122,6 @@ export const createUser = (payload) => async (dispatch) => {
     }
 };
 
-//Función GET para obtener la lista de ususarios activos:
-export const fetchUsers = () => async (dispatch) => {
-    dispatch({ type: FETCH_USERS_REQUEST });
-
-    try {
-        const token = localStorage.getItem('token');
-        const { data } = await axios.get(`${url}/api/usuarios`, {
-        headers: { 'x-token': token }
-        });
-        dispatch({ type: FETCH_USERS_SUCCESS, payload: data.usuarios || [] });
-    } catch (error) {
-        dispatch({
-        type: FETCH_USERS_FAIL,
-        payload: error.response?.data?.msg || 'Error al obtener los usuarios',
-        });
-    }
-};
-
-//Función PUT para dar de baja un usuario:
-export const deleteUser = (userId) => async (dispatch) => {
-    dispatch({ type: DELETE_USER_REQUEST });
-
-    try {
-        const payload = { estado: false };
-
-        await axios.put(
-        `${url}/api?id=${userId}`,
-        payload,
-        {
-            headers: { 'x-token': localStorage.getItem('token') },
-        }
-        );
-
-        dispatch({ type: DELETE_USER_SUCCESS, payload: userId });
-
-    } catch (error) {
-        dispatch({
-        type: DELETE_USER_FAIL,
-        payload: error.response?.data?.msg || error.message,
-        });
-    }
-};
-
-//Función PUT para editar usuarios:
-export const updateUser = (userId, userData) => async (dispatch) => {
-    dispatch({ type: UPDATE_USER_REQUEST });
-
-    try {
-        const payload = {
-        nombre: userData.nombre,
-        telefono: userData.telefono,
-        rol: userData.rol === 'Administrador' ? 'USER_ADMIN' : 'USER_EMPLOYE',
-        usuarios: userData.rol === 'Administrador' ? true : userData.usuarios,
-        reservas: userData.rol === 'Administrador' ? true : userData.reservas,
-        tecnica: userData.rol === 'Administrador' ? true : userData.tecnica,
-        blog: userData.rol === 'Administrador' ? true : userData.blog,
-        };
-
-        await axios.put(`${url}/api?id=${userId}`, payload, {
-        headers: { 'x-token': localStorage.getItem('token') },
-        });
-
-        dispatch({ type: UPDATE_USER_SUCCESS, payload: { userId, data: payload } });
-
-    } catch (error) {
-        dispatch({
-        type: UPDATE_USER_FAIL,
-        payload: error.response?.data?.msg || error.message,
-        });
-    }
-};
-
 //Función GET para obtener lista de usuarios inactivos:
 export const fetchInactiveUsers = () => async (dispatch) => {
     dispatch({ type: FETCH_INACTIVE_USERS_REQUEST });
@@ -242,4 +170,71 @@ export const reactivateUser = (userId) => async (dispatch) => {
         payload: error.response?.data?.msg || error.message,
         });
     }
+};
+
+//Función PUT para obtener lista de usuarios activos:
+export const fetchActiveUsers = () => async (dispatch) => {
+    dispatch({ type: FETCH_ACTIVE_USERS_REQUEST });
+
+    try {
+        const response = await axios.get(`${url}/api/usuarios`, {
+        headers: { 'x-token': localStorage.getItem('token') },
+        });
+
+        const usuariosActivos = response.data.usuarios?.filter(user => user.estado !== false) || [];
+
+        dispatch({
+        type: FETCH_ACTIVE_USERS_SUCCESS,
+        payload: usuariosActivos,
+        });
+    } catch (error) {
+        dispatch({
+        type: FETCH_ACTIVE_USERS_FAIL,
+        payload: error.response?.data?.msg || error.message,
+        });
+    }
+};
+
+//Función PUT para desactivar usuarios inactivos:
+export const deactivateUser = (userId) => async (dispatch) => {
+    dispatch({ type: DEACTIVATE_USER_REQUEST });
+
+    try {
+        const payload = { estado: false };
+        const response = await axios.put(`${url}/api?id=${userId}`,
+        payload,
+        {
+            headers: { 'x-token': localStorage.getItem('token') },
+        }
+        );
+
+        dispatch({ type: DEACTIVATE_USER_SUCCESS, payload: userId });
+    } catch (error) {
+        dispatch({
+        type: DEACTIVATE_USER_FAIL,
+        payload: error.response?.data?.msg || 'Error al desactivar el usuario',
+        });
+    }
+};
+
+//Función PUT para editar usuarios:
+export const editUser = (userId, updatedData) => {
+    return async (dispatch) => {
+        dispatch({ type: EDIT_USER_REQUEST });
+
+        try {
+        await axios.put(
+            `${url}/api?id=${userId}`,
+            updatedData,
+            {
+            headers: { 'x-token': localStorage.getItem('token') }
+            }
+        );
+
+        dispatch({ type: EDIT_USER_SUCCESS, payload: { userId, updatedData } });
+        } catch (error) {
+        dispatch({ type: EDIT_USER_FAIL, payload: error.message });
+        console.error('Error al editar el usuario:', error);
+        }
+    };
 };

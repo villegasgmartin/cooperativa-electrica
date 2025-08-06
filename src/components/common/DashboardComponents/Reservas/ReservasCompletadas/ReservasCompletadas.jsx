@@ -45,6 +45,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import { deleteReservaCompletada } from '../../../../../../redux/actions/reservasActions';
 import { updateReservaRealizada } from '../../../../../../redux/actions/reservasActions';
 import { handleMarkAsPendienteRedux } from '../../../../../../redux/actions/reservasActions';
+import { fetchReservasRealizadas } from '../../../../../../redux/actions/reservasActions';
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -160,16 +161,16 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
         </TableCell>
         <TableCell align='center'>{(row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre)} - {row.NumeroUsuario}</TableCell>
         <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
-                <TableCell align='center'>
-                  {row.fechaSolicitud
-                    ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
-                    : 'No disponible'}
-                </TableCell>
-                <TableCell align="center">
-                  {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
-                  <br />
-                  {row.horario ? row.horario : ''}
-                </TableCell>
+        <TableCell align='center'>
+          {row.fechaSolicitud
+            ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
+            : 'No disponible'}
+        </TableCell>
+        <TableCell align="center">
+          {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
+          <br />
+          {row.horario ? row.horario : ''}
+        </TableCell>
 
         {!reservasLeer && ( 
           <>
@@ -205,7 +206,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
 
       </TableRow>
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={5}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Box sx={{ margin: 1 }}>
               <Typography variant="h6" gutterBottom>
@@ -238,7 +239,6 @@ export default function ReservasCompletadas() {
 
   const theme = useTheme();
   const isLight = theme.palette.mode === 'light';
-  const [reservas, setReservas] = React.useState([]);
   const [openModal, setOpenModal] = React.useState(false);
   const [selectedReserva, setSelectedReserva] = React.useState(null);
   const [reservaAEliminar, setReservaAEliminar] = React.useState(null);
@@ -250,7 +250,9 @@ export default function ReservasCompletadas() {
   const [fechaHasta, setFechaHasta] = React.useState(null);
   const { nombre, reservasLeer} = useSelector((state) => state.user);
   const dispatch = useDispatch();
-    const [orden, setOrden] = useState({ campo: '', direccion: '' });
+  const [orden, setOrden] = useState({ campo: '', direccion: '' });
+  const { realizadas, loading, error } = useSelector(state => state.reservas);
+
 
   //Funciones para editar: con modal:
   const handleEditClick = (row) => {
@@ -275,8 +277,7 @@ export default function ReservasCompletadas() {
 
     try {
       await dispatch(deleteReservaCompletada(reservaAEliminar._id));
-
-      setReservas(prev => prev.filter(r => r._id !== reservaAEliminar._id));
+      dispatch(fetchReservasRealizadas());
 
       setOpenConfirmDialog(false);
       setReservaAEliminar(null);
@@ -297,10 +298,7 @@ export default function ReservasCompletadas() {
 
     try {
       await dispatch(updateReservaRealizada(selectedReserva));
-
-      setReservas(prev =>
-        prev.map((r) => r._id === selectedReserva._id ? { ...r, ...selectedReserva } : r)
-      );
+      dispatch(fetchReservasRealizadas());
 
       setOpenModal(false);
       setSelectedReserva(null);
@@ -311,30 +309,8 @@ export default function ReservasCompletadas() {
 
  //Traemos las reservas: GET a corregir
   React.useEffect(() => {
-    const fetchReservas = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch('https://cooperativaback.up.railway.app/api/reservas/reservas-realizadas', {
-          headers: { 'x-token': token },
-        });
-
-        if (!response.ok) throw new Error('Error al obtener las reservas');
-        const data = await response.json();
-        const reservasFormateadas = data.reservas.map((r) => {
-          const fechaObj = dayjs(r.fecha);
-          return {
-            ...r,
-            fechaFormateada: fechaObj.format('D [de] MMMM'),
-            mes: fechaObj.format('MMMM'),
-          };
-        });
-        setReservas(reservasFormateadas);
-      } catch (error) {
-        console.error('Error al cargar las reservas:', error);
-      }
-    };
-    fetchReservas();
-  }, []);
+    dispatch(fetchReservasRealizadas());
+  }, [dispatch]);
 
   //Función para limpiar los filtros
   const handleLimpiarFiltros = () => {
@@ -496,7 +472,7 @@ const manejarOrden = (campo) => {
     };
 
 // Calculamos aquí las reservas que se están mostrando
-const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
+const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : realizadas;
 
 const reservasMostradas = baseReservas
   .filter((row) => {
@@ -569,14 +545,14 @@ if (orden.campo) {
 }
 
 
-  //Tabla:
+  //Contenido:
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
       <Typography variant="h5" gutterBottom sx={{ fontFamily: 'InterTight' }}>
         Reservas completadas
       </Typography>
       <Typography variant="subtitle1" gutterBottom sx={{ fontFamily: 'InterTight', fontWeight: 'bold' }}>
-          Mostrando {reservasMostradas.length} de {reservas.length} reservas
+          Mostrando {reservasMostradas.length} de {realizadas.length} reservas
       </Typography>
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: "15px" }}>
