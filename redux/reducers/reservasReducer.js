@@ -12,9 +12,6 @@ import {
     DELETE_RESERVA_REQUEST,
     DELETE_RESERVA_SUCCESS,
     DELETE_RESERVA_FAILURE,
-    FETCH_RESERVAS_REALIZADAS_REQUEST,
-    FETCH_RESERVAS_REALIZADAS_SUCCESS,
-    FETCH_RESERVAS_REALIZADAS_FAIL,
     FETCH_RESERVAS_ELIMINADAS_REQUEST,
     FETCH_RESERVAS_ELIMINADAS_SUCCESS,
     FETCH_RESERVAS_ELIMINADAS_FAIL,
@@ -26,7 +23,10 @@ import {
     HANDLE_MARK_AS_PENDIENTE_FAILURE,
     DELETE_RESERVA_COMPLETADA_SUCCESS,
     DELETE_RESERVA_COMPLETADA_REQUEST,
-    DELETE_RESERVA_COMPLETADA_FAILURE
+    DELETE_RESERVA_COMPLETADA_FAILURE,
+    GET_RESERVAS_REALIZADAS_REQUEST,
+    GET_RESERVAS_REALIZADAS_SUCCESS,
+    GET_RESERVAS_REALIZADAS_FAILURE
 } from '../actions/reservasActions';
 
 //Estado inicial:
@@ -44,13 +44,13 @@ const initialState = {
 const reservasReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_RESERVAS_REQUEST:
-        case FETCH_RESERVAS_REALIZADAS_REQUEST:
         case UPDATE_RESERVA_REQUEST:
         case MARK_RESERVA_REALIZADA_REQUEST:
         case DELETE_RESERVA_REQUEST:
         case MARCAR_RESERVA_PENDIENTE_REQUEST:
         case HANDLE_MARK_AS_PENDIENTE_REQUEST:
         case DELETE_RESERVA_COMPLETADA_REQUEST:
+        case GET_RESERVAS_REALIZADAS_REQUEST:
             return { ...state, loading: true, error: null };
 
         case FETCH_RESERVAS_ELIMINADAS_REQUEST:
@@ -59,8 +59,8 @@ const reservasReducer = (state = initialState, action) => {
         case GET_RESERVAS_SUCCESS:
             return { ...state, loading: false, reservas: action.payload };
 
-        case FETCH_RESERVAS_REALIZADAS_SUCCESS:
-            return { ...state, loading: false, realizadas: action.payload };
+        case GET_RESERVAS_REALIZADAS_SUCCESS:
+            return { ...state, loading: false, realizadas: action.payload,};
 
         case FETCH_RESERVAS_ELIMINADAS_SUCCESS:
             return { ...state, loadingEliminadas: false, reservasEliminadas: action.payload };
@@ -106,13 +106,13 @@ const reservasReducer = (state = initialState, action) => {
                 };
 
         case GET_RESERVAS_FAILURE:
-        case FETCH_RESERVAS_REALIZADAS_FAIL:
         case UPDATE_RESERVA_FAILURE:
         case MARK_RESERVA_REALIZADA_FAILURE:
         case DELETE_RESERVA_FAILURE:
         case MARCAR_RESERVA_PENDIENTE_FAILURE:
         case HANDLE_MARK_AS_PENDIENTE_FAILURE:
         case DELETE_RESERVA_COMPLETADA_FAILURE:
+        case GET_RESERVAS_REALIZADAS_FAILURE:
             return { ...state, loading: false, error: action.payload };
 
         case FETCH_RESERVAS_ELIMINADAS_FAIL:
