@@ -9,9 +9,9 @@ import { Fade } from 'react-awesome-reveal'
 const HomeServices3 = () => {
 
   const serviciosHome = [
-    { servicio: "INTERNET 300 MB", precio: "$12.222",/* precioLista: "$18.1333",*/ descuento: "$10.656 OFF por 12 meses", categoria: "internet" },
-    { servicio: "INTERNET 600 MB", precio: "$15.405", /*precioLista: "$21.381",*/ descuento: "$15.405 OFF por 12 meses", categoria: "internet" },
-    { servicio: "INTERNET 1000 MB", precio: "$18.000", /*precioLista: "$26.795",*/ descuento: "$18.000 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 300 MB", precio: "$12.222",/* precioLista: "$18.1333",*/ descuento: "$14.760 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 600 MB", precio: "$15.405", /*precioLista: "$21.381",*/ descuento: "$19.201 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 1000 MB", precio: "$18.000", /*precioLista: "$26.795",*/ descuento: "$22.436 OFF por 12 meses", categoria: "internet" },
   ];
 
   return (
