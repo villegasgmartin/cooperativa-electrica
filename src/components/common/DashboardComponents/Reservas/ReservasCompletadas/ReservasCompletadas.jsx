@@ -320,20 +320,15 @@ export default function ReservasCompletadas() {
     setSearchQuery('');
   };
 
-  //Marcar como pendiente:
-  const handleMarkAsPendiente = async (row) => {
-    try {
-      await dispatch(handleMarkAsPendienteRedux(row));
-
-      setReservas(prev =>
-        prev.map(r => r._id === row._id ? { ...r, estado: false } : r)
-      );
-
-      console.log("Reserva actualizada correctamente");
-    } catch (error) {
-      console.error('Error al marcar como realizada:', error);
-    }
-  };
+//Marcar como pendiente:
+const handleMarkAsPendiente = async (row) => {
+  try {
+    dispatch(handleMarkAsPendienteRedux(row));
+    dispatch(fetchReservasRealizadas()); 
+  } catch (error) {
+    console.error('Error al marcar como pendiente:', error);
+  }
+};
 
  //Excel:
   const exportarAExcel = async () => {
@@ -376,7 +371,7 @@ export default function ReservasCompletadas() {
       };
     });
 
-    const reservasFiltradas = reservas
+    const reservasFiltradas = realizadas
       .filter((row) => {
         const query = searchQuery.toLowerCase();
         return (
