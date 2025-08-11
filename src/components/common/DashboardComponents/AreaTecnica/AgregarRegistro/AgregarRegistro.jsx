@@ -30,6 +30,8 @@ export default function AgregarRegistro() {
     const [intentoDeGuardado, setIntentoDeGuardado] = useState(false);
     const [nombre, setNombre] = useState('');
     const [apellido, setApellido] = useState('');
+    const [dni, setDni] = useState('');
+    const [telefono, setTelefono] = useState('');
     const [direccion, setDireccion] = useState('');
     const [fechaSolicitud, setFechaSolicitud] = useState(null);
 
@@ -56,6 +58,8 @@ export default function AgregarRegistro() {
             setHora('');
             setNombre('');
             setApellido('');
+            setDni('');
+            setTelefono('');
             setFechaSolicitud(null);
             setDireccion('');
         }
@@ -67,6 +71,9 @@ export default function AgregarRegistro() {
             setNombre(usuario.NOMBRE || '');
             setApellido(usuario.APELLIDO || '');
             setDireccion(usuario.DOMICILIO || '');
+            setDni(usuario.DNI || '');
+            setTelefono(usuario.TELEFONO1 || '');
+ 
         }
     }, [usuario]);
 
@@ -104,6 +111,8 @@ export default function AgregarRegistro() {
             fechaSolicitud:fechaSolicitud.toISOString(),
             direccion,
             motivoCustom: motivoCustom || '',
+            dni, 
+            telefono
         }));
     };
 
@@ -153,6 +162,18 @@ export default function AgregarRegistro() {
                     label="Apellido"
                     value={apellido}
                     onChange={(e) => setApellido(e.target.value)}
+                    sx={{ width: { xs: '100%', md: 200 } }}
+                />
+                <TextField
+                    label="Dni"
+                    value={dni}
+                    onChange={(e) => setDni(e.target.value)}
+                    sx={{ width: { xs: '100%', md: 200 } }}
+                />
+                <TextField
+                    label="Telefono"
+                    value={telefono}
+                    onChange={(e) => setTelefono(e.target.value)}
                     sx={{ width: { xs: '100%', md: 200 } }}
                 />
 

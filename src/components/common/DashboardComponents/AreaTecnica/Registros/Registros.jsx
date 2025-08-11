@@ -104,6 +104,8 @@ const formatFecha = (fecha) =>
         const nombreCompleto = nombre && apellido
         ? `${nombre} ${apellido}`
         : nombre || apellido || 'No disponible';
+        const dni = registro.dni;
+        const telefono = registro.telefono
 
         const numeroUsuario = registro.NumeroUsuario?.toString().trim();
         const textoFinal = numeroUsuario
@@ -118,8 +120,8 @@ const formatFecha = (fecha) =>
         doc.text(`Dirección: ${direccion}`, 10, y);
         y += 10;
         doc.text(`Tipo: ${registro.tipo || 'No disponible'}   Piso: ${registro.Piso || 'No disponible'}   Dpto: ${registro.Dpto || 'No disponible'}`, 10, y); y += 10;
-        //doc.text(`Teléfono: ${registro.telefono}`, 10, y); y += 10;
-        //doc.text(`D.N.I.: ${registro.DNI}`, 10, y); y += 10;
+        doc.text(`Teléfono: ${registro.telefono}`, 10, y); y += 10;
+        doc.text(`D.N.I.: ${registro.dni}`, 10, y); y += 10;
         doc.text('C.U.I.T.: ', 10, y); y += 10;
         //doc.text(`Email: ${registro.email}`, 10, y); y += 10;
     
@@ -237,6 +239,12 @@ return (
                 </li>
                 <li>
                 <strong>Número de usuario:</strong> {registro?.NumeroUsuario || 'No disponible'}
+                </li>
+                 <li>
+                <strong>DNI:</strong> {registro?.dni || 'No disponible'}
+                </li>
+                 <li>
+                <strong>Telefono:</strong> {registro?.telefono || 'No disponible'}
                 </li>
                 <li>
                 <strong>Motivo de visita:</strong> {registro.categoria}

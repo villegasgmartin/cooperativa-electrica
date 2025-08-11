@@ -80,7 +80,8 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
 
         const nombre = registro.nombre?.trim();
         const apellido = registro.apellido?.trim();
-
+ const dni = registro.dni;
+        const telefono = registro.telefono
         const nombreCompleto = nombre && apellido
         ? `${nombre} ${apellido}`
         : nombre || apellido || 'No disponible';
@@ -98,8 +99,8 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
         doc.text(`Dirección: ${direccion}`, 10, y);
         y += 10;
         doc.text(`Tipo: ${registro.tipo || 'No disponible'}   Piso: ${registro.Piso || 'No disponible'}   Dpto: ${registro.Dpto || 'No disponible'}`, 10, y); y += 10;
-        //doc.text(`Teléfono: ${registro.telefono}`, 10, y); y += 10;
-        //doc.text(`D.N.I.: ${registro.DNI}`, 10, y); y += 10;
+        doc.text(`Teléfono: ${registro.telefono}`, 10, y); y += 10;
+        doc.text(`D.N.I.: ${registro.dni}`, 10, y); y += 10;
         doc.text('C.U.I.T.: ', 10, y); y += 10;
         //doc.text(`Email: ${registro.email}`, 10, y); y += 10;
     
@@ -194,6 +195,8 @@ function RowDetalle({ registro, onMarcarPendiente, onEditar, onEliminar }) {
                             </Typography>
                             <ul>
                                 <li><strong>Nombre y Apellido:</strong>{' '}{registro.nombre?.trim() || registro.apellido?.trim()? [registro.nombre, registro.apellido].filter(Boolean).join(' '): 'No disponible'}</li>
+                                <li><strong>DNI:</strong> {registro.dni}</li>
+                                <li><strong>Telefono:</strong> {registro.telefono}</li>
                                 <li><strong>Número de usuario:</strong> {registro?.NumeroUsuario || 'No disponible'}</li>
                                 <li><strong>Motivo de visita:</strong> {registro.categoria}</li>
                                 <li><strong>Observaciones:</strong> {registro.descripcion}</li>
