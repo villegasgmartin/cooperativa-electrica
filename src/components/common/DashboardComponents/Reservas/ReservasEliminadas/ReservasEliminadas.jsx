@@ -30,6 +30,7 @@ export default function ReservasEliminadas() {
     const theme = useTheme();
     const isLight = theme.palette.mode === 'light';
     const [orden, setOrden] = useState({ campo: '', direccion: '' });
+    const [filtroServicio, setFiltroServicio] = React.useState(null);
 
     // Cargar reservas desde Redux
     React.useEffect(() => {
@@ -47,6 +48,7 @@ export default function ReservasEliminadas() {
         setFechaHasta(null)
         setMostrarMesActual(false); 
         setSearchQuery('');
+        setFiltroServicio(null);
     };
 
       //Función para obtener nombre de usuario:
@@ -131,7 +133,13 @@ const exportarAExcel = async () => {
         if (!mostrarMesActual) return true;
         const mesActual = dayjs().format('MMMM');
         return dayjs(row.fecha).format('MMMM') === mesActual;
-        });
+        })
+        .filter((row) => {
+            if (filtroServicio === null) return true;
+            if (filtroServicio === 'tv') return row.esTV === true;
+            if (filtroServicio === 'internet') return row.esTV === false;
+            return true;
+    });
 
     reservasFiltradas.forEach((reserva) => {
         worksheet.addRow({
@@ -292,7 +300,13 @@ const exportarAExcel = async () => {
 
             return true;
             })
-        .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'));
+        .filter((row) => !mostrarMesActual || dayjs(row.fecha).format('MMMM') === dayjs().format('MMMM'))
+        .filter((row) => {
+            if (filtroServicio === null) return true;
+            if (filtroServicio === 'tv') return row.esTV === true;
+            if (filtroServicio === 'internet') return row.esTV === false;
+            return true;
+        });
         let reservasOrdenadas = reservasFiltradas;
             if (orden.campo) {
                 reservasOrdenadas = [...reservasFiltradas].sort((a, b) => {
@@ -368,6 +382,23 @@ const exportarAExcel = async () => {
                     renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
                 />
                 </LocalizationProvider>
+            </Box>
+            {/*Botones para filtrar por tipo de servicios*/}
+            <Box sx={{display: "flex", gap: "10px"}}>
+                <Button
+                variant={filtroServicio === 'internet' ? "contained" : "outlined"}
+                color="info"
+                onClick={() => setFiltroServicio('internet')}
+                sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+                >Reservas Internet
+                </Button>
+                <Button
+                variant={filtroServicio === 'tv' ? "contained" : "outlined"}
+                color="info"
+                onClick={() => setFiltroServicio('tv')}
+                sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+                >Reservas TV
+                </Button>
             </Box>
             {/*Botón para filtrar por mes*/}
             <Button

@@ -24,7 +24,8 @@ import {
   FormControlLabel,
   Switch,
   Snackbar,
-  Alert
+  Alert,
+  Checkbox
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -171,25 +172,37 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
             : 'No disponible'}
         </TableCell>
         <TableCell align="center">
-          {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
+          {row.fecha
+            ? row.fecha.split('T')[0].split('-').reverse().join('/')
+            : row.esTV === false
+              ? 'Internet sin turno'
+              : 'TV sin turno'
+          }
           <br />
-          {row.horario ? row.horario : ''}
+          {row.horario || ''}
         </TableCell>
+
 
         {!reservasLeer && ( 
           <TableCell align='center'>
-            <IconButton  size="small" sx={{ mr: "1px" }} onClick={() => handleCrearUsuario(row)} title="Crear usuario">
-              <PersonIcon />
-            </IconButton>
-            <IconButton color="primary" size="small" sx={{ mr: "1px" }} onClick={() => handleEditClick(row)}>
-              <EditIcon />
-            </IconButton>
-            <IconButton color="secondary" size="small" sx={{ mr: "1px" }} onClick={() => handleDeleteClick(row)}>
-              <DeleteIcon />
-            </IconButton>
-            <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
-              <PictureAsPdfIcon />
-            </IconButton>
+            <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",  minWidth: "90px"}}>
+              <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
+                <IconButton  size="small" sx={{ mr: "1px" }} onClick={() => handleCrearUsuario(row)} title="Crear usuario">
+                  <PersonIcon />
+                </IconButton>
+                <IconButton color="primary" size="small" sx={{ mr: "1px" }} onClick={() => handleEditClick(row)} title="Editar reserva">
+                  <EditIcon />
+                </IconButton>
+              </Box>
+              <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
+                <IconButton color="secondary" size="small" sx={{ mr: "1px" }} onClick={() => handleDeleteClick(row)} title="Eliminar reserva">
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
+                  <PictureAsPdfIcon />
+                </IconButton>
+              </Box>
+            </Box>
           </TableCell>
         )}
 
@@ -258,6 +271,11 @@ export default function ReservasPendientes() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMsg, setSnackbarMsg] = useState('');
   const [snackbarSeverity, setSnackbarSeverity] = useState('success');
+  const [filtroServicio, setFiltroServicio] = React.useState(null);
+  const [openRealizadaModal, setOpenRealizadaModal] = useState(false);
+  const [reservaRealizadaSeleccionada, setReservaRealizadaSeleccionada] = useState(null);
+  const [fechaRealizada, setFechaRealizada] = useState(null);
+  const [horarioRealizada, setHorarioRealizada] = useState('');
 
   //Filtrar por mes:
   const handleMostrarMesActual = () => {
@@ -328,6 +346,7 @@ useEffect(() => {
     setFechaHasta(null)
     setMostrarMesActual(false); 
     setSearchQuery('');
+    setFiltroServicio(null);
   };
 
   //Función para crear usuario en BCM:
@@ -343,6 +362,7 @@ const handleCrearUsuario = async (row) => {
   }
   setOpenSnackbar(true);
 };
+
 
 
   //Excel:
@@ -425,7 +445,13 @@ const exportarAExcel = async () => {
       if (!mostrarMesActual) return true;
       const mesActual = dayjs().format('MMMM');
       return dayjs(row.fecha).format('MMMM') === mesActual;
-    });
+    })
+    .filter((row) => {
+      if (filtroServicio === null) return true;
+      if (filtroServicio === 'tv') return row.esTV === true;
+      if (filtroServicio === 'internet') return row.esTV === false;
+      return true;
+  });
 
   reservasFiltradas.forEach((reserva) => {
     worksheet.addRow({
@@ -527,7 +553,13 @@ const exportarAExcel = async () => {
         if (!mostrarMesActual) return true; 
         const mesActual = dayjs().format('MMMM');
         return dayjs(row.fecha).format('MMMM') === mesActual;
-    });
+    })
+    .filter((row) => {
+      if (filtroServicio === null) return true;
+      if (filtroServicio === 'tv') return row.esTV === true;
+      if (filtroServicio === 'internet') return row.esTV === false;
+      return true;
+  });
     let reservasOrdenadas = [...reservasMostradas];
     if (orden.campo) {
       reservasOrdenadas = reservasOrdenadas.sort((a, b) => {
@@ -627,6 +659,23 @@ if (orden.campo) {
               renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
             />
           </LocalizationProvider>
+        </Box>
+        {/*Botones para filtrar por tipo de servicios*/}
+        <Box sx={{display: "flex", gap: "10px"}}>
+          <Button
+            variant={filtroServicio === 'internet' ? "contained" : "outlined"}
+            color="info"
+            onClick={() => setFiltroServicio('internet')}
+            sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+          >Reservas Internet
+          </Button>
+          <Button
+            variant={filtroServicio === 'tv' ? "contained" : "outlined"}
+            color="info"
+            onClick={() => setFiltroServicio('tv')}
+            sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+          >Reservas TV
+          </Button>
         </Box>
         {/*Botón para filtrar por mes*/}
         <Button
@@ -754,7 +803,12 @@ if (orden.campo) {
                 reservasLeer={reservasLeer}
                 handleEditClick={handleEditClick}
                 handleDeleteClick={handleDeleteClick}
-                handleMarkAsRealizada={handleMarkAsRealizada}
+                handleMarkAsRealizada={(reserva) => {
+                  setReservaRealizadaSeleccionada(reserva);
+                  setFechaRealizada(reserva.fecha ? dayjs(reserva.fecha) : null);
+                  setHorarioRealizada(reserva.horario || '');
+                  setOpenRealizadaModal(true);
+                }}
                 handleCrearUsuario={handleCrearUsuario}
                 />
                 ))}
@@ -775,7 +829,39 @@ if (orden.campo) {
         >
       {selectedReserva && (
         <>
-          <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
+          <Typography variant="h6">Editar Reserva</Typography>
+          <Box sx={{display: 'flex', justifyContent: 'center', alignItems: "center", mb: "10px", gap: "14px"}}>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={!selectedReserva.esTV}
+                  onChange={() =>
+                    setSelectedReserva((prev) => ({
+                      ...prev,
+                      esTV: false
+                    }))
+                  }
+                  color="primary"
+                />
+              }
+              label="Servicio Internet"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={selectedReserva.esTV}
+                  onChange={() =>
+                    setSelectedReserva((prev) => ({
+                      ...prev,
+                      esTV: true
+                    }))
+                  }
+                  color="primary"
+                />
+              }
+              label="Solo TV"
+            />
+          </Box>
           <Grid container spacing={1.5}>
             <Grid item xs={6} sm={6}>
               <TextField
@@ -978,7 +1064,68 @@ if (orden.campo) {
         </>
       )}
     </MuiBox>
-</Modal>
+  </Modal>
+
+    {/*Modal para cargar fecha y hora al marcar realizado*/}
+    <Dialog open={openRealizadaModal} onClose={() => setOpenRealizadaModal(false)}>
+      <DialogTitle sx={{mb: -2}}>Ingresa fecha y hora de instalación</DialogTitle>
+      <DialogContent sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt:1 }}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            sx={{mt: 1}}
+            label="Fecha"
+            format="DD/MM/YYYY"
+            value={fechaRealizada}
+            onChange={(newDate) => setFechaRealizada(newDate)}
+            renderInput={(params) => <TextField {...params} fullWidth />}
+          />
+        </LocalizationProvider>
+        <TextField
+          label="Horario"
+          type="time"
+          value={horarioRealizada}
+          onChange={(e) => setHorarioRealizada(e.target.value)}
+          fullWidth
+          InputLabelProps={{ shrink: true }}
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setOpenRealizadaModal(false)}>Cancelar</Button>
+        <Button
+          variant="contained"
+          onClick={async () => {
+            if (!fechaRealizada || !horarioRealizada) {
+              alert("Seleccione fecha y horario");
+              return;
+            }
+            const reservaActualizada = {
+              ...reservaRealizadaSeleccionada,
+              fecha: dayjs(fechaRealizada).format("YYYY-MM-DD"),
+              horario: horarioRealizada,
+            };
+            try {
+              const token = localStorage.getItem("token");
+              const response = await fetch(
+                `https://cooperativaback.up.railway.app/api/reservas/actualizar-reserva?id=${reservaRealizadaSeleccionada._id}`,
+                {
+                  method: "PUT",
+                  headers: { "Content-Type": "application/json", "x-token": token },
+                  body: JSON.stringify(reservaActualizada),
+                }
+              );
+              if (!response.ok) throw new Error("Error al actualizar la reserva");
+              dispatch(markReservaAsRealizada(reservaActualizada));
+              setOpenRealizadaModal(false);
+            } catch (error) {
+              console.error(error);
+              alert("Ocurrió un error al marcar como realizada");
+            }
+          }}
+        >
+          Guardar
+        </Button>
+      </DialogActions>
+    </Dialog>
 
       {/* Confirmación de eliminación */}
       <Dialog open={openConfirmDialog} onClose={() => setOpenConfirmDialog(false)}>
@@ -994,20 +1141,19 @@ if (orden.campo) {
         </DialogActions>
       </Dialog>
       <Snackbar
-  open={openSnackbar}
-  autoHideDuration={3000}
-  onClose={() => setOpenSnackbar(false)}
-  anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
->
-  <Alert
-    onClose={() => setOpenSnackbar(false)}
-    severity={snackbarSeverity}
-    sx={{ width: '100%' }}
-    variant="filled"
-  >
-    {snackbarMsg}
-  </Alert>
-</Snackbar>
+          open={openSnackbar}
+          autoHideDuration={3000}
+          onClose={() => setOpenSnackbar(false)}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+      <Alert
+        onClose={() => setOpenSnackbar(false)}
+        severity={snackbarSeverity}
+        sx={{ width: '100%' }}
+        variant="filled"
+      >
+        {snackbarMsg}
+      </Alert>
+    </Snackbar>
     </Box>
   );
 }

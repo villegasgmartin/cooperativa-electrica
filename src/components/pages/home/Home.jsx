@@ -39,20 +39,19 @@ const Home = () => {
             
             {showImageModal && (
             <div className="modal-overlay" onClick={closeModal}>
-            <div className="modal-content">
-              <img src={ModalHome} alt="" className="modal-image"/>
-            <p className="modal-title">Estimado usuario: le informamos que incorporamos los siguientes números telefónicos para el envío de facturas e información institucional por WhatsApp 
-            </p>
-          <div>
-           <a href="https://api.whatsapp.com/send?phone=542233060278" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                <div className="modal-content">
+                    <img src={ModalHome} alt="" className="modal-image"/>
+                <p className="modal-title">Estimado usuario: le informamos que incorporamos los siguientes números telefónicos para el envío de facturas e información institucional por WhatsApp 
+                </p>
+                    <div>
+                        <a href="https://api.whatsapp.com/send?phone=542233060278" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                             <p className="footer-info">223-3060278</p></a>
-                                       <a href="https://api.whatsapp.com/send?phone=542233060273" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                                <a href="https://api.whatsapp.com/send?phone=542233060273" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                             <p className="footer-info">223-3060273</p></a>
-                                       <a href="https://api.whatsapp.com/send?phone=542234060274" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
+                                <a href="https://api.whatsapp.com/send?phone=542234060274" target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
                             <p className="footer-info">223-4060274</p></a>
-                  
-          </div>
-            </div>
+                    </div>
+                </div>
             </div>
         )}
             <HomePortada2/>

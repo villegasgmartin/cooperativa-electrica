@@ -34,10 +34,11 @@
     padding: 20px 0;
 }
 .modal-content p.modal-title{
-    font-size: 22px;
+    font-size: 20px;
     color:#fff;
     padding: 30px;
     color:#fff;
+    font-family: "interTight";
 }
 @media only screen and (max-width:768px){
     .modal-content p.modal-title{

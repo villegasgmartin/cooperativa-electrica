@@ -22,7 +22,8 @@ import {
   DialogTitle,
   Grid,
   FormControlLabel,
-  Switch
+  Switch,
+  Checkbox
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -166,27 +167,45 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
             ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
             : 'No disponible'}
         </TableCell>
-        <TableCell align="center">
-          {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
+        
+          <TableCell align="center">
+          {row.fecha 
+            ? row.fecha.split('T')[0].split('-').reverse().join('/') 
+            : 'TV sin turno'}
           <br />
-          {row.horario ? row.horario : ''}
+          {row.horario || ''}
         </TableCell>
+        
+        {/*
+        <TableCell align="center">
+          {row.esTV === false
+            ? `INTERNET ${row.fecha ? row.fecha.split('T')[0].split('-').reverse().join('/') : ''} ${row.horario || ''}`
+            : ` TELEVISIÓN ${row.fecha ? row.fecha.split('T')[0].split('-').reverse().join('/') : ''} ${row.horario || ''}`
+          }
+        </TableCell>
+        */}
 
         {!reservasLeer && ( 
           <>
           <TableCell align='center'>
-            <IconButton  size="small" sx={{ mr: "1px" }}>
-              <PersonIcon />
-            </IconButton>
-              <IconButton color="primary" size="small" sx={{ mr: "1px" }} onClick={() => handleEditClick(row)}>
-                <EditIcon />
-              </IconButton>
-              <IconButton color="secondary" size="small" sx={{ mr: "1px" }} onClick={() => handleDeleteClick(row)}>
-                <DeleteIcon />
-              </IconButton>
-              <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
-                <PictureAsPdfIcon />
-              </IconButton>
+            <Box sx={{display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center",  minWidth: "90px"}}>
+              <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
+                <IconButton  size="small" sx={{ mr: "1px" }}>
+                  <PersonIcon />
+                </IconButton>
+                <IconButton color="primary" size="small" sx={{ mr: "1px" }} onClick={() => handleEditClick(row)} title="Editar reserva">
+                  <EditIcon />
+                </IconButton>
+              </Box>
+              <Box sx={{ display: "flex", flexWrap: "nowrap" }}>
+                <IconButton color="secondary" size="small" sx={{ mr: "1px" }} onClick={() => handleDeleteClick(row)} title="Eliminar reserva">
+                  <DeleteIcon />
+                </IconButton>
+                <IconButton color="error" size="small" onClick={() => handleImprimir(row)} title="Imprimir PDF">
+                  <PictureAsPdfIcon />
+                </IconButton>
+              </Box>
+            </Box>
           </TableCell>
         <TableCell align='center'>
         <Button
@@ -252,7 +271,7 @@ export default function ReservasCompletadas() {
   const dispatch = useDispatch();
   const [orden, setOrden] = useState({ campo: '', direccion: '' });
   const { realizadas, loading, error } = useSelector(state => state.reservas);
-
+  const [filtroServicio, setFiltroServicio] = React.useState(null);
 
   //Funciones para editar: con modal:
   const handleEditClick = (row) => {
@@ -318,6 +337,7 @@ export default function ReservasCompletadas() {
     setFechaHasta(null)
     setMostrarMesActual(false); 
     setSearchQuery('');
+    setFiltroServicio(null);
   };
 
 //Marcar como pendiente:
@@ -410,7 +430,13 @@ const handleMarkAsPendiente = async (row) => {
         if (!mostrarMesActual) return true;
         const mesActual = dayjs().format('MMMM');
         return dayjs(row.fecha).format('MMMM') === mesActual;
-      });
+      })
+      .filter((row) => {
+        if (filtroServicio === null) return true;
+        if (filtroServicio === 'tv') return row.esTV === true;
+        if (filtroServicio === 'internet') return row.esTV === false;
+        return true;
+  });
 
     reservasFiltradas.forEach((reserva) => {
       worksheet.addRow({
@@ -509,6 +535,12 @@ const reservasMostradas = baseReservas
     if (!mostrarMesActual) return true;
     const mesActual = dayjs().format('MMMM');
     return dayjs(row.fecha).format('MMMM') === mesActual;
+  })
+  .filter((row) => {
+      if (filtroServicio === null) return true; 
+      if (filtroServicio === 'tv') return row.esTV === true;
+      if (filtroServicio === 'internet') return row.esTV === false;
+      return true;
   });
 
 let reservasOrdenadas = [...reservasMostradas];
@@ -583,6 +615,23 @@ if (orden.campo) {
               renderInput={(params) => <TextField {...params} size="small" sx={{ width: 150 }} />}
             />
           </LocalizationProvider>
+        </Box>
+        {/*Botones para filtrar por tipo de servicios*/}
+        <Box sx={{display: "flex", gap: "10px"}}>
+          <Button
+            variant={filtroServicio === 'internet' ? "contained" : "outlined"}
+            color="info"
+            onClick={() => setFiltroServicio('internet')}
+            sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+          >Reservas Internet
+          </Button>
+          <Button
+            variant={filtroServicio === 'tv' ? "contained" : "outlined"}
+            color="info"
+            onClick={() => setFiltroServicio('tv')}
+            sx={{ textTransform: 'capitalize', borderRadius: '50px', px: 4, fontFamily: 'InterTight', fontSize: '14px' }}
+          >Reservas TV
+          </Button>
         </Box>
         {/*Botón para filtrar por mes*/}
         <Button
@@ -723,7 +772,39 @@ if (orden.campo) {
       <MuiBox sx={modalBoxStyles(theme)}>
         {selectedReserva && (
           <>
-            <Typography variant="h6" gutterBottom>Editar Reserva</Typography>
+            <Typography variant="h6" >Editar Reserva</Typography>
+              <Box sx={{display: 'flex', justifyContent: 'center', alignItems: "center", mb: "10px", gap: "14px"}}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={!selectedReserva.esTV}
+                      onChange={() =>
+                        setSelectedReserva((prev) => ({
+                          ...prev,
+                          esTV: false
+                        }))
+                      }
+                      color="primary"
+                    />
+                  }
+                  label="Servicio Internet"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedReserva.esTV}
+                      onChange={() =>
+                        setSelectedReserva((prev) => ({
+                          ...prev,
+                          esTV: true
+                        }))
+                      }
+                      color="primary"
+                    />
+                  }
+                  label="Solo TV"
+                />
+              </Box>
             <Grid container spacing={1}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -837,7 +918,7 @@ if (orden.campo) {
                     />
                   }
                   label="Tercerizado"
-                  sx={{ ml: 1 }}
+                  sx={{ ml: 1, mt:1 }}
                 />
               </Grid>
               <Grid item xs={12}>

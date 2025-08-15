@@ -245,6 +245,7 @@ const Form = () => {
                     email: formData.email,
                     telefono: formData.telefono,
                     tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+                    esTV: true
                 };
                     try {
                         await dispatch(createReservaTV(dataToSend));
