@@ -167,7 +167,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
             ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
             : 'No disponible'}
         </TableCell>
-        
+        {/*
           <TableCell align="center">
           {row.fecha 
             ? row.fecha.split('T')[0].split('-').reverse().join('/') 
@@ -175,15 +175,15 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
           <br />
           {row.horario || ''}
         </TableCell>
+         */}
         
-        {/*
         <TableCell align="center">
-          {row.esTV === false
+          {!row.esTV
             ? `INTERNET ${row.fecha ? row.fecha.split('T')[0].split('-').reverse().join('/') : ''} ${row.horario || ''}`
             : ` TELEVISIÓN ${row.fecha ? row.fecha.split('T')[0].split('-').reverse().join('/') : ''} ${row.horario || ''}`
           }
         </TableCell>
-        */}
+       
 
         {!reservasLeer && ( 
           <>
