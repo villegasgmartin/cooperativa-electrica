@@ -4,10 +4,10 @@ import { Grid, useMediaQuery } from '@mui/material';
 
 // Lista de videos:
 const videos = [
-    { title: "¿Cómo registrarte en la Oficina Virtual?", url: "https://res.cloudinary.com/dhmrxjxzx/video/upload/v1753655539/Videos_tutoriales_Oficina_Virtual_1_krgoqe.mp4" },
-    { title: "¿Cómo dar de alta un servicio en la Oficina Virtual?", url: "https://res.cloudinary.com/dhmrxjxzx/video/upload/v1753655549/Video_Tutorial_-_Como_adherir_servicio_2_cchu4z.mp4" },
-    { title: "¿Cómo descargo el carnet AMI?", url: "https://res.cloudinary.com/dhmrxjxzx/video/upload/v1753655555/Video_Tutorial_-_Carnet_AMI_pfxxou.mp4" },
-    { title: "¿Cómo adherirme a la Factura Virtual?", url: "https://res.cloudinary.com/dhmrxjxzx/video/upload/v1753655562/Video_Tutorial_-_Adhesio%CC%81n_a_Factura_datos_mmb2pc.mp4" },
+    { title: "¿Cómo registrarte en la Oficina Virtual?", url: "/assets/Videos_tutoriales_Oficina_Virtual_1_krgoqe.mp4" },
+    { title: "¿Cómo dar de alta un servicio en la Oficina Virtual?", url: "/assets/Video_Tutorial_-_Como_adherir_servicio_2_cchu4z.mp4" },
+    { title: "¿Cómo descargo el carnet AMI?", url: "/assets/Video_Tutorial_-_Carnet_AMI_pfxxou.mp4" },
+    { title: "¿Cómo adherirme a la Factura Virtual?", url: "/assets/Video_Tutorial_-_Carnet_AMI_pfxxou.mp4" },
 ];
 
 const PreguntasNaveVideos = () => {
