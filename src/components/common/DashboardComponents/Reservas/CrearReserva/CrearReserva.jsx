@@ -85,28 +85,9 @@ const Form = () => {
 
     //Zonas de cobertura:
      const zona1 = [
-        // { latitude: -37.99692, longitude: -57.5633 },
         {latitude: -37.99117, longitude:-57.57442 },
          {latitude: -38.0008, longitude:-57.5822 },
          {latitude: -38.00599, longitude:-57.572 },
-
-
-
-        // {latitude:-37.99755,longitude: -57.56412},
-        // {latitude:-37.99797,longitude: -57.56561},
-        // {latitude:-37.99924,longitude: -57.56533},
-        // {latitude:-37.99954,longitude: -57.5669},
-        // {latitude:-38.00004, longitude:-57.56688},
-        // {latitude:-38.00038, longitude:-57.56753},
-        // {latitude:-38.00083, longitude:-57.56755},
-        // {latitude:-38.00241, longitude:-57.56784},
-        // {latitude:-38.00115, longitude:-57.56818},
-        // {latitude:-38.00224,longitude: -57.56908},
-        // {latitude:-38.00204, longitude:-57.56951},
-        // {latitude:-38.00235, longitude:-57.57002},
-        // {latitude:-38.00274, longitude:-57.56945},
-        // {latitude:-38.00398, longitude:-57.56913},
-
 
         {latitude:-38.0043, longitude:-57.57072},
         { latitude: -38.00567, longitude: -57.5707 },
@@ -133,7 +114,7 @@ const Form = () => {
         { latitude: -38.00346, longitude: -57.55016 },
 
         {latitude: -37.99117, longitude:-57.57442 }
-        // { latitude: -37.99692, longitude: -57.5633 }
+      
         ]
 
     const getCoordinates = async (address) => {
