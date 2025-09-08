@@ -512,7 +512,9 @@ const reservasMostradas = baseReservas
       row.direccion?.toLowerCase().includes(query) ||
       row.telefono?.toLowerCase().includes(query) ||
       row.email?.toLowerCase().includes(query) ||
-      row.tipo?.toLowerCase().includes(query)
+      row.tipo?.toLowerCase().includes(query) ||
+      row.NumeroUsuario?.toLowerCase().includes(query) ||
+      row.observaciones?.toLowerCase().includes(query)
     );
   })
   .filter((row) => {
