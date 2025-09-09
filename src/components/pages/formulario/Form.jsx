@@ -119,7 +119,6 @@ const Form = () => {
         { latitude: -38.01209, longitude: -57.54165 },
         { latitude: -38.00653, longitude: -57.55264 },
         { latitude: -38.00346, longitude: -57.55016 },
-
         {latitude: -37.99117, longitude:-57.57442 }
       
         ]
