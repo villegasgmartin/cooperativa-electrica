@@ -227,7 +227,7 @@ Hace tu consulta sobre los beneficios de AMI
           <TextField label="Teléfono *" name="telefono" value={formData.telefono} onChange={handleChange} fullWidth margin="normal" required />
           <TextField label="Dirección *" name="direccion" value={formData.direccion} onChange={handleChange} fullWidth margin="normal" required />
           <TextField label="Número de Asociado *" name="numeroAsociado" value={formData.numeroAsociado} onChange={handleChange} fullWidth margin="normal" />
-          <TextField label="Correo Electrónico" type="email" name="correo" value={formData.correo} onChange={handleChange} fullWidth margin="normal" />
+          <TextField label="Correo Electrónico" type="email" name="correo" value={formData.correo} onChange={handleChange} fullWidth margin="normal" required/>
           <TextField label="Mensaje *" name="mensaje" value={formData.mensaje} onChange={handleChange} fullWidth margin="normal" multiline rows={4} required />
         
           <div className='Adherentes'>
@@ -258,10 +258,10 @@ Hace tu consulta sobre los beneficios de AMI
               <Typography variant="subtitle1" sx={{ marginBottom: 1 }}>
                 Adherente #{index + 1}
               </Typography>
-              <TextField className='adherente-input' label="Apellido y Nombre" name="nombre" value={adherente.nombre} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" />
-              <TextField className='adherente-input'  label="DNI" name="dni" value={adherente.dni} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" />
-              <TextField  className='adherente-input'  label="Fecha de Nacimiento" type="date" name="fechaNacimiento" value={adherente.fechaNacimiento} onChange={(e) => handleAdherenteChange(index, e)} InputLabelProps={{ shrink: true }} fullWidth margin="normal" />
-              <TextField className='adherente-input'  label="Parentesco con el Titular" name="parentesco" value={adherente.parentesco} onChange={(e) => handleAdherenteChange(index, e)} select fullWidth margin="normal">
+              <TextField className='adherente-input' label="Apellido y Nombre" name="nombre" value={adherente.nombre} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" required/>
+              <TextField className='adherente-input'  label="DNI" name="dni" value={adherente.dni} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" required/>
+              <TextField  className='adherente-input'  label="Fecha de Nacimiento" type="date" name="fechaNacimiento" value={adherente.fechaNacimiento} onChange={(e) => handleAdherenteChange(index, e)} InputLabelProps={{ shrink: true }} fullWidth margin="normal"  required/>
+              <TextField className='adherente-input'  label="Parentesco con el Titular" name="parentesco" value={adherente.parentesco} onChange={(e) => handleAdherenteChange(index, e)} select fullWidth margin="normal" required>
                 {["Hijo/a", "Padre/Madre", "Hermano/a", "Sobrino/a", "Abuelo/a", "Tío/a", "Nieto/a", "Yerno/Nuera", "Otro", "Ajeno", "Grupo Familiar", "Individual"].map((op) => (
                   <MenuItem key={op} value={op}>{op}</MenuItem>
                 ))}
