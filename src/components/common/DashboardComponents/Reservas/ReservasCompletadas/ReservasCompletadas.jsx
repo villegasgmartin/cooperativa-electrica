@@ -47,6 +47,10 @@ import { deleteReservaCompletada } from '../../../../../../redux/actions/reserva
 import { updateReservaRealizada } from '../../../../../../redux/actions/reservasActions';
 import { handleMarkAsPendienteRedux } from '../../../../../../redux/actions/reservasActions';
 import { fetchReservasRealizadas } from '../../../../../../redux/actions/reservasActions';
+import utc from 'dayjs/plugin/utc';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
 
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
@@ -67,6 +71,11 @@ const modalBoxStyles = (theme) => ({
   width: 400,
   boxShadow: 24,
 });
+
+//Plugins de day.js:
+dayjs.extend(utc);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 //PDF:
 function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsRealizada  }) {
@@ -183,8 +192,6 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
             : ` TELEVISIÓN ${row.fecha ? row.fecha.split('T')[0].split('-').reverse().join('/') : ''} ${row.horario || ''}`
           }
         </TableCell>
-       
-
         {!reservasLeer && ( 
           <>
           <TableCell align='center'>
@@ -517,22 +524,19 @@ const reservasMostradas = baseReservas
       row.observaciones?.toLowerCase().includes(query)
     );
   })
-  .filter((row) => {
-    const tieneFiltroFecha = fechaDesde || fechaHasta;
-    if (!row.fecha) {
-      return !tieneFiltroFecha;
-    }
-    const fechaReserva = dayjs(row.fecha); 
-    if (!fechaReserva.isValid()) return false;
-    if (fechaDesde && fechaHasta) {
-      return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-    } else if (fechaDesde) {
-      return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-    } else if (fechaHasta) {
-      return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-    }
-    return true;
-  })
+.filter((row) => {
+  if (!row.fecha) return !(fechaDesde || fechaHasta);
+
+  const fechaReserva = dayjs.utc(row.fecha).startOf('day'); // <--- usar UTC
+  const desde = fechaDesde ? dayjs.utc(fechaDesde).startOf('day') : null;
+  const hasta = fechaHasta ? dayjs.utc(fechaHasta).startOf('day') : null;
+
+  if (desde && hasta) return fechaReserva.isSameOrAfter(desde) && fechaReserva.isSameOrBefore(hasta);
+  if (desde) return fechaReserva.isSameOrAfter(desde);
+  if (hasta) return fechaReserva.isSameOrBefore(hasta);
+
+  return true;
+})
   .filter((row) => {
     if (!mostrarMesActual) return true;
     const mesActual = dayjs().format('MMMM');
