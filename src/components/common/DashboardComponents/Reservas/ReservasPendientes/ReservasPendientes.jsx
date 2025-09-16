@@ -53,6 +53,9 @@ import BasicDatePicker from '../../../FormComponents/DatePicker/DatePicker';
 import FechaPersonalizada from '../FechaPersonalizada/FechaPersonalizada';
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 import { crearUsuarioBCM } from '../../../../../../redux/actions/reservasActions';
+import utc from 'dayjs/plugin/utc';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 //JSX;
 //Estilo de modales:
@@ -70,6 +73,11 @@ const modalBoxStyles = (theme) => ({
   width: 400,
   boxShadow: 24,
 });
+
+//Plugins de day.js:
+dayjs.extend(utc);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
 
 function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , reservasLeer, handleCrearUsuario}) {
   const [open, setOpen] = React.useState(false);
@@ -173,7 +181,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
         </TableCell>
         <TableCell align="center">
           {row.fecha
-            ? row.fecha.split('T')[0].split('-').reverse().join('/')
+            ? dayjs(row.fecha).format('DD/MM/YYYY')
             : row.esTV === false
               ? 'Internet sin turno'
               : 'TV sin turno'
@@ -181,7 +189,6 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
           <br />
           {row.horario || ''}
         </TableCell>
-
 
         {!reservasLeer && ( 
           <TableCell align='center'>
@@ -507,113 +514,72 @@ const exportarAExcel = async () => {
       }
       };
 
- // Calculamos aquí las reservas que se están mostrando
-  const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
+// Calculamos aquí las reservas que se están mostrando
+const baseReservas = reservasFiltradas.length > 0 ? reservasFiltradas : reservas;
 
-  const reservasMostradas = baseReservas
-    .filter((row) => {
-        if (reservasLeer) {
-          return row.terceriazado === true;
-        }
-        return true;
-    })
-    .filter((row) => {
-      const query = searchQuery.toLowerCase();
-      return (
-        row.internet?.toLowerCase().includes(query) ||
-        row.mes?.toLowerCase().includes(query) ||
-        row.nombre?.toLowerCase().includes(query) ||
-        row.apellido?.toLowerCase().includes(query) ||
-        row.direccion?.toLowerCase().includes(query) ||
-        row.telefono?.toLowerCase().includes(query) ||
-        row.email?.toLowerCase().includes(query) ||
-        row.tipo?.toLowerCase().includes(query) ||
-        row.NumeroUsuario?.toLowerCase().includes(query) || 
-        row.observaciones?.toLowerCase().includes(query)
-      );
-    })
-    .filter((row) => {
-      const tieneFiltroFecha = fechaDesde || fechaHasta;
-      if (!row.fecha) {
-        return !tieneFiltroFecha;
-      }
+const reservasMostradas = baseReservas
+  .filter((row) => (reservasLeer ? row.terceriazado === true : true))
+  .filter((row) => {
+    const query = searchQuery.toLowerCase();
+    return (
+      row.internet?.toLowerCase().includes(query) ||
+      row.mes?.toLowerCase().includes(query) ||
+      row.nombre?.toLowerCase().includes(query) ||
+      row.apellido?.toLowerCase().includes(query) ||
+      row.direccion?.toLowerCase().includes(query) ||
+      row.telefono?.toLowerCase().includes(query) ||
+      row.email?.toLowerCase().includes(query) ||
+      row.tipo?.toLowerCase().includes(query) ||
+      row.NumeroUsuario?.toLowerCase().includes(query) ||
+      row.observaciones?.toLowerCase().includes(query)
+    );
+  })
+  .filter((row) => {
+    const tieneFiltroFecha = fechaDesde || fechaHasta;
+    if (!row.fecha) return !tieneFiltroFecha;
 
-      const fechaReserva = dayjs(row.fecha); 
-      if (!fechaReserva.isValid()) return false;
+    const fechaReserva = dayjs.utc(row.fecha).startOf('day');
+    const desde = fechaDesde ? dayjs.utc(fechaDesde).startOf('day') : null;
+    const hasta = fechaHasta ? dayjs.utc(fechaHasta).startOf('day') : null;
 
-      if (fechaDesde && fechaHasta) {
-        return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-      } else if (fechaDesde) {
-        return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-      } else if (fechaHasta) {
-        return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-      }
+    if (desde && hasta) return fechaReserva.isSameOrAfter(desde) && fechaReserva.isSameOrBefore(hasta);
+    if (desde) return fechaReserva.isSameOrAfter(desde);
+    if (hasta) return fechaReserva.isSameOrBefore(hasta);
 
-      return true;
-    })
-    .filter((row) => {
-        if (!mostrarMesActual) return true; 
-        const mesActual = dayjs().format('MMMM');
-        return dayjs(row.fecha).format('MMMM') === mesActual;
-    })
-    .filter((row) => {
-      if (filtroServicio === null) return true;
-      if (filtroServicio === 'tv') return row.esTV === true;
-      if (filtroServicio === 'internet') return row.esTV === false;
-      return true;
+    return true;
+  })
+  .filter((row) => {
+    if (!mostrarMesActual) return true;
+    const mesActual = dayjs().format('MMMM');
+    return dayjs(row.fecha).format('MMMM') === mesActual;
+  })
+  .filter((row) => {
+    if (filtroServicio === null) return true;
+    if (filtroServicio === 'tv') return row.esTV === true;
+    if (filtroServicio === 'internet') return row.esTV === false;
+    return true;
   });
-    let reservasOrdenadas = [...reservasMostradas];
-    if (orden.campo) {
-      reservasOrdenadas = reservasOrdenadas.sort((a, b) => {
-        if (orden.campo === 'nombre' || orden.campo === 'direccion') {
-          const textoA = a[orden.campo]?.toLowerCase() || '';
-          const textoB = b[orden.campo]?.toLowerCase() || '';
 
-          if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
-          if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
-          return 0;
-        } else if (orden.campo === 'fecha') {
-          const fechaA = dayjs(a.fecha);
-          const fechaB = dayjs(b.fecha);
-
-          if (!fechaA.isValid() || !fechaB.isValid()) return 0;
-
-          if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
-          if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
-          return 0;
-        }
-        return 0;
-      });
-    }
+let reservasOrdenadas = [...reservasMostradas];
 
 if (orden.campo) {
-  reservasOrdenadas = [...reservasMostradas].sort((a, b) => {
+  reservasOrdenadas.sort((a, b) => {
+    // Ordenamiento por texto
     if (orden.campo === 'nombre' || orden.campo === 'direccion') {
-      const textoA = a[orden.campo].toLowerCase();
-      const textoB = b[orden.campo].toLowerCase();
-
+      const textoA = (a[orden.campo] || '').toLowerCase();
+      const textoB = (b[orden.campo] || '').toLowerCase();
       if (textoA < textoB) return orden.direccion === 'asc' ? -1 : 1;
       if (textoA > textoB) return orden.direccion === 'asc' ? 1 : -1;
       return 0;
-    } else if (orden.campo === 'fecha') {
-      const fechaA = dayjs(a.fecha);
-      const fechaB = dayjs(b.fecha);
-
-      if (!fechaA.isValid() || !fechaB.isValid()) return 0;
-
-      if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
-      if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
-      return 0;
-    } else if (orden.campo === 'fechaSolicitud') {
-      const fechaA = dayjs(a.fechaSolicitud);
-      const fechaB = dayjs(b.fechaSolicitud);
-
-      if (!fechaA.isValid() || !fechaB.isValid()) return 0;
-
-      if (fechaA.isBefore(fechaB)) return orden.direccion === 'asc' ? -1 : 1;
-      if (fechaA.isAfter(fechaB)) return orden.direccion === 'asc' ? 1 : -1;
-      return 0;
     }
+
+    // Ordenamiento por fechas
+    if (orden.campo === 'fecha' || orden.campo === 'fechaSolicitud') {
+      const fechaA = a[orden.campo] ? dayjs.utc(a[orden.campo]).valueOf() : 0;
+      const fechaB = b[orden.campo] ? dayjs.utc(b[orden.campo]).valueOf() : 0;
+      return orden.direccion === 'asc' ? fechaA - fechaB : fechaB - fechaA;
+    }
+
     return 0;
   });
 }

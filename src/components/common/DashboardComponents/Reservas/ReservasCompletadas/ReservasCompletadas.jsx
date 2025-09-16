@@ -527,7 +527,7 @@ const reservasMostradas = baseReservas
 .filter((row) => {
   if (!row.fecha) return !(fechaDesde || fechaHasta);
 
-  const fechaReserva = dayjs.utc(row.fecha).startOf('day'); // <--- usar UTC
+  const fechaReserva = dayjs.utc(row.fecha).startOf('day');
   const desde = fechaDesde ? dayjs.utc(fechaDesde).startOf('day') : null;
   const hasta = fechaHasta ? dayjs.utc(fechaHasta).startOf('day') : null;
 
