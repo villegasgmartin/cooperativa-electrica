@@ -662,6 +662,7 @@ const Form = () => {
                             setFranjaHoraria={setFranjaHoraria}
                             tipoInmueble={Object.keys(tipoInmueble).find(key => tipoInmueble[key])}
                             sinEstilo={true}
+                            ignorarTipoInmueble={true}
                         />
                         )}
                     </>
