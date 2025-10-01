@@ -373,10 +373,12 @@ const handleMarkAsPendiente = async (row) => {
       { header: 'HORARIO', key: 'horario', width: 15 },
       { header: 'FECHA DE SOLICITUD', key: 'fechaSolicitud', width: 25 },
       { header: 'SERVICIO', key: 'internet', width: 15 },
+      { header: 'TV', key: 'tv', width: 15 },
       { header: 'TELÉFONO', key: 'telefono', width: 15 },
       { header: 'EMAIL', key: 'email', width: 30 },
       { header: 'DNI', key: 'dni', width: 13 },
       { header: 'OBSERVACIONES', key: 'observaciones', width: 35 },
+      
     ];
 
     worksheet.columns = columnas;
@@ -411,7 +413,8 @@ const handleMarkAsPendiente = async (row) => {
           row.email?.toLowerCase().includes(query) ||
           row.tipo?.toLowerCase().includes(query) ||
           row.NumeroUsuario?.toLowerCase().includes(query) ||
-          row.observaciones?.toLowerCase().includes(query)
+          row.observaciones?.toLowerCase().includes(query) ||
+          row.tv?.toLowerCase().includes(query)
         );
       })
       .filter((row) => {
@@ -459,6 +462,7 @@ const handleMarkAsPendiente = async (row) => {
           ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
           : 'No disponible',
         internet: reserva.internet,
+        tv: reserva.tv,
         telefono: reserva.telefono,
         email: reserva.email,
         dni: reserva.DNI,
