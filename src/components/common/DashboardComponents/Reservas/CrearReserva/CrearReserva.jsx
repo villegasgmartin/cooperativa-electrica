@@ -108,11 +108,12 @@ const Form = () => {
         { latitude: -38.00521, longitude: -57.56009 },
         { latitude: -38.0143, longitude: -57.5421 },
         { latitude: -38.00954, longitude: -57.5382 },
-        { latitude: -38.00904, longitude: -57.53921 },
-        { latitude: -38.01209, longitude: -57.54165 },
+
+         { latitude: -38.00899, longitude: -57.53931 },
+        { latitude: -38.01204, longitude: -57.54193 },
+
         { latitude: -38.00653, longitude: -57.55264 },
         { latitude: -38.00346, longitude: -57.55016 },
-
         {latitude: -37.99117, longitude:-57.57442 }
       
         ]
@@ -190,12 +191,26 @@ const Form = () => {
         }
 
     //CheckBox de Tipo de inmueble
-    const handleCheckboxChange = (event) => {
-        setTipoInmueble({
-            ...tipoInmueble,
-            [event.target.name]: event.target.checked,
-        });
-    };
+        const handleCheckboxChange = (event) => {
+        const { name, checked } = event.target;
+
+        
+        if (checked) {
+            setTipoInmueble({
+            casa: name === "casa",
+            edificio: name === "edificio",
+            ph: name === "ph",
+            });
+        } else {
+        
+            setTipoInmueble({
+            casa: false,
+            edificio: false,
+            ph: false,
+            });
+        }
+        };
+
 
     //Captura lo escrito
     const handleInputChange = (event) => {
