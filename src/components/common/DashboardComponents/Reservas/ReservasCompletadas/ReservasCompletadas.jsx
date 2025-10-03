@@ -77,6 +77,21 @@ dayjs.extend(utc);
 dayjs.extend(isSameOrAfter);
 dayjs.extend(isSameOrBefore);
 
+// Toma 'YYYY-MM-DDTHH:mm...' o 'YYYY-MM-DD' y devuelve 'DD/MM/YYYY'
+const formatIsoToDmyNoTZ = (value) => {
+  if (!value) return '';
+  if (typeof value === 'string') {
+    const ymd = value.includes('T') ? value.split('T')[0] : value; // "YYYY-MM-DD"
+    const [y, m, d] = ymd.split('-');
+    return (y && m && d) ? `${d}/${m}/${y}` : '';
+  }
+  // Si viniera como Date/number, lo convertimos a ISO y tomamos solo el día
+  const ymd = new Date(value).toISOString().slice(0, 10);
+  const [y, m, d] = ymd.split('-');
+  return `${d}/${m}/${y}`;
+};
+
+
 //PDF:
 function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMarkAsRealizada  }) {
   const [open, setOpen] = React.useState(false);
@@ -110,7 +125,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
         row.fechaSolicitud
         ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
         : 'No disponible'}`,10,y);y += 10;
-      doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
+      doc.text(`Fecha del Turno: ${formatIsoToDmyNoTZ(row.fecha)}`, 10, y); y += 10;
 
       const nombreCompleto = row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre;
       doc.text(`Nombre y Apellido: ${nombreCompleto} - ${row.NumeroUsuario}`, 10, y);y += 10;
@@ -132,7 +147,7 @@ function Row({ row, handleEditClick, handleDeleteClick, reservasLeer, handleMark
       doc.setFontSize(10);
       doc.text(`Plan elegido: ${row.internet || 'No disponible'}`, 10, y); y += 10;
       doc.text(`Plataforma digital: ${row.tv || 'No disponible'}`, 10, y); y += 10;
-      doc.text(`Fecha y horario de conexión elegido: ${row.fechaFormateada} - ${row.horario}`, 10, y); y += 10;
+      doc.text(`Fecha y horario de conexión elegido: ${formatIsoToDmyNoTZ(row.fecha)} - ${row.horario}`, 10, y); y += 10;
     
       // Declaración
       doc.setFont('helvetica', 'normal');
@@ -400,55 +415,9 @@ const handleMarkAsPendiente = async (row) => {
       };
     });
 
-    const reservasFiltradas = realizadas
-      .filter((row) => {
-        const query = searchQuery.toLowerCase();
-        return (
-          row.internet?.toLowerCase().includes(query) ||
-          row.mes?.toLowerCase().includes(query) ||
-          row.nombre?.toLowerCase().includes(query) ||
-          row.apellido?.toLowerCase().includes(query) ||
-          row.direccion?.toLowerCase().includes(query) ||
-          row.telefono?.toLowerCase().includes(query) ||
-          row.email?.toLowerCase().includes(query) ||
-          row.tipo?.toLowerCase().includes(query) ||
-          row.NumeroUsuario?.toLowerCase().includes(query) ||
-          row.observaciones?.toLowerCase().includes(query) ||
-          row.tv?.toLowerCase().includes(query)
-        );
-      })
-      .filter((row) => {
-        const tieneFiltroFecha = fechaDesde || fechaHasta;
-        if (!row.fecha) {
-          return !tieneFiltroFecha;
-        }
+    const filasParaExportar = reservasMostradas;
 
-        const fechaReserva = dayjs(row.fecha); 
-        if (!fechaReserva.isValid()) return false;
-
-        if (fechaDesde && fechaHasta) {
-          return fechaReserva.isBetween(fechaDesde, fechaHasta, 'day', '[]');
-        } else if (fechaDesde) {
-          return fechaReserva.isSame(fechaDesde, 'day') || fechaReserva.isAfter(fechaDesde, 'day');
-        } else if (fechaHasta) {
-          return fechaReserva.isSame(fechaHasta, 'day') || fechaReserva.isBefore(fechaHasta, 'day');
-        }
-
-        return true;
-    })
-      .filter((row) => {
-        if (!mostrarMesActual) return true;
-        const mesActual = dayjs().format('MMMM');
-        return dayjs(row.fecha).format('MMMM') === mesActual;
-      })
-      .filter((row) => {
-        if (filtroServicio === null) return true;
-        if (filtroServicio === 'tv') return row.esTV === true;
-        if (filtroServicio === 'internet') return row.esTV === false;
-        return true;
-  });
-
-    reservasFiltradas.forEach((reserva) => {
+    filasParaExportar.forEach((reserva) => {
       worksheet.addRow({
         nombre: reserva.apellido ? `${reserva.nombre} ${reserva.apellido}` : reserva.nombre,
         NumeroUsuario: isNaN(Number(reserva.NumeroUsuario)) ? null : Number(reserva.NumeroUsuario),
@@ -456,7 +425,7 @@ const handleMarkAsPendiente = async (row) => {
         tipo: reserva.tipo,
         piso: reserva.Piso,
         dpto: reserva.Dpto,
-        fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
+        fechaTurno: formatIsoToDmyNoTZ(reserva.fecha),
         horario: reserva.horario,
         fechaSolicitud: reserva.fechaSolicitud 
           ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 

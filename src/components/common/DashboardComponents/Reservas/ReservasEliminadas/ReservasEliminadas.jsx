@@ -175,7 +175,7 @@ const exportarAExcel = async () => {
 
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-    saveAs(blob, `Reservas Pendientes${dayjs().format('DD-MM-YYYY')}.xlsx`);
+    saveAs(blob, `Reservas Eliminadas${dayjs().format('DD-MM-YYYY')}.xlsx`);
     };
 
     //Ordenar alfabeticamente y ascendente y descendente: 
