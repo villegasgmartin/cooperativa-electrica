@@ -24,7 +24,7 @@ dayjs.locale({
 }, null, true);
 
 dayjs.locale('es-custom');
-
+ 
 export default function BasicDatePicker({
     fechaInstalacion,
     setFechaInstalacion,
