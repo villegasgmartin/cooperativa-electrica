@@ -43,7 +43,7 @@ export default function BasicDatePicker({
         : tipoInmueble === 'edificio'
             ? 5
             : tipoInmueble === 'casa' || tipoInmueble === 'ph'
-                ? 2
+                ? 3
                 : 0;
  
     const estilos = sinEstilo
