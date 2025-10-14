@@ -15,6 +15,8 @@ import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import logoMax from "../../../assets/images/logos/logo-max.jpg"
 import { Button} from '@mui/material';
 import { Link } from 'react-router-dom';
+import mapa from "../../../assets/images/nave/Mapa-Web-Nueva-Área-de-Cobertura-1.webp"
+import mapaMobile from "../../../assets/images/nave/Mapa-Web-Nueva-Área-de-Cobertura-1-9-16.webp"
 
 //JSX:
 const Nave = () => {
@@ -63,7 +65,7 @@ const Nave = () => {
   return (
     <>
       <Helmet>
-        <title>NAVE Internet</title>
+        <title>NAVE Internet | Cooperativa Electrica Mar del Plata</title>
       </Helmet>
       <header className="header-nave-container">
         <div className="header-contactos-container">
@@ -103,6 +105,17 @@ const Nave = () => {
       </Fade>
         <Fade triggerOnce={true} duration={800} delay={300} >
           <CardCarousel servicios={serviciosFiltrados}/>
+        </Fade>
+        <Fade>
+          <div className='mapa-div'>
+               <h2 className='nave-h2'>Zona de cobertura</h2>
+          <img className='img-mapa' src={mapa} alt="mapa de zona" />
+          </div>
+           <div className='mapa-div-mobile'>
+               <h2 className='nave-h2'>Zona de cobertura</h2>
+          <img className='img-mapa' src={mapaMobile} alt="mapa de zona" />
+          </div>
+        
         </Fade>
         <Fade triggerOnce={true} duration={800} delay={300}>
           <div className='nave-subcontainer'>

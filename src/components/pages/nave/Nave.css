@@ -306,3 +306,31 @@
         width: 6.25rem;
     }
 }
+
+.img-mapa{
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    padding-top: 30px;
+}
+.mapa-div{
+    text-align: center;
+    padding: 60px 0;
+}
+.mapa-div-mobile{
+    display: none;
+     text-align: center;
+    padding: 60px 0;
+}
+@media only screen and (max-width:768px){
+    .mapa-div-mobile{
+        display: block
+    }
+    .mapa-div{
+        display: none;
+    }
+    .img-mapa{
+        max-width: 90%;
+    }
+
+}
