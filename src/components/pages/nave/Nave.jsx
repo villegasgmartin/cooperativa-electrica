@@ -15,8 +15,8 @@ import BotonWhatsapp from '../../common/BotonWhatsapp/BotonWhatsapp';
 import logoMax from "../../../assets/images/logos/logo-max.jpg"
 import { Button} from '@mui/material';
 import { Link } from 'react-router-dom';
-import mapa from "../../../assets/images/nave/Mapa-Web-Nueva-Área-de-Cobertura-1.webp"
-import mapaMobile from "../../../assets/images/nave/Mapa-Web-Nueva-Área-de-Cobertura-1-9-16.webp"
+import mapa from "../../../assets/images/nave/mapa-desktop.webp"
+import mapaMobile from "../../../assets/images/nave/mapa-mobile.webp"
 
 //JSX:
 const Nave = () => {
