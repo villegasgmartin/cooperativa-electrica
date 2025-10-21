@@ -14,6 +14,7 @@ import LogoVittal from "../../../assets/images/logos/vittal-logo.png"
 import {Helmet} from "react-helmet"
 import { enviarFormularioVittal } from '../../../store/vittalSlice';
 import CloseIcon from '@mui/icons-material/Close';
+import FechaNacimiento from './fechaNacimiento';
 
 const Vital = () => {
   const dispatch = useDispatch();
@@ -221,9 +222,12 @@ Hace tu consulta sobre los beneficios de AMI
         <form className="mutual-form-container" onSubmit={handleSubmit}>
           
 
-          <TextField label="Apellido y Nombres *" name="nombre" value={formData.nombre} onChange={handleChange} fullWidth margin="normal" required />
+          <TextField className='first-input' label="Apellido y Nombres *" name="nombre" value={formData.nombre} onChange={handleChange} fullWidth margin="normal" required />
           <TextField label="DNI *" name="dni" value={formData.dni} onChange={handleChange} fullWidth margin="normal" required />
-          <TextField label="Fecha de Nacimiento *" name="fechaNacimiento" type="date" InputLabelProps={{ shrink: true }} value={formData.fechaNacimiento} onChange={handleChange} fullWidth margin="normal" required />
+          {/* <TextField label="Fecha de Nacimiento *" name="fechaNacimiento" type="date" InputLabelProps={{ shrink: true }} value={formData.fechaNacimiento} onChange={handleChange} fullWidth margin="normal" required /> */}
+          
+            <FechaNacimiento formData={formData} setFormData={setFormData} />
+         
           <TextField label="Teléfono *" name="telefono" value={formData.telefono} onChange={handleChange} fullWidth margin="normal" required />
           <TextField label="Dirección *" name="direccion" value={formData.direccion} onChange={handleChange} fullWidth margin="normal" required />
           <TextField label="Número de Asociado *" name="numeroAsociado" value={formData.numeroAsociado} onChange={handleChange} fullWidth margin="normal" />
@@ -260,7 +264,16 @@ Hace tu consulta sobre los beneficios de AMI
               </Typography>
               <TextField className='adherente-input' label="Apellido y Nombre" name="nombre" value={adherente.nombre} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" />
               <TextField className='adherente-input'  label="DNI" name="dni" value={adherente.dni} onChange={(e) => handleAdherenteChange(index, e)} fullWidth margin="normal" />
-              <TextField  className='adherente-input'  label="Fecha de Nacimiento" type="date" name="fechaNacimiento" value={adherente.fechaNacimiento} onChange={(e) => handleAdherenteChange(index, e)} InputLabelProps={{ shrink: true }} fullWidth margin="normal"  />
+              {/* <TextField  className='adherente-input'  label="Fecha de Nacimiento" type="date" name="fechaNacimiento" value={adherente.fechaNacimiento} onChange={(e) => handleAdherenteChange(index, e)} InputLabelProps={{ shrink: true }} fullWidth margin="normal"  /> */}
+
+              <FechaNacimiento
+                    formData={adherente}
+                    setFormData={(newData) => {
+                      const updated = [...adherentes];
+                      updated[index] = newData;
+                      setAdherentes(updated);
+                    }}
+                  />
               <TextField className='adherente-input'  label="Parentesco con el Titular" name="parentesco" value={adherente.parentesco} onChange={(e) => handleAdherenteChange(index, e)} select fullWidth margin="normal" >
                 {["Hijo/a", "Padre/Madre", "Hermano/a", "Sobrino/a", "Abuelo/a", "Tío/a", "Nieto/a", "Yerno/Nuera", "Otro", "Ajeno", "Grupo Familiar", "Individual"].map((op) => (
                   <MenuItem key={op} value={op}>{op}</MenuItem>
