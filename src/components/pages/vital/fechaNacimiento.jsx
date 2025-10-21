@@ -43,7 +43,7 @@ const FechaNacimiento = ({ formData, setFormData }) => {
     >
       
       {/* Día */}
-      <FormControl required sx={{ minWidth:{sm:150, xs:105} , maxWidth: {sm:160, xs:"100%"}, flex: "1 1 auto" }}>
+      <FormControl required sx={{ minWidth:{sm:150, xs:100} , maxWidth: {sm:160, xs:"100%"}, flex: "1 1 auto" }}>
          
         <InputLabel>Día</InputLabel>
         <Select
@@ -60,7 +60,7 @@ const FechaNacimiento = ({ formData, setFormData }) => {
       </FormControl>
 
       {/* Mes */}
-      <FormControl required sx={{ minWidth:{sm:150, xs:105},  maxWidth: {sm:160, xs:"100%"}, flex: "1 1 auto" }}>
+      <FormControl required sx={{ minWidth:{sm:150, xs:100},  maxWidth: {sm:160, xs:"100%"}, flex: "1 1 auto" }}>
         <InputLabel>Mes</InputLabel>
         <Select
           name="mes"
@@ -75,7 +75,7 @@ const FechaNacimiento = ({ formData, setFormData }) => {
       </FormControl>
 
       {/* Año */}
-      <FormControl required sx={{ minWidth:{sm:150, xs:105},  maxWidth: {sm:160, xs:"100%"}, flex: "1 1 auto" }}>
+      <FormControl required sx={{ minWidth:{sm:150, xs:100},  maxWidth: {sm:160, xs:"100%"}, flex: "1 1 auto" }}>
         <InputLabel>Año</InputLabel>
         <Select
           name="anio"

@@ -290,7 +290,7 @@
         width: 90%;
     }
     .Adherentes{
-        max-width: 90%; 
+        max-width: 100%; 
         }
     /* .mutual-form-container div.MuiFormControl-root:not(.adherente-input) {
          width: 90%;
