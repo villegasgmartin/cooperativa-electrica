@@ -67,19 +67,16 @@ Importante: No debe contar con facturas vencidas para adherirse a esta modalidad
           <p>&quot;Puede abonar sus facturas de servicio eléctrico y NAVE Internet con tarjetas de débito y crédito (en 1 pago) en la Caja 1 de la Sede de Alberti 3600. El Servicio NAVE Internet puede abonarse con tarjeta de débito o crédito en las oficinas comerciales de calle 20 de septiembre 2638.</p>
         </AccordionDetails>
       </Accordion>
-      {/* <Accordion>
-        <AccordionSummary>Link Pagos</AccordionSummary>
+      <Accordion>
+        <AccordionSummary>Débito Automático</AccordionSummary>
         <AccordionDetails>
-        <p className='FormasPago-accordion-content'>También puede abonar la factura de servicio eléctrico y de Internet, ingresando al Home Banking de su Banco</p>
-        <ol>
-          <li className='FormasPago-accordion-content'>Ingresá a Homebanking</li>
-          <li className='FormasPago-accordion-content'>Seleccioná por rubro: Luz, Agua, Gas</li>
-          <li className='FormasPago-accordion-content'>Seleccioná por Ente: Cooperativa de Electricidad Mar del Plata</li>
-          <li className='FormasPago-accordion-content'>Ingresá el código de pagos <strong>( ¿donde encuentro mi código de pagos? haga click <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_energia_yef0tt.png" target='_blank'  className='FormasPago-accordion-link'>aquí para Servicio Eléctrico</a> y <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1728488740/cooperativa/Click_para_ver_factura_de_NAVE_qclwju.png" target='_blank' className='FormasPago-accordion-link'>aquí para Nave Internet</a> )</strong></li>
-        </ol>
-        <strong className='FormasPago-accordion-content'>*Recuerde que no debe tener facturas vencidas para poder adherirse</strong>
+        <p className='FormasPago-accordion-content'>Registre su CBU (Clave Bancaria Uniforme) en nuestra oficina virtual https://oficinavirtual-coopmdp.micoop.com.ar/v2/login</p>
+
+<p className='FormasPago-accordion-content'>*La CVU (Clave Virtual Uniforme) no es válida para esta modalidad de cobro.</p>
+       
+     
         </AccordionDetails>
-      </Accordion> */}
+      </Accordion>
       {/* <Accordion>
         <AccordionSummary>En caso de abonar con Cheque</AccordionSummary>
         <AccordionDetails>
