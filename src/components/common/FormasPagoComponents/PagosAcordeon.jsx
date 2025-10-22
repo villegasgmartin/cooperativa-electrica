@@ -70,7 +70,7 @@ Importante: No debe contar con facturas vencidas para adherirse a esta modalidad
       <Accordion>
         <AccordionSummary>Débito Automático</AccordionSummary>
         <AccordionDetails>
-        <p className='FormasPago-accordion-content'>Registre su CBU (Clave Bancaria Uniforme) en nuestra oficina virtual https://oficinavirtual-coopmdp.micoop.com.ar/v2/login</p>
+        <p className='FormasPago-accordion-content'>Registre su CBU (Clave Bancaria Uniforme) en nuestra <a href="https://oficinavirtual-coopmdp.micoop.com.ar/v2/login" target='_blanck'>oficina virtual</a> </p>
 
 <p className='FormasPago-accordion-content'>*La CVU (Clave Virtual Uniforme) no es válida para esta modalidad de cobro.</p>
        
