@@ -125,7 +125,7 @@ const Mutual = () => {
               <p className='mutual-text01'>MUTUAL</p>
               <p className='mutual-text02'>para tu<span className='mutual-text03'>familia</span></p>
             </div>
-            <form className='mutual-form-container' onSubmit={handleSubmit}>
+            <form className='mutual-form-container-mutual' onSubmit={handleSubmit}>
               <p className='mutual-form'>Hace tu consulta sobre los beneficios de AMI</p>
               <TextField
                 label="Nombre y Apellido"
@@ -196,6 +196,7 @@ const Mutual = () => {
                   },
                 }}
               />
+              <br />
               <div className='mutual-button'>
                 <Button sx={{ 
                     width: "100%",
@@ -215,7 +216,7 @@ const Mutual = () => {
                   type='submit'
                   disabled={loading}
                 >
-                  {loading ? 'Enviando...' : 'Enviar'}
+                  {loading ? 'Enviando...' : 'Consultar'}
                 </Button>
               </div>
             </form>

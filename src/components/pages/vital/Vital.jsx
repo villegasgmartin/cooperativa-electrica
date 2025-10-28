@@ -303,7 +303,7 @@ Hace tu consulta sobre los beneficios de AMI
                   }} 
                   size='large'
           type="submit" variant="contained" color="primary" fullWidth disabled={loading}>
-            {loading ? "Enviando..." : "Enviar"}
+            {loading ? "Enviando..." : "Solicitar"}
           </Button>
           </div>
           

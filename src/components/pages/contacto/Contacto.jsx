@@ -211,7 +211,7 @@ const Contacto = () => {
                 size='large'
                 type='submit'
               >
-                Enviar
+                Contactar
               </Button>
             </div>
           </form>
