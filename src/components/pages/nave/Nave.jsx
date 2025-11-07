@@ -105,10 +105,12 @@ const Nave = () => {
       </Fade>
         <Fade triggerOnce={true} duration={800} delay={300} >
           <CardCarousel servicios={serviciosFiltrados}/>
+           <p className='leyenda'>*Los descuentos tienen una duración de 12 meses. El porcentaje de descuento se mantiene fijo, pero el precio de lista puede variar. Cualquier actualización se informa con un mes de anticipación y figura en la factura de NAVE.</p>
         </Fade>
         <Fade>
+         
           <div className='mapa-div'>
-               <h2 className='nave-h2'>Zona de cobertura</h2>
+               <p className='nave-h2'>Zona de cobertura</p>
           <img className='img-mapa' src={mapa} alt="mapa de zona" />
           </div>
            <div className='mapa-div-mobile'>
