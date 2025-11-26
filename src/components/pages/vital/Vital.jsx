@@ -334,6 +334,33 @@ Hace tu consulta sobre los beneficios de AMI
           </Box>
         </Modal>
       </section>
+       <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+          <div className='mutual-enlace'>
+            <p className='mutual-enlace-text'>PROFESIONALES DE LA <strong>SALUD</strong> y FARMACIAS ADHERIDAS</p>
+            <div className='mutual-button-container'>
+              <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1764155987/Noviembre_hgsjgb.pdf" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
+              <Button sx={{ 
+                    width: "100%",
+                    height: "70px",
+                    fontFamily: "interTight",
+                    marginTop: "20px",
+                    fontSize: "30px",
+                    letterSpacing: "1px",
+                    borderRadius: "50px",
+                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                    textTransform: "none",
+                    color:"white",
+                    backgroundColor: "#8048ff",
+                  }} 
+                  variant='contained' 
+                  size='large'
+                >
+                  Ver aquí
+                </Button>
+              </a>
+            </div>
+          </div>
+        </Fade>
       <Footer />
     </>
   );
