@@ -321,7 +321,7 @@ const Preguntas = () => {
                    <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
                     <div className='preguntas-usuarios-text'>
                         <h3 className='preguntas-usuarios-title'>Canal de comunicacion</h3>
-                        <p className='preguntas-usuarios-description'>Contacta a nuestro nueval canal de Whatsapp</p>
+                        <p className='preguntas-usuarios-description'>Contacta a nuestro nuevo canal de Whatsapp</p>
                         <h3 className='contacto-number'><a href="https://wa.link/583s3n" target="_blank" rel="noopener noreferrer"> 223 540-5430</a></h3>
                     </div>
                 </Fade>
