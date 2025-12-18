@@ -338,7 +338,7 @@ Hace tu consulta sobre los beneficios de AMI
           <div className='mutual-enlace'>
             <p className='mutual-enlace-text'>PROFESIONALES DE LA <strong>SALUD</strong> y FARMACIAS ADHERIDAS</p>
             <div className='mutual-button-container'>
-              <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1764155987/Noviembre_hgsjgb.pdf" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
+              <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/Dic25.pdf" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
               <Button sx={{ 
                     width: "100%",
                     height: "70px",
