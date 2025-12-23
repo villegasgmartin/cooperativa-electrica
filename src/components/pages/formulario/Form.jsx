@@ -182,10 +182,9 @@ const Form = () => {
         try {
             const coordenadas = await getCoordinates(direccion);
             const ciudad = coordenadas.city.long_name
-            console.log("coordenadas",coordenadas)
             const direccionCompleta = coordenadas.address;
             const espana = verificarEspana(direccion);
-            if(ciudad != 'Mar del Plata' && !direccionCompleta.includes('Mar del Plata')){
+          if (ciudad !== 'Mar del Plata' && ciudad !== 'General Pueyrredón' && !direccionCompleta.includes('Mar del Plata')) {
                 return alert('Servicio no disponible fuera de Mar del Plata')
             }
             setDireccionValidada(true)
