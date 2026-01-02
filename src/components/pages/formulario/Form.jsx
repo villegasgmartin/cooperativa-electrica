@@ -859,7 +859,7 @@ const Form = () => {
                                         value="Pack adicional"
                                         disabled={planInternet === 'Ninguno'}
                                     >
-                                        Pack TV adicional $8000
+                                        Pack TV adicional $10000
                                     </MenuItem>
                                     <MenuItem
                                         value="Ninguno"
@@ -896,7 +896,7 @@ const Form = () => {
                                     value="Futbol fuera de zona"
                                     disabled={planInternet === 'Ninguno'}
                                 >
-                                     TV  $10000
+                                     TV  $12000
                                 </MenuItem>
                                 <MenuItem
                                     value="Ninguno"
