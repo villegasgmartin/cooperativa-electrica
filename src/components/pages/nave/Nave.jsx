@@ -31,7 +31,7 @@ const Nave = () => {
     { servicio: "INTERNET 600 MB", precio: "$15.405", /*precioLista: "$21.381",*/ descuento: "$19.201 OFF por 12 meses", categoria: "internet" },
 
     { servicio: "INTERNET 1000 MB", precio: "$18.000", /*precioLista: "$26.795",*/ descuento: "$22.436 OFF por 12 meses", categoria: "internet" },
-    { servicio: "PACK TV", precio: "9.999", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv", descripcion: (
+    { servicio: "PACK TV", precio: "$12.000", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv", descripcion: (
       <>
         Tv Full + Futbol + 
         <img 
@@ -48,7 +48,7 @@ const Nave = () => {
       </>
     )
   },
-    { servicio: "PACK TV Nave", precio: "$8.000", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por tener Internet Nave`},
+    { servicio: "PACK TV Nave", precio: "$10.000", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por tener Internet Nave`},
   ];
 
   const [serviciosFiltrados, setServiciosFiltrados] = useState(serviciosNave);
