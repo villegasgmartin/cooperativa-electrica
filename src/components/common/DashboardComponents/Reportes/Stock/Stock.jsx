@@ -138,7 +138,7 @@ export default function GestionInventario() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h4" sx={{ fontFamily: 'InterTight' }}>Inventario Técnico</Typography>
         <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpen()}>
-          Nuevo Retiro
+          Agregar Stock
         </Button>
       </Box>
 
