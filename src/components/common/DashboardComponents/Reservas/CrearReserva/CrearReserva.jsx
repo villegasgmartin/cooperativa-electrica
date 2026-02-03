@@ -22,6 +22,7 @@ const Form = () => {
     const [direccion, setDireccion] = useState('');
     const [isLoaded, setIsLoaded] = useState(false);
     const [coberturaMensaje, setCoberturaMensaje] = useState('');
+    const username = localStorage.getItem('username') || "Web";
     const [tipoInmueble, setTipoInmueble] = useState({
         casa: false,
         edificio: false,
@@ -256,7 +257,8 @@ const Form = () => {
                     email: formData.email,
                     telefono: formData.telefono,
                     tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
-                    esTV: true
+                    esTV: true, 
+                    usermane: username
                 };
                     try {
                         await dispatch(createReservaTV(dataToSend));

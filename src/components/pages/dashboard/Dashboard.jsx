@@ -10,6 +10,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import BookIcon from '@mui/icons-material/Book';
 import PeopleIcon from '@mui/icons-material/People';
 import BuildIcon from '@mui/icons-material/Build';
+import SummarizeIcon from '@mui/icons-material/Summarize';
 import { Helmet } from 'react-helmet';
 import logo from '../../../assets/images/logos/logo-dashboard.png';
 import { CircularProgress, Box } from '@mui/material';
@@ -25,6 +26,7 @@ import Usuarios from '../../common/DashboardComponents/Usuarios/Usuarios';
 import BlogEdit from '../../common/DashboardComponents/BlogEdit/BlogEdit';
 import AreaTecnica from '../../common/DashboardComponents/AreaTecnica/AreaTecnica';
 import Logout from '../../common/DashboardComponents/Logout/Logout';
+import Reportes from '../../common/DashboardComponents/Reportes/Reportes';
 
 // Tema:
 const demoTheme = createTheme({
@@ -71,6 +73,8 @@ function DemoPageContent({ pathname }) {
       return <BlogEdit />;
     case '/area-tecnica':
       return <AreaTecnica />;
+    case '/reportes':
+      return <Reportes />;
     default:
       return <DashboardHome />;
   }
@@ -135,6 +139,7 @@ function Dashboard(props) {
           { segment: 'blogs', title: 'Blogs', icon: <BookIcon /> },
           { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
           { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
+          { segment: 'reportes', title: 'Reporte/Stock', icon: <SummarizeIcon /> },
         ];
       } else if (user.rol === 'USER_EMPLOYE') {
         if (user.reservas) {

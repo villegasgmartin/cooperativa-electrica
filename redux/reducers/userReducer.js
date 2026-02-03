@@ -24,6 +24,7 @@ import {
     EDIT_USER_REQUEST,
     EDIT_USER_SUCCESS,
     EDIT_USER_FAIL,
+    FETCH_REPORTS
 } from '../actions/userActions';
 
 // Estado inicial
@@ -40,7 +41,8 @@ const initialState = {
         success: false,
         error: null,
     },
-    users: [],           
+    users: [],
+    reporte: [],           
     loadingUsers: false, 
     errorUsers: null,
 };
@@ -111,6 +113,7 @@ const userReducer = (state = initialState, action) => {
                 ...state,
                 errorUsers: action.payload,
             };
+        
 
         // Acciones para obtener usuarios activos
         case FETCH_ACTIVE_USERS_REQUEST:
@@ -135,6 +138,8 @@ const userReducer = (state = initialState, action) => {
             return { ...state, users: state.users.map(user => user.uid === action.payload.userId ? { ...user, ...action.payload.updatedData } : user),};
         case EDIT_USER_FAIL:
             return { ...state, errorUsers: action.payload };
+        case FETCH_REPORTS:
+            return {...state, reporte: action.payload || []}
 
         // Estado por defecto
         default:

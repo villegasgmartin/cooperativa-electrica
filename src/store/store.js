@@ -9,6 +9,7 @@ import userReducer from "../../redux/reducers/userReducer"
 import tecnicaReducer from '../../redux/reducers/tecnicaReducer';
 import reservasReducer from '../../redux/reducers/reservasReducer';
 import formReducer from '../../redux/reducers/formReducers';
+import stockReducer from '../../redux/reducers/stockReducer';
 
 const store = configureStore({
   reducer: {
@@ -20,7 +21,8 @@ const store = configureStore({
     user: userReducer,
     tecnica: tecnicaReducer,
     reservas: reservasReducer,
-    form: formReducer
+    form: formReducer,
+    stock: stockReducer
   },
 });
 

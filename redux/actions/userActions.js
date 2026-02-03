@@ -43,6 +43,9 @@ export const EDIT_USER_REQUEST = 'EDIT_USER_REQUEST';
 export const EDIT_USER_SUCCESS = 'EDIT_USER_SUCCESS';
 export const EDIT_USER_FAIL = 'EDIT_USER_FAIL';
 
+//reportes 
+export const FETCH_REPORTS = 'FETCH_REPORTS';
+
 //Función GET para traer usuario por ID:
 export const fetchUserProfile = () => {
     return async (dispatch) => {
@@ -237,4 +240,22 @@ export const editUser = (userId, updatedData) => {
         console.error('Error al editar el usuario:', error);
         }
     };
+};
+
+//Obtener reportes 
+export const fetchreportes = () => async (dispatch) => {
+    try {
+        const response = await axios.get(`${url}/api/reportes`, {
+        headers: { 'x-token': localStorage.getItem('token') },
+        });
+
+        const reportes = response.data.reportes || response.data
+
+        dispatch({
+            type: FETCH_REPORTS,
+            payload: reportes,
+        });
+    } catch (error) {
+        console.log(error)
+    }
 };
