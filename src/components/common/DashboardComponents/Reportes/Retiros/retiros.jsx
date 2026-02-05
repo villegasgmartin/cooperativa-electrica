@@ -11,7 +11,10 @@ import {
   TextField,
   Box,
   Button,
-  TablePagination
+  TablePagination,
+  InputLabel,
+  Select,
+  MenuItem
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getHistorialRetiros } from "../../../../../../redux/actions/stockAction";
@@ -29,6 +32,7 @@ const Retiros = () => {
   const [busqueda, setBusqueda] = useState("");
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
+  const [terciarizado, setTerciarizado] = useState("");
 
   // ---- PAGINADO ----
   const [page, setPage] = useState(0);
@@ -43,6 +47,7 @@ const Retiros = () => {
     setBusqueda("");
     setDesde("");
     setHasta("");
+    setTerciarizado("");
   };
 
   // ---- FILTRO INTELIGENTE ----
@@ -67,9 +72,13 @@ const Retiros = () => {
         ? fechaReporte <= new Date(hasta + "T23:59:59")
         : true;
 
-      return coincideTexto && coincideDesde && coincideHasta;
+      const coincideterciarizado =
+  terciarizado === "" ? true : r.terciarizado === terciarizado;
+
+
+      return coincideTexto && coincideDesde && coincideHasta && coincideterciarizado;
     });
-  }, [reportes, busqueda, desde, hasta]);
+  }, [reportes, busqueda, desde, hasta, terciarizado]);
 
   // ---- RESET PAGINA SI CAMBIA FILTRO ----
   useEffect(() => {
@@ -116,6 +125,22 @@ const Retiros = () => {
           onChange={(e) => setHasta(e.target.value)}
         />
 
+       <InputLabel id="terciarizado-label">Terciarizado</InputLabel>
+        <Select
+          labelId="terciarizado-label"
+          value={terciarizado}
+          label="Terciarizado"
+          size="small"
+          onChange={(e) => setTerciarizado(e.target.value)}
+          sx={{ minWidth: 140 }}
+        >
+          <MenuItem value="">Todos</MenuItem>
+          <MenuItem value={true}>Si</MenuItem>
+          <MenuItem value={false}>No</MenuItem>
+        </Select>
+
+                    
+
         <Button
           variant="outlined"
          
@@ -133,7 +158,7 @@ const Retiros = () => {
             <TableCell>Categoria</TableCell>
             <TableCell>Descripcion</TableCell>
             <TableCell>Acción</TableCell>
-            <TableCell>terciarizado</TableCell>
+            <TableCell>Terciarizado</TableCell>
             <TableCell>Fecha</TableCell>
           </TableRow>
         </TableHead>
