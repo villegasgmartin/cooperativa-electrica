@@ -278,6 +278,7 @@ const exportarAExcel = async () => {
                 row.direccion?.toLowerCase().includes(query) ||
                 row.telefono?.toLowerCase().includes(query) ||
                 row.email?.toLowerCase().includes(query) ||
+                row.DNI?.includes(query) ||
                 row.tipo?.toLowerCase().includes(query)
             );
             })

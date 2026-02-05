@@ -2,6 +2,7 @@ import React from "react";
 import { Box, Tabs, Tab, Typography } from "@mui/material";
 import Acciones from "./Historial/acciones.jsx";
 import Stock from "./Stock/Stock.jsx";
+import Retiros from "./Retiros/retiros.jsx";
 
 function TabPanel({ children, value, index }) {
   return (
@@ -23,6 +24,7 @@ const Reportes = () => {
       <Tabs value={value} onChange={(_, v) => setValue(v)}>
         <Tab label="Historial de acciones" />
         <Tab label="Stock" />
+        <Tab label="Historial de retiros" />
       </Tabs>
 
       <TabPanel value={value} index={0}>
@@ -31,6 +33,9 @@ const Reportes = () => {
 
       <TabPanel value={value} index={1}>
         <Stock />
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+        <Retiros />
       </TabPanel>
     </Box>
   );

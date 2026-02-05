@@ -12,6 +12,7 @@ export const DELETE_STOCK_REQUEST = 'DELETE_STOCK_REQUEST'
 export const DELETE_STOCK_SUCCESS = 'DELETE_STOCK_SUCCESS'
 export const DELETE_STOCK_FAILURE = 'DELETE_STOCK_FAILURE'
 export const PUT_STOCK_FAILURE = 'PUT_STOCK_FAILURE'
+export const GET_RETIROS_SUCCESS = 'GET_RETIROS_SUCCESS'
 
 
 
@@ -36,6 +37,26 @@ export const getStock = () => async (dispatch) => {
         dispatch({
             type: GET_STOCK_FAILURE,
             payload: error.response?.data?.msg || 'Error al obtener stock',
+        });
+    }
+};
+
+//get historial
+export const getHistorialRetiros = () => async (dispatch) => {
+    dispatch({ type: GET_STOCK_REQUEST });
+    try {
+        const response = await axios.get(`${url}/api/stock/historial`, {
+            headers: { 'x-token': localStorage.getItem('token') },
+        });
+
+        dispatch({
+            type: GET_RETIROS_SUCCESS,
+            payload: response.data.historial || response.data,
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_STOCK_FAILURE,
+            payload: error.response?.data?.msg || 'Error al obtener historial',
         });
     }
 };

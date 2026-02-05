@@ -10,7 +10,8 @@ import {
     PUT_STOCK_FAILURE,
     DELETE_STOCK_REQUEST,
     DELETE_STOCK_SUCCESS,
-    DELETE_STOCK_FAILURE
+    DELETE_STOCK_FAILURE,
+    GET_RETIROS_SUCCESS
 } from '../actions/stockAction';
 
 const initialState = {
@@ -41,14 +42,28 @@ const stockReducer = (state = initialState, action) => {
                 success: true
             };
 
-        case POST_STOCK_SUCCESS:
+          case GET_RETIROS_SUCCESS:
             return {
                 ...state,
                 loading: false,
-                items: [...state.items, action.payload],
+                items: action.payload,
                 success: true
             };
 
+        case POST_STOCK_SUCCESS:{
+            const existeItem = state.items.some((item) => item._id === action.payload._id);
+            
+            return {
+                ...state,
+                loading: false,
+                items: existeItem
+                    ? state.items.map((item) =>
+                        item._id === action.payload._id ? action.payload : item
+                      )
+                    : [...state.items, action.payload],
+                success: true
+            };
+        }
         case PUT_STOCK_SUCCESS:
             return {
                 ...state,

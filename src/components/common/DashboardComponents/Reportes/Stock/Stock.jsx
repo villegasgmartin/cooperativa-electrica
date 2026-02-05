@@ -39,7 +39,8 @@ export default function GestionInventario() {
     categoria: '',
     descripcion: '',
     enStock: 0,
-    terciarizado: false
+    terciarizado: false,
+    deposito: ''
   });
 
   useEffect(() => {
@@ -105,22 +106,22 @@ export default function GestionInventario() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "terciarizado") {
+    if (name == "terciarizado") {
       setFormData({ ...formData, [name]: value === "Si" });
     } else {
       setFormData({ ...formData, [name]: value });
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async() => {
     if (!formData.categoria || !formData.descripcion) return;
 
     if (editMode) {
-      dispatch(putStock(formData.id, { enStock: formData.enStock }));
+      dispatch(putStock(formData.id, { enStock: formData.enStock, terciarizado: formData.terciarizado }));
     } else {
       dispatch(postStock(formData));
     }
-
+    await dispatch(getStock());
     handleClose();
   };
 
@@ -154,7 +155,9 @@ export default function GestionInventario() {
             <TableHead>
               <TableRow>
                 <TableCell>Descripción</TableCell>
-                <TableCell align="right">En Stock</TableCell>
+                <TableCell align="center">En Stock</TableCell>
+                <TableCell align="center">Terciarizado</TableCell>
+                <TableCell align="center">Deposito</TableCell>
                 <TableCell align="center">Acciones</TableCell>
               </TableRow>
             </TableHead>
@@ -162,7 +165,9 @@ export default function GestionInventario() {
               {itemsPorCategoria(cat).map((item) => (
                 <TableRow key={item._id}>
                   <TableCell>{item.descripcion}</TableCell>
-                  <TableCell align="right">{item.enStock}</TableCell>
+                  <TableCell align="center">{item.enStock}</TableCell>
+                  <TableCell align="center">{item.terciarizado ? 'Si': 'No'}</TableCell>
+                   <TableCell align="center">{item.deposito}</TableCell>
                   <TableCell align="center">
                     <IconButton onClick={() => handleOpen(item)} color="primary">
                       <EditIcon />
@@ -201,6 +206,8 @@ export default function GestionInventario() {
 
           {/* Select de descripción según categoría elegida */}
           {formData.categoria && !editMode && (
+            <>
+            
             <FormControl fullWidth>
               <InputLabel>Descripción</InputLabel>
               <Select
@@ -214,6 +221,20 @@ export default function GestionInventario() {
                 ))}
               </Select>
             </FormControl>
+            <FormControl fullWidth>
+              <InputLabel>Deposito</InputLabel>
+            <Select
+              name="deposito"
+              value={formData.deposito}
+              label="deposito"
+              onChange={handleChange}
+            >
+            <MenuItem value="1">1</MenuItem>
+            <MenuItem value="Nave">Nave</MenuItem>
+            <MenuItem value="Oficina">Oficina</MenuItem>
+            </Select>
+            </FormControl>
+            </>
           )}
 
           {/* Cantidad a retirar / stock */}
