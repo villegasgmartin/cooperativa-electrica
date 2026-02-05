@@ -18,6 +18,12 @@ import {
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { getHistorialRetiros } from "../../../../../../redux/actions/stockAction";
+import ExcelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import dayjs from 'dayjs';
+import DownloadIcon from '@mui/icons-material/Download';
+
+
 
 const Retiros = () => {
   const dispatch = useDispatch();
@@ -91,6 +97,72 @@ const Retiros = () => {
     page * rowsPerPage + rowsPerPage
   );
 
+  const exportarAExcel = async () => {
+  const workbook = new ExcelJS.Workbook();
+  const worksheet = workbook.addWorksheet('Historial de Retiros');
+
+  // Columnas
+  worksheet.columns = [
+    { header: 'Responsable', key: 'quienRetira', width: 25 },
+    { header: 'Categoría', key: 'categoria', width: 20 },
+    { header: 'Descripción', key: 'descripcion', width: 30 },
+    { header: 'Acción / Cantidad', key: 'accion', width: 20 },
+    { header: 'Terciarizado', key: 'terciarizado', width: 15 },
+    { header: 'Fecha', key: 'fecha', width: 20 },
+  ];
+
+  // Estilo de encabezado
+  worksheet.getRow(1).eachCell((cell) => {
+    cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+    cell.fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FF12824C' },
+    };
+    cell.alignment = { vertical: 'middle', horizontal: 'center' };
+    cell.border = {
+      top: { style: 'thin' },
+      left: { style: 'thin' },
+      bottom: { style: 'thin' },
+      right: { style: 'thin' },
+    };
+  });
+
+  // Datos filtrados
+  historialFiltrado.forEach((r) => {
+    worksheet.addRow({
+      quienRetira: r.quienRetira,
+      categoria: r.categoria,
+      descripcion: r.descripcion,
+      accion: `${r.accion} / cant:${r.enStock || ''}`,
+      terciarizado: r.terciarizado ? 'Si' : 'No',
+      fecha: new Date(r.fecha).toLocaleString(),
+    });
+  });
+
+  // Estilo de celdas
+  worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+    if (rowNumber === 1) return; // encabezado
+    row.eachCell((cell) => {
+      cell.alignment = { vertical: 'middle', horizontal: 'center' };
+      cell.border = {
+        top: { style: 'thin' },
+        left: { style: 'thin' },
+        bottom: { style: 'thin' },
+        right: { style: 'thin' },
+      };
+    });
+  });
+
+  const buffer = await workbook.xlsx.writeBuffer();
+  const blob = new Blob([buffer], {
+    type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+  });
+
+  saveAs(blob, `Historial Retiros ${dayjs().format('DD-MM-YYYY')}.xlsx`);
+};
+
+
   return (
     <TableContainer component={Paper}>
       <Typography sx={{ p: 2, fontFamily: "interTight" }} variant="h6">
@@ -138,6 +210,15 @@ const Retiros = () => {
           <MenuItem value={true}>Si</MenuItem>
           <MenuItem value={false}>No</MenuItem>
         </Select>
+
+        <Button
+          variant="outlined"
+          color="success"
+          startIcon={<DownloadIcon />}
+          onClick={exportarAExcel}
+        >
+          Exportar Excel
+        </Button>
 
                     
 
