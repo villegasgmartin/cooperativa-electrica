@@ -22,6 +22,10 @@ import {
   InputLabel,
   TableRow
 } from '@mui/material';
+import Collapse from '@mui/material/Collapse';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
@@ -31,6 +35,7 @@ import { getStock, putStock, deleteStock, postStock } from '../../../../../../re
 export default function GestionInventario() {
   const dispatch = useDispatch();
   const { items, loading } = useSelector((state) => state.stock);
+  const [openRows, setOpenRows] = useState({});
 
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -48,6 +53,35 @@ export default function GestionInventario() {
   useEffect(() => {
     dispatch(getStock());
   }, [dispatch]);
+
+  const agruparItems = (items) => {
+  const grouped = {};
+
+  items.forEach(item => {
+    const key = item.descripcion;
+
+    if (!grouped[key]) {
+      grouped[key] = {
+        descripcion: item.descripcion,
+        categoria: item.categoria,
+        total: 0,
+        items: []
+      };
+    }
+
+    grouped[key].total += Number(item.enStock);
+    grouped[key].items.push(item);
+  });
+
+  return Object.values(grouped);
+};
+
+const toggleRow = (desc) => {
+  setOpenRows(prev => ({
+    ...prev,
+    [desc]: !prev[desc]
+  }));
+};
 
   const categorias = {
     "INSTALACIONES DOMICILIARIAS": [
@@ -190,30 +224,62 @@ export default function GestionInventario() {
             <TableHead>
               <TableRow>
                 <TableCell>Descripción</TableCell>
-                <TableCell align="center">En Stock</TableCell>
-                <TableCell align="center">Terciarizado</TableCell>
+                <TableCell align="center">Cantidad</TableCell>
                 <TableCell align="center">Deposito</TableCell>
                 <TableCell align="center">Acciones</TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
-              {itemsPorCategoria(cat).map((item) => (
-                <TableRow key={item._id}>
-                  <TableCell>{item.descripcion}</TableCell>
-                  <TableCell align="center">{item.enStock}</TableCell>
-                  <TableCell align="center">{item.terciarizado ? 'Si': 'No'}</TableCell>
-                   <TableCell align="center">{item.deposito}</TableCell>
-                  <TableCell align="center">
-                    <IconButton onClick={() => handleOpen(item)} color="primary">
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={() => handleDelete(item._id)} color="error">
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
+          <TableBody>
+  {agruparItems(itemsPorCategoria(cat)).map((grupo) => (
+    <React.Fragment key={grupo.descripcion}>
+
+      {/* FILA GLOBAL */}
+      <TableRow>
+        <TableCell>
+          <IconButton size="small" onClick={() => toggleRow(grupo.descripcion)}>
+            {openRows[grupo.descripcion] ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
+          </IconButton>
+          {grupo.descripcion}
+        </TableCell>
+
+        <TableCell align="center">{grupo.total}</TableCell>
+        <TableCell align="center">-</TableCell>
+        <TableCell align="center">-</TableCell>
+        <TableCell align="center">-</TableCell>
+        <TableCell align="center"></TableCell>
+      </TableRow>
+
+      {/* FILAS INTERNAS */}
+      <TableRow>
+        <TableCell colSpan={6} sx={{ p: 0 }}>
+          <Collapse in={openRows[grupo.descripcion]} timeout="auto" unmountOnExit>
+            <Table size="small">
+              <TableBody>
+                {grupo.items.map((item) => (
+                  <TableRow key={item._id}>
+                    <TableCell sx={{ pl: 6 }}>{item.descripcion}</TableCell>
+                    <TableCell align="center">{item.enStock}</TableCell>
+                    <TableCell align="center">{item.deposito}</TableCell>
+                    <TableCell align="center">
+                      <IconButton onClick={() => handleOpen(item)} color="primary">
+                        <EditIcon />
+                      </IconButton>
+                      <IconButton onClick={() => handleDelete(item._id)} color="error">
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+
+    </React.Fragment>
+  ))}
+</TableBody>
+
           </Table>
         </TableContainer>
       ))}
@@ -264,36 +330,55 @@ export default function GestionInventario() {
               label="deposito"
               onChange={handleChange}
             >
-            <MenuItem value="1">1</MenuItem>
+            <MenuItem value="General">General</MenuItem>
             <MenuItem value="Nave">Nave</MenuItem>
             <MenuItem value="Oficina">Oficina</MenuItem>
             </Select>
             </FormControl>
+            <TextField
+                name="enStock"
+                label="Stock"
+                type="number"
+                fullWidth
+                value={formData.enStock}
+              
+                onChange={handleChange}
+          
+              />
             </>
+            
           )}
 
+          {
+            editMode && (
+              <> 
+            <br />
+              <TextField
+                name="cantidadAgregada"
+                label="Ingresar Stock"
+                type="number"
+                fullWidth
+                value={formData.cantidadAgregada}
+              
+                onChange={handleChange}
+                disabled={!!formData.cantidadRetirada}
+              />
+                <TextField
+                name="cantidadRetirada"
+                label="Retirar Stock"
+                type="number"
+                fullWidth
+                value={formData.cantidadRetirada}
+              
+                onChange={handleChange}
+                disabled={!!formData.cantidadAgregada}
+          />
+            </>
+            )
+          }
+
           {/* Cantidad a retirar / stock */}
-          <br />
-          <TextField
-            name="cantidadAgregada"
-            label="Ingresar Stock"
-            type="number"
-            fullWidth
-            value={formData.cantidadAgregada}
-           
-            onChange={handleChange}
-             disabled={!!formData.cantidadRetirada}
-          />
-            <TextField
-            name="cantidadRetirada"
-            label="Retirar Stock"
-            type="number"
-            fullWidth
-            value={formData.cantidadRetirada}
-           
-            onChange={handleChange}
-             disabled={!!formData.cantidadAgregada}
-          />
+          
 
           {/* Terciarizado */}
           <FormControl fullWidth>
