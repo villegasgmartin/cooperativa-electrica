@@ -140,6 +140,9 @@ const Retiros = () => {
     });
   });
 
+
+
+
   // Estilo de celdas
   worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
     if (rowNumber === 1) return; // encabezado
@@ -161,6 +164,34 @@ const Retiros = () => {
 
   saveAs(blob, `Historial Retiros ${dayjs().format('DD-MM-YYYY')}.xlsx`);
 };
+
+  const totales = useMemo(() => {
+  let totalAgregadoNuevo = 0;   // "Agregado"
+  let totalAgregadoStock = 0;   // "Agregado Stock"
+  let totalRetirado = 0;        // "Retiro Stock"
+
+  historialFiltrado.forEach(r => {
+    const cantidad = Number(r.enStock) || 0;
+
+    if (r.accion === "Agregado") {
+      totalAgregadoNuevo += cantidad;
+    }
+
+    if (r.accion === "Agregado Stock") {
+      totalAgregadoStock += cantidad;
+    }
+
+    if (r.accion === "Retiro Stock") {
+      totalRetirado += cantidad;
+    }
+  });
+
+  return {
+    totalAgregadoNuevo,
+    totalAgregadoStock,
+    totalRetirado
+  };
+}, [historialFiltrado]);
 
 
   return (
@@ -231,6 +262,20 @@ const Retiros = () => {
           Limpiar
         </Button>
       </Box>
+      <Box sx={{ display: "flex", gap: 4, px: 2, pb: 2, flexWrap: "wrap" }}>
+        <Typography variant="subtitle2" color="green">
+          Ingreso Item Nuevo: {totales.totalAgregadoNuevo}
+        </Typography>
+
+        <Typography variant="subtitle2" color="blue">
+          Agregado a Stock: {totales.totalAgregadoStock}
+        </Typography>
+
+        <Typography variant="subtitle2" color="red">
+          Retirado: {totales.totalRetirado}
+        </Typography>
+      </Box>
+
 
       <Table>
         <TableHead>
