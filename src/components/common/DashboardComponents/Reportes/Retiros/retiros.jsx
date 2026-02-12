@@ -296,7 +296,7 @@ const Retiros = () => {
               <TableCell>{a.quienRetira}</TableCell>
               <TableCell>{a.categoria}</TableCell>
               <TableCell>{a.descripcion}</TableCell>
-              <TableCell>{a.accion} /cant:{a.enStock}</TableCell>
+              <TableCell>{a.accion}</TableCell>
               <TableCell>{a.terciarizado ? 'Si': 'No'}</TableCell>
               <TableCell>
                 {new Date(a.fecha).toLocaleString()}
