@@ -40,7 +40,9 @@ export default function GestionInventario() {
     descripcion: '',
     enStock: 0,
     terciarizado: false,
-    deposito: ''
+    deposito: '',
+    cantidadRetirada: 0,
+    cantidadAgregada: 0
   });
 
   useEffect(() => {
@@ -86,7 +88,9 @@ export default function GestionInventario() {
         categoria: item.categoria,
         descripcion: item.descripcion,
         enStock: Number(item.enStock),
-        terciarizado: item.terciarizado || false
+        terciarizado: item.terciarizado || false,
+        cantidadRetirada: 0,
+        cantidadAgregada: 0
       });
       setEditMode(true);
     } else {
@@ -95,7 +99,9 @@ export default function GestionInventario() {
         categoria: '',
         descripcion: '',
         enStock: 0,
-        terciarizado: false
+        terciarizado: false,
+        cantidadRetirada: 0,
+        cantidadAgregada: 0
       });
       setEditMode(false);
     }
@@ -104,20 +110,49 @@ export default function GestionInventario() {
 
   const handleClose = () => setOpen(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name == "terciarizado") {
-      setFormData({ ...formData, [name]: value === "Si" });
-    } else {
-      setFormData({ ...formData, [name]: value });
-    }
-  };
+      const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormData((prev) => {
+          let newData = { ...prev };
+
+          if (name === "terciarizado") {
+            newData[name] = value === "Si";
+            return newData;
+          }
+
+          // --- LOGICA STOCK ---
+          if (name === "cantidadAgregada") {
+            newData.cantidadAgregada = value;
+            if (value !== "") newData.cantidadRetirada = "";
+            return newData;
+          }
+
+          if (name === "cantidadRetirada") {
+            newData.cantidadRetirada = value;
+            if (value !== "") newData.cantidadAgregada = "";
+            return newData;
+          }
+
+          // --- DEFAULT ---
+          newData[name] = value;
+          return newData;
+        });
+      };
+
 
   const handleSubmit = async() => {
     if (!formData.categoria || !formData.descripcion) return;
 
     if (editMode) {
-      dispatch(putStock(formData.id, { enStock: formData.enStock, terciarizado: formData.terciarizado }));
+      if (
+          formData.cantidadAgregada &&
+          formData.cantidadRetirada
+        ) {
+          alert("Solo podés agregar o retirar stock, no ambos.");
+          return;
+        }
+      dispatch(putStock(formData.id, { cantidadRetirada: formData.cantidadRetirada, terciarizado: formData.terciarizado,  cantidadAgregada: formData.cantidadAgregada}));
     } else {
       dispatch(postStock(formData));
     }
@@ -238,13 +273,26 @@ export default function GestionInventario() {
           )}
 
           {/* Cantidad a retirar / stock */}
+          <br />
           <TextField
-            name="enStock"
-            label="Cantidad"
+            name="cantidadAgregada"
+            label="Ingresar Stock"
             type="number"
             fullWidth
-            value={formData.enStock}
+            value={formData.cantidadAgregada}
+           
             onChange={handleChange}
+             disabled={!!formData.cantidadRetirada}
+          />
+            <TextField
+            name="cantidadRetirada"
+            label="Retirar Stock"
+            type="number"
+            fullWidth
+            value={formData.cantidadRetirada}
+           
+            onChange={handleChange}
+             disabled={!!formData.cantidadAgregada}
           />
 
           {/* Terciarizado */}
