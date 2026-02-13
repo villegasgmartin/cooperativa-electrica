@@ -39,7 +39,7 @@ const Retiros = () => {
   const [desde, setDesde] = useState("");
   const [hasta, setHasta] = useState("");
   const [terciarizado, setTerciarizado] = useState("");
-
+ const [deposito, setDeposito] = useState("");
   // ---- PAGINADO ----
   const [page, setPage] = useState(0);
   const rowsPerPage = 20;
@@ -54,6 +54,7 @@ const Retiros = () => {
     setDesde("");
     setHasta("");
     setTerciarizado("");
+     setDeposito("");
   };
 
   // ---- FILTRO INTELIGENTE ----
@@ -66,7 +67,8 @@ const Retiros = () => {
       const coincideTexto =
         r.categoria?.toLowerCase().includes(texto) ||
         r.descripcion?.toLowerCase().includes(texto) ||
-        r.quienRetira?.toLowerCase().includes(texto);
+        r.quienRetira?.toLowerCase().includes(texto) ||
+        r.deposito?.toLowerCase().includes(texto);
 
       const fechaReporte = new Date(r.fecha);
 
@@ -81,10 +83,13 @@ const Retiros = () => {
       const coincideterciarizado =
   terciarizado === "" ? true : r.terciarizado === terciarizado;
 
+  const coincidedeposito =
+  deposito === "" ? true : r.deposito === deposito;
 
-      return coincideTexto && coincideDesde && coincideHasta && coincideterciarizado;
+
+      return coincideTexto && coincideDesde && coincideHasta && coincideterciarizado && coincidedeposito;
     });
-  }, [reportes, busqueda, desde, hasta, terciarizado]);
+  }, [reportes, busqueda, desde, hasta, terciarizado, deposito]);
 
   // ---- RESET PAGINA SI CAMBIA FILTRO ----
   useEffect(() => {
@@ -106,6 +111,7 @@ const Retiros = () => {
     { header: 'Responsable', key: 'quienRetira', width: 25 },
     { header: 'Categoría', key: 'categoria', width: 20 },
     { header: 'Descripción', key: 'descripcion', width: 30 },
+    { header: 'Deposito', key: 'deposito', width: 30 },
     { header: 'Acción / Cantidad', key: 'accion', width: 20 },
     { header: 'Terciarizado', key: 'terciarizado', width: 15 },
     { header: 'Fecha', key: 'fecha', width: 20 },
@@ -134,6 +140,7 @@ const Retiros = () => {
       quienRetira: r.quienRetira,
       categoria: r.categoria,
       descripcion: r.descripcion,
+      deposito: r.deposito,
       accion: `${r.accion} / cant:${r.enStock || ''}`,
       terciarizado: r.terciarizado ? 'Si' : 'No',
       fecha: new Date(r.fecha).toLocaleString(),
@@ -202,6 +209,7 @@ const Retiros = () => {
 
       {/* ---- FILTROS ---- */}
       <Box sx={{ display: "flex", gap: 2, p: 2, flexWrap: "wrap", alignItems: "center" }}>
+
         <TextField
           label="Buscar..."
           variant="outlined"
@@ -228,6 +236,9 @@ const Retiros = () => {
           onChange={(e) => setHasta(e.target.value)}
         />
 
+    <Box>
+
+  
        <InputLabel id="terciarizado-label">Terciarizado</InputLabel>
         <Select
           labelId="terciarizado-label"
@@ -241,6 +252,26 @@ const Retiros = () => {
           <MenuItem value={true}>Si</MenuItem>
           <MenuItem value={false}>No</MenuItem>
         </Select>
+        </Box>
+
+         <Box>
+ <InputLabel id="terciarizado-label">Deposito</InputLabel>
+        <Select
+          labelId="deposito-label"
+          value={deposito}
+          label="Deposito"
+          size="small"
+          onChange={(e) => setDeposito(e.target.value)}
+          sx={{ minWidth: 140 }}
+        >
+          <MenuItem value="">Todos</MenuItem>
+          <MenuItem value={"General"}>General</MenuItem>
+          <MenuItem value={"Nave"}>Nave</MenuItem>
+          <MenuItem value={"Oficina"}>Oficina</MenuItem>
+        </Select>
+         </Box>
+
+       
 
         <Button
           variant="outlined"
@@ -283,6 +314,7 @@ const Retiros = () => {
             <TableCell>Responsable</TableCell>
             <TableCell>Categoria</TableCell>
             <TableCell>Descripcion</TableCell>
+            <TableCell>Deposito</TableCell>
             <TableCell>Acción</TableCell>
             <TableCell>Terciarizado</TableCell>
             <TableCell>Fecha</TableCell>
@@ -296,6 +328,7 @@ const Retiros = () => {
               <TableCell>{a.quienRetira}</TableCell>
               <TableCell>{a.categoria}</TableCell>
               <TableCell>{a.descripcion}</TableCell>
+               <TableCell>{a.deposito}</TableCell>
               <TableCell>{a.accion}</TableCell>
               <TableCell>{a.terciarizado ? 'Si': 'No'}</TableCell>
               <TableCell>
