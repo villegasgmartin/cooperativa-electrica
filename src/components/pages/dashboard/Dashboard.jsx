@@ -11,6 +11,7 @@ import BookIcon from '@mui/icons-material/Book';
 import PeopleIcon from '@mui/icons-material/People';
 import BuildIcon from '@mui/icons-material/Build';
 import SummarizeIcon from '@mui/icons-material/Summarize';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Helmet } from 'react-helmet';
 import logo from '../../../assets/images/logos/logo-dashboard.png';
 import { CircularProgress, Box } from '@mui/material';
@@ -143,7 +144,7 @@ function Dashboard(props) {
           { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
           { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
           { segment: 'reportes', title: 'Reporte/Stock', icon: <SummarizeIcon /> },
-          { segment: 'config-stock', title: 'Config Stock', icon: <SummarizeIcon /> },
+          { segment: 'config-stock', title: 'Config Stock', icon: <SettingsIcon /> },
         ];
       } else if (user.rol === 'USER_EMPLOYE') {
         if (user.reservas) {
