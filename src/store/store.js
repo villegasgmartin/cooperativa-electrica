@@ -10,6 +10,7 @@ import tecnicaReducer from '../../redux/reducers/tecnicaReducer';
 import reservasReducer from '../../redux/reducers/reservasReducer';
 import formReducer from '../../redux/reducers/formReducers';
 import stockReducer from '../../redux/reducers/stockReducer';
+import configstockReducer from '../../redux/reducers/ConfigstockReducer';
 
 const store = configureStore({
   reducer: {
@@ -22,7 +23,8 @@ const store = configureStore({
     tecnica: tecnicaReducer,
     reservas: reservasReducer,
     form: formReducer,
-    stock: stockReducer
+    stock: stockReducer,
+    configStock: configstockReducer
   },
 });
 

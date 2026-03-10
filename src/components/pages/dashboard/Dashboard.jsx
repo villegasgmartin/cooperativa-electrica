@@ -27,6 +27,7 @@ import BlogEdit from '../../common/DashboardComponents/BlogEdit/BlogEdit';
 import AreaTecnica from '../../common/DashboardComponents/AreaTecnica/AreaTecnica';
 import Logout from '../../common/DashboardComponents/Logout/Logout';
 import Reportes from '../../common/DashboardComponents/Reportes/Reportes';
+import ConfigInventario from '../../common/DashboardComponents/Reportes/configStock';
 
 // Tema:
 const demoTheme = createTheme({
@@ -75,6 +76,8 @@ function DemoPageContent({ pathname }) {
       return <AreaTecnica />;
     case '/reportes':
       return <Reportes />;
+    case '/config-stock':
+      return <ConfigInventario />;
     default:
       return <DashboardHome />;
   }
@@ -140,6 +143,7 @@ function Dashboard(props) {
           { segment: 'usuarios', title: 'Usuarios', icon: <PeopleIcon /> },
           { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
           { segment: 'reportes', title: 'Reporte/Stock', icon: <SummarizeIcon /> },
+          { segment: 'config-stock', title: 'Config Stock', icon: <SummarizeIcon /> },
         ];
       } else if (user.rol === 'USER_EMPLOYE') {
         if (user.reservas) {

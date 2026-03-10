@@ -539,13 +539,20 @@ const reservasMostradas = baseReservas
     const tieneFiltroFecha = fechaDesde || fechaHasta;
     if (!row.fecha) return !tieneFiltroFecha;
 
-    const fechaReserva = dayjs.utc(row.fecha).startOf('day');
-    const desde = fechaDesde ? dayjs.utc(fechaDesde).startOf('day') : null;
-    const hasta = fechaHasta ? dayjs.utc(fechaHasta).startOf('day') : null;
+    const fechaReserva = dayjs(row.fecha).startOf('day');
+    const desde = fechaDesde ? dayjs(fechaDesde).startOf('day') : null;
+    const hasta = fechaHasta ? dayjs(fechaHasta).startOf('day') : null;
 
-    if (desde && hasta) return fechaReserva.isSameOrAfter(desde) && fechaReserva.isSameOrBefore(hasta);
-    if (desde) return fechaReserva.isSameOrAfter(desde);
-    if (hasta) return fechaReserva.isSameOrBefore(hasta);
+    if (desde && hasta) {
+      return (
+        fechaReserva.isSame(desde, 'day') ||
+        fechaReserva.isSame(hasta, 'day') ||
+        (fechaReserva.isAfter(desde, 'day') && fechaReserva.isBefore(hasta, 'day'))
+      );
+    }
+
+    if (desde) return fechaReserva.isSame(desde, 'day') || fechaReserva.isAfter(desde, 'day');
+    if (hasta) return fechaReserva.isSame(hasta, 'day') || fechaReserva.isBefore(hasta, 'day');
 
     return true;
   })

@@ -216,51 +216,64 @@ const toggleRow = (desc) => {
 
       {/* Tabla por categoría */}
       {["INSTALACIONES DOMICILIARIAS", "DESPLIEGUE"].map((cat) => (
-        <TableContainer component={Paper} sx={{ mb: 4 }} key={cat}>
-          <Typography variant="h6" sx={{ p: 2, bgcolor: '#30E691', fontWeight: 'bold' }}>
+        <TableContainer component={Paper} sx={{
+    mb: 4,
+    overflowX: "auto"
+  }} key={cat}>
+          <Typography variant="h6" sx={{ p: 2, bgcolor: '#30E691', fontWeight: 'bold',minWidth: 1100 }}>
             {cat}
           </Typography>
-          <Table size="small">
+          <Table size="small" sx={{ minWidth: 1100 }}>
             <TableHead>
               <TableRow>
-                <TableCell>Descripción</TableCell>
-                <TableCell align="center">Cantidad</TableCell>
-                <TableCell align="center">Deposito</TableCell>
-                <TableCell align="center">Acciones</TableCell>
+                <TableCell sx={{ width: 220 }}>Descripción</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Stock Actual</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Consumo Mensual</TableCell>
+                <TableCell  sx={{ width: 120 }} align="center">Stock Minimo</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Necesidad Proyectada</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Compra Recomendada</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Costo Unitario</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Deposito</TableCell>
+                <TableCell sx={{ width: 120 }} align="center">Acciones</TableCell>
               </TableRow>
-            </TableHead>
+          </TableHead>
           <TableBody>
   {agruparItems(itemsPorCategoria(cat)).map((grupo) => (
     <React.Fragment key={grupo.descripcion}>
 
       {/* FILA GLOBAL */}
       <TableRow>
-        <TableCell>
+        <TableCell sx={{ width: 220 }}>
           <IconButton size="small" onClick={() => toggleRow(grupo.descripcion)}>
             {openRows[grupo.descripcion] ? <KeyboardArrowUpIcon/> : <KeyboardArrowDownIcon/>}
           </IconButton>
           {grupo.descripcion}
         </TableCell>
 
-        <TableCell align="center">{grupo.total}</TableCell>
-        <TableCell align="center">-</TableCell>
-        <TableCell align="center">-</TableCell>
-        <TableCell align="center">-</TableCell>
-        <TableCell align="center"></TableCell>
+        <TableCell sx={{ width: 120 }} align="center">{grupo.total}</TableCell>
+        <TableCell sx={{ width: 120 }} align="center">-</TableCell>
+        <TableCell  sx={{ width: 120 }}align="center">-</TableCell>
+        <TableCell  sx={{ width: 120 }}align="center">-</TableCell>
+        <TableCell  sx={{ width: 120 }}align="center"></TableCell>
       </TableRow>
 
       {/* FILAS INTERNAS */}
       <TableRow>
-        <TableCell colSpan={6} sx={{ p: 0 }}>
+        <TableCell colSpan={9} sx={{ p: 0 }}>
           <Collapse in={openRows[grupo.descripcion]} timeout="auto" unmountOnExit>
-            <Table size="small">
+            <Table size="small" sx={{ minWidth: 1100 }}>
               <TableBody>
-                {grupo.items.map((item) => (
+               {grupo.items.map((item) => (
                   <TableRow key={item._id}>
-                    <TableCell sx={{ pl: 6 }}>{item.descripcion}</TableCell>
-                    <TableCell align="center">{item.enStock}</TableCell>
-                    <TableCell align="center">{item.deposito}</TableCell>
-                    <TableCell align="center">
+                    <TableCell sx={{ width: 220 }}>{item.descripcion}</TableCell>
+                    <TableCell  sx={{ width: 120 }} align="center">{item.stockActualizado}</TableCell>
+                    <TableCell sx={{ width: 120 }} align="center">{item.consumoMensual}</TableCell>
+                    <TableCell  sx={{ width: 120 }}align="center">{item.stockMinimo}</TableCell>
+                    <TableCell  sx={{ width: 120 }}align="center">{item.necesidadProyectada}</TableCell>
+                    <TableCell  sx={{ width: 120 }}align="center">{item.compraRecomendada}</TableCell>
+                    <TableCell  sx={{ width: 120 }}align="center">U$D {item.costoUnitario}</TableCell>
+                    <TableCell  sx={{ width: 120 }}align="center">{item.deposito}</TableCell>
+                    <TableCell  sx={{ width: 120 }}align="center">
                       <IconButton onClick={() => handleOpen(item)} color="primary">
                         <EditIcon />
                       </IconButton>
