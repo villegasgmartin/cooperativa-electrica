@@ -36,6 +36,7 @@ const pages = [
         name: 'Usuarios', path: '#', submenu: [
             { name: 'Medios de pago', path: '/formas-de-pago' },
             { name: 'Consejos Útiles', path: '/consejos-utiles' },
+            { name: 'Panel Reclamos', path: 'https://cooperativa.connecti.com.ar/usuarios', external: true },
         ]
     },
     {name: 'Preguntas Frecuentes', path: '#', submenu:[
@@ -44,7 +45,7 @@ const pages = [
             { name: 'Oficina Virtual', path: '/preguntas-nave#tutoriales-oficina' }
     ]},
     { name: 'Contacto', path: '/contacto' },
-    { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true },
+    { name: 'Oficina Virtual', path: 'https://oficinavirtual-coopmdp.micoop.com.ar/v2/login', external: true }
 ];
 
 const NavBar = ({ backgroundColor, backgroundColorMovile }) => {

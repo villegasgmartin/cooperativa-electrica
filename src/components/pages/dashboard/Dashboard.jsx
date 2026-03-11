@@ -29,6 +29,7 @@ import AreaTecnica from '../../common/DashboardComponents/AreaTecnica/AreaTecnic
 import Logout from '../../common/DashboardComponents/Logout/Logout';
 import Reportes from '../../common/DashboardComponents/Reportes/Reportes';
 import ConfigInventario from '../../common/DashboardComponents/Reportes/configStock';
+import RouterIcon from "@mui/icons-material/Router";
 
 // Tema:
 const demoTheme = createTheme({
@@ -66,6 +67,10 @@ const demoTheme = createTheme({
 
 // Componente de contenido:
 function DemoPageContent({ pathname }) {
+    if (pathname === '/panel-reclamos') {
+    window.open('https://cooperativa.connecti.com.ar', '_blank');
+    return null;
+  }
   switch (pathname) {
     case '/reservas':
       return <Reservas />;
@@ -145,6 +150,11 @@ function Dashboard(props) {
           { segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> },
           { segment: 'reportes', title: 'Reporte/Stock', icon: <SummarizeIcon /> },
           { segment: 'config-stock', title: 'Config Stock', icon: <SettingsIcon /> },
+          {
+            segment: 'panel-reclamos',
+            title: "Panel Reclamos",
+            icon: <RouterIcon />
+          }
         ];
       } else if (user.rol === 'USER_EMPLOYE') {
         if (user.reservas) {
