@@ -2,9 +2,9 @@
 import axios from 'axios';
 
 //URL:
-//const url = 'https://cooperativaback.up.railway.app';
+const url = 'https://cooperativaback.up.railway.app';
 //Producción:
-const url = 'http://localhost:8000';
+//const url = 'http://localhost:8000';
 
 
 // ==========================

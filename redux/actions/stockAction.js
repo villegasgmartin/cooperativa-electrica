@@ -56,9 +56,9 @@ export const DELETE_ITEM_CATEGORIA_SUCCESS = "DELETE_ITEM_CATEGORIA_SUCCESS";
 export const DELETE_ITEM_CATEGORIA_FAILURE = "DELETE_ITEM_CATEGORIA_FAILURE";
 
 //URL:
-//const url = 'https://cooperativaback.up.railway.app';
+const url = 'https://cooperativaback.up.railway.app';
 //Producción:
-const url = 'http://localhost:8000';
+//const url = 'http://localhost:8000';
 
 export const getStock = () => async (dispatch) => {
     dispatch({ type: GET_STOCK_REQUEST });
