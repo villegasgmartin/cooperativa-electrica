@@ -24,6 +24,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+
 import Swal from "sweetalert2";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -34,24 +35,35 @@ import {
   addPrecioItem,
   updatePrecioItem,
   deletePrecioItem,
-  getComprasSugeridas
+  getComprasSugeridas,
+  getConsumoMensual,
+  addCategoria,
+  deleteCategoria,
+  addItemCategoria,
+  deleteItemCategoria
 } from "../../../../../redux/actions/stockAction";
 
 export default function ConfigInventario() {
 
   const dispatch = useDispatch();
 
-  const { 
-  config,
-  compras,
-  totalItems,
-  costoTotalCompra
-} = useSelector(state => state.configStock);
+  const {
+    config,
+    compras,
+    totalItems,
+    costoTotalCompra
+  } = useSelector(state => state.configStock);
+
+  const categorias = config?.categorias || [];
 
   const [porcentajes, setPorcentajes] = useState({
     porcentajeStockMinimo: 0,
     porcentajeConsumoMensual: 0
   });
+
+  const [nuevaCategoria, setNuevaCategoria] = useState("");
+  const [categoriaSeleccionada, setCategoriaSeleccionada] = useState("");
+  const [nuevoItem, setNuevoItem] = useState("");
 
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -63,44 +75,10 @@ export default function ConfigInventario() {
     costoUnitario: 0
   });
 
-
-
-  const categorias = {
-    "INSTALACIONES DOMICILIARIAS": [
-      "ONUs",
-      "Fibra Drop Diel.",
-      "Mordazas Drop AC",
-      "Mordazas Drop DI",
-      "Conectores",
-      "Patchcord",
-      "Precintos",
-      "Grampas",
-      "Cadena completa"
-    ],
-    "DESPLIEGUE": [
-      "Fibra Drop AC",
-      "NAP edificio",
-      "NAP 1x8",
-      "NAP 1x16",
-      "Mordaza p/ drop AC",
-      "Patchcord",
-      "Conectores",
-      "Fibra Oval 6pelos",
-      "Fibra Oval 4pelos",
-      "Fibra Oval 8pelos",
-      "Mordazas clamp",
-      "Suncho agujereado",
-      "Cadena",
-      "Bulones y tornillo",
-      "Cruces de reserva",
-      "Precintos"
-    ]
-  };
-
-useEffect(() => {
-  dispatch(getStockConfig());
-  dispatch(getComprasSugeridas());
-}, [dispatch]);
+  useEffect(() => {
+    dispatch(getStockConfig());
+    dispatch(getComprasSugeridas());
+  }, [dispatch]);
 
   useEffect(() => {
     if (config) {
@@ -118,123 +96,187 @@ useEffect(() => {
     });
   };
 
-const handleGuardarPorcentajes = async () => {
+  const handleGuardarPorcentajes = async () => {
 
-  await dispatch(updateStockConfig(config._id, porcentajes));
+    await dispatch(updateStockConfig(config._id, porcentajes));
 
-  Swal.fire({
-    icon: "success",
-    title: "Configuración actualizada",
-    text: "Los porcentajes se guardaron correctamente",
-    timer: 1600,
-    showConfirmButton: false
-  });
+    Swal.fire({
+      icon: "success",
+      title: "Configuración actualizada",
+      timer: 1600,
+      showConfirmButton: false
+    });
 
-};
+  };
+
+  const handleAgregarCategoria = async () => {
+
+    if (!nuevaCategoria) return;
+
+    await dispatch(addCategoria(nuevaCategoria));
+
+    setNuevaCategoria("");
+
+    Swal.fire({
+      icon: "success",
+      title: "Categoría agregada",
+      timer: 1500,
+      showConfirmButton: false
+    });
+
+  };
+
+  const handleAgregarItem = async () => {
+
+    if (!categoriaSeleccionada || !nuevoItem) return;
+
+    await dispatch(addItemCategoria(categoriaSeleccionada, nuevoItem));
+
+    setNuevoItem("");
+
+    Swal.fire({
+      icon: "success",
+      title: "Item agregado",
+      timer: 1500,
+      showConfirmButton: false
+    });
+
+  };
+
+  const handleDeleteItem = (categoria, item) => {
+
+    Swal.fire({
+      title: "Eliminar item?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Eliminar"
+    }).then(async result => {
+
+      if (result.isConfirmed) {
+
+        await dispatch(deleteItemCategoria(categoria, item));
+
+        Swal.fire({
+          icon: "success",
+          title: "Item eliminado",
+          timer: 1400,
+          showConfirmButton: false
+        });
+
+      }
+
+    });
+
+  };
 
   const handleOpen = (item = null) => {
 
     if (item) {
+
       setFormPrecio({
         id: item._id,
         categoria: item.categoria,
         descripcion: item.descripcion,
         costoUnitario: item.costoUnitario
       });
+
       setEditMode(true);
+
     } else {
+
       setFormPrecio({
         id: "",
         categoria: "",
         descripcion: "",
         costoUnitario: 0
       });
+
       setEditMode(false);
+
     }
 
     setOpen(true);
+
   };
 
   const handleClose = () => setOpen(false);
 
   const handlePrecioChange = (e) => {
+
     setFormPrecio({
       ...formPrecio,
       [e.target.name]: e.target.value
     });
+
   };
 
- const handleSubmitPrecio = async () => {
+  const handleSubmitPrecio = async () => {
 
-  if (editMode) {
+    if (editMode) {
 
-    await dispatch(updatePrecioItem(formPrecio.id, {
-      costoUnitario: formPrecio.costoUnitario
-    }));
-
-    Swal.fire({
-      icon: "success",
-      title: "Precio actualizado",
-      text: "El precio se actualizó correctamente",
-      timer: 1800,
-      showConfirmButton: false
-    });
-
-  } else {
-
-    await dispatch(addPrecioItem(formPrecio));
-
-    Swal.fire({
-      icon: "success",
-      title: "Precio agregado",
-      text: "El precio fue creado correctamente",
-      timer: 1800,
-      showConfirmButton: false
-    });
-
-  }
-
-  handleClose();
-};
-
- const handleDeletePrecio = (id) => {
-
-  Swal.fire({
-    title: "Eliminar precio?",
-    text: "Esta acción no se puede deshacer",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#3085d6",
-    confirmButtonText: "Eliminar",
-    cancelButtonText: "Cancelar"
-  }).then(async (result) => {
-
-    if (result.isConfirmed) {
-
-      await dispatch(deletePrecioItem(id));
+      await dispatch(updatePrecioItem(formPrecio.id, {
+        costoUnitario: formPrecio.costoUnitario
+      }));
 
       Swal.fire({
         icon: "success",
-        title: "Precio eliminado",
+        title: "Precio actualizado",
+        timer: 1600,
+        showConfirmButton: false
+      });
+
+    } else {
+
+      await dispatch(addPrecioItem(formPrecio));
+
+      Swal.fire({
+        icon: "success",
+        title: "Precio agregado",
         timer: 1600,
         showConfirmButton: false
       });
 
     }
 
-  });
+    handleClose();
 
-};
+  };
+
+  const handleDeletePrecio = (id) => {
+
+    Swal.fire({
+      title: "Eliminar precio?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Eliminar"
+    }).then(async result => {
+
+      if (result.isConfirmed) {
+
+        await dispatch(deletePrecioItem(id));
+
+        Swal.fire({
+          icon: "success",
+          title: "Precio eliminado",
+          timer: 1400,
+          showConfirmButton: false
+        });
+
+      }
+
+    });
+
+  };
 
   return (
+
     <Box sx={{ width: "95%", margin: "auto", mt: 3 }}>
 
       <Typography variant="h4" sx={{ mb: 3 }}>
         Configuración de Inventario
       </Typography>
 
-      {/* PORCENTAJES */}
+      {/* MÉTRICAS */}
 
       <Paper sx={{ p: 3, mb: 4 }}>
 
@@ -242,7 +284,7 @@ const handleGuardarPorcentajes = async () => {
           Configuración de métricas
         </Typography>
 
-        <Box sx={{ display: "flex", gap: 3 }}>
+        <Box sx={{ display: "flex", gap: 3, alignItems: "center" }}>
 
           <TextField
             label="Porcentaje Stock Minimo"
@@ -260,6 +302,12 @@ const handleGuardarPorcentajes = async () => {
             onChange={handleChange}
           />
 
+          <TextField
+            label="Consumo mensual"
+            value={config?.consumoMensual || 0}
+            InputProps={{ readOnly: true }}
+          />
+
           <Button
             variant="contained"
             onClick={handleGuardarPorcentajes}
@@ -267,92 +315,134 @@ const handleGuardarPorcentajes = async () => {
             Guardar
           </Button>
 
+          <Button
+            variant="outlined"
+            onClick={async () => {
+
+              await dispatch(getConsumoMensual());
+
+              Swal.fire({
+                icon: "success",
+                title: "Consumo actualizado",
+                timer: 1400,
+                showConfirmButton: false
+              });
+
+            }}
+          >
+            Calcular consumo
+          </Button>
+
         </Box>
 
       </Paper>
 
-      {/* COMPRAS SUGERIDAS */}
+      {/* CATEGORIAS */}
 
-<Paper sx={{ p: 3, mb: 4 }}>
+      <Paper sx={{ p: 3, mb: 4 }}>
 
-  <Typography variant="h6" sx={{ mb: 2 }}>
-    Compras sugeridas
-  </Typography>
+        <Typography variant="h6" sx={{ mb: 2 }}>
+          Categorías de Inventario
+        </Typography>
 
-  <Box sx={{ display: "flex", gap: 4, mb: 2 }}>
+        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
 
-    <Typography>
-      <strong>Items a comprar:</strong> {totalItems || 0}
-    </Typography>
+          <TextField
+            label="Nueva categoría"
+            value={nuevaCategoria}
+            onChange={(e) => setNuevaCategoria(e.target.value)}
+          />
 
-    <Typography>
-      <strong>Costo estimado:</strong> ${costoTotalCompra || 0}
-    </Typography>
+          <Button
+            variant="contained"
+            onClick={handleAgregarCategoria}
+          >
+            Agregar categoría
+          </Button>
 
-  </Box>
+        </Box>
 
-  <Box sx={{ overflowX: "auto" }}>
+        <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
 
-    <Table sx={{ minWidth: 900 }}>
+          <FormControl sx={{ minWidth: 200 }}>
 
-      <TableHead>
-        <TableRow>
-          <TableCell>Categoria</TableCell>
-          <TableCell>Descripción</TableCell>
-          <TableCell align="center">Deposito</TableCell>
-          <TableCell align="center">Stock Actual</TableCell>
-          <TableCell align="center">Necesidad Proyectada</TableCell>
-          <TableCell align="center">Cantidad Comprar</TableCell>
-          <TableCell align="center">Costo Unitario</TableCell>
-          <TableCell align="center">Costo Total</TableCell>
-        </TableRow>
-      </TableHead>
+            <InputLabel>Categoría</InputLabel>
 
-      <TableBody>
+            <Select
+              value={categoriaSeleccionada}
+              label="Categoría"
+              onChange={(e) => setCategoriaSeleccionada(e.target.value)}
+            >
 
-        {compras?.map((item, index) => (
+              {categorias.map(cat => (
+                <MenuItem key={cat.nombre} value={cat.nombre}>
+                  {cat.nombre}
+                </MenuItem>
+              ))}
 
-          <TableRow key={index}>
+            </Select>
 
-            <TableCell align="center" sx={{ color: item.cantidadComprar > 50 ? "red" : "inherit", fontWeight: 600 }}>{item.categoria}</TableCell>
+          </FormControl>
 
-            <TableCell>{item.descripcion}</TableCell>
+          <TextField
+            label="Nuevo item"
+            value={nuevoItem}
+            onChange={(e) => setNuevoItem(e.target.value)}
+          />
 
-            <TableCell align="center">
-              {item.deposito}
-            </TableCell>
+          <Button
+            variant="contained"
+            onClick={handleAgregarItem}
+          >
+            Agregar item
+          </Button>
 
-            <TableCell align="center">
-              {item.stockActual}
-            </TableCell>
+        </Box>
 
-            <TableCell align="center">
-              {item.necesidadProyectada}
-            </TableCell>
+        <Table>
 
-            <TableCell align="center">
-              {item.cantidadComprar}
-            </TableCell>
+          <TableHead>
 
-            <TableCell align="center">
-              ${item.costoUnitario}
-            </TableCell>
+            <TableRow>
+              <TableCell>Categoría</TableCell>
+              <TableCell>Item</TableCell>
+              <TableCell align="center">Acciones</TableCell>
+            </TableRow>
 
-            <TableCell align="center">
-              ${item.costoTotal}
-            </TableCell>
+          </TableHead>
 
-          </TableRow>
+          <TableBody>
 
-        ))}
+            {categorias.map(cat =>
+              cat.items.map(item => (
 
-      </TableBody>
+                <TableRow key={cat.nombre + item}>
 
-    </Table>
+                  <TableCell>{cat.nombre}</TableCell>
 
-  </Box>
+                  <TableCell>{item}</TableCell>
 
-</Paper>
+                  <TableCell align="center">
+
+                    <IconButton
+                      color="error"
+                      onClick={() => handleDeleteItem(cat.nombre, item)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+
+                  </TableCell>
+
+                </TableRow>
+
+              ))
+            )}
+
+          </TableBody>
+
+        </Table>
+
+      </Paper>
 
       {/* PRECIOS */}
 
@@ -392,7 +482,6 @@ const handleGuardarPorcentajes = async () => {
               <TableRow key={item._id}>
 
                 <TableCell>{item.categoria}</TableCell>
-
                 <TableCell>{item.descripcion}</TableCell>
 
                 <TableCell align="center">
@@ -427,7 +516,7 @@ const handleGuardarPorcentajes = async () => {
 
       </Paper>
 
-      {/* DIALOG */}
+      {/* MODAL */}
 
       <Dialog open={open} onClose={handleClose}>
 
@@ -437,34 +526,49 @@ const handleGuardarPorcentajes = async () => {
 
         <DialogContent sx={{ display: "flex", flexDirection: "column", gap: 2, pt: 2 }}>
 
-             <FormControl fullWidth>
-                        <InputLabel>Categoría</InputLabel>
-                        <Select
-                          name="categoria"
-                          value={formPrecio.categoria}
-                          label="Categoría"
-                          onChange={handlePrecioChange}
-                        >
-                          {Object.keys(categorias).map((cat) => (
-                            <MenuItem key={cat} value={cat}>{cat}</MenuItem>
-                          ))}
-                        </Select>
-                      </FormControl>
-                  <FormControl fullWidth>
-                    <InputLabel>Descripción</InputLabel>
-                    <Select
-                      name="descripcion"
-                      value={formPrecio.descripcion}
-                      label="Descripción"
-                      onChange={handlePrecioChange}
-                    >
-                      {(categorias[formPrecio?.categoria] || []).map((desc) => (
-                        <MenuItem key={desc} value={desc}>
-                          {desc}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
+          <FormControl fullWidth>
+
+            <InputLabel>Categoría</InputLabel>
+
+            <Select
+              name="categoria"
+              value={formPrecio.categoria}
+              label="Categoría"
+              onChange={handlePrecioChange}
+            >
+
+              {categorias.map(cat => (
+                <MenuItem key={cat.nombre} value={cat.nombre}>
+                  {cat.nombre}
+                </MenuItem>
+              ))}
+
+            </Select>
+
+          </FormControl>
+
+          <FormControl fullWidth>
+
+            <InputLabel>Descripción</InputLabel>
+
+            <Select
+              name="descripcion"
+              value={formPrecio.descripcion}
+              label="Descripción"
+              onChange={handlePrecioChange}
+            >
+
+              {(categorias.find(c => c.nombre === formPrecio.categoria)?.items || []).map(desc => (
+
+                <MenuItem key={desc} value={desc}>
+                  {desc}
+                </MenuItem>
+
+              ))}
+
+            </Select>
+
+          </FormControl>
 
           <TextField
             label="Costo Unitario"
@@ -494,5 +598,7 @@ const handleGuardarPorcentajes = async () => {
       </Dialog>
 
     </Box>
+
   );
+
 }

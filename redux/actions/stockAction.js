@@ -34,12 +34,31 @@ export const GET_STOCK_SUGERENCIAS_REQUEST  = 'GET_STOCK_SUGERENCIAS_REQUEST'
 export const GET_STOCK_SUGERENCIAS_SUCCESS = 'GET_STOCK_SUGERENCIAS_SUCCESS'
 export const GET_STOCK_SUGERENCIAS_FAILURE = 'GET_STOCK_SUGERENCIAS_FAILURE'
 
+export const GET_CONSUMO_REQUEST = 'GET_CONSUMO_REQUEST'
+export const GET_CONSUMO_SUCCESS = 'GET_CONSUMO_SUCCESS'
+export const GET_CONSUMO_FAILURE = 'GET_CONSUMO_FAILURE'
 
+
+export const ADD_CATEGORIA_REQUEST = "ADD_CATEGORIA_REQUEST";
+export const ADD_CATEGORIA_SUCCESS = "ADD_CATEGORIA_SUCCESS";
+export const ADD_CATEGORIA_FAILURE = "ADD_CATEGORIA_FAILURE";
+
+export const DELETE_CATEGORIA_REQUEST = "DELETE_CATEGORIA_REQUEST";
+export const DELETE_CATEGORIA_SUCCESS = "DELETE_CATEGORIA_SUCCESS";
+export const DELETE_CATEGORIA_FAILURE = "DELETE_CATEGORIA_FAILURE";
+
+export const ADD_ITEM_CATEGORIA_REQUEST = "ADD_ITEM_CATEGORIA_REQUEST";
+export const ADD_ITEM_CATEGORIA_SUCCESS = "ADD_ITEM_CATEGORIA_SUCCESS";
+export const ADD_ITEM_CATEGORIA_FAILURE = "ADD_ITEM_CATEGORIA_FAILURE";
+
+export const DELETE_ITEM_CATEGORIA_REQUEST = "DELETE_ITEM_CATEGORIA_REQUEST";
+export const DELETE_ITEM_CATEGORIA_SUCCESS = "DELETE_ITEM_CATEGORIA_SUCCESS";
+export const DELETE_ITEM_CATEGORIA_FAILURE = "DELETE_ITEM_CATEGORIA_FAILURE";
 
 //URL:
-const url = 'https://cooperativaback.up.railway.app';
+//const url = 'https://cooperativaback.up.railway.app';
 //Producción:
-//const url = 'http://localhost:8000';
+const url = 'http://localhost:8000';
 
 export const getStock = () => async (dispatch) => {
     dispatch({ type: GET_STOCK_REQUEST });
@@ -138,6 +157,122 @@ export const deleteStock = (id) => async (dispatch) => {
 };
 
 
+//categorias
+export const addCategoria = (nombre) => async (dispatch) => {
+  dispatch({ type: ADD_CATEGORIA_REQUEST });
+
+  try {
+
+    const response = await axios.post(
+      `${url}/api/stock/categoria`,
+      { nombre },
+      { headers: { 'x-token': localStorage.getItem('token') } }
+    );
+
+    dispatch({
+      type: ADD_CATEGORIA_SUCCESS,
+      payload: response.data
+    });
+
+  } catch (error) {
+
+    dispatch({
+      type: ADD_CATEGORIA_FAILURE,
+      payload: error.response?.data?.msg || "Error al agregar categoria"
+    });
+
+  }
+};
+
+export const deleteCategoria = (categoria) => async (dispatch) => {
+
+  dispatch({ type: DELETE_CATEGORIA_REQUEST });
+
+  try {
+
+    const response = await axios.delete(
+      `${url}/api/stock/categoria`,
+      {
+        data:{categoria},
+        headers: { 'x-token': localStorage.getItem('token') }
+      }
+    );
+
+    dispatch({
+      type: DELETE_CATEGORIA_SUCCESS,
+      payload: response.data
+    });
+
+  } catch (error) {
+
+    dispatch({
+      type: DELETE_CATEGORIA_FAILURE,
+      payload: error.response?.data?.msg || "Error eliminando categoria"
+    });
+
+  }
+};
+
+export const addItemCategoria = (categoria,item) => async (dispatch) => {
+
+  dispatch({ type: ADD_ITEM_CATEGORIA_REQUEST });
+
+  try {
+
+    const response = await axios.post(
+      `${url}/api/stock/categoria/item`,
+      { categoria,item },
+      { headers: { 'x-token': localStorage.getItem('token') } }
+    );
+
+    dispatch({
+      type: ADD_ITEM_CATEGORIA_SUCCESS,
+      payload: response.data
+    });
+
+  } catch (error) {
+
+    dispatch({
+      type: ADD_ITEM_CATEGORIA_FAILURE,
+      payload: error.response?.data?.msg || "Error agregando item"
+    });
+
+  }
+
+};
+
+export const deleteItemCategoria = (categoria,item) => async (dispatch) => {
+
+  dispatch({ type: DELETE_ITEM_CATEGORIA_REQUEST });
+
+  try {
+
+    const response = await axios.delete(
+      `${url}/api/stock/categoria/item`,
+      {
+        data:{categoria,item},
+        headers:{ 'x-token': localStorage.getItem('token') }
+      }
+    );
+
+    dispatch({
+      type: DELETE_ITEM_CATEGORIA_SUCCESS,
+      payload: response.data
+    });
+
+  } catch (error) {
+
+    dispatch({
+      type: DELETE_ITEM_CATEGORIA_FAILURE,
+      payload: error.response?.data?.msg || "Error eliminando item"
+    });
+
+  }
+
+};
+
+
+
 //config stock
 
 export const getStockConfig = () => async (dispatch) => {
@@ -154,6 +289,25 @@ export const getStockConfig = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: GET_STOCK_CONFIG_FAILURE,
+            payload: error.response?.data?.msg || 'Error al obtener stock config',
+        });
+    }
+};
+
+export const getConsumoMensual = () => async (dispatch) => {
+    dispatch({ type: GET_CONSUMO_REQUEST });
+    try {
+        const response = await axios.get(`${url}/api/stock/consumo-mensual`, {
+            headers: { 'x-token': localStorage.getItem('token') },
+        });
+
+        dispatch({
+            type: GET_CONSUMO_SUCCESS,
+            payload: response.data
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_CONSUMO_FAILURE,
             payload: error.response?.data?.msg || 'Error al obtener stock config',
         });
     }

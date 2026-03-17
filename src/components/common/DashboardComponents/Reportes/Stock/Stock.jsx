@@ -266,7 +266,7 @@ const toggleRow = (desc) => {
                {grupo.items.map((item) => (
                   <TableRow key={item._id}>
                     <TableCell sx={{ width: 220 }}>{item.descripcion}</TableCell>
-                    <TableCell  sx={{ width: 120 }} align="center">{item.stockActualizado}</TableCell>
+                    <TableCell  sx={{ width: 120 }} align="center">{item.enStock}</TableCell>
                     <TableCell sx={{ width: 120 }} align="center">{item.consumoMensual}</TableCell>
                     <TableCell  sx={{ width: 120 }}align="center">{item.stockMinimo}</TableCell>
                     <TableCell  sx={{ width: 120 }}align="center">{item.necesidadProyectada}</TableCell>
