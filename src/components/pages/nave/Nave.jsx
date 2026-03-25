@@ -117,7 +117,7 @@ const Nave = () => {
                <h2 className='nave-h2'>Zona de cobertura</h2>
           <img className='img-mapa' src={mapaMobile} alt="mapa de zona" />
           </div>
-<div className='nave-button-container'>
+          <div className='nave-button-container'>
             <Link to="/formulario" style={{ width: '100%', textDecoration: 'none' }}>
               <Button sx={{ 
                 width: "100%",
