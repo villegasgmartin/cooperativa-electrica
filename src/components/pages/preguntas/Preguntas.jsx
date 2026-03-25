@@ -167,32 +167,91 @@ const Preguntas = () => {
                             expanded={expanded === 'pregunta-6'} 
                             onChange={() => handleAccordionChange('pregunta-6')}
                         >
-                            <AccordionSummary><p><span>6- </span>¿QUÉ ES LA SEGMENTACIÓN ENERGÉTICA?</p></AccordionSummary>
+                            <AccordionSummary><p><span>6- </span>RÉGIMEN DE SUBSIDIOS ENERGÉTICOS</p></AccordionSummary>
                             <AccordionDetails>
-                                <p>Es una iniciativa que lanzó el gobierno (DNU 332/22) para ordenar los subsidios eléctricos en base a los aspectos socioeconómicos de cada hogar, creando el Registro de Acceso a los Subsidios de Energía ( RASE ) para identificar a los usuarios que lo necesiten.</p>
-                                <p>Podés anotarte o modificar tu formulario de inscripción ingresando en <a href="https://subsidios-energia.argentina.gob.ar/" target='_blank' className='FormasPago-accordion-link'>subsidios-energía</a> , tené en cuenta que la asignación del subsidio no es automática, ya que tras un análisis de la solicitud, las autoridades intervinientes nos informan el segmento al cual corresponde tu suministro y luego es aplicado en tu factura.</p>
-                                <p>¿Qué datos necesito para completar el formulario?:</p>
+                                <p><b>Cooperativa Eléctrica Mar del Plata:</b></p>
+                                <p>Estimado/a socio/a y usuario/a:</p>
+                                <p>A partir del 2 de enero de 2026 entró en vigencia un nuevo Régimen de Subsidios Energéticos Focalizados (SEF), establecido por el Decreto 943/25 del Poder Ejecutivo Nacional, que reemplaza al anterior sistema de segmentación conocido como RASE.</p>
+                                <br />
+                                <p>¿Qué cambia con el nuevo régimen?</p>
+                                <p>A partir de ahora, el esquema de subsidios deja de dividir a los usuarios residenciales en tres niveles (N1, N2 y N3) y pasa a contemplar solo dos grupos:</p>
                                 <ul className='FormasPago-accordion-content'>
-                                    <li>Número de cuenta (Encontralo en tu factura)</li>
-                                    <li>Número de medidor</li>
-                                    <li>DNI y número de trámite</li>
-                                    <li>Número de CUIL de los integrantes mayores a 18 años del hogar</li>
-                                    <li>Ingresos de bolsillo de cada integrante mayor a 18 años del hogar</li>
-                                    <li>Mail</li>
+                                    <li>Usuarios con subsidio, que requieren asistencia del Estado.</li>
+                                    <li> Usuarios sin subsidio.</li>
                                 </ul>
-                                <p>Se aplica para aquellos usuarios residenciales que quieran mantener el subsidio en su hogar.</p>
-                                <p>NO incluye:</p>
+                                <br />
+                                <p>Quiénes acceden al subsidio?
+                                    <br />
+
+Serán beneficiarios del subsidio los hogares cuyos ingresos netos totales no superen el equivalente a 3 Canastas Básicas Totales (CBT) para un hogar tipo 2, según INDEC.
+
+                                </p>
+                                <p>También acceden automáticamente al subsidio:</p>
                                 <ul className='FormasPago-accordion-content'>
-                                    <li>Suministros comerciales</li>
-                                    <li>Suministros servicios generales (consorcios, riego, obra)</li>
-                                    <li>Otros tipos de suministros no residenciales</li>
+                                    <li>Hogares con Certificado de Vivienda Familiar (ReNaBaP).
+                                    </li>
+                                    <li>Hogares con algún integrante que perciba Pensión Vitalicia de Veteranos de Guerra del Atlántico Sur.
+                                    </li>
+                                    <li>Hogares con al menos un integrante con Certificado Único de Discapacidad (CUD).
+                                    </li>
                                 </ul>
-                                <p>Existen tres niveles de segmentación:</p>
+                                <br />
+                                <p>Registro y trámites
+                                    </p>
+                                    <p>Los usuarios que ya estaban inscriptos en el RASE no deben volver a
+                                    inscribirse. No obstante, podrán actualizar o revisar sus datos (grupo familiar, ingresos y servicios) a través de:
+                                    </p>
+
                                 <ol className='FormasPago-accordion-content'>
-                                    <li>N1 – Ingresos Altos: no tienen subsidio.</li>
-                                    <li>N2 – Menores ingresos: reciben subsidio por el total de sus consumos.</li>
-                                    <li>N3 – Ingresos medios: reciben subsidio hasta los 400 kWh mensuales de consumo.</li>
+                                    <li> Mi Argentina
+                                    </li>
+                                    <li>Trámites a Distancia (TAD)
+                                    </li>
                                 </ol>
+<br />
+                                   <p>Nuevos límites de consumo subsidiado </p>
+                                    <p>El régimen establece nuevos bloques de consumo mensual para la energía eléctrica:
+                                    </p>
+
+                                <ol className='FormasPago-accordion-content'>
+                                    <li>  300 kWh/mes: enero, febrero, mayo, junio, julio, agosto y diciembre.
+
+                                    </li>
+                                    <li> 150 kWh/mes: marzo, abril, septiembre, octubre y noviembre.
+
+                                    </li>
+                                </ol>
+<br />
+
+  <p>Es decir, no todo el consumo va a estar subsidiado sino hasta las magnitudes indicadas en cada caso.
+
+
+ </p>
+                                    <p>Nivel de subsidio - Valores
+                                    </p>
+
+                                <ol className='FormasPago-accordion-content'>
+                                    <li> Se aplica una bonificación general del 50% de la tarifa plena sobre el consumo subsidiado.
+
+
+                                    </li>
+                                    <li> Durante el año 2026, se suma una bonificación adicional extraordinaria que inicialmente será del 25%, para una transición gradual y que se irá reduciendo a 0 % en diciembre 2026.
+
+
+                                    </li>
+                                    <li>Las Entidades de Bien Público y Clubes de Barrio y de Pueblo mantienen la bonificación para la totalidad del consumo.
+</li>
+                                </ol>
+<br />
+                                <p>
+                                    Información importante
+<br />
+Debido a este nuevo esquema, los valores tarifarios se irán modificando mensualmente por la quita gradual extraordinaria del subsidio, aun cuando no se registren cambios en el precio mayorista de la energía, especialmente para los usuarios alcanzados por el subsidio.
+<br />
+Ante cualquier duda o para recibir asesoramiento, los socios y usuarios pueden
+<br />
+comunicarse con la Cooperativa por los canales habituales de atención.
+                                </p>
                             </AccordionDetails>
                         </Accordion>
                         <Accordion>

@@ -117,6 +117,28 @@ const Nave = () => {
                <h2 className='nave-h2'>Zona de cobertura</h2>
           <img className='img-mapa' src={mapaMobile} alt="mapa de zona" />
           </div>
+<div className='nave-button-container'>
+            <Link to="/formulario" style={{ width: '100%', textDecoration: 'none' }}>
+              <Button sx={{ 
+                width: "100%",
+                height: "50px",
+                fontFamily: "interTight",
+                marginBottom:"20px",
+                fontSize: "20px",
+                letterSpacing: "1px",
+                borderRadius: "50px",
+                boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                textTransform: "none",
+                color: "white",
+                backgroundColor: "#8048ff",
+              }} 
+              variant='contained' 
+              size='large'
+              >
+                Consultar cobertura
+              </Button>
+            </Link>
+          </div>
         
         </Fade>
         <Fade triggerOnce={true} duration={800} delay={300}>
