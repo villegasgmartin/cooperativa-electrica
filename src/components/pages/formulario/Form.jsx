@@ -91,7 +91,7 @@ const Form = () => {
         }, [zona]);
 
     //Zonas de cobertura:
-      const zona1 = [
+            const zona1 = [
         {latitude: -37.99117, longitude:-57.57442 },
          {latitude: -38.0008, longitude:-57.5822 },
          {latitude: -38.00599, longitude:-57.572 },
@@ -109,10 +109,12 @@ const Form = () => {
         {latitude:-38.01234, longitude:-57.57029},
         {latitude:-38.0121, longitude:-57.56862},
         {latitude:-38.01289, longitude:-57.56919},
-        { latitude: -38.01676, longitude: -57.56238 },
-        { latitude: -38.01325, longitude: -57.55959 },
-        { latitude: -38.01074, longitude: -57.56459 },
+        { latitude: -38.0166, longitude: -57.56217 },
 
+        { latitude: -38.00848, longitude: -57.55563 },
+        { latitude: -38.0059, longitude: -57.56066 },
+
+        
         { latitude: -38.00525, longitude: -57.56023 },
 
         { latitude: -38.01438, longitude: -57.54191 },
