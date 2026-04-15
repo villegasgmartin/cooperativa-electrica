@@ -42,7 +42,7 @@ export default function GestionInventario() {
   const [openRows, setOpenRows] = useState({});
   const [open, setOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
-  
+  const [search, setSearch] = useState("");
   const [formData, setFormData] = useState({
     id: '',
     categoria: '',
@@ -181,10 +181,28 @@ export default function GestionInventario() {
 
   const categoriasDinamicas = config?.categorias || [];
 
+  const normalize = (str) =>
+  (str || "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+    const filteredItems = items.filter(item =>
+  normalize(item.descripcion).includes(normalize(search))
+);
+
   return (
     <Box sx={{ width: '95%', margin: 'auto', mt: 3 }}>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Typography variant="h4" sx={{ fontFamily: 'InterTight' }}>Inventario Técnico</Typography>
+        <TextField
+          label="Buscar por descripción..."
+          variant="outlined"
+          fullWidth
+          sx={{ mb: 3, width:"300px" }}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
         <Button variant="contained" startIcon={<AddIcon />} onClick={() => handleOpen()}>
           Agregar Stock
         </Button>
@@ -212,7 +230,7 @@ export default function GestionInventario() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {agruparItems(items.filter(i => i.categoria === cat.nombre)).map((grupo) => (
+              {agruparItems(filteredItems.filter(i => i.categoria === cat.nombre)).map((grupo) => (
                 <React.Fragment key={grupo.descripcion}>
                   <TableRow>
                     <TableCell>
