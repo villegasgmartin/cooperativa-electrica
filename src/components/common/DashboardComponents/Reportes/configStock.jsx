@@ -66,6 +66,7 @@ export default function ConfigInventario() {
   const [nuevoItem, setNuevoItem] = useState("");
 
   const [open, setOpen] = useState(false);
+  const [search, setSearch] = useState("");
   const [editMode, setEditMode] = useState(false);
 
   const [formPrecio, setFormPrecio] = useState({
@@ -267,6 +268,22 @@ export default function ConfigInventario() {
     });
 
   };
+  const normalize = (str) =>
+  str?.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+const filteredCategorias = categorias
+  .map(cat => ({
+    ...cat,
+    items: cat.items.filter(item => {
+      const searchText = normalize(search);
+
+      return (
+        normalize(item).includes(searchText) ||
+        normalize(cat.nombre).includes(searchText)
+      );
+    })
+  }))
+  .filter(cat => cat.items.length > 0);
 
   return (
 
@@ -340,10 +357,19 @@ export default function ConfigInventario() {
       {/* CATEGORIAS */}
 
       <Paper sx={{ p: 3, mb: 4 }}>
-
+            <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
         <Typography variant="h6" sx={{ mb: 2 }}>
           Categorías de Inventario
         </Typography>
+        <TextField
+          label="Buscar categoría o item..."
+          variant="outlined"
+          fullWidth
+          sx={{ mb: 2, width:"300px" }}
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        </Box>
 
         <Box sx={{ display: "flex", gap: 2, mb: 3 }}>
 
@@ -413,7 +439,7 @@ export default function ConfigInventario() {
 
           <TableBody>
 
-            {categorias.map(cat =>
+            {filteredCategorias.map(cat =>
               cat.items.map(item => (
 
                 <TableRow key={cat.nombre + item}>
