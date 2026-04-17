@@ -16,7 +16,7 @@ import logoMax from "../../../assets/images/logos/logo-max.jpg"
 import { Button} from '@mui/material';
 import { Link } from 'react-router-dom';
 import mapa from "../../../assets/images/nave/mapa.jpg"
-import mapaMobile from "../../../assets/images/nave/mapa-mobile.webp"
+import mapaMobile from "../../../assets/images/nave/mapa-mobile.png"
 
 //JSX:
 const Nave = () => {
