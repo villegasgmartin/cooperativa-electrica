@@ -549,6 +549,8 @@ dayjs.extend(isSameOrBefore);
         email: '',
         piso: '',
         departamento: '',
+        colocacionCaja: false,
+        ingresoEdificio: false
         });
         setErrors({});
     };
@@ -562,6 +564,14 @@ dayjs.extend(isSameOrBefore);
         setOpenCreateModal(false);
         setErrors({});
     };
+
+    const handleSwitchChange = (event) => {
+    const { name, checked } = event.target;
+    setFormData({
+        ...formData,
+        [name]: checked,
+    });
+};
 
     const validarFormularioBase = () => {
         const formErrors = {};
@@ -650,6 +660,8 @@ dayjs.extend(isSameOrBefore);
             email: formData.email,
             telefono: formData.telefono,
             tipo: tipoSeleccionado,
+            colocacionCaja: formData.colocacionCaja,
+            ingresoEdificio: formData.ingresoEdificio,
         };
 
         try {
@@ -1746,6 +1758,31 @@ dayjs.extend(isSameOrBefore);
                     label={createUsoHorarioPersonalizado ? 'Horario personalizado' : 'Horario estándar'}
                     sx={{ mt: 0.5 }}
                 />
+                  <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    name="colocacionCaja" 
+                                                    checked={formData.colocacionCaja}
+                                                    onChange={handleSwitchChange}
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Colocación de caja"
+                                            sx={{ mt: 2 }}
+                                        />
+                
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    name="ingresoEdificio" 
+                                                    checked={formData.ingresoEdificio}
+                                                    onChange={handleSwitchChange}
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Ingreso a edificio"
+                                            sx={{ mt: 2 }}
+                                        />
 
                 {createUsoHorarioPersonalizado ? (
                     <FechaPersonalizada

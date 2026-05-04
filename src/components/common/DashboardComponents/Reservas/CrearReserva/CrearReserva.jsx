@@ -33,6 +33,8 @@ const Form = () => {
         dni: '',
         telefono: '',
         email: '',
+        colocacionCaja: false,
+        ingresoEdificio: false
     });
     const [errors, setErrors] = useState({});
     const [successMessageOpen, setSuccessMessageOpen] = useState(false);
@@ -229,6 +231,14 @@ const Form = () => {
         });
     };
 
+    const handleSwitchChange = (event) => {
+    const { name, checked } = event.target;
+    setFormData({
+        ...formData,
+        [name]: checked,
+    });
+};
+
     const handleInternetChange = (event) => {
         setInternetPlan(event.target.value);
     };
@@ -260,13 +270,15 @@ const Form = () => {
                     telefono: formData.telefono,
                     tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
                     esTV: true, 
-                    usermane: username
+                    usermane: username,
+                    colocacionCaja: formData.colocacionCaja,
+                    ingresoEdificio: formData.ingresoEdificio,
                 };
                     try {
                         await dispatch(createReservaTV(dataToSend));
                         
                     // Limpiamos campos
-                        setFormData({ name: '', apellido: '', dni: '', telefono: '', email: '' , piso: "", departamento: ""});
+                        setFormData({ name: '', apellido: '', dni: '', telefono: '', email: '' , piso: "", departamento: "",colocacionCaja:false, ingresoEdificio:false });
                         setDireccion('');
                         setFechaInstalacion(null);
                         setFranjaHoraria('');
@@ -669,6 +681,31 @@ const Form = () => {
                         }
                         label={usoHorarioPersonalizado ? "Horario personalizado" : "Horario estándar"}
                         sx={{ mt: 2 }}
+                        />
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    name="colocacionCaja" 
+                                    checked={formData.colocacionCaja}
+                                    onChange={handleSwitchChange}
+                                    color="primary"
+                                />
+                            }
+                            label="Colocación de caja"
+                            sx={{ mt: 2 }}
+                        />
+
+                        <FormControlLabel
+                            control={
+                                <Switch
+                                    name="ingresoEdificio" 
+                                    checked={formData.ingresoEdificio}
+                                    onChange={handleSwitchChange}
+                                    color="primary"
+                                />
+                            }
+                            label="Ingreso a edificio"
+                            sx={{ mt: 2 }}
                         />
 
                         {usoHorarioPersonalizado ? (
