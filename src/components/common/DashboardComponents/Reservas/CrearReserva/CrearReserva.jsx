@@ -325,6 +325,8 @@ const Form = () => {
                     email: formData.email,
                     telefono: formData.telefono,
                     tipo: Object.keys(tipoInmueble).find(key => tipoInmueble[key]),
+                    colocacionCaja: formData.colocacionCaja,
+                    ingresoEdificio: formData.ingresoEdificio,
                 };
                 //Si no hay errores, hacemos POST
                 try {
