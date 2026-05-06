@@ -234,6 +234,8 @@ export default function ReservasCalendario() {
         email: '',
         piso: '',
         departamento: '',
+        colocacionCaja: false,
+        ingresoEdificio: false,
     });
 
     const [errors, setErrors] = useState({});
@@ -407,6 +409,15 @@ export default function ReservasCalendario() {
         setFormData({
             ...formData,
             [name]: value,
+        });
+    };
+
+    const handleSwitchChange = (event) => {
+        const { name, checked } = event.target;
+
+        setFormData({
+            ...formData,
+            [name]: checked,
         });
     };
 
@@ -608,6 +619,8 @@ export default function ReservasCalendario() {
             email: '',
             piso: '',
             departamento: '',
+            colocacionCaja: false,
+            ingresoEdificio: false,
         });
         setErrors({});
     };
@@ -709,6 +722,8 @@ export default function ReservasCalendario() {
                 email: formData.email,
                 telefono: formData.telefono,
                 tipo: tipoSeleccionado,
+                colocacionCaja: formData.colocacionCaja,
+                ingresoEdificio: formData.ingresoEdificio,
             };
 
             try {
@@ -2204,6 +2219,32 @@ export default function ReservasCalendario() {
                                             }
                                             label={createUsoHorarioPersonalizado ? 'Horario personalizado' : 'Horario estándar'}
                                             sx={{ mt: 0.5 }}
+                                        />
+
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    name="colocacionCaja"
+                                                    checked={formData.colocacionCaja}
+                                                    onChange={handleSwitchChange}
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Colocación de caja"
+                                            sx={{ mt: 2 }}
+                                        />
+
+                                        <FormControlLabel
+                                            control={
+                                                <Switch
+                                                    name="ingresoEdificio"
+                                                    checked={formData.ingresoEdificio}
+                                                    onChange={handleSwitchChange}
+                                                    color="primary"
+                                                />
+                                            }
+                                            label="Ingreso a edificio"
+                                            sx={{ mt: 2 }}
                                         />
 
                                         {createUsoHorarioPersonalizado ? (
