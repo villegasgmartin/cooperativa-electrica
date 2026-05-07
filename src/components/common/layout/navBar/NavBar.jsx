@@ -36,7 +36,7 @@ const pages = [
         name: 'Usuarios', path: '#', submenu: [
             { name: 'Medios de pago', path: '/formas-de-pago' },
             { name: 'Consejos Útiles', path: '/consejos-utiles' },
-            { name: 'Panel Reclamos', path: 'https://cooperativa.connecti.com.ar/usuarios', external: true },
+            { name: 'Panel Reclamos', path: 'https://clientes.connecti.com.ar/', external: true },
         ]
     },
     {name: 'Preguntas Frecuentes', path: '#', submenu:[
