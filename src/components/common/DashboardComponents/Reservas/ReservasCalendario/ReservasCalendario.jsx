@@ -175,6 +175,19 @@ const capitalizarPrimeraLetra = (texto) => {
     return texto.charAt(0).toUpperCase() + texto.slice(1);
 };
 
+    const obtenerMinutosDesdeHorario = (horario) => {
+        if (!horario) return 99999;
+            const texto = String(horario).trim();
+            const match = texto.match(/(\d{1,2})\s*:\s*(\d{2})/);
+
+        if (!match) return 99999;
+
+            const horas = parseInt(match[1], 10);
+            const minutos = parseInt(match[2], 10);
+
+        return horas * 60 + minutos;
+    };
+
 export default function ReservasCalendario() {
     const theme = useTheme();
     const dispatch = useDispatch();
@@ -545,9 +558,10 @@ export default function ReservasCalendario() {
                 return fecha.isSame(dia, 'day');
             })
             .sort((a, b) => {
-                const horarioA = a.horario || '';
-                const horarioB = b.horario || '';
-                return horarioA.localeCompare(horarioB);
+                const minutosA = obtenerMinutosDesdeHorario(a.horario);
+                const minutosB = obtenerMinutosDesdeHorario(b.horario);
+
+                return minutosA - minutosB;
             });
     };
 
