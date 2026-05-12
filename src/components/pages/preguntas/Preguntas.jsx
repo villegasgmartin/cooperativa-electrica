@@ -367,6 +367,15 @@ comunicarse con la Cooperativa por los canales habituales de atención.
                                 <p>El plazo para la presentación de reclamos ante la prestadora del Servicio Público de Electricidad por daños producidos a artefactos o instalaciones derivadas de fallas en la calidad del suministro, será de tres (3) días hábiles, contados a partir de la fecha en que se produjo el hecho que ocasionó el daño. Sólo serán atendidos si obran en nuestros archivos planos de la instalación eléctrica de su domicilio firmado por personal habilitado, donde las protecciones estén de acuerdo con las exigidas por la Ley Marco Regulatorio. Puede consultar las bases de dicho marco en <a href="https://oceba.gba.gov.ar/nueva_web/#" target='_blank' className='FormasPago-accordion-link'>https://oceba.gba.gov.ar/nueva_web/#</a></p>
                             </AccordionDetails>
                         </Accordion>
+                           <Accordion>
+                            <AccordionSummary><p><span>17- </span>¿A qué corresponde el ítem “Ley 10.740” en mi factura de energía eléctrica?</p></AccordionSummary>
+                            <AccordionDetails>
+                                <p>Desde mayo de 2026, los usuarios del Partido de General Pueyrredon visualizan en su factura de energía eléctrica un cargo específico correspondiente a la Tasa de Alumbrado Público.
+Esta incorporación se realiza en el marco del convenio suscripto entre el Municipio de General Pueyrredon y la Empresa Distribuidora de Energía Atlántica, acuerdo que se extiende también a las cooperativas que prestan el servicio eléctrico dentro del partido.
+El convenio tiene sustento en la Ley Provincial Nº 10.740, normativa que autoriza a las distribuidoras eléctricas de la provincia de Buenos Aires a percibir, a través de la factura del servicio, tasas municipales vinculadas a servicios públicos.
+Los fondos recaudados mediante este concepto están destinados al sostenimiento, mantenimiento y modernización del sistema de alumbrado público del municipio.</p>
+                            </AccordionDetails>
+                        </Accordion>
                     </AccordionGroup>
                 </Fade>
             </div>
