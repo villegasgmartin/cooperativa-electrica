@@ -95,35 +95,13 @@ const Form = () => {
         {latitude: -37.99117, longitude:-57.57442 },
          {latitude: -38.0008, longitude:-57.5822 },
          {latitude: -38.00599, longitude:-57.572 },
-
-        {latitude:-38.0043, longitude:-57.57072},
-        { latitude: -38.00567, longitude: -57.5707 },
-        {latitude:-38.00685, longitude:-57.57},
-        {latitude:-38.00662, longitude:-57.56913},
-        {latitude:-38.00647, longitude:-57.56865},
-        {latitude:-38.0066,longitude: -57.56838},
-        {latitude:-38.00922, longitude:-57.56767},
-        {latitude:-38.00948, longitude:-57.56927},
-        {latitude:-38.01075, longitude:-57.56902},
-        {latitude:-38.01108, longitude:-57.57058},
-        {latitude:-38.01234, longitude:-57.57029},
-        {latitude:-38.0121, longitude:-57.56862},
-        {latitude:-38.01289, longitude:-57.56919},
+          {latitude: -38.0098, longitude:-57.57536 },
         { latitude: -38.0166, longitude: -57.56217 },
-
         { latitude: -38.00848, longitude: -57.55563 },
-        { latitude: -38.0059, longitude: -57.56066 },
-
-        
-        { latitude: -38.00525, longitude: -57.56023 },
-
         { latitude: -38.01438, longitude: -57.54191 },
         { latitude: -38.0096, longitude: -57.53808 },
-
-
         { latitude: -38.00899, longitude: -57.53931 },
         { latitude: -38.01204, longitude: -57.54193 },
-
         { latitude: -38.00653, longitude: -57.55264 },
         { latitude: -38.00346, longitude: -57.55016 },
         {latitude: -37.99117, longitude:-57.57442 }
