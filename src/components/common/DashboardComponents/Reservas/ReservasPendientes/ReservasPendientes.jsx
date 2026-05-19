@@ -1028,6 +1028,40 @@ if (orden.campo) {
                 }
               />
             </Grid>
+            <Grid item xs={12}>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            checked={selectedReserva.colocacionCaja || false}
+                                                            onChange={(e) =>
+                                                                setSelectedReserva({
+                                                                    ...selectedReserva,
+                                                                    colocacionCaja: e.target.checked,
+                                                                })
+                                                            }
+                                                            color="primary"
+                                                        />
+                                                    }
+                                                    label="Colocación de caja"
+                                                />
+                                            </Grid>
+                                            <Grid item xs={12}>
+                                                <FormControlLabel
+                                                    control={
+                                                        <Switch
+                                                            checked={selectedReserva.ingresoEdificio || false}
+                                                            onChange={(e) =>
+                                                                setSelectedReserva({
+                                                                    ...selectedReserva,
+                                                                    ingresoEdificio: e.target.checked,
+                                                                })
+                                                            }
+                                                            color="primary"
+                                                        />
+                                                    }
+                                                    label="Ingreso a edificio"
+                                                />
+                                            </Grid>
           </Grid>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 3 }}>
             <Button variant="outlined" color="secondary" onClick={handleCloseModal}>

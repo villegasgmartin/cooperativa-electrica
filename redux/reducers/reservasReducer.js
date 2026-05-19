@@ -26,7 +26,10 @@ import {
     DELETE_RESERVA_COMPLETADA_FAILURE,
     GET_RESERVAS_REALIZADAS_REQUEST,
     GET_RESERVAS_REALIZADAS_SUCCESS,
-    GET_RESERVAS_REALIZADAS_FAILURE
+    GET_RESERVAS_REALIZADAS_FAILURE,
+    MARK_RESERVA_PROCESADA_REQUEST,
+    MARK_RESERVA_PROCESADA_SUCCESS,
+    MARK_RESERVA_PROCESADA_FAILURE
 } from '../actions/reservasActions';
 
 //Estado inicial:
@@ -51,6 +54,7 @@ const reservasReducer = (state = initialState, action) => {
         case HANDLE_MARK_AS_PENDIENTE_REQUEST:
         case DELETE_RESERVA_COMPLETADA_REQUEST:
         case GET_RESERVAS_REALIZADAS_REQUEST:
+        case MARK_RESERVA_PROCESADA_REQUEST:
             return { ...state, loading: true, error: null };
 
         case FETCH_RESERVAS_ELIMINADAS_REQUEST:
@@ -61,6 +65,8 @@ const reservasReducer = (state = initialState, action) => {
 
         case GET_RESERVAS_REALIZADAS_SUCCESS:
             return { ...state, loading: false, realizadas: action.payload,};
+        case MARK_RESERVA_PROCESADA_SUCCESS:
+            return { ...state, loading: false, procesadas: action.payload,};
 
         case FETCH_RESERVAS_ELIMINADAS_SUCCESS:
             return { ...state, loadingEliminadas: false, reservasEliminadas: action.payload };
@@ -113,6 +119,7 @@ const reservasReducer = (state = initialState, action) => {
         case HANDLE_MARK_AS_PENDIENTE_FAILURE:
         case DELETE_RESERVA_COMPLETADA_FAILURE:
         case GET_RESERVAS_REALIZADAS_FAILURE:
+        case MARK_RESERVA_PROCESADA_FAILURE:
             return { ...state, loading: false, error: action.payload };
 
         case FETCH_RESERVAS_ELIMINADAS_FAIL:

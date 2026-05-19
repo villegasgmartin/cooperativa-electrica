@@ -50,6 +50,11 @@ export const GET_RESERVAS_REALIZADAS_REQUEST = 'GET_RESERVAS_REALIZADAS_REQUEST'
 export const GET_RESERVAS_REALIZADAS_SUCCESS = 'GET_RESERVAS_REALIZADAS_SUCCESS';
 export const GET_RESERVAS_REALIZADAS_FAILURE = 'GET_RESERVAS_REALIZADAS_FAILURE';
 
+//Acciones para obtener reservas PROCESADA:
+export const MARK_RESERVA_PROCESADA_REQUEST = 'MARK_RESERVA_PROCESADA_REQUEST';
+export const MARK_RESERVA_PROCESADA_SUCCESS = 'MARK_RESERVA_PROCESADA_SUCCESS';
+export const MARK_RESERVA_PROCESADA_FAILURE = 'MARK_RESERVA_PROCESADA_FAILURE';
+
 //Función GET para obtener resrevas pendientes:
 export const fetchReservas = () => async (dispatch) => {
     dispatch({ type: GET_RESERVAS_REQUEST });
@@ -143,6 +148,39 @@ export const markReservaAsRealizada = (reserva) => async (dispatch) => {
         dispatch({ type: MARK_RESERVA_REALIZADA_FAILURE, payload: error.message });
     }
 };
+
+//Función PUT para marcar como procesada:
+export const markReservaAsProcesada = (reserva) => async (dispatch) => {
+    dispatch({ type: MARK_RESERVA_PROCESADA_REQUEST });
+
+    try {
+        const token = localStorage.getItem('token');
+
+        const updatedReserva = {
+        ...reserva,
+        procesada: true,
+        };
+
+        const response = await fetch(
+        `${url}/api/reservas/actualizar-reserva?id=${reserva._id}`,
+        {
+            method: 'PUT',
+            headers: {
+            'Content-Type': 'application/json',
+            'x-token': token,
+            },
+            body: JSON.stringify(updatedReserva),
+        }
+        );
+
+        if (!response.ok) throw new Error('Error al actualizar la reserva');
+
+        dispatch({ type: MARK_RESERVA_PROCESADA_SUCCESS, payload: updatedReserva });
+    } catch (error) {
+        dispatch({ type: MARK_RESERVA_PROCESADA_FAILURE, payload: error.message });
+    }
+};
+
 
 //Función PUT para eliminar reserva:
 export const deleteReserva = (reservaId, nombreUsuario) => async (dispatch) => {

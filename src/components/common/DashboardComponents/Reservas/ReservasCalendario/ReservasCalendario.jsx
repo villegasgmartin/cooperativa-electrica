@@ -40,6 +40,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
@@ -61,6 +62,7 @@ import {
     updateReservaRealizada,
     deleteReservaCompletada,
     handleMarkAsPendienteRedux,
+    markReservaAsProcesada,
 } from '../../../../../../redux/actions/reservasActions';
 import {
     createReservaForm,
@@ -207,7 +209,7 @@ export default function ReservasCalendario() {
     const theme = useTheme();
     const dispatch = useDispatch();
 
-    const { reservas = [], realizadas = [] } = useSelector((state) => state.reservas);
+    const { reservas = [], realizadas = [], procesadas = [] } = useSelector((state) => state.reservas);
     const { reservasLeer } = useSelector((state) => state.user);
 
     const [vistaCalendario, setVistaCalendario] = useState('semanal');
@@ -904,6 +906,18 @@ export default function ReservasCalendario() {
         }
     };
 
+
+    const handleMarkAsProcesada = async (reserva) => {
+        try {
+            await dispatch(markReservaAsProcesada(reserva));
+            refreshReservas();
+            mostrarSnackbar('Reserva marcada como procesada', 'success');
+        } catch (error) {
+            console.error('Error al marcar como procesada:', error);
+            mostrarSnackbar('Ocurrió un error al marcar como procesada', 'error');
+        }
+    };
+
     const reservasDelDiaSeleccionado = selectedDay ? getReservasPorDia(selectedDay) : [];
     const puedeAgregarEnDiaSeleccionado = selectedDay
         ? !selectedDay.startOf('day').isBefore(dayjs().startOf('day'))
@@ -1083,6 +1097,8 @@ export default function ReservasCalendario() {
 
     const renderReservaMiniCard = (reserva) => {
         const esPendiente = reserva.estadoCalendario === 'pendiente';
+        const esProcesada = reserva.procesada 
+       
 
         return (
             <Paper
@@ -1248,8 +1264,9 @@ export default function ReservasCalendario() {
                         </>
                     )}
 
-                    {!esPendiente && (
-                        <Tooltip title="Marcar pendiente">
+                    {!esPendiente && !esProcesada && (
+                        <>
+                         <Tooltip title="Marcar pendiente">
                             <IconButton
                                 size="small"
                                 color="primary"
@@ -1266,6 +1283,51 @@ export default function ReservasCalendario() {
                                 <ReplayIcon sx={{ fontSize: 15 }} />
                             </IconButton>
                         </Tooltip>
+                        
+                         <Tooltip title="Marcar Procesada">
+                            <IconButton
+                                size="small"
+                                color="primary"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleMarkAsProcesada(reserva);
+                                }}
+                                sx={{
+                                    width: 25,
+                                    height: 25,
+                                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                                }}
+                            >
+                                <AssignmentIndIcon sx={{ fontSize: 15 }} />
+                            </IconButton>
+                        </Tooltip>
+                        </>
+                       
+                        
+                    )}
+
+                    {!esPendiente &&  esProcesada && (
+                        <>
+                         <Tooltip title="Marcar pendiente">
+                            <IconButton
+                                size="small"
+                                color="primary"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    handleMarkAsPendiente(reserva);
+                                }}
+                                sx={{
+                                    width: 25,
+                                    height: 25,
+                                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                                }}
+                            >
+                                <ReplayIcon sx={{ fontSize: 15 }} />
+                            </IconButton>
+                        </Tooltip>
+                        </>
+                       
+                        
                     )}
                 </Stack>
             </Paper>
@@ -2665,6 +2727,7 @@ export default function ReservasCalendario() {
                                     )}
                                 </Grid>
 
+
                                 <Grid item xs={12}>
                                     <TextField
                                         label="Observaciones"
@@ -2673,6 +2736,40 @@ export default function ReservasCalendario() {
                                         onChange={(e) =>
                                             setSelectedReserva({ ...selectedReserva, observaciones: e.target.value })
                                         }
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                checked={selectedReserva.colocacionCaja || false}
+                                                onChange={(e) =>
+                                                    setSelectedReserva({
+                                                        ...selectedReserva,
+                                                        colocacionCaja: e.target.checked,
+                                                    })
+                                                }
+                                                color="primary"
+                                            />
+                                        }
+                                        label="Colocación de caja"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                checked={selectedReserva.ingresoEdificio || false}
+                                                onChange={(e) =>
+                                                    setSelectedReserva({
+                                                        ...selectedReserva,
+                                                        ingresoEdificio: e.target.checked,
+                                                    })
+                                                }
+                                                color="primary"
+                                            />
+                                        }
+                                        label="Ingreso a edificio"
                                     />
                                 </Grid>
                             </Grid>

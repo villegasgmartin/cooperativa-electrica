@@ -105,7 +105,7 @@
 }
 
 /*Contenedor de texto y boton*/
-.mutual-enlace{
+.vital-enlace{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -119,7 +119,7 @@
 }
 
 /*Texto*/
-.mutual-enlace-text{
+.vital-enlace-text{
     color: var(--black);
     font-family: "interTight";
     font-size: 1.875rem;
@@ -159,10 +159,10 @@
         max-width: none;
         margin: 0 auto;
     }
-    .mutual-enlace{
+    .vital-enlace{
         margin-top: 3.125rem;
     }
-    .mutual-enlace-text{
+    .vital-enlace-text{
         font-size: 1.5625rem;
     }
     .vittal-button-container{
@@ -218,13 +218,13 @@
     .mutual-button{
         width: 100%;
     }    
-    .mutual-enlace{
+    .vital-enlace{
         padding-top: 2.1875rem;
         padding-bottom: 1.875rem;
         margin-top: 3.75rem;
         gap: 0;
     }
-    .mutual-enlace-text{
+    .vital-enlace-text{
         font-size: 1.375rem;
     }
     .mutual-button-container{
@@ -253,10 +253,10 @@
     .mutual-text02{
         font-size: 2.5rem;
     }
-    .mutual-enlace{
+    .vital-enlace{
         margin-top: 1.25rem;
     }
-    .mutual-enlace-text{
+    .vital-enlace-text{
         font-size: 1.125rem;
         width: 90%;
     }

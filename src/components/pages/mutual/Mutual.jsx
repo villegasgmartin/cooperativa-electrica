@@ -198,23 +198,25 @@ const Mutual = () => {
               />
               <br />
               <div className='mutual-button'>
-                <Button sx={{ 
+                <Button   sx={{
                     width: "100%",
-                    height: "50px",
+                    height: "70px",
                     fontFamily: "interTight",
                     marginTop: "20px",
-                    fontSize: "20px",
+                    fontSize: {
+                      xs: "13px",   
+                      sm: "22px",
+                      md: "26px"    
+                    },
                     letterSpacing: "1px",
                     borderRadius: "50px",
-                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
+                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.2)",
                     textTransform: "none",
-                    color:"white",
+                    color: "white",
                     backgroundColor: "#8048ff",
-                  }} 
-                  variant='contained' 
+                  }}
+                  variant='contained'
                   size='large'
-                  type='submit'
-                  disabled={loading}
                 >
                   {loading ? 'Enviando...' : 'Consultar'}
                 </Button>
@@ -222,33 +224,87 @@ const Mutual = () => {
             </form>
           </Fade>
         </div>
-        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-          <div className='mutual-enlace'>
-            <p className='mutual-enlace-text'>LISTADO DE <strong>PROFESIONALES Y COMERCIOS</strong> ADHERIDOS</p>
-            <div className='mutual-button-container'>
-              <a href="https://mutualami.org.ar/mutual/beneficios/" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
-              <Button sx={{ 
-                    width: "100%",
-                    height: "70px",
-                    fontFamily: "interTight",
-                    marginTop: "20px",
-                    fontSize: "30px",
-                    letterSpacing: "1px",
-                    borderRadius: "50px",
-                    boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.3)",
-                    textTransform: "none",
-                    color:"white",
-                    backgroundColor: "#8048ff",
-                  }} 
-                  variant='contained' 
-                  size='large'
-                >
-                  Ver aquí
-                </Button>
-              </a>
-            </div>
-          </div>
-        </Fade>
+<Fade triggerOnce={true} duration={800} delay={300} direction='up'>
+  <div className='mutual-enlace'>
+
+    {/* Caja 1 */}
+    <div className='mutual-box'>
+      <p className='mutual-enlace-text'>
+        LISTADO DE <strong>PROFESIONALES Y COMERCIOS</strong> ADHERIDOS
+      </p>
+
+      <a
+        href="https://mutualami.org.ar/mutual/beneficios/"
+        target='_blank'
+        rel="noopener noreferrer"
+        className='form-buttonFinal-container'
+      >
+        <Button
+          sx={{
+            width: "100%",
+            height: "70px",
+            fontFamily: "interTight",
+            marginTop: "20px",
+              fontSize: {
+                      xs: "16px",   
+                      sm: "22px",
+                      md: "26px"    
+                    },
+            letterSpacing: "1px",
+            borderRadius: "50px",
+            boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.2)",
+            textTransform: "none",
+            color: "white",
+            backgroundColor: "#8048ff",
+          }}
+          variant='contained'
+          size='large'
+        >
+          Ver aquí
+        </Button>
+      </a>
+    </div>
+
+    {/* Caja 2 */}
+    <div className='mutual-box'>
+      <p className='mutual-enlace-text'>
+        DISFRUTÁ DEL <strong>CLUB DE BENEFICIOS AMI</strong>
+      </p>
+
+      <a
+        href="https://mutualami.org.ar/beneficios/"
+        target='_blank'
+        rel="noopener noreferrer"
+        className='form-buttonFinal-container'
+      >
+        <Button
+          sx={{
+            width: "100%",
+            height: "70px",
+            fontFamily: "interTight",
+            marginTop: "20px",
+              fontSize: {
+                      xs: "16px",   
+                      sm: "22px",
+                      md: "26px"    
+                    },
+            letterSpacing: "1px",
+            borderRadius: "50px",
+            boxShadow: "8px 8px 8px rgba(0, 0, 0, 0.2)",
+            textTransform: "none",
+            color: "white",
+            background: "linear-gradient(90deg, #ff9800, #ff5722)",
+          }}
+          variant='contained'
+          size='large'
+        >
+          Club de Beneficios AMI
+        </Button>
+      </a>
+    </div>
+
+  </div>
+</Fade>
       </section>
       <Footer/>
     </>

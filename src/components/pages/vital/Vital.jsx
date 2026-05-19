@@ -335,8 +335,8 @@ Hace tu consulta sobre los beneficios de AMI
         </Modal>
       </section>
        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
-          <div className='mutual-enlace'>
-            <p className='mutual-enlace-text'>PROFESIONALES DE LA <strong>SALUD</strong> y FARMACIAS ADHERIDAS</p>
+          <div className='vital-enlace'>
+            <p className='vital-enlace-text'>PROFESIONALES DE LA <strong>SALUD</strong> y FARMACIAS ADHERIDAS</p>
             <div className='mutual-button-container'>
               <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1778607684/Salud_mayo26_sizydb.pdf" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
               <Button sx={{ 
