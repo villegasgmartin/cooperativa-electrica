@@ -40,7 +40,8 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import AssignmentLateIcon from '@mui/icons-material/AssignmentLate';
+import AssignmentTurnedInIcon from '@mui/icons-material/AssignmentTurnedIn';
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonIcon from '@mui/icons-material/Person';
 import CloseIcon from '@mui/icons-material/Close';
@@ -68,6 +69,7 @@ import {
     createReservaForm,
     createReservaTV,
 } from '../../../../../../redux/actions/formActions';
+
 
 // Plugins dayjs:
 dayjs.extend(utc);
@@ -1263,72 +1265,69 @@ export default function ReservasCalendario() {
                             </Tooltip>
                         </>
                     )}
-
-                    {!esPendiente && !esProcesada && (
+                    {!esPendiente && (
                         <>
-                         <Tooltip title="Marcar pendiente">
-                            <IconButton
-                                size="small"
-                                color="primary"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleMarkAsPendiente(reserva);
-                                }}
-                                sx={{
-                                    width: 25,
-                                    height: 25,
-                                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
-                                }}
-                            >
-                                <ReplayIcon sx={{ fontSize: 15 }} />
-                            </IconButton>
-                        </Tooltip>
-                        
-                         <Tooltip title="Marcar Procesada">
-                            <IconButton
-                                size="small"
-                                color="primary"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleMarkAsProcesada(reserva);
-                                }}
-                                sx={{
-                                    width: 25,
-                                    height: 25,
-                                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
-                                }}
-                            >
-                                <AssignmentIndIcon sx={{ fontSize: 15 }} />
-                            </IconButton>
-                        </Tooltip>
-                        </>
-                       
-                        
-                    )}
+                            <Tooltip title="Marcar pendiente">
+                                <IconButton
+                                    size="small"
+                                    color="primary"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        handleMarkAsPendiente(reserva);
+                                    }}
+                                    sx={{
+                                        width: 25,
+                                        height: 25,
+                                        backgroundColor: alpha(theme.palette.primary.main, 0.08),
+                                    }}
+                                >
+                                    <ReplayIcon sx={{ fontSize: 15 }} />
+                                </IconButton>
+                            </Tooltip>
 
-                    {!esPendiente &&  esProcesada && (
-                        <>
-                         <Tooltip title="Marcar pendiente">
-                            <IconButton
-                                size="small"
-                                color="primary"
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    handleMarkAsPendiente(reserva);
-                                }}
-                                sx={{
-                                    width: 25,
-                                    height: 25,
-                                    backgroundColor: alpha(theme.palette.primary.main, 0.08),
-                                }}
-                            >
-                                <ReplayIcon sx={{ fontSize: 15 }} />
-                            </IconButton>
-                        </Tooltip>
+                            {!esProcesada ? (
+                                <Tooltip title="Marcar como procesada">
+                                    <IconButton
+                                        size="small"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleMarkAsProcesada(reserva);
+                                        }}
+                                        sx={{
+                                            width: 25,
+                                            height: 25,
+                                            color: theme.palette.warning.dark,
+                                            backgroundColor: alpha(theme.palette.warning.main, 0.16),
+                                            border: `1px solid ${alpha(theme.palette.warning.main, 0.35)}`,
+                                            '&:hover': {
+                                                backgroundColor: alpha(theme.palette.warning.main, 0.24),
+                                                transform: 'scale(1.05)',
+                                            },
+                                        }}
+                                    >
+                                        <AssignmentLateIcon sx={{ fontSize: 16 }} />
+                                    </IconButton>
+                                </Tooltip>
+                            ) : (
+                                <Tooltip title="Reserva procesada">
+                                    <IconButton
+                                        size="small"
+                                        disabled
+                                        sx={{
+                                            width: 25,
+                                            height: 25,
+                                            color: `${theme.palette.success.main} !important`,
+                                            backgroundColor: `${alpha(theme.palette.success.main, 0.12)} !important`,
+                                            border: `1px solid ${alpha(theme.palette.success.main, 0.35)}`,
+                                        }}
+                                    >
+                                        <AssignmentTurnedInIcon sx={{ fontSize: 16 }} />
+                                    </IconButton>
+                                </Tooltip>
+                            )}
                         </>
-                       
-                        
                     )}
+                    
                 </Stack>
             </Paper>
         );
