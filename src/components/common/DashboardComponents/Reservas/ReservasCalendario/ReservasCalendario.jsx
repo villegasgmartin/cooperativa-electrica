@@ -1132,14 +1132,34 @@ export default function ReservasCalendario() {
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 0.5 }}>
                     <Chip
                         size="small"
-                        label={esPendiente ? 'Pendiente' : 'Completada'}
-                        color={esPendiente ? 'warning' : 'success'}
+                        label={
+                            esPendiente
+                                ? 'Pendiente'
+                                : esProcesada
+                                    ? 'Procesada'
+                                    : 'Sin procesar'
+                        }
+                        color={esPendiente ? 'warning' : esProcesada ? 'success' : 'warning'}
                         sx={{
                             height: 20,
                             fontSize: 10,
                             fontFamily: 'InterTight',
-                            fontWeight: 800,
+                            fontWeight: 900,
                             maxWidth: '100%',
+                            ...(esPendiente && {
+                                backgroundColor: alpha(theme.palette.warning.main, 0.12),
+                                color: theme.palette.warning.dark,
+                            }),
+                            ...(!esPendiente && !esProcesada && {
+                                backgroundColor: alpha(theme.palette.warning.main, 0.18),
+                                color: theme.palette.warning.dark,
+                                border: `1px solid ${alpha(theme.palette.warning.main, 0.35)}`,
+                            }),
+                            ...(!esPendiente && esProcesada && {
+                                backgroundColor: alpha(theme.palette.success.main, 0.12),
+                                color: theme.palette.success.dark,
+                                border: `1px solid ${alpha(theme.palette.success.main, 0.35)}`,
+                            }),
                         }}
                     />
 
