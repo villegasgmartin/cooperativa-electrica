@@ -29,7 +29,13 @@ import {
     GET_RESERVAS_REALIZADAS_FAILURE,
     MARK_RESERVA_PROCESADA_REQUEST,
     MARK_RESERVA_PROCESADA_SUCCESS,
-    MARK_RESERVA_PROCESADA_FAILURE
+    MARK_RESERVA_PROCESADA_FAILURE,
+    GET_NOTA_DIA_REQUEST,
+    UPDATE_NOTA_DIA_REQUEST,
+    GET_NOTA_DIA_SUCCESS,
+    UPDATE_NOTA_DIA_SUCCESS,
+    GET_NOTA_DIA_FAILURE,
+    UPDATE_NOTA_DIA_FAILURE
 } from '../actions/reservasActions';
 
 //Estado inicial:
@@ -41,6 +47,9 @@ const initialState = {
     loadingEliminadas: false,
     error: null,
     errorEliminadas: null,
+    notaDia: null,
+loadingNotaDia: false,
+errorNotaDia: null,
 };
 
 //Reducers:
@@ -124,7 +133,39 @@ const reservasReducer = (state = initialState, action) => {
 
         case FETCH_RESERVAS_ELIMINADAS_FAIL:
             return { ...state, loadingEliminadas: false, errorEliminadas: action.payload };
+        case GET_NOTA_DIA_REQUEST:
+        case UPDATE_NOTA_DIA_REQUEST:
+            return {
+                ...state,
+                loadingNotaDia: true,
+                errorNotaDia: null,
+            };
 
+       case GET_NOTA_DIA_SUCCESS:
+        return {
+            ...state,
+            loadingNotaDia: false,
+            notasDia: action.payload,
+        };
+
+    case UPDATE_NOTA_DIA_SUCCESS:
+        return {
+            ...state,
+            loadingNotaDia: false,
+            notasDia: state.notasDia.map((nota) =>
+                nota.fecha === action.payload.fecha
+                    ? action.payload
+                    : nota
+            ),
+        };
+
+        case GET_NOTA_DIA_FAILURE:
+        case UPDATE_NOTA_DIA_FAILURE:
+            return {
+                ...state,
+                loadingNotaDia: false,
+                errorNotaDia: action.payload,
+            };
         default:
             return state;
     }

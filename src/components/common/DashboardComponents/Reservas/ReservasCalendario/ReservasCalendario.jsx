@@ -64,11 +64,14 @@ import {
     deleteReservaCompletada,
     handleMarkAsPendienteRedux,
     markReservaAsProcesada,
+    updateNotaDia,
+    getNotasDia,
 } from '../../../../../../redux/actions/reservasActions';
 import {
     createReservaForm,
     createReservaTV,
 } from '../../../../../../redux/actions/formActions';
+import NoteIcon from '@mui/icons-material/Note';
 
 
 // Plugins dayjs:
@@ -276,12 +279,39 @@ export default function ReservasCalendario() {
     const [snackbarMsg, setSnackbarMsg] = useState('');
     const [snackbarSeverity, setSnackbarSeverity] = useState('success');
 
+    const [notaSeleccionada, setNotaSeleccionada] = useState(null);
+const [openNota, setOpenNota] = useState(false);
+const [textoNota, setTextoNota] = useState("");
+const [fechaNota, setFechaNota] = useState(null);
+
+const notas = useSelector((state) => state.reservas.notasDia || []);
+
+
+const getNotaPorDia = (dia) => {
+    const fecha = dia.format("YYYY-MM-DD");
+    return notas.find(n => n.fecha === fecha);
+};
+
+const handleOpenNota = (dia) => {
+    const fecha = dia.format("YYYY-MM-DD");
+
+    setFechaNota(fecha);
+
+    // si ya existe nota la cargamos
+    const notaExistente = notas?.find(n => n.fecha === fecha);
+
+    setTextoNota(notaExistente?.texto || "");
+
+    setOpenNota(true);
+};
+
     const username = localStorage.getItem('username') || 'Web';
 
     useEffect(() => {
         dispatch(fetchUserData());
         dispatch(fetchReservas());
         dispatch(fetchReservasRealizadas());
+        dispatch(getNotasDia())
     }, [dispatch]);
 
     useEffect(() => {
@@ -291,6 +321,17 @@ export default function ReservasCalendario() {
             setInternetPlanURL('');
         }
     }, [zona]);
+
+
+useEffect(() => {
+    if (!selectedDay) return;
+
+    const fecha = selectedDay.format("YYYY-MM-DD");
+
+    const notaExistente = notas.find(n => n.fecha === fecha);
+
+    setTextoNota(notaExistente?.texto || "");
+}, [selectedDay]);
 
     const refreshReservas = () => {
         dispatch(fetchReservas());
@@ -584,10 +625,29 @@ export default function ReservasCalendario() {
             });
     };
 
+ 
+
     const handleOpenDay = (dia) => {
-        setSelectedDay(dia);
-        setOpenDayModal(true);
-    };
+    setSelectedDay(dia);
+
+    const fecha = dia.format("YYYY-MM-DD");
+    setFechaNota(fecha);
+
+    const notaExistente = notas?.find(n => n.fecha === fecha);
+
+    setTextoNota(notaExistente?.texto || "");
+
+    setOpenDayModal(true);
+};
+
+const handleGuardarNotaDia = () => {
+    if (!fechaNota) return;
+
+    dispatch(updateNotaDia({
+        fecha: fechaNota,
+        texto: textoNota
+    }));
+};
 
     const handleCloseDay = () => {
         setOpenDayModal(false);
@@ -928,6 +988,8 @@ export default function ReservasCalendario() {
     const renderReservaCard = (reserva) => {
         const esPendiente = reserva.estadoCalendario === 'pendiente';
         const esCompletada = reserva.estadoCalendario === 'completada';
+
+
 
         return (
             <Paper
@@ -1362,6 +1424,7 @@ export default function ReservasCalendario() {
             </Box>
         );
     }
+    
 
     return (
         <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
@@ -1604,9 +1667,11 @@ export default function ReservasCalendario() {
                     </Box>
                 )}
             </Paper>
+            
 
             {/* Vista semanal */}
             {vistaCalendario === 'semanal' && (
+                
                 <Paper
                     elevation={0}
                     sx={{
@@ -1628,6 +1693,7 @@ export default function ReservasCalendario() {
                             const reservasDia = getReservasPorDia(dia);
                             const isToday = dia.isSame(dayjs(), 'day');
                             const puedeAgregar = !dia.startOf('day').isBefore(dayjs().startOf('day'));
+                        
 
                             return (
                                 <Box
@@ -1641,58 +1707,101 @@ export default function ReservasCalendario() {
                                     }}
                                 >
                                     <Box
-                                        onClick={() => handleOpenDay(dia)}
-                                        sx={{
-                                            p: 1.4,
-                                            cursor: 'pointer',
-                                            borderBottom: `1px solid ${alpha('#fff', 0.18)}`,
-                                            backgroundColor: theme.palette.primary.main,
-                                            color: '#fff',
-                                            transition: '0.2s ease',
-                                            '&:hover': {
-                                                backgroundColor: theme.palette.primary.dark,
-                                            },
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                justifyContent: 'space-between',
-                                                alignItems: 'center',
-                                                gap: 1,
-                                            }}
-                                        >
-                                            <Typography
-                                                sx={{
-                                                    fontFamily: 'InterTight',
-                                                    fontWeight: 800,
-                                                    fontSize: { xs: 12, md: 14 },
-                                                    lineHeight: 1.2,
-                                                    color: '#fff',
-                                                }}
-                                            >
-                                                {capitalizarPrimeraLetra(dia.format('dddd'))} {dia.format('DD/MM')}
-                                            </Typography>
+    sx={{
+        p: 1.4,
+        cursor: 'pointer',
+        borderBottom: `1px solid ${alpha('#fff', 0.18)}`,
+        backgroundColor: theme.palette.primary.main,
+        color: '#fff',
+        transition: '0.2s ease',
+        '&:hover': {
+            backgroundColor: theme.palette.primary.dark,
+        },
+    }}
+>
+    <Box
+        sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 1,
+        }}
+    >
+        <Typography
+            onClick={() => handleOpenDay(dia)}
+            sx={{
+                fontFamily: 'InterTight',
+                fontWeight: 800,
+                fontSize: { xs: 12, md: 14 },
+                lineHeight: 1.2,
+                color: '#fff',
+                cursor: 'pointer',
+            }}
+        >
+            {capitalizarPrimeraLetra(dia.format('dddd'))} {dia.format('DD/MM')}
+        </Typography>
 
-                                            {reservasDia.length > 0 && (
-                                                <Chip
-                                                    size="small"
-                                                    label={reservasDia.length}
-                                                    sx={{
-                                                        height: 22,
-                                                        minWidth: 28,
-                                                        fontFamily: 'InterTight',
-                                                        fontWeight: 900,
-                                                        backgroundColor: '#fff',
-                                                        color: theme.palette.primary.main,
-                                                        '& .MuiChip-label': {
-                                                            px: 1,
-                                                        },
-                                                    }}
-                                                />
-                                            )}
-                                        </Box>
-                                    </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            {/* ICONO NOTA */}
+            <IconButton
+                size="small"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleOpenNota(dia);
+                }}
+                sx={{
+                    color: '#fff',
+                }}
+            >
+                <NoteIcon fontSize="small" />
+            </IconButton>
+
+            {reservasDia.length > 0 && (
+                <Chip
+                    size="small"
+                    label={reservasDia.length}
+                    sx={{
+                        height: 22,
+                        minWidth: 28,
+                        fontFamily: 'InterTight',
+                        fontWeight: 900,
+                        backgroundColor: '#fff',
+                        color: theme.palette.primary.main,
+                    }}
+                />
+            )}
+        </Box>
+    </Box>
+
+    {/* 🔥 NOTA ABAJO DEL DÍA */}
+    {getNotaPorDia(dia)?.texto && (
+        <Box
+            onClick={(e) => {
+                e.stopPropagation();
+                handleOpenNota(dia);
+            }}
+            sx={{
+                mt: 1,
+                p: 1,
+                borderRadius: 1,
+                backgroundColor: 'rgba(255,255,255,0.12)',
+                cursor: 'pointer',
+            }}
+        >
+            <Typography
+                sx={{
+                    fontSize: 12,
+                    fontFamily: 'InterTight',
+                    color: '#fff',
+                    fontWeight: 600,
+                    lineHeight: 1.2,
+                }}
+            >
+                {getNotaPorDia(dia).texto}
+            </Typography>
+        </Box>
+    )}
+</Box>
 
                                     <Box sx={{ p: 1, display: 'flex', flexDirection: 'column', gap: 1 }}>
                                         {reservasDia.length === 0 ? (
@@ -1984,6 +2093,57 @@ export default function ReservasCalendario() {
                 </DialogTitle>
 
                 <DialogContent dividers>
+                    <Paper
+                            elevation={0}
+                            sx={{
+                                p: 2,
+                                mb: 2,
+                                borderRadius: 3,
+                                border: `1px solid ${alpha(theme.palette.divider, 0.8)}`,
+                                backgroundColor: alpha(theme.palette.primary.main, 0.03),
+                            }}
+                        >
+                            <Typography
+                                sx={{
+                                    fontFamily: 'InterTight',
+                                    fontWeight: 800,
+                                    mb: 1,
+                                }}
+                            >
+                                Nota del día
+                            </Typography>
+
+                                <Box sx={{ display: 'flex', gap: 1 }}>
+                                    <TextField
+                                        fullWidth
+                                        size="small"
+                                        placeholder="Escribí una nota para este día..."
+                                        value={textoNota}
+                                        onChange={(e) => setTextoNota(e.target.value)}
+                                    />
+
+                                    <Button
+                                        variant="contained"
+                                        onClick={() => {
+                                            const fecha = selectedDay.format("YYYY-MM-DD");
+
+                                            dispatch(updateNotaDia({
+                                                fecha,
+                                                texto: textoNota
+                                            }));
+                                            dispatch(getNotasDia())
+                                        }}
+                                        sx={{
+                                            textTransform: 'capitalize',
+                                            borderRadius: '50px',
+                                            fontFamily: 'InterTight',
+                                            px: 3,
+                                        }}
+                                    >
+                                        Guardar
+                                    </Button>
+                                </Box>
+                     </Paper>
                     {reservasDelDiaSeleccionado.length === 0 ? (
                         <Paper
                             elevation={0}

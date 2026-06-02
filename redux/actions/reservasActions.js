@@ -55,6 +55,16 @@ export const MARK_RESERVA_PROCESADA_REQUEST = 'MARK_RESERVA_PROCESADA_REQUEST';
 export const MARK_RESERVA_PROCESADA_SUCCESS = 'MARK_RESERVA_PROCESADA_SUCCESS';
 export const MARK_RESERVA_PROCESADA_FAILURE = 'MARK_RESERVA_PROCESADA_FAILURE';
 
+
+//nota del dia
+export const GET_NOTA_DIA_REQUEST = "GET_NOTA_DIA_REQUEST";
+export const GET_NOTA_DIA_SUCCESS = "GET_NOTA_DIA_SUCCESS";
+export const GET_NOTA_DIA_FAILURE = "GET_NOTA_DIA_FAILURE";
+
+export const UPDATE_NOTA_DIA_REQUEST = "UPDATE_NOTA_DIA_REQUEST";
+export const UPDATE_NOTA_DIA_SUCCESS = "UPDATE_NOTA_DIA_SUCCESS";
+export const UPDATE_NOTA_DIA_FAILURE = "UPDATE_NOTA_DIA_FAILURE";
+
 //Función GET para obtener resrevas pendientes:
 export const fetchReservas = () => async (dispatch) => {
     dispatch({ type: GET_RESERVAS_REQUEST });
@@ -430,3 +440,104 @@ export const fetchReservasRealizadas = () => async (dispatch) => {
         dispatch({ type: GET_RESERVAS_REALIZADAS_FAILURE, payload: error.message });
     }
     };
+
+
+    //nota del dia
+//     export const getNotaDia = (fecha) => async (dispatch) => {
+//     dispatch({ type: GET_NOTA_DIA_REQUEST });
+
+//     try {
+//         const token = localStorage.getItem("token");
+
+//         const response = await fetch(
+//             `${url}/api/reservas/nota-dia?fecha=${fecha}`,
+//             {
+//                 method: "GET",
+//                 headers: {
+//                     "Content-Type": "application/json",
+//                     "x-token": token,
+//                 },
+//             }
+//         );
+
+//         if (!response.ok) throw new Error("Error al obtener nota del día");
+
+//         const data = await response.json();
+
+//         dispatch({
+//             type: GET_NOTA_DIA_SUCCESS,
+//             payload: data,
+//         });
+//     } catch (error) {
+//         dispatch({
+//             type: GET_NOTA_DIA_FAILURE,
+//             payload: error.message,
+//         });
+//     }
+// };
+
+export const updateNotaDia = (nota) => async (dispatch) => {
+    dispatch({ type: UPDATE_NOTA_DIA_REQUEST });
+
+    try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+            `${url}/api/reservas/nota-dia`,
+            {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-token": token,
+                },
+                body: JSON.stringify(nota),
+            }
+        );
+
+        if (!response.ok) throw new Error("Error al actualizar nota del día");
+
+        const data = await response.json();
+
+        dispatch({
+            type: UPDATE_NOTA_DIA_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: UPDATE_NOTA_DIA_FAILURE,
+            payload: error.message,
+        });
+    }
+};
+
+
+export const getNotasDia = () => async (dispatch) => {
+    dispatch({ type: GET_NOTA_DIA_REQUEST });
+
+    try {
+        const token = localStorage.getItem("token");
+
+        const response = await fetch(
+            `${url}/api/reservas/nota-dia`,
+            {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-token": token,
+                },
+            }
+        );
+
+        const data = await response.json();
+
+        dispatch({
+            type: GET_NOTA_DIA_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_NOTA_DIA_FAILURE,
+            payload: error.message,
+        });
+    }
+};
