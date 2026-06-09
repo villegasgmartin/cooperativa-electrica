@@ -826,6 +826,7 @@ if (orden.campo) {
               control={
                 <Checkbox
                   checked={selectedReserva.esTV}
+                  disabled
                   onChange={() =>
                     setSelectedReserva((prev) => ({
                       ...prev,

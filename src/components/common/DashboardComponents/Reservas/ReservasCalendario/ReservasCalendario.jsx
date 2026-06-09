@@ -2700,6 +2700,7 @@ const handleGuardarNotaDia = () => {
                                     control={
                                         <Checkbox
                                             checked={selectedReserva.esTV}
+                                              disabled
                                             onChange={() =>
                                                 setSelectedReserva((prev) => ({
                                                     ...prev,
