@@ -17,6 +17,7 @@ import { Button} from '@mui/material';
 import { Link } from 'react-router-dom';
 import mapa from "../../../assets/images/nave/mapa.jpg"
 import mapaMobile from "../../../assets/images/nave/mapa-mobile.png"
+import InfoSection from './wifiAvanzado';
 
 //JSX:
 const Nave = () => {
@@ -27,10 +28,10 @@ const Nave = () => {
   }, [dispatch]);
 
   const serviciosNave = [
-    { servicio: "INTERNET 300 MB", precio: "$12.222",/* precioLista: "$18.1333",*/ descuento: "$14.760 OFF por 12 meses", categoria: "internet" },
-    { servicio: "INTERNET 600 MB", precio: "$15.405", /*precioLista: "$21.381",*/ descuento: "$19.201 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 300 MB", precio: "$12.222",/* precioLista: "$18.1333",*/ descuento: "Sumale tv por 10000", categoria: "internet" },
+    { servicio: "INTERNET 600 MB", precio: "$15.405", /*precioLista: "$21.381",*/ descuento: "Sumale tv por 10000", categoria: "internet" },
 
-    { servicio: "INTERNET 1000 MB", precio: "$18.000", /*precioLista: "$26.795",*/ descuento: "$22.436 OFF por 12 meses", categoria: "internet" },
+    { servicio: "INTERNET 1000 MB", precio: "$18.000", /*precioLista: "$26.795",*/ descuento: "Sumale tv por 10000", categoria: "internet" },
     { servicio: "PACK TV", precio: "$12.000", /*precioLista: "",*/ descuento: "100% Entretenimiento", categoria: "tv", descripcion: (
       <>
         Tv Full + Futbol + 
@@ -48,7 +49,7 @@ const Nave = () => {
       </>
     )
   },
-    { servicio: "PACK TV Nave", precio: "$10.000", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por tener Internet Nave`},
+    // { servicio: "PACK TV Nave", precio: "$10.000", /*precioLista: "",*/ descuento: "Experiencia Premium", categoria: "tv", descripcion:`Descuento por tener Internet Nave`},
   ];
 
   const [serviciosFiltrados, setServiciosFiltrados] = useState(serviciosNave);
@@ -107,6 +108,7 @@ const Nave = () => {
           <CardCarousel servicios={serviciosFiltrados}/>
            <p className='leyenda'>*Los descuentos tienen una duración de 12 meses. El porcentaje de descuento se mantiene fijo, pero el precio de lista puede variar. Cualquier actualización se informa con un mes de anticipación y figura en la factura de NAVE.</p>
         </Fade>
+        <InfoSection/>
         <Fade>
          
           <div className='mapa-div'>
