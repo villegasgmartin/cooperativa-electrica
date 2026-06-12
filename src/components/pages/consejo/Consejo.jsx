@@ -41,7 +41,7 @@ const Consejo = () => {
                 <li className='consejo-accordion-content'><strong>Vicepresidente 1°</strong> Gustavo Casciotti</li>
                 <li className='consejo-accordion-content'><strong>Vicepresidente 2°:</strong> Jorge R. Levin</li>
                 <li className='consejo-accordion-content'><strong>Secretaria:</strong> Sra. Elsa Miori</li>
-                <li className='consejo-accordion-content'><strong>Prosecretario:</strong> Paulo G. Ares</li>
+                <li className='consejo-accordion-content'><strong>Prosecretario:</strong> Carlos Macri</li>
                 <li className='consejo-accordion-content'><strong>Tesorero:</strong> Gabriel B. González</li>
                 <li className='consejo-accordion-content'><strong>Protesorero:</strong> Raúl R. Debenedetti</li>
               </ul>
@@ -53,7 +53,6 @@ const Consejo = () => {
                         <li className='consejo-accordion-content'>Juan J. Cuda</li>
                         <li className='consejo-accordion-content'>Andrés Salvia</li>
                         <li className='consejo-accordion-content'>Francisco Corazza</li>
-                        <li className='consejo-accordion-content'>Carlos Macri</li>
                         <li className='consejo-accordion-content'>Maria Julia Frontini</li>
                       </ul>
                     </AccordionDetails>
