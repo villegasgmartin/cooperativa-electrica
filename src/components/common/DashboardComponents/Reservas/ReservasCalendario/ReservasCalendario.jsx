@@ -27,6 +27,8 @@ import {
     GlobalStyles,
     Select,
     MenuItem,
+    FormControl,
+    InputLabel
 } from '@mui/material';
 import { useTheme, alpha } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -2814,7 +2816,7 @@ const handleGuardarNotaDia = () => {
                                     />
                                 </Grid>
 
-                                <Grid item xs={12} sm={6}>
+                                {/* <Grid item xs={12} sm={6}>
                                     <TextField
                                         label="Servicio"
                                         fullWidth
@@ -2834,7 +2836,50 @@ const handleGuardarNotaDia = () => {
                                             setSelectedReserva({ ...selectedReserva, tv: e.target.value })
                                         }
                                     />
-                                </Grid>
+                                </Grid> */}
+
+                                 <Grid item xs={6} sm={6}>
+                                              <FormControl fullWidth>
+                                                <InputLabel>Servicio</InputLabel>
+                                                <Select
+                                                  value={selectedReserva.internet || ""}
+                                                  label="Servicio"
+                                                  onChange={(e) =>
+                                                    setSelectedReserva({
+                                                      ...selectedReserva,
+                                                      internet: e.target.value,
+                                                    })
+                                                  }
+                                                >
+                                                  <MenuItem value="Ninguna">Ninguna</MenuItem>
+                                                  <MenuItem value="yatiene">Ya Tiene</MenuItem>
+                                                  <MenuItem value="300 MB">300MB</MenuItem>
+                                                  <MenuItem value="600 MB">600MB</MenuItem>
+                                                  <MenuItem value="1000 MB">1000MB</MenuItem>
+                                                </Select>
+                                              </FormControl>
+                                            </Grid>
+                                            <Grid item xs={6} sm={6}>
+                                              <FormControl fullWidth>
+                                                <InputLabel>Servicio</InputLabel>
+                                                <Select
+                                                  value={selectedReserva.tv || ""}
+                                                  label="Servicio"
+                                                  onChange={(e) =>
+                                                    setSelectedReserva({
+                                                      ...selectedReserva,
+                                                      tv: e.target.value,
+                                                    })
+                                                  }
+                                                >
+                                                  <MenuItem value="Pack adicional">Pack Tv Adicional</MenuItem>
+                                                  <MenuItem value="yatiene">Ya Tiene</MenuItem>
+                                                  <MenuItem value="Futbol fuera de zona">TV Solo </MenuItem>
+                                                  <MenuItem value="Ninguno">Ninguno</MenuItem>
+                                                </Select>
+                                              </FormControl>
+                                            </Grid>
+                                           
 
                                 <Grid item xs={12}>
                                     <FormControlLabel

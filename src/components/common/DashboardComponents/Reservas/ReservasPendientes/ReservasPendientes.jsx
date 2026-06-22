@@ -961,6 +961,7 @@ if (orden.campo) {
                   }
                 >
                   <MenuItem value="Ninguna">Ninguna</MenuItem>
+                  <MenuItem value="yatiene">Ya Tiene</MenuItem>
                   <MenuItem value="300 MB">300MB</MenuItem>
                   <MenuItem value="600 MB">600MB</MenuItem>
                   <MenuItem value="1000 MB">1000MB</MenuItem>
@@ -968,6 +969,26 @@ if (orden.campo) {
               </FormControl>
             </Grid>
             <Grid item xs={6} sm={6}>
+              <FormControl fullWidth>
+                <InputLabel>Servicio</InputLabel>
+                <Select
+                  value={selectedReserva.tv || ""}
+                  label="Servicio"
+                  onChange={(e) =>
+                    setSelectedReserva({
+                      ...selectedReserva,
+                      tv: e.target.value,
+                    })
+                  }
+                >
+                  <MenuItem value="Pack adicional">Pack Tv Adicional</MenuItem>
+                  <MenuItem value="yatiene">Ya Tiene</MenuItem>
+                  <MenuItem value="Futbol fuera de zona">TV Solo </MenuItem>
+                  <MenuItem value="Ninguno">Ninguno</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* <Grid item xs={6} sm={6}>
               <TextField
                 label="TV"
                 fullWidth
@@ -976,37 +997,8 @@ if (orden.campo) {
                   setSelectedReserva({ ...selectedReserva, tv: e.target.value })
                 }
               />
-            </Grid>
-             <Grid item xs={12} sm={6}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={selectedReserva.tieneTV || false}
-                    onChange={(e) =>
-                      setSelectedReserva({ ...selectedReserva, tieneTV: e.target.checked })
-                    }
-                    color="primary"
-                  />
-                }
-                label="Tiene TV"
-                sx={{ ml: 1 }}
-              />
-            </Grid>
-             <Grid item xs={12} sm={6}>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={selectedReserva.tieneInternet || false}
-                    onChange={(e) =>
-                      setSelectedReserva({ ...selectedReserva, tieneInternet: e.target.checked })
-                    }
-                    color="primary"
-                  />
-                }
-                label="Tiene Intenet"
-                sx={{ ml: 1 }}
-              />
-            </Grid>
+            </Grid> */}
+     
             <Grid item xs={12} sm={6}>
               <FormControlLabel
                 control={

@@ -628,10 +628,12 @@ const Form = () => {
                             inputProps={{ 'aria-label': 'Plan que solicita de Internet' }}
                         >
                             <MenuItem disabled value="">Plan que solicita de Internet</MenuItem>
+                            <MenuItem value="Ninguna">Ninguna</MenuItem>
+                            <MenuItem value="yatiene">Ya Tiene</MenuItem>
                             <MenuItem value="300 MB">300 megas</MenuItem>
                             <MenuItem value="600 MB">600 megas</MenuItem>
                             <MenuItem value="1000 MB">1000 megas</MenuItem>
-                            <MenuItem value="Ninguna">Ninguna</MenuItem>
+                            
                         </Select>
                         ):(
                         ""
@@ -647,6 +649,11 @@ const Form = () => {
                         >
                             <MenuItem disabled value="">Plan que solicita de TV</MenuItem>
                             <MenuItem
+                                value="yatiene"
+                            >
+                                Ya tiene
+                            </MenuItem>
+                            <MenuItem
                                 value="TV full"
                                 disabled={planInternet !== 'Ninguno'}
                             >
@@ -656,7 +663,7 @@ const Form = () => {
                                 value="Pack adicional"
                                 disabled={planInternet === 'Ninguno'}
                             >
-                                Pack TV adicional $10000
+                                Pack TV adicional
                             </MenuItem>
                             <MenuItem
                                 value="Ninguno"
