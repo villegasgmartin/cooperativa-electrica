@@ -13,6 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 // Definición de las páginas
 const pages = [
+    { name: 'Beneficios', path: '/beneficios', isButton: true },
     { name: 'Internet y TV', path: '/nave' },
     {
         name: 'Servicios', path: '#', submenu: [
@@ -169,21 +170,21 @@ const NavBar = ({ backgroundColor, backgroundColorMovile }) => {
     const renderNavBarMenu = () => (
         <ul className="navbar-links-container">
             {pages.map((page) => (
-                <li
-                    key={page.name}
-                    className="navbar-link"
-                    onMouseEnter={() => page.submenu && handleMouseEnter(page.name)}
-                    onMouseLeave={handleMouseLeave}
-                >
-                    {page.external ? (
-                        <a href={page.path} target="_blank" rel="noopener noreferrer">
-                            {page.name}{page.submenu && <span className="arrow">▼</span>}
-                        </a>
-                    ) : (
-                        <Link to={page.path}>
-                            {page.name}{page.submenu && <span className="arrow">▼</span>}
-                        </Link>
-                    )}
+               <li
+                key={page.name}
+                className={`navbar-link ${page.isButton ? 'navbar-btn-container' : ''}`}
+                onMouseEnter={() => page.submenu && handleMouseEnter(page.name)}
+                onMouseLeave={handleMouseLeave}
+            >
+                {page.external ? (
+                    <a href={page.path} target="_blank" rel="noopener noreferrer">
+                        {page.name}{page.submenu && <span className="arrow">▼</span>}
+                    </a>
+                ) : (
+                    <Link to={page.path}>
+                        {page.name}{page.submenu && <span className="arrow">▼</span>}
+                    </Link>
+                )}
                     {page.submenu && openSubMenu === page.name && (
                         <ul className="submenu">
                             {page.submenu.map((subPage) => (

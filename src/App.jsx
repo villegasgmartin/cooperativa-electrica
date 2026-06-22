@@ -31,6 +31,7 @@ import PreguntasNave from "./components/pages/preguntasNave/PreguntasNave.jsx";
 import OcultaVittal from "./components/pages/oculta-vittal/Oculta-Vittal.jsx";
 import Success from "./components/pages/success/Success.jsx";
 import Captacion from "./components/pages/web-captacion/captacion.jsx";
+import BeneficiosAsociado from "./components/pages/beneficios/beneficios.jsx";
 
 // Componente separado para manejar rutas y lógica
 function AppContent() {
@@ -61,6 +62,7 @@ function AppContent() {
 
         <Route path="/blog/:path" element={<BlogNoticia1 />} />
         <Route path="/biblioteca" element={<Biblioteca />} />
+        <Route path="/beneficios" element={<BeneficiosAsociado />} />
         <Route path="/AMImutual" element={<Mutual />} />
         <Route path="/vittal" element={<Vital />} />
         <Route path="/formas-de-pago" element={<FormasPago />} />

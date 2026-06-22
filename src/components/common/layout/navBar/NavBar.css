@@ -2,7 +2,7 @@
 .navbar-container {
   padding-left: 1.5625rem;
   padding-right: 1.5625rem;
-  width: 80%;
+  width: 90%;
   height: 5.3125rem;
   margin: auto;
   display: flex;
@@ -23,6 +23,8 @@
   display: flex;
   gap: .75rem;
   position: relative;
+  justify-content: center;
+  align-items: center;
 }
 
 /*Enlaces*/
@@ -259,4 +261,31 @@
   .navbar-logo {
     width: 7.5rem;
   }
+}
+
+/* Estilo base para el contenedor del botón */
+.navbar-btn-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo específico para el link que actúa como botón */
+.navbar-btn-container a {
+    background-color: #7e57c2; /* Cambia este color por tu violeta específico */
+    color: white !important;
+    padding: 8px 20px !important;
+    border-radius: 25px; /* Bordes redondeados */
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-btn-container a:hover {
+    background-color: #5e35b1; /* Un tono más oscuro para el hover */
+    color: white !important;
+}
+
+/* Ajuste opcional para que no afecte el dropdown */
+.navbar-btn-container .submenu {
+    top: 100%;
 }

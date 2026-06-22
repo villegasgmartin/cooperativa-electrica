@@ -228,7 +228,7 @@ const Mutual = () => {
   <div className='mutual-enlace'>
 
     {/* Caja 1 */}
-    <div className='mutual-box'>
+    {/* <div className='mutual-box'>
       <p className='mutual-enlace-text'>
         LISTADO DE <strong>PROFESIONALES Y COMERCIOS</strong> ADHERIDOS
       </p>
@@ -263,7 +263,7 @@ const Mutual = () => {
           Ver aquí
         </Button>
       </a>
-    </div>
+    </div> */}
 
     {/* Caja 2 */}
     <div className='mutual-box'>
