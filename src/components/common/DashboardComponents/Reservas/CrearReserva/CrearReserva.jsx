@@ -265,7 +265,7 @@ const Form = () => {
 
      //Enviamos los datos
         const handleSubmit = async (event) => {
-            if(zona == 'Fuera de Zona de Servicio' || internetPlan == 'Ninguna'){
+            if(zona == 'Fuera de Zona de Servicio' || internetPlan == 'Ninguna' || internetPlan == 'yatiene'){
             event.preventDefault();
             let formErrors = {};
             if (!formData.name) formErrors.name = "Nombre es requerido";
@@ -621,7 +621,7 @@ const Form = () => {
                 {direccionValidada?(
                 <>
                     {/* Servicio de internet */}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' && internetPlan != 'yatiene' ?(
                         <Select
                             displayEmpty
                             fullWidth
@@ -698,7 +698,7 @@ const Form = () => {
                     </Select>
                     )}
                     {/*Calendario */}
-                    {(zona ?? '').trim() === '' || ((zona ?? '').trim() === 'Direccion en Zona 1' && internetPlan !== 'Ninguna') ? (
+                    {(zona ?? '').trim() === '' || ((zona ?? '').trim() === 'Direccion en Zona 1' && internetPlan !== 'Ninguna' && internetPlan != 'yatiene') ? (
                     <>
                         <FormControlLabel
                         control={
@@ -760,7 +760,7 @@ const Form = () => {
                     </>
                     ):("")}
                     {/*Enviar formulario */}
-                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna' ?(
+                    {(zona ?? '').trim() == '' || (zona ?? '').trim() == 'Direccion en Zona 1' && internetPlan!='Ninguna'&& internetPlan != 'yatiene' ?(
                         <div style={{display: "flex", justifyContent: "center", marginTop: "30px"}}>
                             <Button
                                 variant="contained"
