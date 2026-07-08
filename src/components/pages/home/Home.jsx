@@ -42,13 +42,8 @@ const Home = () => {
             <div className="modal-overlay" onClick={closeModal}>
                 <div className="modal-content">
                     <img src={ModalHome} alt="" className="modal-image"/>
-                <p className="modal-title">⚠️ El canal de Whatsapp 54 9 2235405430, correspondiente a la atención comercial del Servicio Eléctrico, se encuentra temporalmente fuera de servicio.
-                    <br />
-                    <br />
-                    Estamos trabajando para reestablecerlo lo antes posible. 
-                    <br />
-                    <br />Recibimos consultas y gestiones a través de nuestro correo electrónico Recibimos consultas y gestiones a través de nuestro correo electrónico comercialgc@cooperativamdp.com.ar o telefónicamente, al 0 800 333 0357
-Pedimos disculpas por las molestias.
+                <p className="modal-title">El lunes 13 de julio el sector eléctrico de la Cooperativa permanecerá cerrado al público por celebrarse el Día del Trabajador de la Energía Eléctrica.
+Agradecemos su comprensión.
                 </p>
                 
                     <div>
