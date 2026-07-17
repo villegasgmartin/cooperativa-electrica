@@ -58,17 +58,40 @@ const Acciones = () => {
     setExpandedRows(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
+  
+
   // ---- FILTRO INTELIGENTE ----
   const reportesFiltrados = useMemo(() => {
     if (!reportes) return [];
 
     return reportes.filter(r => {
-      const texto = busqueda.toLowerCase();
+      
 
-      const coincideTexto =
-        r.responsable?.toLowerCase().includes(texto) ||
-        r.tarea?.toLowerCase().includes(texto) ||
-        r.accion?.toLowerCase().includes(texto);
+      const coincideTexto = (() => {
+  const textoBusqueda = busqueda.toLowerCase();
+
+  // Campos principales
+  const camposPrincipales = [
+    r.responsable,
+    r.tarea,
+    r.accion,
+  ];
+
+  // Agregar todos los valores del detalle
+  if (r.detalle) {
+    if (typeof r.detalle === "object") {
+      camposPrincipales.push(...Object.values(r.detalle));
+    } else {
+      camposPrincipales.push(r.detalle);
+    }
+  }
+
+  return camposPrincipales.some(valor =>
+    String(valor ?? "")
+      .toLowerCase()
+      .includes(textoBusqueda)
+  );
+})();
 
       const fechaReporte = new Date(r.fecha);
 

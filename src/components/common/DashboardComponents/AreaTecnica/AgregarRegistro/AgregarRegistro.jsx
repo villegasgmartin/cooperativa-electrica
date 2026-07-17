@@ -32,6 +32,7 @@ export default function AgregarRegistro() {
     const [apellido, setApellido] = useState('');
     const [dni, setDni] = useState('');
     const [telefono, setTelefono] = useState('');
+    const [email, setEmail] = useState('');
     const [direccion, setDireccion] = useState('');
     const [fechaSolicitud, setFechaSolicitud] = useState(null);
 
@@ -73,6 +74,7 @@ export default function AgregarRegistro() {
             setDireccion(usuario.DOMICILIO || '');
             setDni(usuario.DNI || '');
             setTelefono(usuario.TELEFONO1 || '');
+            setEmail(usuario.EMAIL || '')
  
         }
     }, [usuario]);
@@ -112,7 +114,8 @@ export default function AgregarRegistro() {
             direccion,
             motivoCustom: motivoCustom || '',
             dni, 
-            telefono
+            telefono,
+            email
         }));
     };
 
