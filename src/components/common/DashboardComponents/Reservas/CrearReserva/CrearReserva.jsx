@@ -126,11 +126,12 @@ const Form = () => {
       
         // ]
 
-             const zona1 = [
+            const zona1 = [
         {latitude: -37.99117, longitude:-57.57442 },
          {latitude: -38.0008, longitude:-57.5822 },
-         {latitude: -38.00599, longitude:-57.572 },
-          {latitude: -38.0098, longitude:-57.57536 },
+         {latitude: -38.00787, longitude:-57.56779 },
+
+          {latitude: -38.01201, longitude:-57.57114 },
 
         { latitude: -38.0166, longitude: -57.56203 },
 
