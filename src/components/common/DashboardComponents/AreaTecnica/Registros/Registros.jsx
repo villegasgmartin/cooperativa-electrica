@@ -533,20 +533,23 @@ return (
                 onChange={(e) => setFiltroMotivo(e.target.value)}
             >
                 <MenuItem value="">Todos</MenuItem>
-                <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
-                <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
-                <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
-                <MenuItem value="Cambio de plan internet">Cambio de plan internet</MenuItem>
-                <MenuItem value="Cambio de plan tv">Cambio de plan tv</MenuItem>
-                <MenuItem value="Baja de internet">Baja de internet</MenuItem>
-                <MenuItem value="Baja de tv">Baja de tv</MenuItem>
-                <MenuItem value="Cambio de titularidad">Cambio de titularidad</MenuItem>
-                <MenuItem value="Cambio de domicilio">Cambio de domicilio</MenuItem>
-                <MenuItem value="Tarea programada">Tarea programada</MenuItem>
-                 <MenuItem value="Wifi adicional">Wifi adicional</MenuItem>
-                 <MenuItem value="Reclamo TV">Reclamo TV</MenuItem>
-                 <MenuItem value="HBO">HBO</MenuItem>
-                 <MenuItem value="TV adicional">TV adicional</MenuItem>
+                 <MenuItem value="Ingreso al edificio">Ingreso al edificio</MenuItem>
+                        <MenuItem value="Colocación de caja">Colocación de caja</MenuItem>
+                        <MenuItem value="Reclamos de servicio">Reclamos de servicio</MenuItem>
+                        <MenuItem value="Cambio de plan internet">Cambio de plan internet</MenuItem>
+                        <MenuItem value="Cambio de plan tv">Cambio de plan tv</MenuItem>
+                        <MenuItem value="Baja de internet">Baja de internet</MenuItem>
+                        <MenuItem value="Baja de tv">Baja de tv</MenuItem>
+                        <MenuItem value="Cambio de titularidad">Cambio de titularidad</MenuItem>
+                        <MenuItem value="Cambio de domicilio">Cambio de domicilio</MenuItem>
+                        <MenuItem value="Tarea programada">Tarea programada</MenuItem>
+                        <MenuItem value="Wifi adicional">Wifi adicional</MenuItem>
+                        <MenuItem value="Reclamo TV">Reclamo TV</MenuItem>
+                        <MenuItem value="HBO">HBO</MenuItem>
+                        <MenuItem value="TV adicional">TV adicional</MenuItem>
+                        <MenuItem value="Perdida señal optica">Perdida señal optica</MenuItem>
+                        <MenuItem value="Perdida de energia">Perdida de energia</MenuItem>
+                        <MenuItem value="Problemas de wifi">Problemas de wifi</MenuItem>
             </Select>
         </FormControl>
         <Box>

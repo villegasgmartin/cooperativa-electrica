@@ -242,6 +242,9 @@ export default function AgregarRegistro() {
                         <MenuItem value="Reclamo TV">Reclamo TV</MenuItem>
                         <MenuItem value="HBO">HBO</MenuItem>
                         <MenuItem value="TV adicional">TV adicional</MenuItem>
+                        <MenuItem value="Perdida señal optica">Perdida señal optica</MenuItem>
+                        <MenuItem value="Perdida de energia">Perdida de energia</MenuItem>
+                        <MenuItem value="Problemas de wifi">Problemas de wifi</MenuItem>
                         <MenuItem value=""><em>--- Borrar selección ---</em></MenuItem>
                     </Select>
                 </FormControl>
