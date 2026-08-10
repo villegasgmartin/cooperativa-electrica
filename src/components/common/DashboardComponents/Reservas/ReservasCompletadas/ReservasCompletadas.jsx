@@ -52,6 +52,17 @@ import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
 
 
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
+} from '@mui/material';
+
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+
+
+
 //Logos para PDF
 import logo1 from '../../../../../assets/images/logos/logo-nave-negro.png';
 
@@ -294,6 +305,25 @@ export default function ReservasCompletadas() {
   const [orden, setOrden] = useState({ campo: '', direccion: '' });
   const { realizadas, loading, error } = useSelector(state => state.reservas);
   const [filtroServicio, setFiltroServicio] = React.useState(null);
+
+
+ 
+const [busquedaAvanzada, setBusquedaAvanzada] = React.useState({
+  nombre: '',
+  apellido: '',
+  DNI: '',
+  telefono: '',
+  direccion: '',
+  internet: '',
+  tv: '',
+  email: '',
+  fechaDesde: null,
+  fechaHasta: null
+});
+
+const [buscandoAvanzado, setBuscandoAvanzado] = React.useState(false);
+
+
 
   //Funciones para editar: con modal:
   const handleEditClick = (row) => {
@@ -552,6 +582,59 @@ if (orden.campo) {
 }
 
 
+
+const handleCambioBusquedaAvanzada = (campo, valor) => {
+  setBusquedaAvanzada((prev) => ({
+    ...prev,
+    [campo]: valor
+  }));
+};
+
+const handleBuscarAvanzado = async () => {
+  const filtros = {};
+
+  Object.entries(busquedaAvanzada).forEach(([campo, valor]) => {
+    if (valor !== null && valor !== undefined && valor !== '') {
+      if (campo === 'fechaDesde' || campo === 'fechaHasta') {
+        filtros[campo] = dayjs(valor).format('YYYY-MM-DD');
+      } else {
+        filtros[campo] = valor;
+      }
+    }
+  });
+
+  if (Object.keys(filtros).length === 0) {
+    return;
+  }
+
+  setBuscandoAvanzado(true);
+
+  try {
+    await dispatch(fetchReservasRealizadas(filtros));
+  } finally {
+    setBuscandoAvanzado(false);
+  }
+};
+
+const handleLimpiarBusquedaAvanzada = () => {
+  setBusquedaAvanzada({
+    nombre: '',
+    apellido: '',
+    DNI: '',
+    telefono: '',
+    direccion: '',
+    internet: '',
+    tv: '',
+    email: '',
+    fechaDesde: null,
+    fechaHasta: null
+  });
+
+  dispatch(fetchReservasRealizadas());
+};
+
+
+
   //Contenido:
   return (
     <Box sx={{ width: '90%', margin: 'auto', marginTop: '30px', marginBottom: 6 }}>
@@ -647,6 +730,203 @@ if (orden.campo) {
           Excel
         </Button>
       </Box>
+
+  
+<Accordion
+  sx={{
+    width: '100%',
+    mt: 1,
+    boxShadow: 'none',
+    border: '1px solid',
+    borderColor: 'divider',
+    borderRadius: '8px !important',
+    marginBottom: "20px"
+  }}
+>
+  <AccordionSummary
+    expandIcon={<ExpandMoreIcon />}
+  >
+    <Typography
+      sx={{
+        fontFamily: 'InterTight',
+        fontWeight: 'bold'
+      }}
+    >
+      Búsqueda avanzada
+    </Typography>
+  </AccordionSummary>
+
+  <AccordionDetails>
+    <Grid container spacing={2}>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Nombre"
+          value={busquedaAvanzada.nombre}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('nombre', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Apellido"
+          value={busquedaAvanzada.apellido}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('apellido', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="DNI"
+          value={busquedaAvanzada.DNI}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('DNI', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Teléfono"
+          value={busquedaAvanzada.telefono}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('telefono', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Dirección"
+          value={busquedaAvanzada.direccion}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('direccion', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Internet"
+          value={busquedaAvanzada.internet}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('internet', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="TV"
+          value={busquedaAvanzada.tv}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('tv', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={6}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Email"
+          value={busquedaAvanzada.email}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('email', e.target.value)
+          }
+        />
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Desde"
+            value={busquedaAvanzada.fechaDesde}
+            onChange={(newDate) =>
+              handleCambioBusquedaAvanzada('fechaDesde', newDate)
+            }
+            maxDate={busquedaAvanzada.fechaHasta}
+            format="DD/MM/YYYY"
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                size: 'small'
+              }
+            }}
+          />
+        </LocalizationProvider>
+      </Grid>
+
+      <Grid item xs={12} sm={6} md={3}>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <DatePicker
+            label="Hasta"
+            value={busquedaAvanzada.fechaHasta}
+            onChange={(newDate) =>
+              handleCambioBusquedaAvanzada('fechaHasta', newDate)
+            }
+            minDate={busquedaAvanzada.fechaDesde}
+            format="DD/MM/YYYY"
+            slotProps={{
+              textField: {
+                fullWidth: true,
+                size: 'small'
+              }
+            }}
+          />
+        </LocalizationProvider>
+      </Grid>
+
+      <Grid item xs={12}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            gap: 1,
+            mt: 1
+          }}
+        >
+          <Button
+            variant="outlined"
+            color="secondary"
+            onClick={handleLimpiarBusquedaAvanzada}
+          >
+            Limpiar
+          </Button>
+
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleBuscarAvanzado}
+            disabled={buscandoAvanzado}
+          >
+            {buscandoAvanzado ? 'Buscando...' : 'Buscar'}
+          </Button>
+        </Box>
+      </Grid>
+
+    </Grid>
+  </AccordionDetails>
+</Accordion>
+
 
       {/*Tabla*/}
       <Box sx={{ marginBottom: '50px' }}>

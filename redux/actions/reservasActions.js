@@ -413,33 +413,59 @@ export const crearUsuarioBCM = (row) => {
     };
 
 // Función GET para obtener reservas realizadas:
-export const fetchReservasRealizadas = () => async (dispatch) => {
+
+export const fetchReservasRealizadas = (filtros = {}) => async (dispatch) => {
     dispatch({ type: GET_RESERVAS_REALIZADAS_REQUEST });
 
     try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${url}/api/reservas/reservas-realizadas`, {
-        headers: { 'x-token': token },
+
+        const params = new URLSearchParams();
+
+        Object.entries(filtros).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== '') {
+                params.append(key, value);
+            }
         });
 
-        if (!response.ok) throw new Error('Error al obtener las reservas realizadas');
+        const queryString = params.toString();
+
+        const response = await fetch(
+            `${url}/api/reservas/reservas-realizadas${queryString ? `?${queryString}` : ''}`,
+            {
+                headers: { 'x-token': token },
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error('Error al obtener las reservas realizadas');
+        }
 
         const data = await response.json();
 
         const reservasFormateadas = data.reservas.map((r) => {
-        const fechaObj = dayjs(r.fecha);
-        return {
-            ...r,
-            fechaFormateada: fechaObj.format('D [de] MMMM'),
-            mes: fechaObj.format('MMMM'),
-        };
+            const fechaObj = dayjs(r.fecha);
+
+            return {
+                ...r,
+                fechaFormateada: fechaObj.format('D [de] MMMM'),
+                mes: fechaObj.format('MMMM'),
+            };
         });
 
-        dispatch({ type: GET_RESERVAS_REALIZADAS_SUCCESS, payload: reservasFormateadas });
+        dispatch({
+            type: GET_RESERVAS_REALIZADAS_SUCCESS,
+            payload: reservasFormateadas
+        });
+
     } catch (error) {
-        dispatch({ type: GET_RESERVAS_REALIZADAS_FAILURE, payload: error.message });
+        dispatch({
+            type: GET_RESERVAS_REALIZADAS_FAILURE,
+            payload: error.message
+        });
     }
-    };
+};
+
 
 
     //nota del dia
