@@ -317,6 +317,7 @@ const [busquedaAvanzada, setBusquedaAvanzada] = React.useState({
   internet: '',
   tv: '',
   email: '',
+  NumeroUsuario: '',
   fechaDesde: null,
   fechaHasta: null
 });
@@ -626,6 +627,7 @@ const handleLimpiarBusquedaAvanzada = () => {
     internet: '',
     tv: '',
     email: '',
+    NumeroUsuario: '',
     fechaDesde: null,
     fechaHasta: null
   });
@@ -807,7 +809,7 @@ const handleLimpiarBusquedaAvanzada = () => {
         />
       </Grid>
 
-      <Grid item xs={12} sm={6} md={6}>
+      <Grid item xs={12} sm={6} md={3}>
         <TextField
           fullWidth
           size="small"
@@ -815,6 +817,17 @@ const handleLimpiarBusquedaAvanzada = () => {
           value={busquedaAvanzada.direccion}
           onChange={(e) =>
             handleCambioBusquedaAvanzada('direccion', e.target.value)
+          }
+        />
+      </Grid>
+       <Grid item xs={12} sm={6} md={3}>
+        <TextField
+          fullWidth
+          size="small"
+          label="Numero de usuario"
+          value={busquedaAvanzada.NumeroUsuario}
+          onChange={(e) =>
+            handleCambioBusquedaAvanzada('NumeroUsuario', e.target.value)
           }
         />
       </Grid>
