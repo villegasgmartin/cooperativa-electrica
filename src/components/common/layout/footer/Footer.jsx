@@ -51,7 +51,7 @@ const Footer = () => {
                 {!shouldHideSpecificInfo && (
                     <>
                         <div>
-                            <h4 className="footer-info-title">HORARIOS DE ATENCIÓN SERVICIO ELÉCTRICO:</h4>
+                            <h4 className="footer-info-title">HORARIOS EN CAJA COOPERATIVA:</h4>
                             <p className="footer-info">Lunes a Viernes de 7:30 a 12:30 hs.</p>
                         </div>
                         <div>
