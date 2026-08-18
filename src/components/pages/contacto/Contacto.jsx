@@ -223,7 +223,7 @@ const Contacto = () => {
             <h4 className='contacto-info-title'>Servicio Eléctrico</h4>
             <div className='contacto-info-align'>
               <p className='contacto-info-text'><strong>Área comercial: </strong>comercial@coopelectmdp.com.ar</p>
-              <p className='contacto-info-text'><strong>Horarios de atención: </strong>Lunes a Viernes de 7:30 a 12:30 hs.</p>
+              <p className='contacto-info-text'><strong>Horarios de atención en caja cooperativa: </strong>Lunes a Viernes de 7:30 a 12:30 hs.</p>
               <p className='contacto-info-text'><strong>Consejo de Administración: </strong>consejo@coopelectmdp.com.ar</p>
               <div className='contacto-icons'>
                 <a href="https://www.facebook.com/people/Cooperativa-El%C3%A9ctrica-MDP-Nave-Internet/61565189905138/" target='_blank' rel='noopener noreferrer'>
