@@ -337,7 +337,7 @@ const Retiros = () => {
             </TableRow>
           ))}
 
-          {historialPaginados.length === 0 && (
+          {historialFiltrado.length === 0 && (
             <TableRow>
               <TableCell colSpan={4} align="center">
                 No hay historial
@@ -350,7 +350,7 @@ const Retiros = () => {
       {/* ---- PAGINADO ---- */}
       <TablePagination
         component="div"
-        count={historialPaginados.length}
+        count={historialFiltrado.length}
         page={page}
         onPageChange={handleChangePage}
         rowsPerPage={rowsPerPage}
