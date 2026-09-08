@@ -390,7 +390,7 @@ Los fondos recaudados mediante este concepto están destinados al sostenimiento,
                     <div className='preguntas-usuarios-text'>
                         <h3 className='preguntas-usuarios-title'>Canal de comunicacion</h3>
                         <p className='preguntas-usuarios-description'>Contacta a nuestro nuevo canal de Whatsapp</p>
-                        <h3 className='contacto-number'><a href="https://wa.link/583s3n" target="_blank" rel="noopener noreferrer"> 223 540-5430</a></h3>
+                        <h3 className='contacto-number'><a href="https://wa.link/o0xbhq" target="_blank" rel="noopener noreferrer"> 223 306-0273</a></h3>
                     </div>
                 </Fade>
                 
