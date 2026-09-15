@@ -14,6 +14,7 @@ const BeneficiosAsociado = () => {
       titulo: "Descuentos exclusivos con AMI",
       desc: "Accedé a importantes descuentos en comercios de distintos rubros y profesionales de la salud.",
       link: "https://res.cloudinary.com/dj3akdhb9/image/upload/v1786532800/beneficios_agosto.26_zff2jb.pdf",
+      link2: "https://mutualami.org.ar/beneficios/",
       target: "_blank",
       icon: <ShoppingCart />
     },
@@ -113,6 +114,17 @@ const BeneficiosAsociado = () => {
                 >
                   Ver información
                 </Button>
+                {item.link2 &&(
+                       <Button 
+                  variant="contained" 
+                  
+                  href={item.link2}
+                  target={item.target}
+                  sx={{ borderRadius: 2, backgroundColor:"#8048FF", marginLeft: "10px" }}
+                >
+                  Beneficios AMI
+                </Button>
+                )}
               </CardContent>
             </Card>
           </Grid>
