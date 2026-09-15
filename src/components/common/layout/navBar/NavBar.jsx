@@ -150,7 +150,10 @@ const NavBar = ({ backgroundColor, backgroundColorMovile }) => {
              {/* Enlaces simples (sin acordeón) */}
                 <ul className="drawer-links-container">
                 {pages.filter(page => !page.submenu).map((page) => (
-                    <li key={page.name} className="drawer-link">
+                    <li
+                        key={page.name}
+                        className={`drawer-link ${page.isButton ? 'navbar-btn-container drawer-beneficios' : ''}`}
+                    >
                         {page.external ? (
                             <a href={page.path} target="_blank" rel="noopener noreferrer">
                                 {page.name}

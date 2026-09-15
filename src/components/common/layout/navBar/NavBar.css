@@ -289,3 +289,14 @@
 .navbar-btn-container .submenu {
     top: 100%;
 }
+
+@media (max-width: 768px) {
+    .drawer-links-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .drawer-beneficios {
+        order: 999;
+    }
+}
