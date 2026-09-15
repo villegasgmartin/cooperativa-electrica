@@ -29,7 +29,8 @@ export default function UserCreate() {
     reservasLeer: false,
     blog: false,
     usuarios: false,
-    tecnica: false
+    tecnica: false,
+    stock: false
   });
 
   const { loading, success, error } = useSelector(state => state.user.createUser);
@@ -46,6 +47,7 @@ export default function UserCreate() {
         blog: true,
         usuarios: true,
         tecnica: true,
+        stock: true
       }));
     } else if (name === 'rol' && value === 'USER_EMPLOYE') {
       setFormData(prev => ({
@@ -56,6 +58,7 @@ export default function UserCreate() {
         blog: false,
         usuarios: false,
         tecnica: false,
+        stock: false
       }));
     } else {
       setFormData(prev => ({
@@ -96,6 +99,7 @@ export default function UserCreate() {
       blog: formData.rol === 'USER_ADMIN' ? true : formData.blog,
       usuarios: formData.rol === 'USER_ADMIN' ? true : formData.usuarios,
       tecnica: formData.rol === 'USER_ADMIN' ? true : formData.tecnica,
+      stock: formData.rol === 'USER_ADMIN' ? true : formData.stock,
     };
 
     dispatch(createUser(payload));
@@ -111,6 +115,7 @@ export default function UserCreate() {
       blog: false,
       usuarios: false,
       tecnica: false,
+      stock: false
     });
   };
 
@@ -206,6 +211,10 @@ export default function UserCreate() {
               <FormControlLabel
                 control={<Switch checked={formData.tecnica} onChange={handleSwitch} name="tecnica" />}
                 label="Área Técnica"
+              />
+              <FormControlLabel
+                control={<Switch checked={formData.stock} onChange={handleSwitch} name="stock" />}
+                label="Stock"
               />
             </Box>
           </Box>

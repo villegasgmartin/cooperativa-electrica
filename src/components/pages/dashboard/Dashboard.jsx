@@ -172,6 +172,9 @@ function Dashboard(props) {
         if (user.tecnica) {
           tempNavigation.push({ segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> });
         }
+        if (user.stock) {
+          tempNavigation.push({ segment: 'config-stock', title: 'Config Stock', icon: <BuildIcon /> });
+        }
       }
 
       setNavigation(tempNavigation);

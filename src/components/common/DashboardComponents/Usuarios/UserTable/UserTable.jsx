@@ -52,6 +52,7 @@ export default function UserTable() {
     reservas: false,
     tecnica: false,
     blog: false,
+    stock: false
   });
 
   //Función para obtener usuarios activos:
@@ -103,6 +104,7 @@ export default function UserTable() {
         reservas: selectedUser.reservas,
         tecnica: selectedUser.tecnica,
         blog: selectedUser.blog,
+        stock: selectedUser.stock
       });
       setOpenEditModal(true);
     }
@@ -125,6 +127,7 @@ export default function UserTable() {
     reservas: editData.rol === 'Administrador' ? true : editData.reservas,
     tecnica: editData.rol === 'Administrador' ? true : editData.tecnica,
     blog: editData.rol === 'Administrador' ? true : editData.blog,
+     stock: editData.rol === 'Administrador' ? true : editData.blog,
   };
 
   dispatch(editUser(userToEdit, payload));
@@ -260,6 +263,10 @@ export default function UserTable() {
               <FormControlLabel
                 control={<Switch checked={editData.blog} onChange={(e) => handleEditChange('blog', e.target.checked)} />}
                 label="Acceso a Blog"
+              />
+               <FormControlLabel
+                control={<Switch checked={editData.stock} onChange={(e) => handleEditChange('stock', e.target.checked)} />}
+                label="Acceso a stock"
               />
             </>
           )}
