@@ -110,9 +110,10 @@ const BeneficiosAsociado = () => {
                   
                   href={item.link}
                   target={item.target}
-                  sx={{ borderRadius: 2, backgroundColor:"#8048FF" }}
+                  sx={{ borderRadius: 2, backgroundColor:"#8048FF", marginTop:"15px", width: "245px", fontSize: "14px" }}
                 >
-                  Ver información
+                 {item.titulo =='Descuentos exclusivos con AMI' && ("Cartilla de Profesionale")} 
+                 {item.titulo !='Descuentos exclusivos con AMI' && ("Ver información")} 
                 </Button>
                 {item.link2 &&(
                        <Button 
@@ -120,9 +121,9 @@ const BeneficiosAsociado = () => {
                   
                   href={item.link2}
                   target={item.target}
-                  sx={{ borderRadius: 2, backgroundColor:"#8048FF", marginLeft: "10px" }}
+                  sx={{ borderRadius: 2, backgroundColor:"#8048FF", marginLeft: {sm:"5px"}, marginTop:"15px", width: "245px",fontSize: "14px" }}
                 >
-                  Beneficios AMI
+                  Beneficios en Comercios
                 </Button>
                 )}
               </CardContent>
