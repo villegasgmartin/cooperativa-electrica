@@ -127,7 +127,7 @@ export default function UserTable() {
     reservas: editData.rol === 'Administrador' ? true : editData.reservas,
     tecnica: editData.rol === 'Administrador' ? true : editData.tecnica,
     blog: editData.rol === 'Administrador' ? true : editData.blog,
-     stock: editData.rol === 'Administrador' ? true : editData.blog,
+     stock: editData.rol === 'Administrador' ? true : editData.stock,
   };
 
   dispatch(editUser(userToEdit, payload));
