@@ -173,7 +173,7 @@ function Dashboard(props) {
           tempNavigation.push({ segment: 'area-tecnica', title: 'Área Técnica', icon: <BuildIcon /> });
         }
         if (user.stock) {
-          tempNavigation.push({ segment: 'config-stock', title: 'Config Stock', icon: <BuildIcon /> });
+          tempNavigation.push({ segment: 'reportes', title: 'Reporte/Stock', icon: <BuildIcon /> });
         }
       }
 
