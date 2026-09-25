@@ -70,8 +70,8 @@ function AppContent() {
         <Route path="/preguntas-nave" element={<PreguntasNave />} />
         <Route path="/formulario" element={<Form />} />
         <Route path="/confirmación" element={<Success />} />
-        <Route path="/promo-asociado-nave" element={<Oculta />} />
-        <Route path="/vittal-promo" element={<OcultaVittal />} />
+        {/* <Route path="/promo-asociado-nave" element={<Oculta />} />
+        <Route path="/vittal-promo" element={<OcultaVittal />} /> */}
         <Route path='/nave-edificios' element={<Captacion/>} />
       </Routes>
 
