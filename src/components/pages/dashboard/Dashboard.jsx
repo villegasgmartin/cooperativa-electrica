@@ -30,7 +30,6 @@ import Logout from '../../common/DashboardComponents/Logout/Logout';
 import Reportes from '../../common/DashboardComponents/Reportes/Reportes';
 import ConfigInventario from '../../common/DashboardComponents/Reportes/configStock';
 import RouterIcon from "@mui/icons-material/Router";
-import {Alert } from '@mui/material';
 
 // Tema:
 const demoTheme = createTheme({
@@ -238,7 +237,7 @@ function Dashboard(props) {
   }}
 >
   <Box sx={{ p: 2 }}>
-    <Alert
+    {/* <Alert
       severity="warning"
       sx={{
         mb: 2,
@@ -248,7 +247,7 @@ function Dashboard(props) {
       <strong>⚠️ Mantenimiento programado:</strong> este domingo el sistema
   estará en mantenimiento de 18:00 a 22:00 hs. Durante ese período,
   el sistema podría experimentar algunos errores.
-    </Alert>
+    </Alert> */}
 
     <DemoPageContent pathname={router.pathname} />
   </Box>
