@@ -16,6 +16,19 @@ import ExcelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import DownloadIcon from '@mui/icons-material/Download';
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+
+const TZ_AR = 'America/Argentina/Buenos_Aires';
+const fmtSolicitud = (f, formato) =>
+  f ? dayjs.utc(f).tz(TZ_AR).format(formato) : 'No disponible';
 
 //JSX:
 export default function ReservasEliminadas() {
@@ -150,9 +163,7 @@ const exportarAExcel = async () => {
         dpto: reserva.Dpto,
         fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
         horario: reserva.horario,
-        fechaSolicitud: reserva.fechaSolicitud 
-            ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
-            : 'No disponible',
+     fechaSolicitud: fmtSolicitud(reserva.fechaSolicitud, 'D [de] MMMM [de] YYYY'),
         internet: reserva.internet,
         telefono: reserva.telefono,
         email: reserva.email,
@@ -208,10 +219,8 @@ const exportarAExcel = async () => {
             <TableCell align='center'>{(row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre)} - {row.NumeroUsuario}</TableCell>
             <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
             <TableCell align='center'>
-                {row.fechaSolicitud
-                ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
-                : 'No disponible'}
-            </TableCell>
+  {fmtSolicitud(row.fechaSolicitud, 'DD [de] MMMM [de] YYYY - HH:mm')}
+</TableCell>
             <TableCell align="center">
                 {row.fecha ? dayjs(row.fecha).format('DD/MM/YYYY') : 'TV sin turno'}
                 <br />
@@ -239,9 +248,8 @@ const exportarAExcel = async () => {
                     <Typography variant="h6" gutterBottom>Detalles</Typography>
                     <ul>
                         <li><strong>Servicio:</strong> {row.internet}</li>
-                        <li><strong>Fecha de la solicitud:</strong> {row.fechaSolicitud
-                            ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
-                            : 'No disponible'}</li>
+                        <li><strong>Fecha de la solicitud:</strong> {fmtSolicitud(row.fechaSolicitud, 'DD [de] MMMM [de] YYYY - HH:mm')}</li>
+
                         <li><strong>Inmueble:</strong> {row.tipo}</li>
                         {row.Piso && <li><strong>Piso:</strong> {row.Piso}</li>}
                         {row.Dpto && <li><strong>Dpto:</strong> {row.Dpto}</li>}

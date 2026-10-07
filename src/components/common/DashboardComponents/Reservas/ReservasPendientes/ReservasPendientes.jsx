@@ -61,6 +61,16 @@ import { crearUsuarioBCM } from '../../../../../../redux/actions/reservasActions
 import utc from 'dayjs/plugin/utc';
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isSameOrAfter);
+dayjs.extend(isSameOrBefore);
+
+const TZ_AR = 'America/Argentina/Buenos_Aires';
+const fmtSolicitud = (f, formato) =>
+  f ? dayjs.utc(f).tz(TZ_AR).format(formato) : 'No disponible';
 
 //JSX;
 //Estilo de modales:
@@ -113,10 +123,7 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
     // Datos del socio
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(`Fecha de Solicitud: ${
-      row.fechaSolicitud
-      ? dayjs(row.fechaSolicitud).format('D/M/YYYY')
-      : 'No disponible'}`,10,y);y += 10;
+  doc.text(`Fecha de Solicitud: ${fmtSolicitud(row.fechaSolicitud, 'D/M/YYYY')}`, 10, y); y += 10;
     doc.text(`Fecha del Turno: ${row.fechaFormateada}`, 10, y); y += 10;
 
     const nombreCompleto = row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre;
@@ -180,10 +187,8 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
         <TableCell align='center'>{(row.apellido ? `${row.nombre} ${row.apellido}` : row.nombre)} - {row.NumeroUsuario}</TableCell>
         <TableCell align='center'>{row.direccion.split(',')[0]}</TableCell>
         <TableCell align='center'>
-          {row.fechaSolicitud
-            ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
-            : 'No disponible'}
-        </TableCell>
+            {fmtSolicitud(row.fechaSolicitud, 'DD [de] MMMM [de] YYYY - HH:mm')}
+          </TableCell>
         <TableCell align="center">
           {row.fecha
             ? dayjs(row.fecha).format('DD/MM/YYYY')
@@ -241,9 +246,8 @@ function Row({ row, handleEditClick, handleDeleteClick, handleMarkAsRealizada , 
               </Typography>
               <ul>
                 <li><strong>Servicio:</strong> {row.internet}</li>
-                <li><strong>Fecha de la solicitud:</strong> {row.fechaSolicitud
-                  ? dayjs(row.fechaSolicitud).format('DD [de] MMMM [de] YYYY - HH:mm')
-                  : 'No disponible'}</li>
+                <li><strong>Fecha de la solicitud:</strong> {fmtSolicitud(row.fechaSolicitud, 'DD [de] MMMM [de] YYYY - HH:mm')}</li>
+
                 <li><strong>Inmueble:</strong> {row.tipo}</li>
                 {row.Piso && <li><strong>Piso:</strong> {row.Piso}</li>}
                 {row.Dpto && <li><strong>Dpto:</strong> {row.Dpto}</li>}
@@ -475,9 +479,7 @@ const exportarAExcel = async () => {
       dpto: reserva.Dpto,
       fechaTurno: dayjs(reserva.fecha).format('DD/MM/YYYY'),
       horario: reserva.horario,
-      fechaSolicitud: reserva.fechaSolicitud 
-        ? dayjs(reserva.fechaSolicitud).format('D [de] MMMM [de] YYYY') 
-        : 'No disponible',
+      fechaSolicitud: fmtSolicitud(reserva.fechaSolicitud, 'D [de] MMMM [de] YYYY'),
       internet: reserva.internet,
       telefono: reserva.telefono,
       email: reserva.email,
