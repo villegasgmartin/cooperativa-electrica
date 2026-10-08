@@ -141,9 +141,11 @@ const modalBoxStyles = (theme) => ({
 
         { latitude: -38.00786, longitude: -57.55482 },
 
-        { latitude: -38.01438, longitude: -57.54191 },
-        { latitude: -38.0096, longitude: -57.53808 },
+        { latitude: -38.01454, longitude: -57.54191 },
+
+        { latitude: -38.00971, longitude: -57.53782 },
         { latitude: -38.00899, longitude: -57.53931 },
+
         { latitude: -38.01204, longitude: -57.54193 },
         { latitude: -38.00653, longitude: -57.55264 },
         { latitude: -38.00346, longitude: -57.55016 },
