@@ -17,6 +17,7 @@ import { useNavigate } from 'react-router-dom';
 // Google Maps
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
+import { PLACE_FIELDS, resolverCoordenadas } from '../../../utils/geocoding';
 
 //JSX:
 const Form = () => {
@@ -28,6 +29,7 @@ const Form = () => {
     const [internetPlan, setInternetPlan] = useState('');
     const [planTV, setPlanTV] = useState('');
     const [direccion, setDireccion] = useState('');
+    const [placeSeleccionado, setPlaceSeleccionado] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [coberturaMensaje, setCoberturaMensaje] = useState('');
     const [tipoInmueble, setTipoInmueble] = useState({
@@ -55,11 +57,13 @@ const Form = () => {
 
     const onLoad = (autocompleteInstance) => {
     setAutocomplete(autocompleteInstance);
+    autocompleteInstance?.setFields?.(PLACE_FIELDS);
     };
 
     const onPlaceChanged = () => {
     if (autocomplete !== null) {
         const place = autocomplete.getPlace();
+        setPlaceSeleccionado(place);
         setDireccion(place.formatted_address || "");
     }
     };
@@ -114,30 +118,6 @@ const Form = () => {
       
         ]
 
-    const getCoordinates = async (address) => {
-
-        const apiKey = "AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU"; // Reemplázalo con tu clave real
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}&loading=async`;
-    
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-    
-            if (data.status === "OK") {
-                const { lat, lng } = data.results[0].geometry.location;
-                console.log(lat, lng);
-                const city = data.results[0].address_components[2];
-                const address = data.results[0].formatted_address
-                return { latitude: parseFloat(data.results[0].geometry.location.lat), longitude: parseFloat(data.results[0].geometry.location.lng), city, address };
-            } else {
-                console.error("Error en la geocodificación:", data.status);
-                return null;
-            }
-        } catch (error) {
-            console.error("Error en la solicitud:", error);
-            return null;
-        }
-    };
     
 
     const verificarEspana = (address)=>{
@@ -167,8 +147,11 @@ const Form = () => {
         }
     
         try {
-            const coordenadas = await getCoordinates(direccion);
-            const ciudad = coordenadas.city.long_name
+            const coordenadas = await resolverCoordenadas(placeSeleccionado, direccion);
+            if (!coordenadas || !coordenadas.precise) {
+                return alert('No pudimos ubicar la dirección exacta. Seleccioná una dirección con altura del listado.');
+            }
+            const ciudad = coordenadas.city?.long_name
             const direccionCompleta = coordenadas.address;
             const espana = verificarEspana(direccion);
           if (ciudad !== 'Mar del Plata' && ciudad !== 'General Pueyrredón' && !direccionCompleta.includes('Mar del Plata')) {
@@ -578,7 +561,7 @@ const Form = () => {
                                         fullWidth
                                         id="direccion"
                                         value={direccion}
-                                        onChange={(e) => setDireccion(e.target.value)}
+                                        onChange={(e) => { setDireccion(e.target.value); setPlaceSeleccionado(null); }}
                                         sx={{
                                             backgroundColor: "#edeaff",
                                             borderRadius: "25px",

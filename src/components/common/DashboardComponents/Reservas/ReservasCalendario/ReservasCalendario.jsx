@@ -52,6 +52,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from 'geolib';
+import { PLACE_FIELDS, resolverCoordenadas } from '../../../../../utils/geocoding';
 import BasicDatePicker from '../../../FormComponents/DatePicker/DatePicker';
 import FechaPersonalizada from '../FechaPersonalizada/FechaPersonalizada';
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
@@ -253,6 +254,7 @@ export default function ReservasCalendario() {
 
     const [autocomplete, setAutocomplete] = useState(null);
     const [direccion, setDireccion] = useState('');
+    const [placeSeleccionado, setPlaceSeleccionado] = useState(null);
     const [zona, setZona] = useState('');
     const [internetPlanURL, setInternetPlanURL] = useState('');
     const [direccionValidada, setDireccionValidada] = useState(false);
@@ -354,20 +356,13 @@ useEffect(() => {
 
     const onLoad = (autocompleteInstance) => {
         setAutocomplete(autocompleteInstance);
-
-        if (autocompleteInstance?.setFields) {
-            autocompleteInstance.setFields([
-                'formatted_address',
-                'name',
-                'geometry',
-                'address_components',
-            ]);
-        }
+        autocompleteInstance?.setFields?.(PLACE_FIELDS);
     };
 
     const onPlaceChanged = () => {
         if (autocomplete !== null) {
             const place = autocomplete.getPlace();
+            setPlaceSeleccionado(place);
 
             if (place?.formatted_address) {
                 setDireccion(place.formatted_address);
@@ -381,34 +376,6 @@ useEffect(() => {
                 setDireccionValidada(false);
                 setZona('');
             }
-        }
-    };
-
-    const getCoordinates = async (address) => {
-        const apiKey = 'AIzaSyDnG7odirzcO_xm7R1EIxf1a7Dhi2OflDU';
-        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}&loading=async`;
-
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-
-            if (data.status === 'OK') {
-                const city = data.results[0].address_components[2];
-                const addressResult = data.results[0].formatted_address;
-
-                return {
-                    latitude: parseFloat(data.results[0].geometry.location.lat),
-                    longitude: parseFloat(data.results[0].geometry.location.lng),
-                    city,
-                    address: addressResult,
-                };
-            }
-
-            console.error('Error en la geocodificación:', data.status);
-            return null;
-        } catch (error) {
-            console.error('Error en la solicitud:', error);
-            return null;
         }
     };
 
@@ -433,7 +400,10 @@ useEffect(() => {
         }
 
         try {
-            const coordenadas = await getCoordinates(direccion);
+            const coordenadas = await resolverCoordenadas(placeSeleccionado, direccion);
+            if (!coordenadas || !coordenadas.precise) {
+                return alert('No pudimos ubicar la dirección exacta. Seleccioná una dirección con altura del listado.');
+            }
 
             if (!coordenadas) {
                 setZona('Error al buscar la dirección');
@@ -2308,6 +2278,7 @@ const handleGuardarNotaDia = () => {
                                     value={direccion}
                                     onChange={(e) => {
                                         setDireccion(e.target.value);
+                                        setPlaceSeleccionado(null);
                                         setDireccionValidada(false);
                                         setZona('');
                                     }}
