@@ -50,9 +50,9 @@ import CloseIcon from '@mui/icons-material/Close';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from 'geolib';
-import { PLACE_FIELDS, resolverCoordenadas } from '../../../../../utils/geocoding';
+import { geocodificarDireccion, esZonaEspana, formatearDireccion } from '../../../../../utils/geocoding';
+import DireccionInput from '../../../../common/FormComponents/DireccionInput/DireccionInput';
 import BasicDatePicker from '../../../FormComponents/DatePicker/DatePicker';
 import FechaPersonalizada from '../FechaPersonalizada/FechaPersonalizada';
 import { fetchUserData } from '../../../../../../redux/actions/userActions';
@@ -252,9 +252,8 @@ export default function ReservasCalendario() {
     const [openCreateModal, setOpenCreateModal] = useState(false);
     const [createUsoHorarioPersonalizado, setCreateUsoHorarioPersonalizado] = useState(false);
 
-    const [autocomplete, setAutocomplete] = useState(null);
     const [direccion, setDireccion] = useState('');
-    const [placeSeleccionado, setPlaceSeleccionado] = useState(null);
+    const [direccionSel, setDireccionSel] = useState(null);
     const [zona, setZona] = useState('');
     const [internetPlanURL, setInternetPlanURL] = useState('');
     const [direccionValidada, setDireccionValidada] = useState(false);
@@ -354,39 +353,13 @@ useEffect(() => {
         setOpenSnackbar(true);
     };
 
-    const onLoad = (autocompleteInstance) => {
-        setAutocomplete(autocompleteInstance);
-        autocompleteInstance?.setFields?.(PLACE_FIELDS);
+    const handleDireccionChange = (valor) => {
+        setDireccionSel(valor);
+        setDireccion(valor?.calle && valor?.altura ? formatearDireccion(valor.calle.nombre, valor.altura, valor.localidad) : '');
+        setDireccionValidada(false);
+        setZona('');
     };
 
-    const onPlaceChanged = () => {
-        if (autocomplete !== null) {
-            const place = autocomplete.getPlace();
-            setPlaceSeleccionado(place);
-
-            if (place?.formatted_address) {
-                setDireccion(place.formatted_address);
-                setDireccionValidada(false);
-                setZona('');
-                return;
-            }
-
-            if (place?.name) {
-                setDireccion(place.name);
-                setDireccionValidada(false);
-                setZona('');
-            }
-        }
-    };
-
-    const verificarEspana = (address) => {
-        const parts = address.split(',').map((p) => p.trim());
-        const nombreCalle = parts[0]?.split(' ')[0];
-        const alturaCalle = parts[0]?.split(' ')[1];
-        const alturaNumero = parseInt(alturaCalle);
-
-        return nombreCalle === 'España' && alturaNumero > 2200 && alturaNumero < 3900;
-    };
 
     const verificarCobertura = async () => {
         const { casa, edificio, ph } = tipoInmueble;
@@ -400,27 +373,14 @@ useEffect(() => {
         }
 
         try {
-            const coordenadas = await resolverCoordenadas(placeSeleccionado, direccion);
-            if (!coordenadas || !coordenadas.precise) {
-                return alert('No pudimos ubicar la dirección exacta. Seleccioná una dirección con altura del listado.');
+            if (!direccionSel?.calle || !direccionSel?.altura) {
+                return alert('Seleccioná una dirección del listado (calle y altura).');
             }
-
+            const coordenadas = await geocodificarDireccion(direccionSel);
             if (!coordenadas) {
-                setZona('Error al buscar la dirección');
-                return;
+                return alert('No pudimos ubicar esa altura en la calle seleccionada. Revisá el número.');
             }
-
-            const ciudad = coordenadas.city?.long_name;
-            const direccionCompleta = coordenadas.address;
-            const espana = verificarEspana(direccion);
-
-            if (
-                ciudad !== 'Mar del Plata' &&
-                ciudad !== 'General Pueyrredón' &&
-                !direccionCompleta.includes('Mar del Plata')
-            ) {
-                return alert('Servicio no disponible fuera de Mar del Plata');
-            }
+            const espana = esZonaEspana(coordenadas);
 
             setDireccionValidada(true);
 
@@ -666,8 +626,8 @@ const handleGuardarNotaDia = () => {
     };
 
     const limpiarFormularioCrear = (dia = selectedDay) => {
-        setAutocomplete(null);
-        setDireccion('');
+                setDireccion('');
+        setDireccionSel(null);
         setZona('');
         setInternetPlanURL('');
         setDireccionValidada(false);
@@ -2262,30 +2222,12 @@ const handleGuardarNotaDia = () => {
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Autocomplete
-                                onLoad={onLoad}
-                                onPlaceChanged={onPlaceChanged}
-                                options={{
-                                    types: ['geocode'],
-                                    componentRestrictions: { country: 'ar' },
-                                }}
-                            >
-                                <TextField
-                                    label="Dirección"
-                                    variant="outlined"
-                                    fullWidth
-                                    id="direccion"
-                                    value={direccion}
-                                    onChange={(e) => {
-                                        setDireccion(e.target.value);
-                                        setPlaceSeleccionado(null);
-                                        setDireccionValidada(false);
-                                        setZona('');
-                                    }}
-                                    error={!!errors.direccion}
-                                    helperText={errors.direccion}
-                                />
-                            </Autocomplete>
+                            <DireccionInput
+                                value={direccionSel}
+                                onChange={handleDireccionChange}
+                                error={!!errors.direccion}
+                                helperText={errors.direccion}
+                            />
                         </Grid>
 
                         <Grid item xs={12}>

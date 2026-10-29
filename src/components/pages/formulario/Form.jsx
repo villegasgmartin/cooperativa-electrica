@@ -14,22 +14,20 @@ import "../formulario/Form.css"
 import { useDispatch } from 'react-redux';
 import { createReservaForm, createReservaTV } from '../../../../redux/actions/formActions';
 import { useNavigate } from 'react-router-dom'; 
-// Google Maps
-import { Autocomplete } from '@react-google-maps/api';
 import { isPointInPolygon } from "geolib";
-import { PLACE_FIELDS, resolverCoordenadas } from '../../../utils/geocoding';
+import { geocodificarDireccion, esZonaEspana, formatearDireccion } from '../../../utils/geocoding';
+import DireccionInput from '../../common/FormComponents/DireccionInput/DireccionInput';
 
 //JSX:
 const Form = () => {
     const dispatch = useDispatch();
-    const [autocomplete, setAutocomplete] = useState(null);
     const [fechaInstalacion, setFechaInstalacion] = useState(null); 
     const [franjaHoraria, setFranjaHoraria] = useState('');
     const [planInternet, setPlanInternet] = useState('');
     const [internetPlan, setInternetPlan] = useState('');
     const [planTV, setPlanTV] = useState('');
     const [direccion, setDireccion] = useState('');
-    const [placeSeleccionado, setPlaceSeleccionado] = useState(null);
+    const [direccionSel, setDireccionSel] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const [coberturaMensaje, setCoberturaMensaje] = useState('');
     const [tipoInmueble, setTipoInmueble] = useState({
@@ -55,35 +53,12 @@ const Form = () => {
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
 
-    const onLoad = (autocompleteInstance) => {
-    setAutocomplete(autocompleteInstance);
-    autocompleteInstance?.setFields?.(PLACE_FIELDS);
+    const handleDireccionChange = (valor) => {
+        setDireccionSel(valor);
+        setDireccion(valor?.calle && valor?.altura ? formatearDireccion(valor.calle.nombre, valor.altura, valor.localidad) : '');
     };
 
-    const onPlaceChanged = () => {
-    if (autocomplete !== null) {
-        const place = autocomplete.getPlace();
-        setPlaceSeleccionado(place);
-        setDireccion(place.formatted_address || "");
-    }
-    };
-
-    useEffect(() => {
-        if (window.google && window.google.maps) {
-            const autocomplete = new window.google.maps.places.Autocomplete(
-                inputRef.current,
-                { types: ["geocode"] } // Opcional: limitar a direcciones
-            );
-        
-            autocomplete.addListener("place_changed", () => {
-                const place = autocomplete.getPlace();
-                if (place.formatted_address) {
-                setDireccion(place.formatted_address);
-                }
-            });
-            }
-        }, []);
-
+    
         useEffect(() => {
             if (zona?.trim() !== '' && zona?.trim() !== 'Direccion en Zona 1') {
                 
@@ -120,25 +95,6 @@ const Form = () => {
 
     
 
-    const verificarEspana = (address)=>{
-        console.log(address)
-        const parts = address.split(',').map(p => p.trim());
-
-
-        const nombreCalle = parts[0].split(' ')[0];
-        const alturaCalle = parts[0].split(' ')[1];
-        const alturaNumero = parseInt(alturaCalle)
-        let zona;
-
-        if(nombreCalle == 'España' && alturaNumero>2200 && alturaNumero<3900){
-            zona = true
-        }else{
-            zona = false
-        }
-
-        return zona
-
-    }
 
     async function verificarCobertura(e) {
         const {casa, edificio, ph} = tipoInmueble
@@ -147,16 +103,14 @@ const Form = () => {
         }
     
         try {
-            const coordenadas = await resolverCoordenadas(placeSeleccionado, direccion);
-            if (!coordenadas || !coordenadas.precise) {
-                return alert('No pudimos ubicar la dirección exacta. Seleccioná una dirección con altura del listado.');
+            if (!direccionSel?.calle || !direccionSel?.altura) {
+                return alert('Seleccioná una dirección del listado (calle y altura).');
             }
-            const ciudad = coordenadas.city?.long_name
-            const direccionCompleta = coordenadas.address;
-            const espana = verificarEspana(direccion);
-          if (ciudad !== 'Mar del Plata' && ciudad !== 'General Pueyrredón' && !direccionCompleta.includes('Mar del Plata')) {
-                return alert('Servicio no disponible fuera de Mar del Plata')
+            const coordenadas = await geocodificarDireccion(direccionSel);
+            if (!coordenadas) {
+                return alert('No pudimos ubicar esa altura en la calle seleccionada. Revisá el número.');
             }
+            const espana = esZonaEspana(coordenadas);
             setDireccionValidada(true)
             if (isPointInPolygon(coordenadas, zona1) || espana) {
                 setZona("Direccion en Zona 1");
@@ -310,6 +264,7 @@ const Form = () => {
         setMostrarPopup(false);
         setEmail('');
         setDireccion('');
+        setDireccionSel(null);
         setTimeout(() => {
                     window.location= '/'
                 }, 1500);
@@ -547,22 +502,14 @@ const Form = () => {
                                     }
                                 }}
                             />
-                            {/*Dirección con Google Maps Autocompletado*/}
+                            {/*Dirección (Georef)*/}
                             
                             <div style={{ width: '100%' }}>
                             <p className='form-span'>*Debe seleccionar una dirección del listado:</p>
-                                <Autocomplete
-                                    onLoad={onLoad}
-                                    onPlaceChanged={onPlaceChanged}
-                                >
-                                    <TextField
-                                        label="Dirección"
-                                        variant="outlined"
-                                        fullWidth
-                                        id="direccion"
-                                        value={direccion}
-                                        onChange={(e) => { setDireccion(e.target.value); setPlaceSeleccionado(null); }}
-                                        sx={{
+                                <DireccionInput
+                                    value={direccionSel}
+                                    onChange={handleDireccionChange}
+                                    textFieldSx={{
                                             backgroundColor: "#edeaff",
                                             borderRadius: "25px",
                                             '& .MuiOutlinedInput-root': {
@@ -574,9 +521,8 @@ const Form = () => {
                                             '& .MuiInputLabel-root.Mui-focused': {
                                                 color: '#8048ff',
                                             }
-                                        }}
-                                    />
-                                </Autocomplete>
+                                    }}
+                                />
                               
                             </div>
                             {/*Tipos de inmueble*/}
