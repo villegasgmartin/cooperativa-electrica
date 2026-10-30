@@ -34,7 +34,7 @@ const Footer = () => {
             <div className="footer-info-container">
                 <div>
                     <h4 className="footer-info-title">TELEFONOS:</h4>
-                    <a href="tel:08003330357" style={{textDecoration: "none"}}><p className="footer-info">0800-333-0357</p></a>
+                    <a href="tel:4935777" style={{textDecoration: "none"}}><p className="footer-info">493 5777</p></a>
                     {/* <a href="tel:2233060278" style={{textDecoration: "none"}}><p className="footer-info">223-3060278</p></a>
                     <a href="tel:2233060273" style={{textDecoration: "none"}}><p className="footer-info">223-3060273</p></a>
                     <a href="tel:2233060274" style={{textDecoration: "none"}}><p className="footer-info">223-3060274</p></a> */}
