@@ -333,12 +333,38 @@ Hace tu consulta sobre los beneficios de AMI
             </Typography>
           </Box>
         </Modal>
+        <Box sx={{ mt: 3 }}>
+  <Typography
+    variant="h6"
+    sx={{
+      textAlign: "center",
+      color: "#d32f2f",
+      fontWeight: "bold",
+      mb: 2,
+    }}
+  >
+    IMPORTANTE
+  </Typography>
+
+  <Box sx={{ display: "flex", flexDirection: "column", gap: 1, justifyContent:"center", textAlign: "center"}}>
+    <Typography variant="body1">
+      Los servicios de <Box component="span" sx={{ color: "#d32f2f", fontWeight: "bold" }}> VITTAL</Box> se activan a partir del día 10 del mes
+      siguiente a tu inscripción.
+    </Typography>
+
+    <Typography variant="body1">
+      Al llamar al operador de VITTAL por una URGENCIA o
+      EMERGENCIA, debés identificarte como asociado de AMIM (Con
+      “M” final).
+    </Typography>
+  </Box>
+</Box>
       </section>
        <Fade triggerOnce={true} duration={800} delay={300} direction='up'>
           <div className='vital-enlace'>
             <p className='vital-enlace-text'>PROFESIONALES DE LA <strong>SALUD</strong> y FARMACIAS ADHERIDAS</p>
             <div className='mutual-button-container'>
-              <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1789561504/septiembre26_SALUD_kdgagk.pdf" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
+              <a href="https://res.cloudinary.com/dj3akdhb9/image/upload/v1795186350/Noviembre26_fnvcjt.pdf" target='_blank' rel="noopener noreferrer" className='form-buttonFinal-container'>
               <Button sx={{ 
                     width: "100%",
                     height: "70px",

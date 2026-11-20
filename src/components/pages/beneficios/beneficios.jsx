@@ -34,7 +34,7 @@ const BeneficiosAsociado = () => {
     },
     {
       titulo: "Emergencias Médicas VITTAL",
-      desc: "Cobertura exclusiva para dos personas en servicio de ambulancias.",
+      desc: "Cobertura exclusiva en servicio de ambulancias.",
       link: "https://www.cooperativamdp.com/vittal",
       target: "",
       icon: <LocalHospital />
