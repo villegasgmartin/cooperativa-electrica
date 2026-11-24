@@ -101,7 +101,8 @@ export default function BasicDatePicker({
     };
 
     useEffect(() => {
-        if (fechaInstalacion) {
+        // Mientras se tipea la fecha a mano, el picker devuelve un dayjs inválido → no consultar
+        if (fechaInstalacion && dayjs(fechaInstalacion).isValid()) {
             const fechaFormateada = dayjs(fechaInstalacion).format('YYYY-MM-DD');
             dispatch(fetchHorariosDisponibles(fechaFormateada));
         }
@@ -110,9 +111,6 @@ export default function BasicDatePicker({
     const handleDateChange = (newValue) => {
         setFechaInstalacion(newValue);
         setFranjaHoraria("");
-        if (newValue) {
-            fetchHorariosDisponibles(newValue);
-        }
     };
 
     return (
